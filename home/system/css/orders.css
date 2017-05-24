@@ -1,0 +1,2287 @@
+@charset "EUC-JP";
+
+/*------------------------------------------------------------
+
+	File_name    : orders.css
+	Description  : takahama system accepting orders stylesheet
+	Version      : 0.1
+	Log		     : 2009.11.17
+				   2014.01.15 発送元を追加
+
+-------------------------------------------------------------- */
+
+
+
+
+/*		外部スタイルシートの読込み
+===============================================================*/
+@import url(printposition.css);
+
+
+
+
+/*		Main Menu
+===============================================================*/
+#searchtop_form div:first-child {
+	float: left;
+	min-width: 600px;
+}
+#searchtop_form div + div {
+	float: left;
+	width: 500px;
+}
+
+
+
+
+/*		受注入力ページ
+===============================================================*/
+#header .inner{
+	display: none;
+	background: url(../img/header_juchu.png) no-repeat;
+}
+#order_wrapper{
+	display: none;
+}
+#order_footer{
+	background: #80b357;
+}
+#alertarea #alert_require, #alertarea #alert_comment, #alertarea #alert_rakuhan, #customer_form #alert_exist{
+	display: none;
+	margin-right: 10px;
+}
+.saveall {
+	float: right;
+	margin: 0;
+	padding: 2px 15px;
+	font-size: 13px;
+	line-height: 1.6em;
+	cursor: pointer;
+}
+#header .btnarea .btn_sub {
+	margin: 0px 5px;
+	font-size: 13px;
+}
+#header .btnarea #btn_gotomenu {
+	margin-left: 26px;
+}
+#btn_tool,
+#btn_imageup,
+#btn_firmorder,
+#btn_cancelorder,
+#btn_completionimage {
+	float: right;
+}
+#btn_cancelorder {
+	display: none;
+}
+/*
+#header .firm_order {
+	float: right;
+	margin-top: 10px;
+	cursor: pointer;
+}
+#header .toolbutton {
+	float: right;
+	margin: 10px 10px 0px;
+	cursor: pointer;
+}
+*/
+
+/* 進捗ナビ */
+#accept_navi {
+	margin-bottom: 20px;
+	border-width: 1px 0px;
+	border-style: solid;
+	border-color: #dedede;
+}
+#accept_navi li.actlist {
+	background: #c3d950;
+}
+#accept_navi li p.act {
+	color: #333;
+	background: #c3d950 url(../img/crumbs_act.png) no-repeat right center;
+}
+#accept_navi li p.bef {
+	background: url(../img/crumbs_bef.png) no-repeat right center;
+}
+
+
+
+
+/*		スクロールボタン
+===============================================================*/
+.btnarea p{
+	position: absolute;
+	top: 0px;
+	left: 400px;
+}
+.btnarea p a, .btnarea p span {
+	padding: 5px 10px;
+	font-size: 80%;
+	color: #8c8484;
+	border-right: 1px solid #a9a9a9;
+}
+.btnarea p a:first-child {
+	border-left: 1px solid #a9a9a9;
+}
+.btnarea p a:hover, .btnarea p span:hover {
+	color: #ff6631;
+}
+.anchorpoint {
+	position: absolute;
+	visibility: hidden;
+	top: -200px;
+	height: 0px;
+}
+.btnarea p span {
+	padding-left: 30px;
+	background: url(../img/calculator.png) 5px 5px no-repeat;
+	cursor: pointer;
+}
+
+
+
+
+/*		見積り（フローティング）
+===============================================================*/
+#floatingbox{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 220px;
+	padding: 10px;
+	background: #000;
+	z-index: 10;
+}
+#floatingbox h3{
+	font-size: 120%;
+	text-align: center;
+	color: #c3d950;
+}
+#floatingbox table tbody th,
+#floatingbox table tbody td {
+	line-height: 1.4;
+}
+#floatingbox table th {
+	padding-left: 5px;
+	text-align: left;
+}
+#floatingbox table td {
+	padding-right: 5px;
+	text-align: right;
+}
+#floatingbox table input[type="text"] {
+	width: 90px;
+	padding: 0px 5px;
+	text-align: right;
+}
+#floatingbox table input[type='text'].readonly {
+	background: #c3d950;
+	border: 1px solid #c3d950;
+}
+#floatingbox table #est_printfee {
+	width: 80px;
+	margin-right: -4px;
+	padding-right: 2px;
+	font-family: "メイリオ","Meiryo","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro";
+}
+#floatingbox .estimate_body{
+	margin-bottom: 5px;
+	background: #c3d950;
+}
+#floatingbox .estimate_body table{
+	width: 100%;
+}
+#floatingbox .estimate_body table th{
+	font-size: 80%;
+}
+#floatingbox .estimate_body table th label {
+	font-size: 12px;
+}
+#floatingbox .estimate_body table th label span {
+	padding: 0.2em 0.5em;
+	line-height: 1.1;
+}
+#floatingbox .estimate_body table th.sub {
+	font-size: 70%;
+	color: #565656;
+}
+#floatingbox .estimate_body table th.sub + td {
+	font-size: 80%;
+	color: #565656;
+}
+#floatingbox .estimate_body table tr.separate th, #floatingbox .estimate_body table tr.separate td{
+	border-bottom: 1px dashed #333;
+}
+
+table.estimate_total{
+	width: 100%;
+}
+table.estimate_total span{
+	font-size: 100%;
+}
+table.estimate_total th, table.estimate_total td{
+	font-size: 80%;
+	color: #000;
+	background: #fff;
+}
+table.estimate_total tr.division th,
+table.estimate_total tr.division td {
+	border-top: 1px dashed #333;
+}
+table.estimate_total tr.total th{
+	font-size: 100%;
+}
+table.estimate_total tr.total td{
+	font-size: 115%;
+}
+table.estimate_total tr.separate td{
+	height: 3px;
+	padding: 0px;
+	background: #000;
+	border: none;
+}
+
+#floatingbox table.estimate_total tfoot td {
+	padding: 10px 0px 0px 0px;
+	text-align: center;
+	background: #000;
+}
+#firm_order {
+	float: none;
+	cursor: pointer;
+}
+
+
+
+
+/*		各フェーズ
+===============================================================*/
+.phase_box{
+	margin-bottom: 20px;
+}
+.phase_box h2{
+	width: 400px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 130%;
+}
+.phase_box h2.ordertitle{
+	color: #c3d950;
+	background: #000000;
+}
+.phase_box .inner{
+	position: relative;
+	padding: 10px;
+}
+.pending {
+	color: #c33;
+	background: #fdf6f6;
+}
+
+
+
+
+/*		メディアのチェック
+===============================================================*/
+#mediacheck_wrapper table {
+	width: 850px;
+	margin: 10px;
+}
+#mediacheck_wrapper table input[type='radio'] {
+	vertical-align: text-top;
+}
+#mediacheck_wrapper th,
+#mediacheck_wrapper td {
+	padding: 5px 10px;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 90%;
+	border-bottom: 1px solid #dedede;
+}
+#mediacheck_wrapper th {
+	padding-right: 20px;
+}
+#mediacheck_wrapper td label {
+	padding-right: 10px;
+	font-size: 90%;
+}
+#mediacheck03_other {
+	width: 240px;
+	padding: 2px 5px;
+}
+#mediacheck_wrapper tfoot td {
+	padding-top: 15px;
+	text-align: right;
+	border-bottom: none;
+}
+#mediacheck_reset {
+	font-size: 12px;
+}
+
+
+
+
+/*		時計
+===============================================================*/
+.clock_wrapper{
+	float: left;
+	width: 130px;
+	height:130px;
+	margin-top: 30px;
+	text-align: center;
+	border: 2px solid #efefef;
+}
+#clock {
+	position: relative;
+	width: 120px;
+	height: 120px;
+	margin: 5px auto 0px;
+	background: url(../img/clock/clockface.png) no-repeat;
+	list-style: none;
+	}
+
+#sec, #min, #hour {
+	position: absolute;
+	width: 6px;
+	height: 120px;
+	top: 0px;
+	left: 57px;
+	}
+
+#sec {
+	background: url(../img/clock/sechand.png);
+	z-index: 3;
+	}
+
+#min {
+	background: url(../img/clock/minhand.png);
+	z-index: 2;
+	}
+
+#hour {
+	background: url(../img/clock/hourhand.png);
+	z-index: 1;
+	}
+
+#clock p {
+	text-align: center; 
+	padding: 10px 0 0 0;
+	}
+
+
+
+
+/*		スケジュール
+===============================================================*/
+.schedulebox{
+	float: left;
+	width: 784px;
+	margin-left: 10px;
+	overflow: hidden;
+}
+
+/* 
+	納品先住所
+	袋詰
+	配送方法
+	注文予定枚数
+	業者の特急製作チェック
+*/
+#schedule_selector {
+	width: 850px;
+	margin-top: 10px;
+}
+#schedule_selector input[type='radio'] {
+	vertical-align: text-top;
+}
+#schedule_selector th,
+#schedule_selector td {
+	padding: 5px 10px;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 90%;
+	border-bottom: 1px solid #dedede;
+}
+#schedule_selector td label {
+	padding: 0 5px 0 10px;
+	font-size: 90%;
+}
+#schedule_selector input[type="number"] {
+	width: 3.5em;
+	padding: 2px 5px;
+	text-align: right;
+}
+#express_checker {
+	display: none;
+}
+
+/* 日程指定フィールド */
+table#schedule {
+	margin-top: 30px;
+	margin-left: 5px;
+	font-size: 90%;
+}
+table#schedule th {
+	height: 30px;
+	text-align: center;
+	vertical-align: bottom;
+}
+table#schedule th ins {
+	padding-bottom: 3px;
+	font-size: 90%;
+	color: #e33;
+}
+table#schedule td {
+	height: 24px;
+	padding: 3px 5px;
+}
+table#schedule td input[type="text"] {
+	width: 110px;
+	text-align: center;
+}
+table#schedule td input#schedule_date1,
+table#schedule td input#schedule_date2,
+table#schedule td input#schedule_date4, 
+#arrival_date {
+	border: 1px solid #237bc3;
+	background: #f6fbfd;
+	cursor: pointer;
+}
+#arrival_date {
+	width: 110px;
+	text-align: center;
+}
+table#schedule input[type="button"] {
+	font-size: 12px;
+}
+
+
+/* 特急割増のアラート */
+#express_message {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	margin-bottom: 10px;
+	font-size: 100%;
+}
+.bgExpress {
+	border: 1px solid #ffe6e6;
+	background-color: #fff2f2;
+}
+
+/* 納期計算に関する注釈 */
+.remarks {
+	margin-left: .3em;
+	font-size: 11px;
+	color:#c33;
+}
+
+/* 袋詰 */
+#schedule_selector #package_wrap td {
+	border-bottom: none;
+	border-right: 1px dashed #dedede;
+}
+#schedule_selector #package_wrap td label {
+	padding: 0;
+}
+
+/* 引渡し時間 */
+#handover {
+	display: none;
+	text-align: center;
+}
+
+/* 同梱の有無 */
+#bundle_status {
+	display: none;
+	padding-left: 2em;
+	color: #c33;
+}
+
+
+
+
+/*		入稿〆とお届け日、どちらから計算しているか
+===============================================================*/
+/* 入稿〆日からお届け日を計算 */
+.schedule_crumbs_toright {
+	display: none;
+	float: left;
+	width: 250px;
+	height: 50px;
+	overflow: hidden;
+	border-left: 1px solid #dedede;
+	background: url(../img/crumbs.png) no-repeat right center;
+}
+.schedule_crumbs_toright p {
+	height: 48px;
+	margin-right: 14px;
+	padding-left: 15px;
+	line-height: 48px;
+	color: #333;
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+}
+.schedule_crumbs_toright p span {
+	display: block;
+	height: 48px;
+	line-height: 48px;
+	margin-right: 40px;
+	background: url(../img/crumbs.png) no-repeat right center;
+}
+
+/* お届け日から入稿〆日を計算 */
+.schedule_crumbs_toleft {
+	display: none;
+	float: right;
+	width: 250px;
+	height: 50px;
+	overflow: hidden;
+	border-right: 1px solid #dedede;
+	background: url(../img/crumbs_toleft.png) no-repeat left center;
+}
+.schedule_crumbs_toleft p {
+	height: 48px;
+	margin-left: 14px;
+	padding-right: 15px;
+	line-height: 48px;
+	color: #333;
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+}
+.schedule_crumbs_toleft p span {
+	display: block;
+	height: 48px;
+	text-align: right;
+	line-height: 48px;
+	margin-left: 40px;
+	background: url(../img/crumbs_toleft.png) no-repeat left center;
+}
+
+
+
+
+/*		商品情報
+===============================================================*/
+table.iteminfo{
+	width: 870px;
+	margin: 10px 0px;
+}
+table.iteminfo th {
+	padding: 0px 4px;
+	font-size: 90%;
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #8c8484;
+	border-right: 1px solid #8c8484;
+	border-left: 1px solid #8c8484;
+	background: #c3d950;	/*#e6eeee*/
+}
+table.iteminfo th:last-child {
+	border-right: 1px solid #8c8484;
+}
+table.iteminfo tfoot {
+	display: none;
+}
+table.iteminfo tbody td{
+	padding: 10px 5px 3px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 12px;
+}
+table.iteminfo td select{
+	margin-right: 10px;
+}
+table.iteminfo td input[type="text"]{
+	padding: 2px;
+}
+
+#item_selector {
+	width: 295px;
+}
+#item_color{
+	width: 25px;
+	height: 25px;
+	vertical-align: top;
+	cursor: pointer;
+}
+#itemcolor_name {
+	width: 145px;
+	height: 19px;
+	font-size: 13px;
+}
+#maker,
+#stock_number {
+	width: 95px;
+	margin-left: 5px;
+	padding: 2px 5px;
+	font-size: 13px;
+	border: none;
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	border-color: #ccc;
+}
+#stock_number {
+	font-size: 15px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+/* サイズテーブル */
+#size_table {
+	width: 870px;
+	padding: 13px 0px;
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+}
+table#ordersize th {
+	width: 50px;
+	height: 30px;
+	padding: 0px 4px;
+	text-align: left;
+	font-size: 90%;
+	/*border: 1px solid #dedede;*/
+	border-bottom: 1px solid #8c8484;
+	background: #fff;	/*#e6eeee*/
+}
+table#ordersize td {
+	padding: 0px 1px;
+	text-align: center;
+	font-size: 90%;
+}
+table#ordersize tr.heading td {
+	border-left: 1px solid #8c8484;
+}
+table#ordersize tfoot td {
+	border-left: 1px solid #8c8484;
+	border-bottom: 1px solid #8c8484;
+}
+table#ordersize tfoot td:last-child {
+	border-bottom: 1px solid #fff;
+}
+table#ordersize tfoot td:first-child {
+	border-left: 1px solid #8c8484;
+}
+table#ordersize td input[type="text"] {
+	width: 31px;
+	padding: 2px;
+	text-align: right;
+}
+
+/* 注文商品リスト */
+table#orderlist {
+	width: 100%;
+	margin: 10px 0px;
+}
+table#orderlist caption {
+	padding-left: 4px;
+	text-align: left;
+}
+table#orderlist caption select {
+	margin: 0px 10px 0px 40px;
+}
+table#orderlist th {
+	font-size: 90%;
+	text-align: center;
+	border-bottom: 1px solid #8c8484;
+	border-left: 1px solid #8c8484;
+	border-right: 1px solid #8c8484;
+}
+table#orderlist .tip {
+	display: none;
+	border: none;
+	background: none;
+}
+table#orderlist .none {
+	width: 52px;
+	text-align: center;
+	background: none;
+	border: 1px solid #fff;
+}
+table#orderlist th.last {
+	text-align: center;
+	border-right: 1px solid #8c8484;
+	border-bottom: 1px solid #8c8484;
+	border-left: 1px solid #8c8484;
+}
+table#orderlist td {
+	padding: 4px;
+	font-size: 80%;
+	border: 1px solid #dedede;
+}
+table#orderlist td.item_selector select {
+	width: 250px;
+}
+table#orderlist td input[type="text"] {
+	padding: 1px 2px;
+}
+table#orderlist td input[type="button"] {
+	font-size: 85%;
+}
+table#orderlist tbody td span {
+	display: none;
+}
+table#orderlist tbody .stock_status {
+	text-align: center;
+}
+table#orderlist .loading {
+	text-align: center;
+	font-weight: bold;
+	color: #c33;
+}
+table#orderlist input[type="text"].listamount,
+table#orderlist input[type="text"].itemcost {
+	width: 40px;
+	text-align: right;
+}
+table#orderlist input[type="text"].extsize{
+	width: 40px;
+	text-align: center;
+}
+table#orderlist input[type="text"].extcolor {
+	width: 80px;
+}
+table#orderlist .subtotal {
+	text-align: right;
+}
+table#orderlist .change_itemcolor {
+	margin-right: 5px;
+	cursor: pointer;
+}
+table#orderlist .change_size {
+	margin: -3px 5px 0px 0px;
+	cursor: pointer;
+}
+table#orderlist .plateis {
+	font-size: 90%;
+}
+
+
+/* 見積テーブル共通の合計欄 */
+table#orderlist tfoot tr.total td,
+table#orderlist tfoot tr.total_estimate td {
+	padding: 15px 4px 4px;
+	vertical-align: bottom;
+	font-size: 9px;
+	text-align: right;
+}
+table#orderlist tfoot tr.total td.sum,
+table#orderlist tfoot tr.total_estimate td.sum {
+	font-size: 14px;
+	font-weight: bold;
+}
+table#orderlist td.br0 {
+	border-right: none;
+}
+table#orderlist td.bl0 {
+	border-left: none;
+}
+/* 合計 */
+#total_amount, #total_estimate_amount,
+#total_cost, #total_estimate_cost,
+#subtotal_estimate, #sales_tax {
+	width: 40px;
+	text-align: right;
+	font-size: 14px;
+	font-weight: bold;
+	color: #003f75;
+	border: none;
+	background: #fff;
+}
+#subtotal_estimate, #sales_tax {
+	width: 60px;
+	font-weight: normal;
+}
+#subtotal_estimate {
+	width: 100px;
+}
+#total_cost, #total_estimate_cost {
+	width: 100px;
+	font-size: 18px;
+}
+
+/* 一般入力は非表示 */
+table#orderlist tfoot tr.heading,
+table#orderlist tfoot tr.estimate,
+table#orderlist tfoot tr.total_estimate {
+	display: none;
+}
+
+/* 業者入力時の見積タイトル */
+table#orderlist tfoot tr.heading th {
+	text-align: center;
+	border-bottom: 1px solid #8c8484;
+	border-left: 1px solid #8c8484;
+}
+table#orderlist tfoot tr.heading th.none {
+	background: none;
+	border: 1px solid #fff;
+}
+
+/* 業者入力時の見積内容
+	tr.estimate		手入力の追加行
+	tr.opt			内容固定の行
+*/
+table#orderlist tfoot tr.estimate td {
+	padding: 1px 4px;
+	text-align: center;
+}
+/* 金額 */
+table#orderlist tfoot tr.estimate td.price {
+	padding-right: 1.5em;
+	text-align: left;
+}
+/* 追加行の摘要と分類のテキストフィールド */
+table#orderlist tfoot tr.estimate td .summary {
+	width: 500px;
+	padding: 0.3em;
+	text-align: left;
+	font-size: 14px;
+}
+/* テキストフィールド */
+table#orderlist tfoot tr.estimate td .amount {
+	width: 40px;
+	text-align: right;
+}
+table#orderlist tfoot tr.estimate td .cost,
+table#orderlist tfoot tr.estimate td .price {
+	width: 70px;
+	text-align: right;
+}
+table#orderlist tfoot tr.estimate td .price {
+	border: none;
+	background: #fff;
+}
+
+/* 行追加ボタンなどのツール */
+#estimation_toolbar {
+	display: none;
+	margin: 5px 70px;
+	text-align: right;
+	font-size: 14px;
+}
+
+/* 量販価格のメッセージ */
+#notice_cost {
+	display: none;
+	padding-right: 4em;
+	color: #c33;
+}
+
+
+
+
+/*		同梱とサイズとカラーのポップアップウィンドウ
+===============================================================*/
+/* popup for bundle list */
+#bundle_wrapper{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+}
+
+/* popup for item color */
+#itemcolor_wrapper{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+}
+#itemcolor_list{
+	overflow-x: hidden;
+}
+#itemcolor_table thead tr{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#itemcolor_table thead tr th{
+	width: 200px;
+	height: 22px;
+}
+#itemcolor_table tbody tr:hover{
+	background: #e5f6fd;
+	cursor: pointer;
+}
+#itemcolor_table tr td{
+	width: 200px;
+	padding: 0px 5px 0px 25px;
+	font-size: 80%;
+	vertical-align: middle;
+	border-bottom: 1px solid #237bc3;
+}
+#itemcolor_table tr th:first-child,
+#itemcolor_table tr td:first-child {
+	width: 40px;
+}
+
+/* popup for item size */
+#itemsize_wrapper{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+}
+#itemsize_list{
+	height: 250px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#itemsize_table thead tr{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#itemsize_table thead tr th{
+	width: 70px;
+	height: 22px;
+}
+#itemsize_table tbody tr:hover{
+	background: #e5f6fd;
+	cursor: pointer;
+}
+#itemsize_table tr td{
+	width: 70px;
+	padding: 0px 5px 0px 25px;
+	font-size: 80%;
+	vertical-align: middle;
+	border-bottom: 1px solid #237bc3;
+}
+
+
+
+
+/*		プリント位置
+===============================================================*/
+#noprint {
+	margin-left: 10px;
+}
+#noprint + label {
+	padding-right: 5em;
+}
+.pp_toggler {
+	height: 24px;
+	margin-top: 30px;
+	padding: 2px 10px;
+	line-height: 24px;
+	border: 1px solid #d8d8d8;
+	background: #e6eeee;
+}
+.pp_toggler p.title {
+	width: 700px;
+}
+.pp_toggler p span {
+	margin-left: 30px;
+	font-size: 90%;
+	color: #0f6ecb;
+}
+.pp_toggler .pp_toggle_button {
+	float: right;
+	margin: 2px 10px 0px 0px;
+	cursor: pointer;
+}
+.pp_toggler .sub_price {
+	margin-right: 20px;
+	text-align: right;
+}
+
+/*　2011/04/20 廃止
+.pp_toggler .printprice_wrapper {
+	display: none;
+	position: absolute;
+	top: 30px;
+	right: 20px;
+	z-index: 10;
+	border: 1px solid #8c8484;
+	background: #e6eeee;
+}
+.pp_toggler .printprice_wrapper .closePrintTypePrice {
+	font-size: 12px;
+	margin-right: 20px;
+}
+.pp_toggler .printprice_wrapper input {
+	text-align: right;
+	margin-bottom: 2px;
+}
+*/
+
+.pp_toggle_body {
+	clear: both;
+}
+.pp_box_title {
+	width: 797px;
+	margin: 20px 0px -10px 20px;
+	padding-left: 10px;
+	font-size: 90%;
+	color: #0f6ecb;
+	background: #ededed;
+	border: 1px solid #d8d8d8;
+}
+.pp_box {
+	clear: both;
+	position: relative;
+	width: 909px;
+	height: 162px;
+	margin: 10px 0px 10px 20px;
+	border-left: 1px solid #333;
+}
+.pp_box .icon_calculator {
+	position: absolute;
+	top: 3px;
+	right: 623px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background: url(../img/calculator.png) no-repeat;
+}
+.pp_box .position_name_wrapper {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 21px;
+	height: 160px;
+}
+.pp_box .position_name {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	margin-bottom: 5px;
+	font-size: 80%;
+	color: #333;
+	border-width: 1px 1px 1px 0px;
+	border-color: #8c8484;
+	border-style: solid;
+	background: #fff;
+	cursor: pointer;
+}
+.pp_box .current {
+	color: #fff;
+	border-width: 1px 1px 1px 0px;
+	border-color: #000;
+	border-style: solid;
+	background: #333;
+	cursor: default;
+}
+.pp_box .position_name span {
+	display: none;
+}
+.pp_box .repeat_check_wrap {
+	position: absolute;
+	bottom: 5px;
+	right: 643px;
+	width: 40px;
+	text-align: center;
+	color: #666;
+	/*
+	border-color: #8c8484;
+	border-style: solid;
+	border-width: 2px 0px 2px 2px;
+	*/
+	cursor: pointer;
+}
+.pp_box .repeat_check_wrap label {
+	font-size: 11px;
+}
+.pp_box .repeat_check_wrap:hover {
+	color: #000;
+}
+.pp_box .position_reset {
+	position: absolute;
+	bottom: 5px;
+	right: 643px;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 80%;
+	color: #666;
+	border-color: #8c8484;
+	border-style: solid;
+	border-width: 2px 0px 2px 2px;
+	cursor: pointer;
+}
+.pp_box .show_list {
+	position: absolute;
+	top: 5px;
+	right: 643px;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 80%;
+	color: #666;
+	border-color: #8c8484;
+	border-style: solid;
+	border-width: 2px 0px 2px 2px;
+	cursor: pointer;
+}
+.pp_box .position_reset:hover, .pp_box .show_list:hover {
+	color: #000;
+}
+.pp_info input[type="text"], .pp_price input[type="text"] {
+	text-align: right;
+}
+.pp_image {
+	float: left;
+	width: 260px;
+	height: 160px;
+	padding-left: 5px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #333;
+}
+.pp_image img {
+	margin-left: 20px;
+}
+
+.pp_info {
+	float: left;
+	width: 270px;
+	height: 140px;
+	padding: 10px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #333;
+	overflow: hidden;
+}
+.pp_info table {
+	width: 100%;
+}
+.pp_info table td {
+	height: 27px;
+	vertical-align: middle;
+	font-size: 80%;
+	border-bottom: 1px dotted #dedede;
+}
+.pp_info table tr:last-child td {
+	border: none;
+}
+.pp_info table td input[type="text"] {
+	width: 26px;
+	padding: 2px 4px;
+}
+.pp_info table td input[type="text"].design_size,
+.pp_info table td input[type="text"].design_type_note {
+	width: 40px;
+	text-align: left
+}
+.pp_info table td select,
+.pp_info table td option,
+.pp_info table td label {
+	font-size: 100%;
+}
+.pp_info table td .ink_count {
+	width: 3em;
+	padding: 0px 5px;
+	text-align: right;
+	font-size: 16px;
+}
+.pp_info table td .note {
+	display: none;
+}
+.pp_info table td select.print_type {
+	width: 100px;
+}
+.pp_ink {
+	float: left;
+	width: 230px;
+	height: 140px;
+	padding: 10px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #333;
+}
+.pp_ink p {
+	height: 22px;
+	margin-bottom: 5px;
+}
+.pp_ink div:first-child {
+	height: 22px;
+}
+.toggle_exchink {
+	
+	display: none;
+	
+	font-size: 85%;
+}
+.pp_ink img {
+	vertical-align: middle;
+	cursor: pointer;
+}
+.pp_ink img.cross {
+	margin-left: 5px;
+}
+.pp_ink input[type="text"] {
+	font-size: 80%;
+}
+.pp_ink input[type="text"] {
+	width: 100px;
+	padding: 2px 5px;
+}
+.pp_ink input[type="text"].pos_name {
+	width: 40px;
+}
+.pp_price {
+	float: left;
+	width: 50px;
+	height: 140px;
+	padding: 10px 0px 10px 10px;
+}
+.pp_price p {
+	margin-bottom: 10px;
+	text-align: right;
+}
+.pp_price .add_print_position,
+.pp_price .del_print_position {
+	font-size: 85%;
+}
+
+/* アイテム毎のプリント代 */
+#itemprint {
+	margin-top: 30px;
+}
+#itemprint caption {
+	border: 1px solid #d8d8d8;
+	background: #e6eeee;
+}
+#itemprint th,
+#itemprint td {
+	padding: 4px 10px;
+	border: 1px solid #dedede;
+}
+
+
+
+
+/*		インク色替
+===============================================================*/
+#exchink_count {
+	width: 2.5em;
+	padding: 0px 5px;
+	text-align: right;
+}
+.exch_ink {
+	
+	display: none;
+	
+	
+	float: left;
+	width: 0px;
+	height: 150px;
+	padding-top: 10px;
+	border-width: 1px 1px 1px 0px;
+	border-style: solid;
+	border-color: #333;
+	overflow-y: hidden;
+	overflow-x: scroll;
+}
+.exch_ink .gall{
+	width: 274px;
+	margin: 0px;
+	overflow: hidden;
+
+}
+.exch_ink .gall div:first-child {
+	height: 22px;
+	margin-bottom: 4px;
+	margin-left: 10px;
+	text-align: center;
+	font-size: 80%;
+}
+.exch_ink .gall p {
+	height: 22px;
+	margin-bottom: 5px;
+	visibility: hidden;
+}
+.exch_ink .gall p span {
+	padding: 0px 5px 0px 10px; 
+	border-right: 1px solid #dedede;
+}
+.exch_ink .gall p img {
+	vertical-align: middle;
+	cursor: pointer;
+}
+.exch_ink .gall p img.cross {
+	margin-left: 5px;
+}
+.exch_ink .gall p img.plus {
+	margin-left: 15px;
+	opacity: 0.5;
+}
+.exch_ink input[type="text"] {
+	width: 100px;
+	padding: 2px 5px;
+	font-size: 80%;
+}
+.exch_ink .exch_vol {
+	width: 2.5em;
+	text-align: right;
+}
+
+
+
+
+/* カラーリスト */
+#inkcolor_wrapper{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+}
+#inkcolor_list{
+	height: 250px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#inkcolor_table thead tr{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#inkcolor_table thead tr th{
+	width: 40px;
+	height: 22px;
+}
+#inkcolor_table tbody tr:hover{
+	background: #e5f6fd;
+	cursor: pointer;
+}
+#inkcolor_table tr td{
+	width: 40px;
+	padding: 0px 5px 0px 25px;
+	font-size: 80%;
+	border-bottom: 1px solid #237bc3;
+}
+#inkcolor_table tr td + td, #inkcolor_table thead tr th + th{
+	width: 250px;
+}
+
+
+/* プリント位置リスト */
+#printposition_wrapper{
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 40%;
+	width: 450px;
+}
+#printposition_list{
+	height: 350px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#printposition_list ol{
+	margin: 0px 25px 0px 40px;
+}
+#printposition_list ol li{
+	margin-bottom: 15px;
+	list-style-type: decimal;
+	border-bottom: 1px dotted #d8d8d8;
+	cursor: pointer;
+}
+#printposition_list ol li img{
+ 	border: 1px solid #e5f6fd;
+}
+#printposition_list ol li img:hover{
+	border: 1px solid #ff6631;
+}
+
+
+/* プリント代計算機 */
+#print_calculator {
+	left: 50%;
+}
+.calc_inner {
+	position: relative;
+	padding: 20px;
+	font-size: 80%;
+}
+.calc_inner th, .calc_inner td {
+	padding: 2px 5px;
+	font-size: 80%;
+}
+.calc_inner td {
+	border-bottom: 1px dotted #4c800f;
+}
+.calc_inner select, .calc_inner option, .calc_inner label {
+	font-size: 100%;
+}
+.calc_inner table td {
+	vertical-align: bottom;
+}
+.calc_inner table + table {
+	margin-top: 10px;
+}
+.calc_inner > p {
+	text-align: right;
+}
+.calc_inner input[type="button"] {
+	font-size: 90%;
+}
+.calc_inner table + table td {
+	border: none;
+}
+.calc_inner input[type="text"] {
+	width: 50px;
+	text-align: right;
+	font-size: 100%;
+	background: #333;
+	color: #ffffff;
+}
+.calc_inner .calc_price, .calc_inner .calc_tot_price {
+	width: 100px;
+	height: 20px;
+	line-height: 20px;
+	padding-top: 4px;
+	text-align: right;
+	color: #333;
+	border-bottom: 1px solid #333;
+}
+.calc_inner .calc_tot_price span {
+	font-size: 110%;
+	font-weight: bold;
+	color: #003f75;
+}
+.calc_inner .calc_price span {
+	font-size: 100%;
+	color: #003f75;
+}
+.calc_print_type {
+	font-size: 100%;
+}
+.calc_inner tr.separate td {
+	border-bottom: 1px solid #333;
+}
+
+
+
+
+/*		原稿
+===============================================================*/
+#designtype_table {
+	margin: 10px;
+}
+#designtype_table tr.separate td {
+	height: 15px;
+	border: none;
+}
+#designtype_table td {
+	padding: 5px 10px;
+	white-space: nowrap;
+	border-color: #333;
+	border-style: solid;
+	border-width: 1px 0px 1px 1px;
+}
+#designtype_table td.last {
+	border-right: 1px solid #333;
+}
+.designfee_wrapper {
+	position: absolute;
+	top: 25px;
+	right: 20px;
+	font-size: 90%;
+}
+.designfee_wrapper input {
+	width: 60px;
+	margin-left: 5px;
+	padding: 2px 5px;
+	text-align: right;
+}
+#manuscriptdate {
+	width: 100px;
+	margin: 0px 10px;
+	padding: 2px 5px;
+	text-align: center;
+}
+
+//*****************************************
+/*		原稿ファイル / イメ画ファイル
+===============================================================*/
+.design_table {
+	margin: 10px;
+}
+
+.design_table tr.separate td {
+	height: 15px;
+	width:150px;
+	border: none;
+	text-align:center;
+}
+
+.design_table thead {
+	text-align:center;
+}
+
+.design_table td {
+	padding: 5px 10px;
+	white-space: nowrap;
+	border-color: #333;
+	border-style: solid;
+	border-width: 1px 0px 1px 1px;
+}
+.design_table td.last {
+	border-right: 1px solid #333;
+	width: 150px;
+}
+
+
+#designImg_table,
+#designedImg_table  {
+	width: 80%;
+}
+
+#designedImg_table
+/*		原稿ファイルアップロード
+===============================================================*/
+
+#uploadimg_table_title {
+font-weight:bold;
+}
+
+//*****************************************
+
+/*		お客様情報
+===============================================================*/
+#customer_form {
+	margin: 10px;
+	padding: 15px;
+	border: 1px solid #333;
+	background: #fff;
+}
+#customer_form p:first-child {
+	position: relative;
+	font-size: 90%;
+}
+#customer_form p:first-child ins {
+	display: none;
+	color: #c33;
+	font-size: 90%;
+}
+#customer_form td input[type="text"],
+#customer_form td textarea {
+	padding: 2px 5px;
+}
+#customer_form td textarea {
+	width: 740px;
+}
+#customer_form td input[name="number"] {
+	text-align: center;
+}
+#modify_customer {
+	display: none;
+	margin-left: 20px;
+}
+#update_customer {
+	display: none;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin-right: 20px;
+}
+#cancel_customer {
+	display: none;
+	position: absolute;
+	top: 0px;
+	right: 140px;
+}
+#customer_form fieldset {
+	margin: 5px 0px 15px;
+	border: 2px solid #c33;
+}
+#customer_form legend {
+	padding: 0px 10px;
+	color: #c33;
+}
+#customer_form table thead th {
+	text-align: center;
+}
+#customer_form table th {
+	padding: 5px 10px;
+	text-align: left;
+}
+#customer_form table td {
+	padding: 3px 5px;
+}
+#customer_form table td span.header {
+	padding: 0px 10px 0px 5px;
+}
+#customer_form table td input.phone,
+#customer_form table td input.email,
+#customer_form table td input.zip {
+	ime-mode: inactive;
+}
+#cus_firstname, #cus_familyname {
+	width: 100px;
+}
+#cus_firstkana, #cus_familykana {
+	width: 125px;
+}
+
+/* 月締め請求情報 */
+#cyclebill_wrapper {
+	display: none;
+	overflow: hidden;
+	padding: 20px 0;
+}
+#cyclebill_wrapper table caption {
+	padding: 3px 0;
+	border-top: 1px solid #aaa;
+	background: #efefef;
+}
+#cyclebill_wrapper table th {
+	border: 1px solid #d8d8d8;
+}
+
+/* popup address and zipcode */
+.pulldown {
+	position: relative;
+	height: 0px;
+}
+.pulldown .result_list {
+	width: 900px;
+	height: 250px;
+	overflow: scroll;
+}
+.pulldown .result_list ul {
+	width: 100%;
+	margin-right: 10px;
+	padding-left: 10px;
+}
+.pulldown .result_list ul li {
+	padding: 2px 15px 2px 5px;
+	list-style-type: none;
+	font-size: 80%;
+	color: #333;
+	border-bottom: 1px solid #237bc3;
+}
+.pulldown .result_list ul li:hover {
+	background: #e5f6fd;
+	cursor: pointer;
+}
+
+
+/* 納品先と共通 */
+
+/* popup search results */
+.pulldown .result_list table thead tr th {
+	white-space: nowrap;
+	text-align: center;
+	font-size: 80%;
+	color: #e5f6fd;
+	border: 1px solid #fff;
+	background: #237bc3;
+}
+.pulldown .result_list table tbody tr:hover {
+	background: #e5f6fd;
+	cursor: pointer;
+}
+.pulldown .result_list table tr td {
+	white-space: nowrap;
+	font-size: 80%;
+	border: 1px solid #fff;
+	border-bottom: 1px solid #237bc3;
+}
+
+
+input[type="text"].nostyle, select.nostyle, textarea.nostyle {
+	color: #333;
+	border: 1px solid #fbfbfd;
+	border-bottom: 1px solid #a5acb2;
+	background: #fbfbfd;
+	cursor: default;
+}
+
+
+
+
+/*		納品先と発送元の住所
+===============================================================*/
+#delivery_form,
+#shipfrom_form {
+	margin: 10px;
+	padding: 15px;
+	border: 1px solid #333;
+}
+#delivery_form p:first-child,
+#shipfrom_form pfirst-child {
+	position: relative;
+}
+#delivery_form fieldset,
+#shipfrom_form fieldset {
+	margin: 5px 0px 15px;
+	border: 2px solid #33c;
+}
+#delivery_form legend,
+#shipfrom_form legend {
+	padding: 0px 10px;
+}
+#delivery_form legend {
+	color: #33c;
+}
+
+#delivery_form table thead th,
+#shipfrom_form table thead th {
+	text-align: center;
+}
+#delivery_form table th,
+#shipfrom_form table th {
+	text-align: left;
+}
+#delivery_form table th, #delivery_form table td,
+#shipfrom_form table th, #shipfrom_form table td {
+	padding: 5px;
+}
+#delivery_form table td input[type="text"],
+#shipfrom_form table td input[type="text"] {
+	margin-right: 20px;
+	padding: 2px 5px;
+}
+#delivery_form table td input.phone,
+#delivery_form table td input.zip,
+#shipfrom_form table td input.phone,
+#shipfrom_form table td input.zip {
+	ime-mode: inactive;
+}
+
+
+
+
+/*		その他料金
+===============================================================*/
+#optprice_table {
+	width: 910px;
+	margin: 10px;
+}
+#optprice_table tr.separate td {
+	height: 10px;
+	border: none;
+}
+#optprice_table th {
+	padding: 5px 10px;
+	text-align: left;
+	vertical-align: middle;
+	white-space: nowrap;
+	border-color: #333;
+	border-style: solid;
+	border-width: 1px 0px 1px 1px;
+}
+#optprice_table td {
+	padding: 5px 10px;
+	vertical-align: middle;
+	border-color: #333;
+	border-style: solid;
+	border-width: 1px 1px 1px 0px;
+}
+#optprice_table td label, #optprice_table td span {
+	margin: 0px 10px;
+}
+#optprice_table td label, #optprice_table td ins {
+	text-decoration: none;
+}
+#discount_illust,
+#discount_reuse,
+#discount_quick {
+	display: none;
+	padding: 0px 5px;
+	color: #f00;
+}
+#deliverytime_wrapper {
+	display: none;
+}
+#optprice_table td.last {
+	padding: 5px 0px 5px 30px;
+	font-size: 90%;
+	border-width: 0px 0px 0px 1px;
+}
+#optprice_table td.last p {
+	margin-bottom: 10px;
+}
+#optprice_table td.last p+p {
+	text-align: right;
+}
+#optprice_table td.last label {
+	margin: 0px;
+	font-size: 12px;
+	line-height: 1.1;
+}
+#optprice_table td.last label span {
+	margin: 0px;
+	padding: 0.2em 0.5em;
+	line-height: 1.1;
+}
+#optprice_table td.last input[type="text"] {
+	width: 60px;
+	padding: 2px 5px;
+	text-align: right;
+}
+#optprice_table #reductionprice,
+#optprice_table #additionalfee {
+	width: 90px;
+	padding: 2px 5px;
+	text-align: right;
+}
+#optprice_table #reductionprice,
+#optprice_table #discountfee {
+	color: #c33;
+}
+#optprice_table #paymentdate {
+	width: 100px;
+	padding: 2px 0px;
+	text-align: center;
+}
+#freeshipping {
+	margin-left: 100px;
+}
+#optprice_table #freeshipping + label {
+	margin: 0;
+}
+#contact_number {
+	width: 400px;
+}
+#discount_table td {
+	border-bottom: 1px dotted #dedede;
+	border-style: dotted;
+	border-width: 0px 0px 1px 0px;
+}
+#discount_table colgroup.classification {
+	width: 100px;
+}
+#discount_table label.fontred {
+	font-weight: bold;
+}
+
+/* 割引の旧タイプ　リピート・紹介割 */
+#discount_table .old_discount2 {
+	display: none;
+}
+
+
+
+
+/*		アンケート
+===============================================================*/
+#questionnaire_table {
+	width: 910px;
+	margin: 10px;
+	border: 1px solid #333;
+}
+#questionnaire_table td {
+	border-bottom: 1px dotted #dedede;
+}
+#questionnaire_table tr.separate td,
+#questionnaire_table td.separate {
+	border-bottom: 1px solid #333;
+}
+#questionnaire_table td {
+	padding: 5px 10px;
+}
+#questionnaire_table td.label {
+	padding-left: 20px ;
+}
+#questionnaire_table td label {
+	margin: 0px 10px;
+}
+.purpose_text {
+	width: 200px;
+	padding: 2px 5px;
+}
+
+
+
+
+/*		コメント欄
+===============================================================*/
+#order_comment {
+	width: 900px;
+	padding: 5px;
+	margin: 10px;
+}
+
+
+/* 請求書の備考と納品書の適用 */
+#page_border leftside,
+#page_border rightside {
+	width: 470px;
+}
+#page_border .clearfix p {
+	margin: 0px 10px;
+}
+#invoicenote,
+#billnote {
+	width: 430px;
+	padding: 5px;
+}
+
+
+
+
+/*		進行状況ラジオボタン
+===============================================================*/
+.phasecheck{
+	width: 750px;
+	height: 60px;
+	margin-bottom: 20px;
+	line-height: 60px;
+	background: #c3d950;
+}
+.phasecheck label{
+	margin: 0px 10px;
+}
+.phase_label{
+	float: left;
+	width: 30px;
+	height: 56px;
+	color:#fff;
+	border:2px solid #000;
+	background:#333;
+}
+.phase_label p{
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+}
+
+#order_completed, #order_cancel, #order_estimate, #order_stock, #done_image {
+	display: none;
+	vertical-align: middle;
+}
+#order_stock {
+	padding: 2px 10px;
+	font-size: 150%;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px #666 inset;
+}
+
+
+
+/*		確認ボタン
+===============================================================*/
+/*
+#confirm_button{
+	float: right;
+	width: 125px;
+	height: 40px;
+	margin: 10px 15px;
+	background: url(../img/b_chumon.png) no-repeat;
+	cursor: pointer;
+	filter: alpha(opacity=85);
+	-moz-opacity:.85;
+	opacity:.85;
+}
+#confirm_button:hover{
+	filter: alpha(opacity=100);
+	-moz-opacity:1.0;
+	opacity:1.0;
+}
+*/
+
+
+
+
+/*		受付ログ
+===============================================================*/
+#log_wrapper {
+	display: none;
+	position: absolute;
+	top: 170px;
+	width: 600px;
+	height: 300px;
+	border: 1px solid #d3ebd3;
+	background: #000;
+	z-index: 110;
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;
+}
+#log_wrapper .inner {
+	margin: 10px;
+	padding: 10px;
+	height: 260px;
+	font-size: 12px;
+	overflow: hidden;
+	background: #c3d950;
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;
+}
+#modify_log,
+#delete_log {
+	display: none;
+}
+.del_wrapper {
+	float: left;
+	width: 100px;
+}
+
+/* ログ全文検索窓 */
+#against {
+	width: 200px;
+}
+#listtoggle {
+	display: none;
+}
+#log_wrapper .inner input[type="button"] {
+	font-size: 12px;
+}
+
+/* ログ入力エディタ */
+#log_editor {
+	display: none;
+	margin-top: 15px;
+	height: 215px;
+	overflow: hidden;
+}
+#log_text {
+	width: 100%;
+	height: 180px;
+}
+#log_editor p {
+	text-align: right;
+}
+
+/* ログ一覧 */
+#list_wrapper {
+	clear: both;
+	margin-top: 15px;
+}
+#list_wrapper .pan {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #d3edb3;
+}
+#list_wrapper .pan p.pan_res {
+	display: none;
+	overflow: hidden;
+}
+#searchword {
+	padding: 0px 5px;
+}
+#init_pane {
+	padding: 0px 10px;
+	color: #efefef;
+	border: 1px solid #d3edb3;
+	background: #4c800f;
+	cursor: pointer;
+	-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+}
+#init_pane:hover {
+	background: #73be1e;
+}
+
+#list_wrapper .pane {
+	height: 180px;
+	overflow-y: scroll;
+}
+#list_wrapper table {
+	width: 100%;
+}
+#list_wrapper table tr:hover {
+	background: #73be1e;
+}
+#list_wrapper table tr td {
+	padding: 2px 5px;
+	font-size: 12px;
+	vertical-align: top;
+	cursor: pointer;
+}
+#list_wrapper table tr.dayseparate td {
+	border-top: 1px solid #a9a9a9;
+}
+#list_wrapper table tr td p {
+	width: 320px;
+}
+#list_wrapper table tr td p.fixheight {
+	height: 1.5em;
+	overflow: hidden;
+}
+#list_wrapper td.log_date {
+	width: 80px;
+	text-align: center;
+}
+#list_wrapper td.log_time,
+#list_wrapper td.log_staff {
+	width: 50px;
+	text-align: center;
+}
+#list_wrapper td.log_time {
+	font-size: 10px;
+}
+
+
+
+
+/*		ツールボックス
+===============================================================*/
+#toolbox {
+	display: none;
+}
+#tool_inner {
+	display: inline-block;
+	width: 300px;
+	width: 415px;
+	padding: 20px;
+	overflow: hidden;
+	color: #565656;
+	background: #f8f8f8;
+}
+#tool_inner h2 {
+	margin-bottom: 20px;
+	text-align: center;
+	letter-spacing: 0.5em;
+	font-size: 18px;
+	border-top: 1px solid #d8d8d8;
+	border-bottom: 1px solid #d8d8d8;
+	background: #efefef;
+}
+#tool_inner h3 {
+	text-align: center;
+	vertical-align: bottom;
+	font-size: 14px;
+	border-bottom: 1px dashed #d8d8d8;
+}
+#tool_inner h3 span {
+	padding: 0px 5px;
+	font-size: 10px;
+}
+#tool_inner .leftside,
+#tool_inner .rightside {
+	width: 260px;
+	overflow: hidden;
+}
+#tool_inner .rightside {
+	width: 135px;
+	padding-left: 9px;
+	border-left: 1px dotted #d8d8d8;
+}
+#tool_inner .leftside div,
+#tool_inner .rightside div {
+	padding: 10px 0px;
+}
+#tool_inner .leftside p,
+#tool_inner .rightside p {
+	margin-left: .5em;
+	font-size: 12px;
+}
+#tool_inner input {
+	margin: 5px 0px;
+	font-size: 14px;
+}
+#tool_inner .leftside div:nth-of-type(1) {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+#tool_inner .leftside div:nth-of-type(1) input {
+	margin: 0 8px;
+}
+
+
+/* 請求書・納品書の宛名手入力フォーム */
+#tool_inner .leftside table {
+	width: 240px;
+}
+#tool_inner .leftside table input,
+#tool_inner .leftside table textarea {
+	width: 100%;
+	font-size: 12px;
+}
+#tool_inner .leftside table textarea {
+	height: 3.5em;
+}
+#tool_inner .leftside table th {
+	padding-right: 1em;
+	font-size: 12px;
+}
+#tool_inner .leftside .tool_alt_zipcode {
+	width: 5em;
+	text-align: center;
+}
+
+
+
+
+/*		帳票印刷フォーム
+===============================================================*/
+#printform {
+    width: 820px;
+    overflow: hidden;
+    border: none;
+}
+#printform_wrapper {
+    display: none;
+    overflow: hidden;
+}
+
+
+
+/*		ポップアップリスト
+===============================================================*/
+.popup_wrapper {
+	position: absolute;
+	display: none;
+	top: 0px;
+	left: 0px;
+	border: 1px solid #d3ebd3;	/*#8c8484*/
+	background: #000;			/*#f6fbfd*/
+	z-index: 110;
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;
+}
+.popup_wrapper .inner {
+	margin: 10px;
+	padding: 10px;
+	overflow: hidden;
+	background: #fff;	/*#c3d950*/
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;
+}
+.popup_title {
+	position: relative;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	letter-spacing: 0.5em;
+	font-weight: bold;
+	color: #1c94c4;
+}
+#print_calculator .popup_title {
+	border-bottom: 1px solid #000;
+}
+.popup_header {
+	position: relative;
+	padding-top: 30px;
+}
+.close_popup,
+.close_popup_log {
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	cursor: pointer;
+	filter: alpha(opacity=80);
+	-moz-opacity:.80;
+	opacity:.80;
+}
+.close_popup_log {
+	top: 15px;
+	right: 15px;
+}
+.close_popup:hover,
+.close_popup_log:hover {
+	filter: alpha(opacity=100);
+	-moz-opacity:1;
+	opacity:1;
+}
+
+#mailer_wrapper {
+	width: 560px;
+	left: 50%;
+	margin-left: -280px;
+	font-size: 80%;
+}
+#popup_inner {
+	padding: 10px 20px;
+}
+
+/* mail の追加文章 */
+#add_message {
+	width: 480px;
+	font-size: 13px;
+}

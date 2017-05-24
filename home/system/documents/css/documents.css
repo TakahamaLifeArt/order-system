@@ -1,0 +1,765 @@
+@charset "utf-8";
+
+/*------------------------------------------------------------
+
+	File_name    : documents.css
+	Description  : takahama system printer(PDF) stylesheet
+	
+				   A4(210*297mm) 
+				   margin 20mm
+				   96dpi
+				   2.54cm/inch
+	
+	log		     : 2012.07.13	created
+				 : 2013.06.13	検品欄を追加
+				 
+-------------------------------------------------------------- */
+
+
+
+
+/*		reset
+===============================================================*/
+*{
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	font-family: "ＭＳ Ｐゴシック","MS P Gothic",sans-serif;
+}
+body, div, table, th, td, caption, h1, h2, h3, h4, h5, h6, a, p, span, ins, pre, ul, ol, li, dl, dt, dd, form, address, embed, object {
+	font-weight: normal;
+	font-size: 100%;
+	line-height: 1.2;
+	list-style-type: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+img {
+	border: none;
+	vertical-align: middle;
+}
+option {
+	font-size: 100%;
+}
+textarea{
+	resize:none;
+}
+
+
+
+
+/*		common class
+===============================================================*/
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	visibility:hidden;
+	line-height: 0;
+	font-size: 0;
+	clear: both;
+}
+.clearfix {
+	display: inline-block;
+}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+
+.al {
+	text-align: left;
+}
+.ar {
+	text-align: right;
+}
+.ac {
+	text-align: center;
+}
+
+
+/*----- round corner -----*/
+
+.corner-tl { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px; }
+.corner-tr { -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px; }
+.corner-bl { -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px; }
+.corner-br { -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px; }
+.corner-top { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px; }
+.corner-bottom { -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px; -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px; }
+.corner-right { -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px; -moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px; }
+.corner-left { -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px; -moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px; }
+.corner-all { -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; }
+
+
+
+
+
+/*		template
+===============================================================*/
+.page {
+	position: relative;
+	width: 190mm;
+	height: 275mm;
+	page-break-after: always;
+}
+.wrap:after {
+	content: ".";
+	display: block;
+	height: 0;
+	visibility:hidden;
+	line-height: 0;
+	font-size: 0;
+	clear: both;
+}
+.wrap {
+	position: relative;
+	display: inline-block;
+	
+	height: 600px;
+	overflow: hidden;
+}
+/* Hides from IE-mac \*/
+* html .wrap {height: 1%;}
+.wrap {display: block;}
+/* End hide from IE-mac */
+
+
+.col1 {
+	float: left;
+	width: 133mm
+}
+.col2 {
+	float: right;
+	width: 57mm;
+}
+
+
+/* 受注ID */
+.orderid_wrap {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+}
+#orderid {
+	font-size: 14px;
+}
+
+/* 工場指定
+.orderid_wrap ins {
+	padding-left: 2em;
+	text-decoration: none;
+	font-size: 14px;
+}
+*/
+
+/* 検品欄 */
+.inspection {
+	position: absolute;
+	top: .3em;
+	right: 0;
+	width: 200px;
+}
+.inspection td {
+	width: 20%;
+	height: 1.2em;
+	text-align: center;
+	font-size: 11px;
+	border: 1px solid #000;
+}
+.inspection tbody td {
+	height: 1.8em;
+}
+
+/* 受注票タイトル */
+.print_title {
+	padding-right: 2em;
+	text-align: center;
+	font-size: 30px;
+	height: 11mm;
+}
+
+/*----- 票題部 -----*/
+#heading {
+	width: 132mm;
+}
+
+/* 発送日 */
+#date_wrap {
+	float: left;
+	width: 26mm;
+	height: 26mm;
+	padding: 1mm 2mm;
+	border: 1px solid #000;
+	-moz-border-radius: 1.5em; -webkit-border-radius: 1.5em; border-radius: 1.5em;
+}
+
+#date_wrap p {
+	text-align:center;
+	font-size: 12px;
+}
+
+#shippingyear {
+	height: 6mm;
+	line-height: 6mm;
+}
+
+#shippingdate {
+	display: table-cell;
+	vertical-align: bottom;
+}
+
+#shippingyear,
+#shippingdate {
+	border-bottom: 1px solid #000;
+}
+
+#shippingyear span {
+	font-size: 16px;
+}
+
+#shippingdate span {
+	font-size: 32px;
+	font-weight: bold;
+}
+
+#carriage {
+	margin-top: 2px;
+	height: 1.6em;
+	line-height: 1.6;
+}
+
+#deliverydate {
+	font-size:16px;
+}
+#deliverytime {
+	padding: 0 .2em 0 .8em;
+	font-size: 9px;
+}
+
+/*----- 顧客情報 -----*/
+#customer_wrap {
+	position: relative;
+	float: right;
+	width: 97mm;
+	height: 28mm;
+	padding-right: 2mm;
+	overflow: hidden;
+	border: 1px solid #000;
+	-moz-border-radius: 1.5em; -webkit-border-radius: 1.5em; border-radius: 1.5em;
+}
+
+/* 顧客ID */
+#customer_wrap th {
+	vertical-align: middle;
+	border-right: 1px solid #000;
+}
+#customer_wrap th p {
+	width: 19mm;
+}
+#customer_id {
+	padding-top: .7em;
+	font-size: 18px;
+}
+
+/* フリガナ */
+#customerruby {
+	width: 270px;
+	height: 1.2em;
+	padding-top: .7em;
+	padding-left: 2em;
+	font-size: 11px;
+	overflow: hidden;
+}
+
+/* 顧客名 */
+.customername_wrap {
+	position: relative;
+	width: 75mm;
+	height: 33px;
+	padding: 5px 0;
+	text-align: center;
+	font-size: 16px;
+	overflow: hidden;
+}
+.customername_wrap .honorific {
+	position: absolute;
+	right: 10px;
+	bottom: 8px;
+}
+#customername {
+	padding-right: 1.5em;
+	line-height: 33px;
+	/*font-size: 28px;*/
+}
+
+/* 担当者 */
+.rep_wrap {
+	width: 270px;
+	height: 1.2em;
+	padding-right: 2em;
+	text-align: right;
+	overflow: hidden;
+}
+
+/* tel, fax */
+#customer_wrap .contact td {
+	width: 50%;
+	padding: 5px;
+	font-size: 16px;
+}
+
+
+/*----- 題名 -----*/
+#maintitle_wrap {
+	width: 132mm;
+	margin-top: 2mm;
+	border: 1px solid #000;
+}
+#maintitle_wrap .lbl {
+	padding: 2mm;
+	font-size: 11px;
+}
+#maintitle {
+	position: relative;
+	width: 125mm;
+	height: 50px;
+	text-align: left;
+	overflow: hidden;
+}
+
+#maintitle .title_text {
+	width: 73mm;
+	height: 50px;
+	line-height: 50px;
+	font-size: 28px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#maintitle_wrap .mark {
+	position: absolute;
+	top: 1.5mm;
+	right: 0;
+	text-align: right;
+}
+#express_mark,
+#repeat_mark,
+#mixture_mark {
+	padding: .2em;
+	font-size: 30px;
+	color: #f00;
+	border: 1px solid #f00;
+	-moz-border-radius: 1em; -webkit-border-radius: 1em; border-radius: 1em;
+}
+#mixture_mark {
+	font-size: 24px;
+}
+
+
+/*----- 種類 -----*/
+#summary {
+	width: 132mm;
+	margin-top: 2mm;
+	border: 1px solid #000;
+}
+#summary th.lbl {
+	padding: 2mm;
+	font-size: 11px;
+}
+
+/* 種類名 */
+#summary th .category_name {
+	width: 70mm;
+	text-align: left;
+	font-size: 20px
+}
+
+/* 商品手配、入荷予定、合計 */
+#summary td {
+	text-align: center;
+	border-left: 1px solid #000;
+}
+#summary td p {
+	margin: 1mm 1mm 0;
+	padding: 1mm;
+	font-size: 11px;
+	background: #eee;
+}
+#summary .summary_data td {
+	font-size: 18px;
+	border-left: 1px solid #000;
+}
+
+/* 合計 */
+#summary .summary_data #total_amount {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+
+/*----- 商品 -----*/
+.item_wrap {
+	width: 132mm;
+	margin-top: 2mm;
+	border: 1px solid #000;
+}
+.item_wrap th {
+	padding: 3px 0;
+}
+.item_wrap th,
+.item_wrap td {
+	font-size: 11px;
+	border: 1px solid #000;
+}
+
+.item_wrap td {
+	padding: 4px 1px;
+	text-align: center;
+}
+.item_wrap tbody .td01 {
+	width: 33mm;
+	padding: 2px 4px;
+	text-align: left;
+}
+.item_wrap tbody .td04 {
+	width: 38mm;
+	padding: 2px 4px;
+	text-align: left;
+	font-size: 14px;
+}
+.item_wrap tbody .td05,
+.item_wrap tbody .td06{
+	font-size: 12px;
+}
+.item_wrap tbody td:last-child {
+	width: 17mm;
+}
+
+
+/*----- 担当 -----*/
+.pic {
+	text-align: right;
+	font-size: 11px;
+	padding-right: 5px;
+}
+#staff {
+	font-size: 14px;
+}
+
+
+/*----- 作業チェック欄 -----*/
+#check_table1 {
+	width: 100%;
+}
+#check_table1 td {
+	width: 16.6%;
+	text-align: center;
+	font-size: 11px;
+}
+#check_table1 tbody div {
+	width: 25px;
+	height: 25px;
+	margin: 0 auto;
+	border: 1px solid #000;
+}
+
+
+
+/*----- 確認項目（納期、返事、イメ画、etc） -----*/
+#check_table2 {
+	width: 100%;
+	margin-top: 2mm;
+	border: 1px solid #000;
+}
+#check_table2 td {
+	padding: 1px 3px;
+	vertical-align: top;
+	border: 1px solid #000;
+}
+#check_table2 tbody td {
+	text-align: center;
+}
+#check_table2 tbody td:first-child {
+	width: 21mm;
+}
+#check_table2 tfoot td {
+	padding: 3px;
+}
+#check_table2 td span,
+#check_table2 td div {
+	padding: 0 1mm;
+	font-size: 11px;
+	background: #eee;
+}
+#check_table2 td div {
+	width: 2em;
+	text-align: center;
+}
+#check_table2 td p {
+	margin-top: 3px;
+}
+
+
+/*----- 出荷と支払方法 -----*/
+#payment_table {
+	width: 100%;
+	margin-top: 2mm;
+	border: 1px solid #000;
+}
+#payment_table caption {
+	text-align: left;
+	font-size: 11px;
+}
+#payment_table td {
+	padding: 1px 5px;
+	vertical-align: middle;
+	border: 1px solid #000;
+}
+#payment_table tbody td {
+	text-align: center;
+}
+#payment_table td span,
+#payment_table td p {
+	font-size: 14px;
+}
+#payment_table tfoot td span,
+#payment_table tfoot td p {
+	font-size: 12px;
+}
+#payment_table tfoot td p {
+	height: 2em;
+	overflow: hidden;
+}
+#payment_table td .lbl,
+#payment_table tfoot td span {
+	padding: 0 2mm;
+	background: #eee;
+}
+#payment_table #boxnumber {
+	font-size: 18px;
+	font-weight: bold;
+}
+#payment_table #package {
+	margin-top: 5px;
+	font-size: 14px;
+}
+#payment_table #package span {
+	font-size: 24px;
+	font-weight: bold;
+	color: #f00;
+}
+#payment_table #envelope {
+	padding-left: 20px;
+}
+#payment_table #ship_note {
+	width: 100%;
+	height: 2em;
+	margin-top: 10px;
+	color: #f00;
+	border: none;
+}
+
+
+/*----- デジタルの面付け他 -----*/
+#digit_table {
+	width: 100%;
+	margin-top: 2mm;
+	border: 1px solid #000;
+}
+#digit_table td {
+	padding: 1px 5px;
+	vertical-align: middle;
+}
+#digit_table tbody td {
+	border-bottom: 1px solid #000;
+}
+#digit_table tbody td:first-child {
+	font-size: 14px;
+}
+#digit_table tbody td + td {
+	text-align: center;
+}
+#digit_table thead td {
+	padding: 1px 5px;
+	border: 1px solid #000;
+}
+#digit_table thead tr:first-child td {
+	padding: 1px 5px;
+	text-align: center;
+}
+#digit_table td ins {
+	padding-right: 3px;
+	font-size: 16px;
+	text-decoration: none;
+}
+#digit_table td .lbl {
+	padding: 0 2mm;
+	font-size: 12px;
+	background: #eee;
+}
+#digit_table #platescheck,
+#digit_table #pastesheet,
+#digit_table #edge {
+	padding-left: 5px;
+	font-size: 16px;
+}
+#digit_table #edge {
+	padding-left: 15px;
+}
+#digit_table #platescount {
+	font-size: 20px;
+}
+#digit_table #platecheck {
+	font-size: 16px;
+}
+
+
+
+/*----- 備考 -----*/
+#remarks {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 55mm;
+	padding: 1mm;
+	border: 1px solid #000;
+}
+#remarks div {
+	width: 3.5em;
+	padding: 1mm;
+	text-align: center;
+	background: #eee;
+}
+#workshop_note {
+	width: 100%;
+	height: 4em;
+	margin-top: 10px;
+	color: #f00;
+	border: none;
+}
+
+
+/*----- プリント情報 -----*/
+#printinfo {
+	width: 100%;
+	margin-top: 2mm;
+}
+#printinfo .lbl {
+	padding: 1mm;
+	font-size: 11px;
+	background: #eee;
+}
+#printinfo div.lbl {
+	width: 2em;
+	padding: 1mm 2mm;
+}
+
+.pp_wrap {
+	width: 33%;
+	padding: 0 1.5mm;
+	vertical-align: top;
+}
+.pp_wrap table {
+	width: 100%;
+	border: 1px solid #000;
+}
+.pp_wrap table th,
+.pp_wrap table td {
+	padding: 3px 2px;
+	border: 1px solid #000;
+}
+.pp_wrap table th {
+	font-size: 30px;
+}
+
+
+/* シルクのインク */
+.ink_wrap {
+	height: 56px;
+}
+.ink {
+	margin-left: 5px;
+	margin-bottom: 1px;
+}
+.ink span {
+	padding-left: 5px;
+	
+}
+.ink img {
+	vertical-align: middle;
+	border: 1px solid #999;
+}
+.ink_count {
+	padding-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+
+/* カッティングのシート色 */
+.pp_wrap .cutting_wrap td {
+	padding: 5px 2px;
+	border: none;
+	border-bottom: 1px solid #000;
+}
+.cutting_color {
+	padding-left: 20px;
+}
+
+
+
+/* プリント情報 */
+.attr td {
+	text-align: center;
+	font-size: 16px;
+}
+
+
+/* 原稿 */
+.pp_wrap table .ms td {
+	padding: 5px 2px;
+	border: none;
+}
+.design_size {
+	text-align: center;
+}
+.design_type {
+	padding-left: 10px;
+}
+
+
+/* 絵型 */
+.printposition {
+	position: relative;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+
+/* プリント位置ごとの備考 */
+.remark_wrap {
+	padding: 1mm;
+	border: 1px solid #000;
+}
+.remark {
+	width: 100%;
+	height: 1em;
+	margin-top: 5px;
+	color: #f00;
+	border: none;
+}
+
+
+/* 位置 */
+.pos {
+	margin-top: 2mm;
+}
+#printinfo .pos .lbl {
+	font-size: 12px;
+}
+#printinfo .ext .pos {
+	padding-bottom:2em;
+}
