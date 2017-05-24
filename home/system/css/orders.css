@@ -7,6 +7,7 @@
 	Version      : 0.1
 	Log		     : 2009.11.17
 				   2014.01.15 発送元を追加
+				   2017-05-02 刺繍の糸12色に対応
 
 -------------------------------------------------------------- */
 
@@ -1193,6 +1194,7 @@ table#orderlist tfoot tr.estimate td .price {
 	border-width: 1px 1px 1px 0px;
 	border-style: solid;
 	border-color: #333;
+	overflow-y: scroll;
 }
 .pp_ink p {
 	height: 22px;
@@ -1258,10 +1260,14 @@ table#orderlist tfoot tr.estimate td .price {
 
 /*		インク色替
 ===============================================================*/
-#exchink_count {
+#exchink_count,
+#exchthread_count {
 	width: 2.5em;
 	padding: 0px 5px;
 	text-align: right;
+}
+#exchink_count {
+	margin-right: 20px;
 }
 .exch_ink {
 	

@@ -699,6 +699,17 @@ textarea{
 }
 
 
+/* 刺繍糸の色 */
+h3.lbl {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.thread {
+	margin-bottom: 5px;
+}
+
+
 /* カッティングのシート色 */
 .pp_wrap .cutting_wrap td {
 	padding: 5px 2px;

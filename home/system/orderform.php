@@ -564,7 +564,10 @@
 									<td><input type="hidden" size="5" id="master_id" value="" /></td>
 									<td><input type="hidden" size="5" id="itemcolor_code" value="" /></td>
 									<td><input type="hidden" size="5" id="printpos_id" value="" /></td>
-									<td></td>
+									<td>
+										<input type="hidden" readonly="readonly" id="group1" value="0" />
+										<input type="hidden" readonly="readonly" id="group2" value="0" />
+									</td>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -704,6 +707,7 @@
 						<p>
 							<input type="checkbox" value="noprint" name="noprint" id="noprint" /><label for="noprint">&nbsp;プリントなし</label>
 							<label id="exchink_label">インク色替え数：<input type="number" min="0" value="0" id="exchink_count" class="forNum" /></label>
+							<label id="exchthread_label">刺繍色替え数：<input type="number" min="0" value="0" id="exchthread_count" class="forNum" /></label>
 						</p>
 						<div id="pp_wrapper"></div>
 						<div>
@@ -1361,7 +1365,8 @@
 							<tr><th class="sub">デジタル転写</th><td id="est_digit_printfee">0</td></tr>
 							<tr><th class="sub">インクジェット</th><td id="est_inkjet_printfee">0</td></tr>
 							<tr><th class="sub">カッティング</th><td id="est_cutting_printfee">0</td></tr>
-							<tr><th>インク色替え</th><td id="est_exchink">0</td></tr>
+							<tr><th class="sub">刺繍</th><td id="est_embroidery_printfee">0</td></tr>
+							<tr><th>色替え</th><td id="est_exchink">0</td></tr>
 							<tr class="separate"><th>追加料金</th><td id="est_additionalfee">0</td></tr>
 							<tr><th><p class="fontred">割引▲</p></th><td id="est_discount" class="fontred">0</td></tr>
 							<tr class="separate"><th><p class="fontred">値引▲</p></th><td id="est_reduction" class="fontred">0</td></tr>
@@ -1644,7 +1649,7 @@
 										<tr>
 											<th>更新日</th>
 											<td colspan="3">
-												<input type="text" value="" name="lm_from" size="10" class="forDate datepicker" /> 〜<input type="text" value="" name="lm_to" size="10" class="forDate datepicker" />
+												<input type="text" value="" name="lm_from" size="10" class="forDate datepicker" /> ~<input type="text" value="" name="lm_to" size="10" class="forDate datepicker" />
 												<input type="button" value="クリア" id="clear_lastmodified" class="btn" >
 												<span style="padding-left:10px;">受注担当</span>
 												<select name="staff_id" id="staff_id" class="staff" rel="rowid1">
@@ -1655,7 +1660,7 @@
 										<tr>
 											<th>発送日</th>
 											<td colspan="3">
-												<input type="text" value="" name="term_from" id="term_from" size="10" class="forDate datepicker" /> 〜<input type="text" value="" name="term_to" id="term_to" size="10" class="forDate datepicker" />
+												<input type="text" value="" name="term_from" id="term_from" size="10" class="forDate datepicker" /> ~<input type="text" value="" name="term_to" id="term_to" size="10" class="forDate datepicker" />
 												<input type="button" value="クリア" id="clear_term" class="btn" >
 												<span style="padding-left:10px;">工場</span>
 												<select name="factory">

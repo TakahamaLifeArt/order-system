@@ -41,6 +41,9 @@ case 'inkjet':
 case 'cutting':
 	$print_name = 'カッティング';
 	break;
+case 'embroidery':
+	$print_name = '刺繍';
+	break;
 }
 $print_name = $orders['noprint']==1? '商品のみ': $print_name;
 
@@ -532,7 +535,7 @@ if($orders['noprint']==0){
 					$tmp .= '<span>'.$ink['code'].' '.$ink['name'].'</span>';
 					$tab .= '</p>';
 				}
-			}		
+			}
 			$tmp .= '</td>';
 			$tmp .= '<td class="ac">';
 			$tmp .= '<p>色数　<span class="ink_count">'.$val['ink_count'].'</span></p>';
@@ -604,15 +607,6 @@ if($orders['noprint']==0){
 		fclose($fp);
 		$tmp .= '				<img alt="プリント位置" src="'.$src[1].'" />';
 		$tmp .= $designimage;
-		/*
-		$tmp .= '				<img alt="プリント位置" src="../img/printposition/t-shirts/normal-tshirts/base_front.png" />';
-		$tmp .= '				<img alt="前" src="../img/printposition/z-print-parts/front/mae.png" class="mae" />';
-		$tmp .= '				<img alt="左胸" src="../img/printposition/z-print-parts/front/mune_left.png" class="mune_left" />';
-		$tmp .= '				<img alt="右胸" src="../img/printposition/z-print-parts/front/mune_right.png" class="mune_right" />';
-		$tmp .= '				<img alt="左すそ" src="../img/printposition/z-print-parts/front/suso_left.png" class="suso_left" />';
-		$tmp .= '				<img alt="右すそ" src="../img/printposition/z-print-parts/front/suso_right.png" class="suso_right" />';
-		$tmp .= '				<img alt="前すそ" src="../img/printposition/z-print-parts/front/suso_mae.png" class="suso_mae" />';
-		*/
 		$tmp .= '			</div>';
 		$tmp .= '			<div class="remark_wrap">';
 		$tmp .= '				<div class="lbl">備考</div>';
@@ -620,6 +614,25 @@ if($orders['noprint']==0){
 		$tmp .= '			</div>';
 		$tmp .= '			<p class="pos"><span class="lbl">位置</span></p>';
 		$tmp .= '		</td>';
+		
+		if ($print_key=='embroidery') {
+			$print_hash[] = $tmp;
+			$tmp .= '<td class="pp_wrap">';
+			$tmp .= '<h3 class="lbl">刺繍糸の色</h3>';
+			if(!empty($printpos[$tab]['ink_name'])){
+				foreach($printpos[$tab]['ink_name'] as $ink){
+					$tmp .= '<p class="thread">';
+					$tmp .= '<img alt="" src="../img/inkcolor/'.$ink['code'].'.png" width="15" height="15" />';
+					$tmp .= '<span>'.$ink['code'].' '.$ink['name'].'</span>';
+					$tab .= '</p>';
+				}
+			}
+			$tmp .= '</td>';
+			$posCount += 2;
+			$print_hash[] = $tmp;
+			$print_info .= $tmp;
+			$tmp = '<td class="pp_wrap"></td>';
+		}
 		
 		$posCount++;
 		$print_hash[] = $tmp;

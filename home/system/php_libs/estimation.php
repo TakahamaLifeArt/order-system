@@ -2,7 +2,7 @@
 // タカハマラフアート
 // 見積り計算
 // charset euc-jp
-
+	require_once dirname(__FILE__).'/http.php';
 	require_once dirname(__FILE__).'/catalog.php';
 	require_once dirname(__FILE__).'/estimate.php';
 	require_once dirname(__FILE__).'/jd/japaneseDate.php';
@@ -16,22 +16,167 @@
 					break;
 					
 			case 'baseprintfee':
-				/*
-				*	初回割で使用する版元の商品毎の見積情報
-				*/
+			/*
+			 * 初回割で使用する版元の商品毎の見積情報
+			 * 2017-05-25 廃止
+			 */
 					$estimate = new Estimate();
 					$print_fee = $estimate->getEstimation($_POST['orders_id']);
 					$json = new Services_JSON();
 					$res = $json->encode(array($print_fee));
 					header("Content-Type: text/javascript; charset=utf-8");
 					break;
+			
+			case 'printfee2':
+			/*
+			 * プリント代計算の仕様変更後の処理
+			 * 2017-05-25（発送日で判断）
+			 */
+			try{
+				$json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
+				$args = $json->decode($_POST['args']);
+//				$estimate = new Estimate($_POST['curdate']);
+				$http = new HTTP(_API);
+				
+				$print_fee = array('tot'=>0,'silk'=>0,'trans'=>0,'darktrans'=>0,'digit'=>0,'inkjet'=>0,'darkinkjet'=>0,'cutting'=>0,'embroidery'=>0);
+				//param[print_type][pos_name][sect][grp] = {'ids':{}, 'vol':0, 'ink':0, 'size':0, 'opt':0, 'repeat',{}};
+				
+				foreach ($args as $printMethod=>$param) {			// プリント方法
+					foreach ($param as $posName=>$sect) {			// プリント箇所
+						foreach ($sect as $design=>$group) {		// デザイン（インク数、版種類、オプションの別）
+							$plateCharge = array();					// シルク同版分類及びデジ転と刺繍の版代集計用
+							foreach ($group as $rangeId=>$val) {	// 枚数レンジ分類
+								// printmethodは必須
+								$resp = $http->request('POST', array('act'=>'printfee', 'printmethod'=>$printMethod, 'args'=>$val, 'curdate'=>$_POST['curdate']));
+								$tmp = unserialize($resp);
+								switch($printMethod){
+									case 'silk':
+//										$tmp = $estimate->calcSilkPrintFee($val['vol'], 1, $val['ink'], $val['ids'], 1, $val['size'], 1, $val['repeat']);
+										// 版代
+										foreach ($tmp['plates'] as $g2Id=>$charge) {
+											if ($val['repeat'][$g2Id]==1) continue;	// リピート版は除外
+											$plateCharge[$printMethod][$g2Id]['fee'] += $charge;
+											$len = count($tmp['group2'][$g2Id]);
+											for ($i=0; $i<$len; $i++) {
+												$itemId = $tmp['group2'][$g2Id][$i];
+												$plateCharge[$printMethod][$g2Id]['vol'] += $val['ids'][$itemId];
+											}
+											if (empty($plateCharge[$printMethod][$g2Id]['item'])) {
+												$plateCharge[$printMethod][$g2Id]['item'] = $val['ids'];
+											} else {
+												$plateCharge[$printMethod][$g2Id]['item'] += $val['ids'];
+											}
+										}
+										break;
+									case 'inkjet':
+//										$tmp = $estimate->calcInkjetFee($val['opt'], $val['vol'], 1, $val['size'], $val['ids']);
+										break;
+									case 'cutting':
+//										$tmp = $estimate->calcCuttingFee($val['vol'], 1, $val['size'], $val['ids']);
+										break;
+									case 'digit':
+//										$tmp = $estimate->calcTransFee2($val['vol'], $val['size'], $val['ids'], $val['repeat']);
+										// 版代
+										if ($val['repeat']!=1) {
+											$plateCharge[$printMethod]['fee'] += $tmp['plates'];
+											$plateCharge[$printMethod]['vol'] += $val['vol'];
+											if (empty($plateCharge[$printMethod]['item'])) {
+												$plateCharge[$printMethod]['item'] = $val['ids'];
+											} else {
+												$plateCharge[$printMethod]['item'] += $val['ids'];
+											}
+										}
+//										
+//										if (!empty($tmp['plates'])) {
+//											$per = $tmp['plates'] / $val['vol'];
+//											foreach ($val['ids'] as $itemId=>$vol) {
+//												$print_fee['item'][$itemId]['fee'] += $per * $vol;
+//											}
+//										}
+										break;
+									case 'embroidery':
+//										$tmp = $estimate->calcEmbroideryFee($val['opt'], $val['vol'], $val['size'], $val['ids'], $val['repeat']);
+										// 型代
+										if ($val['repeat']!=1) {
+											// リピート版は除外
+											$plateCharge[$printMethod]['fee'] += $tmp['plates'];
+											$plateCharge[$printMethod]['vol'] += $val['vol'];
+											if (empty($plateCharge[$printMethod]['item'])) {
+												$plateCharge[$printMethod]['item'] = $val['ids'];
+											} else {
+												$plateCharge[$printMethod]['item'] += $val['ids'];
+											}
+										}
+//										if (!empty($tmp['plates'])) {
+//											$per = $tmp['plates'] / $val['vol'];
+//											foreach ($val['ids'] as $itemId=>$vol) {
+//												$print_fee['item'][$itemId]['fee'] += $per * $vol;
+//											}
+//										}
+										break;
+								}
+
+								if (empty($tmp)) continue;
+								
+								// アイテム毎に集計
+								$pressPer = $tmp['press'] / $val['vol'];
+								foreach ($val['ids'] as $itemId=>$vol) {
+									$print_fee['item'][$itemId]['fee'] += $pressPer * $vol;
+									if (!empty($tmp['extra'][$itemId])) {
+										$print_fee['item'][$itemId]['fee'] += $tmp['extra'][$itemId];
+									}
+								}
+								
+								// プリント方法毎の合計
+								$print_fee[$printMethod] += $tmp['tot'];
+								
+								// プリント代合計
+								$print_fee['tot'] += $tmp['tot'];
+							}
+							
+							
+							if (! empty($plateCharge['silk'])) {
+								// シルクの版代を集計
+								foreach ($plateCharge['silk'] as $g2Id=>$v) {
+									$per = $v['fee'] / $v['vol'];
+									foreach ($v['item'] as $itemId=>$amount) {
+										$print_fee['item'][$itemId]['fee'] += $per * $amount;
+									}
+								}
+							} else if (! empty($plateCharge[$printMethod])) {
+								// デジ転と刺繍の版代を集計
+								$per = $plateCharge[$printMethod]['fee'] / $plateCharge[$printMethod]['vol'];
+								foreach ($plateCharge[$printMethod]['item'] as $itemId=>$amount) {
+									$print_fee['item'][$itemId]['fee'] += $per * $amount;
+								}
+							}
+						}
+					}
 					
+				}
+				
+
+				// アイテムごとに浮動小数点を丸める
+				foreach($print_fee['item'] as &$val){
+					$val['fee'] = round($val['fee']);
+				}
+				unset($val);
+			} catch(Exception $e) {
+				$print_fee['tot'] = 0;
+			}
+				$res = $json->encode(array($print_fee));
+				header("Content-Type: text/javascript; charset=utf-8");
+				break;
+				
 			case 'printfee':
+			/**
+			 * 旧バージョン
+			 * 2017-05-23まで使用
+			 */
 					$estimate = new Estimate($_POST['curdate']);
 					$sheetsize = array(1, 0.5, 0.25);
 					$basedata = array();
 					$transdata = array();
-					
 					$temporary = array();	// シルク、インクジェット、カッティングの集計用
 					$print_fee = array('tot'=>0,'silk'=>0,'trans'=>0,'darktrans'=>0,'digit'=>0,'inkjet'=>0,'darkinkjet'=>0,'cutting'=>0);
 					

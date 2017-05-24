@@ -1,0 +1,52 @@
+	<table id="inkcolor_table" class="tablesorter" cellspacing="0">
+		<thead><tr><th>code</th><th>inkcolor</th></tr></thead>
+		<tbody>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C00</td><td><p class="ink_undefined">手入力</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C21</td><td><p class="ink_white">ホワイト</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C22</td><td><p class="ink_black">ブラック</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C23</td><td><p class="ink_darkgray">ダークグレー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C24</td><td><p class="ink_lightgrey">ライトグレー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C25</td><td><p class="ink_radish">ラディッシュ</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C26</td><td><p class="ink_red">レッド</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C27</td><td><p class="ink_hotpink">ホットピンク</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C28</td><td><p class="ink_lightpink">ライトピンク</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C29</td><td><p class="ink_orange">オレンジ</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C30</td><td><p class="ink_sunflower">サンフラワー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C31</td><td><p class="ink_yellow">イエロー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C32</td><td><p class="ink_darkgreen">ダークグリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C33</td><td><p class="ink_green">グリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C34</td><td><p class="ink_yellowgreen">イエローグリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C35</td><td><p class="ink_navy">ネイビー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C36</td><td><p class="ink_blue">ブルー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C37</td><td><p class="ink_sax">サックス</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C38</td><td><p class="ink_purple">パープル</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C39</td><td><p class="ink_darkbrown">ダークブラウン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C40</td><td><p class="ink_lightbrown">ライトブラウン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C41</td><td><p class="ink_silver">シルバー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C42</td><td><p class="ink_gold">ゴールド</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C43</td><td><p class="ink_cream">クリーム</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C44</td><td><p class="ink_reflexblue">リフレックスブルー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C50</td><td><p class="ink_goldyellow">ゴールドイエロー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C70</td><td><p class="ink_greentea">グリーンティ</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C51</td><td><p class="ink_winered">ワインレッド</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C52</td><td><p class="ink_violet">バイオレット</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C53</td><td><p class="ink_ocean">オーシャン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C54</td><td><p class="ink_olive">オリーブ</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C55</td><td><p class="ink_apricot">アプリコット</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C56</td><td><p class="ink_lavender">ラベンダー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C57</td><td><p class="ink_emeraldgreen">エメラルドグリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C58</td><td><p class="ink_glassgreen">グラスグリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C59</td><td><p class="ink_lime">ライム</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C60</td><td><p class="ink_pastelyellow">パステルイエロー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C61</td><td><p class="ink_freshness">フレッシュ</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C62</td><td><p class="ink_lilac">ライラック</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C63</td><td><p class="ink_mintgreen">ミントグリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C64</td><td><p class="ink_pergreen">ペールグリーン</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C65</td><td><p class="ink_beige">ベージュ</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C66</td><td><p class="ink_straw">ストロー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C67</td><td><p class="ink_salmonpink">サーモンピンク</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C68</td><td><p class="ink_pink">ピンク</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C69</td><td><p class="ink_lavendergray">ラベンダーグレー</p></td></tr>
+			<tr onclick="mypage.changeThreadcolor(this)"><td>C71</td><td><p class="ink_shockingpink">ショッキングピンク</p></td></tr>
+		</tbody>
+	</table>

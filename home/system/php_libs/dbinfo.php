@@ -103,7 +103,7 @@
 				}
 			}
 			break;
-
+			
 		case 'itemimage':
 		/*
 		 * アイテムの商品情報欄の表示データを返す
@@ -131,7 +131,7 @@
 					$code = $data['item_code'].'_'.$data['color_code'];
 
 				}
-				$res = $color_name.','.$data['color_code'].','.$code.','.$data['master_id'].','.$data['printposition_id'].','.$data['maker_name'];
+				$res = $color_name.','.$data['color_code'].','.$code.','.$data['master_id'].','.$data['printposition_id'].','.$data['maker_name'].','.$data['item_group1_id'].','.$data['item_group2_id'];
 			}
 			break;
 
@@ -365,41 +365,9 @@
 		 *
 		 */
 			$res = '';
-			
-			/* ソート
-			$ls =& $_SESSION['cart'];
-			//if(isset($_POST['sort'])){
-				if(!empty($_SESSION['cart'])){
-					$catalog = new Catalog();
-					for($i=0; $i<count($ls); $i++){
-						if( preg_match('/^mst/',$ls[$i]['master_id']) ){
-							$prm = explode('_',$ls[$i]['master_id']);		// ['mst', category_id, item_name, item_color]
-							// $ls[$i]['maker'] = その他はセッションのmakerの値を使用
-							$ls[$i]['item'] = $prm[2];
-							$ls[$i]['size_name'] = $ls[$i]['size_id'];
-							$ls[$i]['color_name'] = $prm[3];
-						}else{
-							$info = Catalog::getCatalog('', $ls[$i]['master_id'], $_POST['curdate']);
-							$ls[$i]['maker'] = $info['maker_name'];
-							$ls[$i]['item'] = $info['item_code'];
-							$ls[$i]['size_name'] = $catalog->getSizename($ls[$i]['size_id']);
-							$ls[$i]['color_name'] = $info['color_code'];
-							
-						}
-					}
-					
-					//$ms = new Multisorter($_POST['sort']);
-					$ms = new Multisorter();
-					$ls = $ms->start($ls);
-				}else{
-					break;
-				}
-			//}
-			*/
-			
 			// sessionStorageのデータをアイテムごとに変換
 			$order_amount = 0;
-			$keynames = array('maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number');
+			$keynames = array('maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2');
 			for($i=0; $i<count($_POST['master_id']); $i++){
 				for($a=0; $a<count($keynames); $a++){
 					$ls[$i][$keynames[$a]] = $_POST[$keynames[$a]][$i];
@@ -447,7 +415,7 @@
 							$ppID = '99';
 							$category_name = '転写シート';
 							$tot_amount += $info['amount'];
-							$res .= '<tr><td class="tip"><span class="itemid">'.$item_id.'</span><span class="positionid">'.$ppID.'</span><span class="ratioid">0</span><span class="masterid">'.$val['master_id'].'</span></td>';
+							$res .= '<tr><td class="tip"><span class="itemid">'.$item_id.'</span><span class="positionid">'.$ppID.'</span><span class="ratioid">0</span><span class="masterid">'.$val['master_id'].'</span><span class="group1">0</span><span class="group2">0</span></td>';
 						}else{				// 持込またはその他
 							$item_id = $prm[1].'_'.$info['item_name'];
 							$ppID = $prm[1].'_'.$info['item_name'];
@@ -457,7 +425,7 @@
 								$category_name = 'その他';
 							}
 							if($_POST['ordertype']=='industry') $tot_amount += $info['amount'];
-							$res .= '<tr'.$opacity.'><td class="tip"><span class="itemid">'.$item_id.'</span><span class="positionid">'.$ppID.'</span><span class="ratioid">0</span><span class="masterid">'.$val['master_id'].'</span></td>';
+							$res .= '<tr'.$opacity.'><td class="tip"><span class="itemid">'.$item_id.'</span><span class="positionid">'.$ppID.'</span><span class="ratioid">0</span><span class="masterid">'.$val['master_id'].'</span><span class="group1">0</span><span class="group2">0</span></td>';
 						}
 						if($category_name!='持込') $existNotBring = 1;	// 持込以外
 						$res .= '<td>'.$choice.'</td>';
@@ -570,7 +538,9 @@
 							$tot_cost += $info['cost']*$info['amount'];
 						}
 
-						$res .= '<tr'.$opacity.'><td class="tip"><span class="itemid">'.$info['item_id'].'</span><span class="positionid">'.$info['printposition_id'].'</span><span class="ratioid">'.$info['printratio_id'].'</span><span class="masterid">'.$val['master_id'].'</span></td>';
+						$res .= '<tr'.$opacity.'><td class="tip"><span class="itemid">'.$info['item_id'].'</span>';
+						$res .= '<span class="positionid">'.$info['printposition_id'].'</span><span class="ratioid">'.$info['printratio_id'].'</span>';
+						$res .= '<span class="masterid">'.$val['master_id'].'</span><span class="group1">'.$info['item_group1_id'].'</span><span class="group2">'.$info['item_group2_id'].'</span></td>';
 						$res .= '<td>'.$choice.'</td>';
 						$res .=	'<td class="id_'.$info['category_id'].'_'.$info['category_key'].'">'.$info['category_name'].'</td>';
 						$res .=	'<td class="item_selector">'.$list.'</td>';
@@ -806,7 +776,7 @@
 				$res .= '<label><input type="radio" value="2" name="silkmethod" class="silkmethod">染込み</label>';
 				$res .= '</form>';
 				$res .= '</td></tr>';
-				$res .= '<tr><td colspan="2">プリント方法 <select class="print_type" onchange="mypage.changePrinttype(this)"><option value="silk" selected="selected">シルク</option><option value="trans">カラー転写</option><option value="digit">デジタル転写</option><option value="inkjet">インクジェット</option><option value="cutting">カッティング</option></select></td></tr>';
+				$res .= '<tr><td colspan="2">プリント方法 <select class="print_type" onchange="mypage.changePrinttype(this)"><option value="silk" selected="selected">シルク</option><option value="trans">カラー転写</option><option value="digit">デジタル転写</option><option value="inkjet">インクジェット</option><option value="cutting">カッティング</option><option value="embroidery">刺繍</option></select></td></tr>';
 				$res .= '<tr><td style="width:160px;">';
 				$res .= '版（縦<input type="text" value="35" size="3" class="forNum areasize_from" onchange="mypage.limit_size(this,\'silk\');" />×横<input type="text" value="27" size="3" class="forNum areasize_to" onchange="mypage.limit_size(this,\'silk\');" />）</td>';
 				$res .= '<td style="width:110px;">サイズ <input type="text" value="" class="design_size" /></td></tr>';
@@ -946,7 +916,7 @@
 				$res .= '<label><input type="radio" value="2" name="silkmethod" class="silkmethod">染込み</label>';
 				$res .= '</form>';
 				$res .= '</td></tr>';
-				$res .= '<tr><td colspan="2">プリント方法 <select class="print_type" onchange="mypage.changePrinttype(this)"><option value="silk" selected="selected">シルク</option><option value="trans">カラー転写</option><option value="digit">デジタル転写</option><option value="inkjet">インクジェット</option><option value="cutting">カッティング</option></select></td></tr>';
+				$res .= '<tr><td colspan="2">プリント方法 <select class="print_type" onchange="mypage.changePrinttype(this)"><option value="silk" selected="selected">シルク</option><option value="trans">カラー転写</option><option value="digit">デジタル転写</option><option value="inkjet">インクジェット</option><option value="cutting">カッティング</option><option value="embroidery">刺繍</option></select></td></tr>';
 				$res .= '<tr><td style="width:160px;">';
 				$res .= '版（縦<input type="text" value="35" size="3" class="forNum areasize_from" onchange="mypage.limit_size(this,\'silk\');" />×横<input type="text" value="27" size="3" class="forNum areasize_to" onchange="mypage.limit_size(this,\'silk\');" />）</td>';
 				$res .= '<td style="width:110px;">サイズ <input type="text" value="" class="design_size" /></td></tr>';
@@ -1091,7 +1061,7 @@
 				$icons = '<div class="show_list">list &gt</div>';
 			}
 			
-			$printtype = array('silk'=>'シルク','trans'=>'カラー転写','digit'=>'デジタル転写','inkjet'=>'インクジェット','cutting'=>'カッティング');
+			$printtype = array('silk'=>'シルク','trans'=>'カラー転写','digit'=>'デジタル転写','inkjet'=>'インクジェット','cutting'=>'カッティング','embroidery'=>'刺繍');
 			$inkjet_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
 			$inkjet_selector .= '<option value="0">大（40×28）</option><option value="1">中（28×20）</option><option value="2">小（15×15）</option></select>';
 
@@ -1101,6 +1071,9 @@
 			$cutting_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
 			$cutting_selector .= '<option value="0">大（40×30）</option><option value="1">中（30×10）</option><option value="2">小（10×10）</option></select>';
 			
+			$embroidery_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
+			$embroidery_selector .= '<option value="0">大（25×25）</option><option value="1">中（18×18）</option><option value="2">小（10×10）</option></select>';
+				
 			$orders = new Orders();
 
 			$data = $orders->db('search', 'orderarea', array('orders_id'=>$_POST['orders_id'], 'category_id'=>$_POST['category_id'], 'printposition_id'=>$_POST['ppID']));
@@ -1217,6 +1190,9 @@
 							case 'cutting':
 								$selector = str_replace('value="'.$val['areasize_id'].'"','value="'.$val['areasize_id'].'" selected="selected"', $cutting_selector);
 								break;
+							case 'embroidery':
+								$selector = str_replace('value="'.$val['areasize_id'].'"','value="'.$val['areasize_id'].'" selected="selected"', $embroidery_selector);
+								break;
 						}
 						$res .= $selector.'</td>';
 						$res .= '<td style="width:110px;">サイズ <input type="text" value="'.$val['design_size'].'" class="design_size" /></td></tr>';
@@ -1248,6 +1224,14 @@
 							$res .= '<option value="1"';
 							if($val['print_option']==1) $res.= ' selected="selected"';
 							$res .= '>濃色</option></select></td>';
+						}elseif($val['print_type']=='embroidery'){
+							$res .= '<tr><td colspan="2">オプション&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">';
+							$res .= '<option value="0"';
+							if($val['print_option']==0) $res.= ' selected="selected"';
+							$res .= '>オリジナル</option>';
+							$res .= '<option value="1"';
+							if($val['print_option']==1) $res.= ' selected="selected"';
+							$res .= '>ネーム</option></select></td>';
 						}else{
 							$res .= '<tr><td colspan="2"></td>';
 						}
@@ -1330,7 +1314,13 @@
 							$res .= '<img alt="clear" src="./img/cross.png" width="16" height="16" class="cross" /></p>';
 							$n++;
 						}
-						for($i=0; $i<4-$n; $i++){
+						
+						if ($val['print_type'] != 'embroidery') {
+							$inkListCount = 4;
+						} else {
+							$inkListCount = 12;
+						}
+						for($i=0; $i<$inkListCount-$n; $i++){
 							$res .= '<p><input type="text" value="'.$pos[0]['selective_name'].'" alt="'.$pos[0]['selective_key'].'" readonly="readonly" class="pos_name" />&nbsp;';
 							$res .= '<img alt="" src="./img/circle.png" width="22" height="22" class="palette" />&nbsp;<input type="text" value="" size="15" readonly="readonly" /><img alt="clear" src="./img/cross.png" width="16" height="16" class="cross" /></p>';
 						}

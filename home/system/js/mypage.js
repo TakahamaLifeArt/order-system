@@ -39,10 +39,11 @@ var mypage = {
 			'credit_rate':0.05,			// カード決済手数料
 			'intervalID' :0,
 			'attach_file_number' :0,		// ファイル数
-			'show_design_time' :0			// ファイル表示回数
+			'show_design_time' :0,			// ファイル表示回数
+		    'spec_v2': "2017/5/25"	// プリント代計算の仕様変更適用日
 	},
 	order_info: {
-		id: ['order_id','reception','destination','order_comment','paymentdate','exchink_count','deliverytime','manuscriptdate','invoicenote','billnote',
+		id: ['order_id','reception','destination','order_comment','paymentdate','exchink_count','exchthread_count','deliverytime','manuscriptdate','invoicenote','billnote',
 				'contact_number','additionalname','extradiscountname','boxnumber','handover','factory','destcount'
 			],
 		name: ['ordertype','schedule1','schedule2','schedule3','schedule4','arrival','carriage','check_amount','noprint','design',
@@ -372,6 +373,8 @@ var mypage = {
 		$('#master_id').val(data[3]);
 		$('#printpos_id').val(data[4]);
 		$('#maker').val(data[5]);
+		$('#group1').val(data[6]);
+		$('#group2').val(data[7]);
 		return data;
 	},
 	setEstimation: function(data, modified){
@@ -480,12 +483,19 @@ var mypage = {
 	/*
 	*	sessionStorageのキー
 	*	
+	*	maker:		メーカー名
 	*	master_id:	取扱商品以外は、mst_カテゴリID_アイテム名_カラー名
+	*	item_name:	アイテム名
 	*	size_id:	取扱商品以外は、サイズ名
 	*	color_code: ソート用　取扱商品以外は、カラー名
 	*	size_name:	ソート用
+	*	amount:		注文枚数
+	*	cost:		単価
+	*	stock_number:品番_カラーコード
+	*	group1:		枚数レンジID
+	*	group2:		同版分類ID（シルクのみ対応）
 	*/
-		name: ['maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number']
+		name: ['maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2']
 	},
 	checkStorage: function(id,size,newID,newName,mode) {
 	/*
@@ -584,7 +594,7 @@ var mypage = {
 	setStorage: function(list){
 	/*
 	*	sessionStorageに格納
-	*	@list	[{'maker', 'master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number'},{},{}]
+	*	@list	[{'maker', 'master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2'},{},{}]
 	*			default
 	*				cost:0
 	*				choice:1
@@ -749,6 +759,8 @@ var mypage = {
 		var item_id = 0;
 		var dry = '';
 		var tmp = '';
+		var group1 = $('#group1').val();
+		var group2 = $('#group2').val();
 
 		if(category_id=='0' || category_id=='100'){	// その他と持込
 			item_name = ($('#itemIs').children().val()).trim();
@@ -849,7 +861,7 @@ var mypage = {
 		
 		/*
 		*	sessionStorageに保存
-		*	[{'maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number'},{}.{}]
+		*	[{'maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2'},{}.{}]
 		*/
 		var args = [];
 		for(var i=0; i<sizedata.length; i++){
@@ -862,7 +874,9 @@ var mypage = {
 						'amount':amountdata[i],
 						'cost':costdata[i],
 						'choice':1,
-						'stock_number':stock_number
+						'stock_number':stock_number,
+					    'group1':group1,
+					    'group2':group2
 						};
 		}
 		var store = mypage.setStorage(args);
@@ -880,53 +894,6 @@ var mypage = {
 					if(!isExistitem){
 						var itemname = item_name+dry;
 						mypage.addPrintPos(category_id, category_name, item_id, itemname, ppID);
-						/*
-						if($('#pp_toggler_'+category_id).length==0){
-							var category_name = $('#category_selector option:selected').text();
-							$.ajax({url:'./php_libs/dbinfo.php', type:'POST', dataType:'text', async:false,
-								data:{'act':'printposition','item_id':item_id,'curdate':mypage.prop.firmorderdate, 'ordertype':mypage.prop.ordertype},
-								success:function(data){
-									var togglebody = '<div class="pp_toggle_body">'+data+'</div>';
-									var html = '<div class="pp_toggler" id="pp_toggler_'+category_id+'">';
-									// html +=	'<img class="pp_toggle_button" alt="toggle" src="./img/uparrow.png" width="20" />';
-									html += '<div class="rightside">';
-									if(mypage.prop.ordertype=='general'){
-										html += '&nbsp;小計&nbsp;<input type="text" value="0" size="8" readonly="readonly" class="sub_price" />';
-										html += '<input type="hidden" value="0" size="8" class="silk_price" />';
-										html += '<input type="hidden" value="0" size="8" class="color_price" />';
-										html += '<input type="hidden" value="0" size="8" class="digit_price" />';
-										html += '<input type="hidden" value="0" size="8" class="inkjet_price" />';
-										html += '<input type="hidden" value="0" size="8" class="cutting_price" />';
-									}
-									html += '</div>';
-									html +=	'<p class="title">'+category_name+'<span title="item_'+item_id+'">'+item_name+dry+'</span></p>';
-									html += '</div>';
-									$('#pp_wrapper').append(html).append(togglebody);
-									$('#pp_wrapper :input').change(function(){mypage.prop.modified = true;});
-								}
-							});
-						}else{
-							var isExistPos = false;
-							$('#pp_toggler_'+category_id).next().children('div').each( function(){
-								if( $(this).attr('class')=='printposition_'+ppID ){
-									isExistPos = true;
-									return false;	// break
-								}
-							});
-							if(!isExistPos){
-								$.ajax({url:'./php_libs/dbinfo.php', type:'POST', dataType:'text', async:false,
-									data:{'act':'printposition','item_id':item_id,'curdate':mypage.prop.firmorderdate, 'ordertype':mypage.prop.ordertype},
-									success:function(data){
-										$('#pp_toggler_'+category_id).next().append(data);
-										$('#pp_wrapper :input').change(function(){mypage.prop.modified = true;});
-									}
-								});
-							}
-														   
-							$('#pp_toggler_'+category_id+' p').append('<span title="item_'+item_id+'">'+item_name+dry+'</span>');
-						}
-						$('#pp_wrapper').find('.repeat_check').change(function(){mypage.calcPrintFee();});
-						*/
 					}
 					mypage.calcPrintFee();
 				}else{
@@ -957,7 +924,7 @@ var mypage = {
 						html += '<input type="hidden" value="0" size="8" class="color_price" />';
 						html += '<input type="hidden" value="0" size="8" class="digit_price" />';
 						html += '<input type="hidden" value="0" size="8" class="inkjet_price" />';
-						html += '<input type="hidden" value="0" size="8" class="cutting_price" />';
+						html += '<input type="hidden" value="0" size="8" class="embroidery_price" />';
 					}
 					html += '</div>';
 					html +=	'<p class="title">'+category_name+'<span title="item_'+item_id+'">'+item_name+'</span></p>';
@@ -1331,7 +1298,7 @@ var mypage = {
 			$.ajax({url:'./php_libs/dbinfo.php', type:'POST', dataType:'text', async:false, data:{'act':'size','item_id':id, 'ordertype':mypage.prop.ordertype, 'curdate':mypage.prop.firmorderdate}, 
 				success:function(r){ $('#size_table').html(r); }
 			});
-			mypage.setItemInfo(',0,,0,0,');
+			mypage.setItemInfo(',0,,0,0,,0,0');
 		}else{
 			$.ajax({url:'./php_libs/dbinfo.php', type:'POST', dataType:'text', async:false, data:{'act':'itemimage','item_id':id,'color_code':code, 'curdate':mypage.prop.firmorderdate}, 
 				success:function(r){
@@ -1691,8 +1658,8 @@ var mypage = {
 						var id = $(this).children('td:eq(0)').children('.itemid').text();
 						var ppID = $(this).children('td:eq(0)').children('.positionid').text();
 						var cate = $(this).children('td:eq(2)').attr('class').split('_')[1];
-						if(id == pre_item_id && myindex!=index) flg_id = true;
-						if(cate==category_id && ppID==pre_ppID) flg_ppid = true;
+						if (id == pre_item_id && myindex!=index) flg_id = true;
+						if (cate==category_id && ppID==pre_ppID && myindex!=index) flg_ppid = true;
 					});
 					
 					var isPrint = $('#noprint:checked').length==1? 0: 1;
@@ -1705,6 +1672,7 @@ var mypage = {
 						success:function(r){
 							if(r instanceof Array){
 								mypage.setEstimation(r, false);
+								var new_ppID = $('#orderlist tbody tr:eq('+myindex+') td:first').children('.positionid').text();
 								
 								// プリント位置の追加処理
 								if($('#pp_wrapper span[title="item_'+new_item_id+'"]').length==0){
@@ -1728,7 +1696,7 @@ var mypage = {
 										toggle.parent().remove();
 									}else{
 										$('#pp_wrapper span[title="item_'+pre_item_id+'"]').remove();
-										if(!flg_ppid) toggle.parent().next().find('.printposition_'+pre_ppID).remove();
+										if(!flg_ppid && pre_ppID!=new_ppID) toggle.parent().next().find('.printposition_'+pre_ppID).remove();
 									}
 								}
 								
@@ -1767,7 +1735,7 @@ var mypage = {
 					$('#stock_number, #maker').hide();
 				}
 				$('#itemcolor_name').removeAttr('readonly').removeClass('readonly');
-				mypage.setItemInfo(',0,,0,0,');
+				mypage.setItemInfo(',0,,0,0,,0,0');
 			}else{
 				$('#stock_number, #maker').show();
 				$('#itemcolor_name, #stock_number, #maker').attr('readonly','readonly').addClass('readonly');
@@ -1791,7 +1759,7 @@ var mypage = {
 		mypage.screenOverlay(true);
 		mypage.prop.curr_inkcolor = my;
 		var offsetY = $(document).scrollTop()+200;
-		var palettename = arguments.length==1? 'inkcolor': 'cuttingcolor';
+		var palettename = arguments.length==1? 'inkcolor': arguments[1];
 		$('#inkcolor_list').load('./txt/'+palettename+'_palette.txt',
 			function(){
 				$("#inkcolor_table").tablesorter({
@@ -1856,6 +1824,33 @@ var mypage = {
 		mypage.calcPrintFee();
 		mypage.prop.modified = true;
 	},
+	changeThreadcolor:function(my){
+		var code = $(my).children('td:eq(0)').text().toLowerCase();
+		var inkname = $(my).children('td:eq(1)').text();
+		var self = mypage.prop.curr_inkcolor;
+		if(code=='c00'){
+			self.attr({'src':'./img/undefined.gif', 'alt':code});
+			self.next().removeAttr('readonly').val('');
+		}else{
+			self.attr({'src':'./img/inkcolor/'+code+'.png', 'alt':code});
+			self.next().attr('readonly', true).val(inkname);
+		}
+
+		if(self.siblings('.plus').length>0){
+			self.siblings('.plus').css('opacity','1');
+			if(self.siblings('.exch_vol').val()!='0'){
+				mypage.calcExchinkFee();
+			}
+		}else{
+			var row = self.parent('p').index()-1;
+			self.closest('.pp_ink').next('.exch_ink').children('.gall').children('p:eq('+row+')').css('visibility','visible');
+		}
+
+		$('#inkcolor_wrapper').fadeOut();
+		mypage.screenOverlay(false);
+		mypage.calcPrintFee();
+		mypage.prop.modified = true;
+	},
 	changeInkcount:function(my){
 		if(my.value=='0'){
 			$(my).parents('.pp_info').siblings('.position_reset').click();
@@ -1867,7 +1862,7 @@ var mypage = {
 	},
 	calcExchinkFee: function(){
 	/*
-	*	インク色替え代の計算（一般のみ）
+	*	インク色替え代及び刺繍色替え代の計算（一般のみ）
 	*	引数がある場合は、見積り計算をしない
 	*	
 	*	return  色替え数
@@ -1878,7 +1873,9 @@ var mypage = {
 		//if(mypage.prop.firmorder) return;
 		
 		var exch_count = 0;
-		var exchFee = 1500;
+		var thread_count = 0
+		var exchFee = 1000;
+		var threadFee = 500;
 		$('#pp_wrapper .pp_toggle_body').find('.pp_box').each( function(){
 			exch_count += $(this).children('.exch_ink').children('.gall').children('p').children('span').find('input[type="text"]').filter( function(){
 				return ($(this).val().trim()!='' && $(this).siblings('.exch_vol').val()!='0')? 1: 0;
@@ -1889,8 +1886,9 @@ var mypage = {
 			$('#exchink_count').val(exch_count);
 		}else{
 			exch_count = $('#exchink_count').val() - 0;
+			thread_count = $('#exchthread_count').val() - 0;
 		}
-		$('#est_exchink').text(mypage.addFigure( exchFee*exch_count ));
+		$('#est_exchink').text(mypage.addFigure( exchFee*exch_count + threadFee*thread_count ));
 		if(arguments.length==0){
 			if(mypage.prop.reuse>0){
 				mypage.calcPrintFee();
@@ -1922,6 +1920,7 @@ var mypage = {
 		$('#est_digit_printfee').html('0');
 		$('#est_inkjet_printfee').html('0');
 		$('#est_cutting_printfee').html('0');
+		$('#est_embroidery_printfee').html('0');
 		$('#est_price').text($('#total_cost').val());	// 商品代
 		
 		if($('#noprint').is(':checked')){				// プリントなし
@@ -2008,6 +2007,16 @@ var mypage = {
 			mypage.calcEstimation();
 		}else{
 		// 通常
+			
+			// 2017-05-25 から、プリント代計算の仕様変更後の処理を適用
+			var changeVerTime = Date.parse(mypage.prop.spec_v2);
+			var curDateTime = isNaN(Date.parse(mypage.prop.acceptingdate))? Date.now(): Date.parse(mypage.prop.acceptingdate.replace(/-/g,"/"));
+			if (changeVerTime <= curDateTime) {
+				mypage.calcPrintFeeVer2();
+				return;
+			}
+			
+			
 			var est_printfee = 0;
 			var est_silk_printfee = 0;
 			var est_color_printfee = 0;
@@ -2190,7 +2199,7 @@ var mypage = {
 											ink = ppInfo.find('.ink_count').val();
 											shot = ppInfo.find('.jumbo_plate:checked').val();	// ジャンボ版使用
 											break;
-										case 'inkjet':
+										case 'inkjet':										
 											if(ppInfo.find('.inkoption').val()=='1'){
 												print_type='dark'+print_type;
 											}
@@ -2198,6 +2207,9 @@ var mypage = {
 											break;
 										case 'cutting':
 											shot = ppInfo.find('.areasize_id').val();
+											break;
+										case 'embroidery':
+											return true;	// continue
 											break;
 										default:
 											if(print_type=="trans" && ppInfo.find('.inkoption').val()=='1'){
@@ -2647,6 +2659,325 @@ var mypage = {
 			mypage.calcEstimation();
 		}
 		
+	},
+	calcPrintFeeVer2: function(){
+	/*
+	 * プリント代計算の仕様変更後の処理
+	 * 旧バージョンの入力画面に対応
+	 */
+		var orders_id = $('#order_id').text()-0;
+		var amount = 0;
+//		var toggler = '';
+		var est_printfee = 0;
+		var est_silk_printfee = 0;
+		var est_color_printfee = 0;
+		var est_digit_printfee = 0;
+		var est_inkjet_printfee = 0;
+		var est_cutting_printfee = 0;
+		var est_embroidery_printfee = 0;
+		var repeat_all_check = true;		// リピートチェックが全てチェックでtrue
+		var repeat_digit_check = true;		// デジタル転写のリピートチェックが全てチェックでtrue
+		var repeat_trans_check = true;		// カラー転写のリピートチェックが全てチェックでtrue
+		var repeat_check = false;			// シルク、カッティング、インクジェット、刺繍のリピート版チェックボックスの状態、1つでもチェックがあればtrue
+		var param = {};						// プリント代計算用パラメータ
+		/*
+		 * 枚数を集計
+		 * 枚数レンジ（group1）毎の枚数合計とアイテム毎の枚数合計を集計
+		 */
+		var itemprintfee = {};
+		var ca = {};
+		var item_id = 0;
+		var itemname = '';
+		$('#orderlist tbody tr').each( function(){
+			if(!$(this).find('.choice').is(':checked')) return true;	// continue
+			var cost = $(this).find('.subtotal').text().replace(/,/g, '') - 0;
+			var vol = $(this).find('.listamount').val().replace(/,/g, '') - 0;
+			var categoryid = $(this).children('td:eq(2)').attr('class').split('_')[1];
+			if (categoryid==0 || categoryid==100) { // その他と持込
+				item_id = $(this).children('td:eq(0)').children('.itemid').text().split('_')[0];
+				itemname = $(this).find('.item_selector').text();
+			} else {
+				var ppId = $(this).children('td:eq(0)').children('.positionid').text();
+				var group1Id = $(this).children('td:eq(0)').children('.group1').text();	// 枚数レンジ分類
+				var group2Id = $(this).children('td:eq(0)').children('.group2').text();	// シルク同版分類
+				item_id = $(this).children('td:eq(0)').children('.itemid').text();
+				itemname = $(this).find('.item_selector').children('select').children('option:selected').text();
+				
+				if (typeof ca[group1Id] == 'undefined') {
+					ca[group1Id] = {'ids':[], 		// 当該枚数レンジのアイテムIDの配列
+									'itemId':{}, 	// アイテム毎の枚数とプリントポジションID（旧バージョン）
+									'tot':0			// 当該枚数レンジの総枚数
+								   };
+				}
+				if (typeof ca[group1Id]['itemId'][item_id] =='undefined') {
+					ca[group1Id]['ids'].push(item_id);
+					ca[group1Id]['itemId'][item_id] = {'vol':vol, 'ppId':ppId, 'group2':group2Id};
+				} else {
+					ca[group1Id]['itemId'][item_id]['vol'] += vol;
+				}
+				ca[group1Id]['tot'] += vol;
+				
+				// 注文枚数合計
+				amount += vol;
+			}
+			// アイテム毎のプリント代集計用
+			if(typeof itemprintfee[item_id] == 'undefined'){
+				itemprintfee[item_id] = {'vol':vol, 'fee':0, 'name':itemname, 'cost':cost};
+			}else{
+				itemprintfee[item_id]['vol'] += vol;
+				itemprintfee[item_id]['cost'] += cost;
+			}
+		});
+
+		if(amount==0){
+			if(!$('#free_printfee').is(':checked')) $('#est_printfee').val(0);
+			// アイテム毎のプリント代を集計
+			var tr = '';
+			for(var item_id in itemprintfee){
+				tr += '<tr class="itemid_'+item_id+'">';
+				tr += '<td>'+itemprintfee[item_id]['name']+'</td>';
+				tr += '<td class="toright volume">'+itemprintfee[item_id]['vol']+'</td>';
+				tr += '<td class="toright cost">'+mypage.addFigure(itemprintfee[item_id]['cost'])+'</td>';
+				tr += '<td class="toright fee">'+mypage.addFigure(itemprintfee[item_id]['fee'])+'</td>';
+				tr += '<td class="toright perone">'+mypage.addFigure(Math.ceil(itemprintfee[item_id]['fee']/itemprintfee[item_id]['vol']))+'</td>';
+				tr += '<td class="toright subtot">'+mypage.addFigure(Math.ceil((itemprintfee[item_id]['cost']+itemprintfee[item_id]['fee'])/itemprintfee[item_id]['vol']))+'</td>';
+				tr += '</tr>';
+			}
+			$('#itemprint tbody').html(tr);
+			mypage.calcEstimation();
+			return;
+		}
+		
+		/*
+		 * プリント箇所毎に集計
+		 * 旧バージョンのカテゴリ及び絵型に対応（同じ絵型IDを複数のアイテムで使用しているため）
+		 */
+		$('#pp_wrapper .pp_toggler').each( function(){
+			var items = {};
+			$(this).find('.title').children('span').each( function(){
+				var item_id = $(this).attr('title').split('_')[1];
+				for (var grp in ca) {
+					if (ca[grp]['ids'].indexOf(item_id) >= 0) {
+						var ppId = ca[grp]['itemId'][item_id]['ppId'];
+						if (typeof items[ppId] == 'undefined') {
+							items[ppId] = {};
+							items[ppId][grp] = {'ids':[], 'vol':0};
+						} else if (typeof items[ppId][grp] == 'undefined') {
+							items[ppId][grp] = {'ids':[], 'vol':0};
+						}
+						items[ppId][grp]['ids'].push(item_id);
+						items[ppId][grp]['vol'] += ca[grp]['itemId'][item_id]['vol'];
+						break;
+					}
+				}
+			});
+			
+			
+			// 旧プリント割増率別にプリント方法毎のプリント位置を集計
+			$(this).next('.pp_toggle_body').children('div').each( function(){
+				var ppId = $(this).attr('class').split('_')[1];
+				$(this).find('.pp_box').each( function(){
+					var ppInfo = $(this).children('.pp_info');
+					var print_type = ppInfo.find('.print_type').val();
+					var area = $(this).children('.pp_image').children('img:not(:nth-child(1))');
+					var len = area.length;
+	//				var posname_class = '';		// プリント位置のクラス名
+					var pos_name = '';			// プリント位置の名称
+					var repeat = 0;
+					
+					for (var i=0; i<len; i++) {
+						if(($(area[i]).attr('src')).match(/_on.png$/)){
+	//						posname_class = $(area[i]).attr('class');
+							pos_name = $(area[i]).attr('alt');
+							break;
+						}
+					}
+					if (pos_name == '') {
+						return true;	// continue
+					}
+					
+					// プリント方法別の変数設定
+					var ink = 0;
+					var shot = 0;
+					var opt = 0;
+					switch(print_type){
+						case 'silk':
+							ink = ppInfo.find('.ink_count').val() - 0;
+							shot = ppInfo.find('.jumbo_plate:checked').val() - 0;	// 0:通常　1:ジャンボ　2:SPジャンボ
+							break;
+						case 'inkjet':
+							opt = ppInfo.find('.inkoption').val() - 0;		// 0:淡色　1:濃色
+							shot = ppInfo.find('.areasize_id').val() - 0;	// 0:大　1:中　2:小
+							break;
+						case 'cutting':
+							shot = ppInfo.find('.areasize_id').val() - 0;	// 0:大　1:中　2:小
+							break;
+						case 'embroidery':
+							opt = ppInfo.find('.inkoption').val() - 0;		// 0:オリジナル　1:ネーム
+							shot = ppInfo.find('.areasize_id').val() - 0;	// 0:大　1:中　2:小
+							break;
+						case 'digit':
+							shot = ppInfo.find('.areasize_id').val() - 0;	// 0:大　1:中　2:小
+							break;
+						default:
+							return true;	// continue
+					}
+					if (print_type == 'silk' && ink == 0) {
+						return true;	// continue
+					}
+					
+					// デザインの簡易判別用キー
+					var sectKey = "" + ink + shot + opt;
+					
+					// リピートチェック
+					if ( $(this).find('.repeat_check').is(':checked') ) {
+						mypage.prop.isRepeatCheck = true;
+						repeat = 1;
+					} else {
+						repeat = 0;
+					}
+					
+					// プリント箇所と指定内容（サイズ、オプション）が同じものが既にであれば、true
+					var isExistDesign = false;
+					
+					// プリント方法毎のプリント箇所別でパラメータを集計
+					if (typeof param[print_type] == 'undefined') {
+						param[print_type] = {};
+						param[print_type][pos_name] = {};
+						param[print_type][pos_name][sectKey] = {};
+					} else if (typeof param[print_type][pos_name] == 'undefined') {
+						param[print_type][pos_name] = {};
+						param[print_type][pos_name][sectKey] = {};
+					} else if (typeof param[print_type][pos_name][sectKey] == 'undefined') {
+						param[print_type][pos_name][sectKey] = {};
+					} else {
+						isExistDesign = true;
+					}
+					
+					for (var grp in items[ppId]) {
+						if (typeof param[print_type][pos_name][sectKey][grp] == 'undefined') {
+							param[print_type][pos_name][sectKey][grp] = {'ids':{}, 'vol':0, 'ink':0, 'size':0, 'opt':0, 'repeat':{}};
+						}
+//						param[print_type][pos_name][grp]['ids'] = param[print_type][pos_name][grp]['ids'].concat(items[ppId][grp]['ids']);
+						len = items[ppId][grp]['ids'].length;
+						for (var t=0; t<len; t++) {
+							item_id = items[ppId][grp]['ids'][t];
+							param[print_type][pos_name][sectKey][grp]['ids'][item_id] = ca[grp]['itemId'][item_id]['vol'];
+							
+							// リピート及び版代計上のチェック
+							if (print_type == 'silk') {
+								// シルクは、同版分類毎にリピートの判別
+								var g2 = ca[grp]['itemId'][item_id]['group2'];
+								param[print_type][pos_name][sectKey][grp]['repeat'][g2] = repeat;
+							} else if(print_type == 'digit' || print_type == 'embroidery') {
+								// デジ転と刺繍は、プリント箇所と指定内容（サイズ、オプション）が同じであれば枚数レンジ分類が違っても計上しない
+								if (isExistDesign===true) {
+									param[print_type][pos_name][sectKey][grp]['repeat'] = repeat==1? 1: 2;
+								} else {
+									param[print_type][pos_name][sectKey][grp]['repeat'] = repeat;
+								}
+							} else {
+								param[print_type][pos_name][sectKey][grp]['repeat'] = repeat;
+							}
+						}
+						
+						param[print_type][pos_name][sectKey][grp]['vol'] += items[ppId][grp]['vol'];
+						param[print_type][pos_name][sectKey][grp]['ink'] = ink;
+						param[print_type][pos_name][sectKey][grp]['size'] = shot;
+						param[print_type][pos_name][sectKey][grp]['opt'] = opt;
+					}
+				});
+			});
+		});
+
+
+		if (Object.keys(param).length !== 0) {
+			
+			// シルクの同版分類をチェックしてリピートフラグを再設定
+			if ($.isset(function(){return param.silk})) {
+				for (var pos_name in param['silk']) {
+					for (var sect in param['silk'][pos_name]) {
+						var g2 = {};
+						for (var grp in param['silk'][pos_name][sect]) {
+							for (var g2Id in param['silk'][pos_name][sect][grp]['repeat']) {
+								if (typeof g2[g2Id] == 'undefined') {
+									g2[g2Id] = true;
+								} else {
+									param['silk'][pos_name][sect][grp]['repeat'][g2Id] = param['silk'][pos_name][sect][grp]['repeat'][g2Id]==1? 1: 2;
+								}
+							}
+						}
+					}
+				}
+			}
+		
+			if($('#free_printfee').is(':checked')){			// プリント代が手入力
+				$('#itemprint tbody').html('');
+				mypage.calcEstimation();
+				return;
+			}
+			
+			var postData = JSON.stringify(param);
+			$.ajax({url: './php_libs/estimation.php', type:'POST', dataType:'json', data:{'act':'printfee2', 'curdate':mypage.prop.acceptingdate, 'args':postData}, async:false,
+				success: function(r){
+					if(r instanceof Array){
+						est_printfee += r[0]['tot'];
+						est_silk_printfee += r[0]['silk'];
+						est_color_printfee += (r[0]['trans']-0)+(r[0]['darktrans']-0);
+						est_digit_printfee += r[0]['digit'];
+						est_inkjet_printfee += (r[0]['inkjet']-0)+(r[0]['darkinkjet']-0);
+						est_cutting_printfee += r[0]['cutting'];
+						est_embroidery_printfee += r[0]['embroidery'];
+						$('#pp_wrapper .pp_toggler').each( function(){
+							var subprice = 0;
+							$(this).find('.title').children('span').each( function(){
+								var itemid = $(this).attr('title').split('_')[1];
+								var itemname = $(this).text();
+								if(typeof r[0]['item'][itemid] != 'undefined'){
+									var fee = r[0]['item'][itemid]['fee']-0;
+									subprice += fee;
+									itemprintfee[itemid]['fee'] += fee;
+								}
+							});
+							if(subprice>0){
+								var tmp = subprice + ($(this).find('.sub_price').val().replace(/,/g,'')-0);
+								$(this).find('.sub_price').val(mypage.addFigure(tmp));
+							}
+						});
+					}else{
+						alert('Error: p2906\n'+r);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					alert('Error: p2910\n'+textStatus+'\n'+errorThrown);
+				}
+			});
+		}
+		
+		// アイテム毎のプリント代を集計
+		var tr = '';
+		for(var item_id in itemprintfee){
+			tr += '<tr class="itemid_'+item_id+'">';
+			tr += '<td>'+itemprintfee[item_id]['name']+'</td>';
+			tr += '<td class="toright volume">'+itemprintfee[item_id]['vol']+'</td>';
+			tr += '<td class="toright cost">'+mypage.addFigure(itemprintfee[item_id]['cost'])+'</td>';
+			tr += '<td class="toright fee">'+mypage.addFigure(itemprintfee[item_id]['fee'])+'</td>';
+			tr += '<td class="toright perone">'+mypage.addFigure(Math.ceil(itemprintfee[item_id]['fee']/itemprintfee[item_id]['vol']))+'</td>';
+			tr += '<td class="toright subtot">'+mypage.addFigure(Math.ceil((itemprintfee[item_id]['cost']+itemprintfee[item_id]['fee'])/itemprintfee[item_id]['vol']))+'</td>';
+			tr += '</tr>';
+		}
+		$('#itemprint tbody').html(tr);
+
+		// 見積ボックスの書換
+		$('#est_printfee').val(mypage.addFigure(est_printfee));
+		$('#est_silk_printfee').html(mypage.addFigure(est_silk_printfee));
+		$('#est_color_printfee').html(mypage.addFigure(est_color_printfee));
+		$('#est_digit_printfee').html(mypage.addFigure(est_digit_printfee));
+		$('#est_inkjet_printfee').html(mypage.addFigure(est_inkjet_printfee));
+		$('#est_cutting_printfee').html(mypage.addFigure(est_cutting_printfee));
+		$('#est_embroidery_printfee').html(mypage.addFigure(est_embroidery_printfee));
+		$('#est_price').html($('#total_cost').val());
+		mypage.calcEstimation();
 	},
 	calcEstimation: function(){
 	/*
@@ -3282,11 +3613,13 @@ var mypage = {
 				$('#est_digit_printfee').html('0');
 				$('#est_inkjet_printfee').html('0');
 				$('#est_cutting_printfee').html('0');
+				$('#est_embroidery_printfee').html('0');
+				
 				var printfee = $('#est_printfee').val().replace(/,/g, '') - 0;
 				printfee -= balance;
 				$('#est_printfee').val(mypage.addFigure(printfee));
 				
-				// 商品代＋プリント代＋インク色替代
+				// 商品代＋プリント代＋色替代
 				p1 = $('#est_price').text().replace(/,/g, '') - 0;
 				p1 += $('#est_exchink').text().replace(/,/g, '') - 0;
 				p1 += $('#est_printfee').val().replace(/,/g, '') - 0;
@@ -3457,13 +3790,28 @@ var mypage = {
 		var html2 = "";
 		var html3 = "";
 		var tblRow = my.parent().parent().next();
+		var txtInk = my.closest('.pp_info').siblings('.pp_ink').children('p');
 		if(print_type=='silk'){
 			my.parent().parent().prev().css('visibility','visible');
 		}else{
-			my.closest('.pp_info').siblings('.pp_ink').children('p').children('.pos_name').each( function(){
+			txtInk.children('.pos_name').each( function(){
 				$(this).next('img').attr({'src':'./img/circle.png'}).next('input').val('');
 			});
 			my.parent().parent().prev().css('visibility','hidden').find('.ink_count').val('0');
+		}
+		if (print_type != 'embroidery') {
+			if (txtInk.length > 4) {
+				txtInk.each( function(index){
+					if (index < 4) return true;	// continue
+					$(this).remove();
+				});
+			}
+		} else {
+			var firstElement = txtInk.eq(0);
+			var len = 12 - txtInk.length;
+			for (var i=0; i<len; i++) {
+				my.closest('.pp_info').siblings('.pp_ink').append(firstElement.clone());
+			}
 		}
 		switch(print_type){
 			case 'silk':
@@ -3518,6 +3866,18 @@ var mypage = {
 				html2 = 'サイズ <input type="text" value="" class="design_size" />';
 				html3 = '';
 				break;
+			case 'embroidery':
+				html = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">大（25×25）</option>' +
+					'<option value="1">中（18×18）</option>' +
+					'<option value="2">小（10×10）</option>' +
+					'</select>';
+				html2 = 'サイズ <input type="text" value="" class="design_size" />';
+				html3 = 'オプション&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">オリジナル</option>' +
+					'<option value="1">ネーム</option>' +
+					'</select>';
+				break;
 		}
 
 		tblRow.children('td:eq(0)').html(html);
@@ -3528,50 +3888,22 @@ var mypage = {
 	},
 	limit_size: function(my){
 	/*
-	*	シルクの版サイズの入力制限
-	*/
-		var print_type = '';
+	 * シルクの版サイズの入力制限とその他のプリント方法のサイズ変更
+	 */
 		if(arguments.length==2){
-			print_type = arguments[1];
-			var num = my.value-0;
-		    var opp = $(my).siblings('input').val() - 0;
-
-			switch(print_type){
-				case 'silk':
-					num = mypage.check_NaN(my);
-					if(opp<=27){
-						if(num>35) num=35;
-					}else{
-						if(num>27) num=27;
-					}
-					break;
-				case 'inkjet':
-					if(opp<=28){
-						if(num>40) num=40;
-					}else{
-						if(num>28) num=28;
-					}
-					break;
-				case 'trans':
-				case 'digit':
-					if(opp<=27){
-						if(num>38) num=38;
-					}else{
-						if(num>27) num=27;
-					}
-					break;
-				case 'cutting':
-					if(opp<=30){
-						if(num>40) num=40;
-					}else{
-						if(num>30) num=30;
-					}
-					break;
+			if (arguments[1] == 'silk') {
+				var opp = $(my).siblings('input').val() - 0;
+				var num = mypage.check_NaN(my);
+				if(opp<=27){
+					if(num>35) num=35;
+				}else{
+					if(num>27) num=27;
+				}
+				my.value = num;
 			}
-			my.value = num;
+		} else {
+			mypage.calcPrintFee();
 		}
-
-		if(print_type != 'silk') mypage.calcPrintFee();
 		mypage.prop.modified = true;
 	},
 	setPrintPosition:function(my){
@@ -4092,7 +4424,7 @@ var mypage = {
 			if(mypage.prop.ordertype=="general"){
 				// estimate details for general mode
 				//------------------------
-				var ary = ['productfee','printfee','silkprintfee','colorprintfee','digitprintfee','inkjetprintfee','cuttingprintfee',
+				var ary = ['productfee','printfee','silkprintfee','colorprintfee','digitprintfee','inkjetprintfee','cuttingprintfee','embroideryprintfee',
 						'exchinkfee','additionalfee','packfee','expressfee','discountfee','reductionfee','carriagefee','extracarryfee','designfee',
 						'codfee','conbifee','basefee','salestax','creditfee'];
 				field3 = field3.concat(ary);
@@ -4104,6 +4436,7 @@ var mypage = {
 				data3[len3++] = $('#est_digit_printfee').text().replace(/,/g,'');
 				data3[len3++] = $('#est_inkjet_printfee').text().replace(/,/g,'');
 				data3[len3++] = $('#est_cutting_printfee').text().replace(/,/g,'');
+				data3[len3++] = $('#est_embroidery_printfee').text().replace(/,/g,'');
 				data3[len3++] = $('#est_exchink').text().replace(/,/g,'');
 				data3[len3++] = $('#est_additionalfee').text().replace(/,/g,'');
 				data3[len3++] = $('#est_package').text().replace(/,/g,'');
@@ -4357,6 +4690,20 @@ var mypage = {
 									}
 								});
 								areasize_id = elem.find('.areasize_id').val();
+								break;
+							case 'embroidery':
+								self.children('.pp_ink').children('p').each( function(){
+									if($(this).children('input:eq(1)').val()!=""){
+										var ink_code = $(this).children('img.palette').attr('alt');
+										var inkid = $(this).attr('id').split('_')[1] || 0;
+										var ink_name = $(this).children('input:eq(1)').val();
+										var ink_position = $(this).children('.pos_name').attr('alt');
+										orderink[ink_id] = inkid+'|'+area_id+'|'+ink_name+'|'+ink_code+'|'+ink_position;
+										ink_id++;
+									}
+								});
+								areasize_id = elem.find('.areasize_id').val();
+								print_option = elem.find('.inkoption').val();
 								break;
 						}
 
@@ -4959,7 +5306,7 @@ console.log("-------------");
 		}
 		
 		if($('#destination').val()==0){
-			alert("納品先住所を指定してください。");
+			alert("納品先都道府県を指定してください。");
 			return false;
 		}
 		
@@ -5068,8 +5415,8 @@ console.log("-------------");
 					var ppInfo = $(this).children('.pp_info');
 					var printtype = ppInfo.find('.print_type').val();
 					var designtype = ppInfo.find('.design_type').val();
+					var ink_names = 0;
 					if(printtype=='silk'){
-						var ink_names = 0;
 						var ink_count = ppInfo.find('.ink_count').val()-0;
 						$(this).children('.pp_ink').children('p').each( function(){
 							if( $(this).find('input[type=text]:eq(1)').val()!="" ){
@@ -5079,9 +5426,7 @@ console.log("-------------");
 						if( ink_names==0 || ink_count==0 || (ink_names!=ink_count)){
 							checkdesign = 1;
 						}
-					}
-					else if(printtype=='cutting'){
-						var ink_names = 0;
+					}else if(printtype=='cutting'){
 						$(this).children('.pp_ink').children('p').each( function(){
 							if( $(this).find('input[type=text]:eq(1)').val()!="" ){
 								ink_names++;
@@ -5090,9 +5435,18 @@ console.log("-------------");
 						if(ink_names==0){
 							checkdesign = 2;
 						}
+					}else if(printtype=='embroidery'){
+						$(this).children('.pp_ink').children('p').each( function(){
+							if( $(this).find('input[type=text]:eq(1)').val()!="" ){
+								ink_names++;
+							}
+						});
+						if(ink_names==0){
+							checkdesign = 3;
+						}
 					}
 					if(designtype==''){
-						checkdesign = 3;
+						checkdesign = 4;
 					}
 				}
 				if(checkdesign>0) return false;
@@ -5106,6 +5460,8 @@ console.log("-------------");
 		}else if(checkdesign==2){
 			msg = "カッティングシートの色指定を確認してください。";
 		}else if(checkdesign==3){
+			msg = "刺繍の糸色指定を確認してください。";
+		}else if(checkdesign==4){
 			msg = "デザイン方法が未定です。";
 		}else if($(':radio[name="manuscript"]:checked', '#designtype_table').val()=="0" && $('#noprint:checked').length==0){
 			msg = "入稿方法が未定です。";
@@ -5834,6 +6190,11 @@ console.log("-------------");
 							else if(areasize_id=='1') size_select = '中（30×10）cm' ;
 							else size_select = '小（10×10）cm' ;
 							break;
+						case 'embroidery':
+							if(areasize_id=='0') size_select = '大（25×25）cm';
+							else if(areasize_id=='1') size_select = '中（18×18）cm' ;
+							else size_select = '小（10×10）cm' ;
+							break;
 					}
 				}
 
@@ -6243,7 +6604,7 @@ console.log("-------------");
 			$('input', '#size_table').attr('disabled', true);												// サイズテーブル
 			$('input, select', '#orderlist').attr('disabled', true);										// 注文リスト
 			$('input', '#estimation_toolbar').attr('disabled', true);										// 追加行ボタン
-			$('#noprint, #exchink_count').attr('disabled', true);											// プリントなし、イレギュラー
+			$('#noprint, #exchink_count, #exchthread_count').attr('disabled', true);						// プリントなし、イレギュラー
 			$('input:not(.design_size, .areasize_from, .areasize_to, .design_type_note), select', '#pp_wrapper').attr('disabled', true);// プリント位置
 			$('#designcharge').attr('disabled', true);														// デザイン代
 			$('tr:not(:last) input', '#optprice_table').attr('disabled', true);								// オプションの発送方法外
@@ -6314,7 +6675,8 @@ console.log("-------------");
 													html += '<input type="hidden" value="0" size="8" class="color_price" />';
 													html += '<input type="hidden" value="0" size="8" class="digit_price" />';
 													html += '<input type="hidden" value="0" size="8" class="inkjet_price" />';
-													html += '<input type="hidden" value="0" size="8" class="cutting_price" /></div>';
+													html += '<input type="hidden" value="0" size="8" class="cutting_price" />';
+													html += '<input type="hidden" value="0" size="8" class="embroidery_price" /></div>';
 													html +=	'<p class="title">'+category_name+'<span title="item_'+item_id+'">'+item_name+'</span></p>';
 													html += '</div>';
 													$('#pp_wrapper').append(html).append(togglebody);
@@ -7194,8 +7556,9 @@ console.log("-------------");
 			// 箱数の初期化
 			$('#boxnumber').val(0);
 
-			// インク色替え数のクリア
+			// 色替え数のクリア
 			$('#exchink_count').val('0');
+			$('#exchthread_count').val('0');
 			
 			// プリント位置のクリア
 			$('#pp_wrapper').children().remove();
@@ -7213,10 +7576,10 @@ console.log("-------------");
 			}
 			
 			// 見積ボックス
-			var ary1 = ['productfee','silkprintfee','colorprintfee','digitprintfee','inkjetprintfee','cuttingprintfee',
+			var ary1 = ['productfee','silkprintfee','colorprintfee','digitprintfee','inkjetprintfee','cuttingprintfee','embroideryprintfee',
 						'exchinkfee','additionalfee','packfee','expressfee','discountfee','reductionfee','carriagefee','designfee','codfee','conbifee',
 						'creditfee','basefee','salestax'];
-			var ary2 = ['est_price','est_silk_printfee','est_color_printfee','est_digit_printfee','est_inkjet_printfee','est_cutting_printfee',
+			var ary2 = ['est_price','est_silk_printfee','est_color_printfee','est_digit_printfee','est_inkjet_printfee','est_cutting_printfee','est_embroidery_printfee',
 						'est_exchink','est_additionalfee','est_package','est_express','est_discount','est_reduction','est_carriage','est_designfee','est_codfee','est_conbifee',
 						'est_creditfee','est_basefee','est_salestax'];
 			for(var a=0; a<ary2.length; a++){
@@ -7251,6 +7614,7 @@ console.log("-------------");
 
 				$('#floatingbox').hide();
 				$('#exchink_count').val('0').attr('disabled','disabled').addClass('disabled');
+				$('#exchthread_count').val('0').attr('disabled','disabled').addClass('disabled');
 				$('#orderlist tfoot tr').show();
 				$('#estimation_toolbar, #express_checker').show();
 				freeform.hide();
@@ -7264,6 +7628,7 @@ console.log("-------------");
 
 				$('#floatingbox').show();
 				$('#exchink_count').val('0').removeAttr('disabled').removeClass('disabled');
+				$('#exchthread_count').val('0').removeAttr('disabled').removeClass('disabled');
 				$('#orderlist tfoot tr.estimate:gt(0)').remove();
 				$('#orderlist tfoot tr:gt(0)').hide();
 				$('#estimation_toolbar, #express_checker').hide();
@@ -7614,7 +7979,9 @@ console.log("-------------");
 										'amount':r[i]['amount'],
 										'cost':r[i]['cost'],
 										'choice':1,
-										'stock_number':r[i]['stock_number']
+										'stock_number':r[i]['stock_number'],
+									    'group1':r[i]['group1'],
+									    'group2':r[i]['group2']
 										};
 							var item_cost = 0;
 							if(typeof hash[r[i]['item_id']]=='undefined'){

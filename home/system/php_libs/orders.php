@@ -18,6 +18,7 @@ class Orders{
 					'trans'=>array('name'=>'TS','abbr'=>'T','index'=>3),
 					'cutting'=>array('name'=>'CS','abbr'=>'C','index'=>4),
 					'noprint'=>array('name'=>'商品のみ','abbr'=>'N','index'=>5),
+					'embroidery'=>array('name'=>'刺繍','abbr'=>'E','index'=>6),
 				);
 				
 	/*
@@ -489,17 +490,17 @@ class Orders{
 				$sql = sprintf("INSERT INTO orders(reception, ordertype, applyto, maintitle, schedule1, schedule2, schedule3, schedule4, destination, arrival,
 					carriage, check_amount, noprint, design, manuscript, discount1, discount2, reduction, reductionname, handover, 
 					freeshipping, payment, order_comment, invoicenote, billnote, phase, budget, customer_id, delivery_id, created, 
-					lastmodified, estimated, order_amount, paymentdate, exchink_count, deliver, deliverytime, manuscriptdate, purpose, purpose_text, 
-					job, designcharge, repeater, reuse, free_discount, free_printfee, completionimage, contact_number, additionalname, additionalfee, 
-					extradiscountname, extradiscount, shipfrom_id, package_yes, package_no, package_nopack, pack_yes_volume, pack_nopack_volume, boxnumber, factory, 
-					destcount, repeatdesign, allrepeat, staffdiscount)
+					lastmodified, estimated, order_amount, paymentdate, exchink_count, exchthread_count, deliver, deliverytime, manuscriptdate, purpose, 
+					purpose_text, job, designcharge, repeater, reuse, free_discount, free_printfee, completionimage, contact_number, additionalname, 
+					additionalfee, extradiscountname, extradiscount, shipfrom_id, package_yes, package_no, package_nopack, pack_yes_volume, pack_nopack_volume, boxnumber, 
+					factory, destcount, repeatdesign, allrepeat, staffdiscount)
 								VALUES(%d,'%s',%d,'%s','%s','%s','%s','%s',%d,'%s',
 								'%s',%d,%d,'%s','%s','%s','%s',%d,'%s','%s',
 								%d,'%s','%s','%s','%s','%s',%d,%d,%d,'%s',
-								'%s',%d,%d,'%s',%d,%d,%d,'%s','%s','%s',
-								'%s',%d,%d,%d,%d,%d,%d,'%s','%s',%d,
-								'%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,
-								%d,%d,%d,%d)",
+								'%s',%d,%d,'%s',%d,%d,%d,%d,'%s','%s',
+								'%s','%s',%d,%d,%d,%d,%d,%d,'%s','%s',
+								%d,'%s',%d,%d,%d,%d,%d,%d,%d,%d,
+								%d,%d,%d,%d,%d)",
 								$info3["reception"],
 								$info3["ordertype"],
 								$info3["applyto"],
@@ -535,6 +536,7 @@ class Orders{
 								$info3["order_amount"],
 								$info3["paymentdate"],
 								$info3["exchink_count"],
+							   	$info3["exchthread_count"],
 								$info3["deliver"],
 								$info3["deliverytime"],
 								$info3["manuscriptdate"],
@@ -789,10 +791,10 @@ class Orders{
 
 					if($info3['ordertype']=='general'){
 						$sql = sprintf("INSERT INTO estimatedetails(productfee,printfee,
-								silkprintfee,colorprintfee,digitprintfee,inkjetprintfee,cuttingprintfee,
+								silkprintfee,colorprintfee,digitprintfee,inkjetprintfee,cuttingprintfee,embroideryprintfee,
 								exchinkfee,packfee,expressfee,discountfee,reductionfee,carriagefee,
 								extracarryfee,designfee,codfee,conbifee,basefee,salestax,creditfee,orders_id)
-							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
+							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
 							   $info3["productfee"],
 						 	   $info3["printfee"],
 						 	   $info3["silkprintfee"],
@@ -800,6 +802,7 @@ class Orders{
 						 	   $info3["digitprintfee"],
 						 	   $info3["inkjetprintfee"],
 						 	   $info3["cuttingprintfee"],
+							   $info3["embroideryprintfee"],
 						 	   $info3["exchinkfee"],
 						 	   $info3["packfee"],
 						 	   $info3["expressfee"],
@@ -1062,10 +1065,10 @@ class Orders{
 				}
 
 				$sql = sprintf("INSERT INTO estimatedetails(productfee,printfee,
-								silkprintfee,colorprintfee,digitprintfee,inkjetprintfee,cuttingprintfee,
+								silkprintfee,colorprintfee,digitprintfee,inkjetprintfee,cuttingprintfee,embroideryprintfee,
 								exchinkfee,packfee,expressfee,discountfee,reductionfee,carriagefee,
 								extracarryfee,designfee,codfee,conbifee,basefee,salestax,creditfee,orders_id)
-							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
+							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
 							   $info["productfee"],
 						 	   $info["printfee"],
 						 	   $info["silkprintfee"],
@@ -1073,6 +1076,7 @@ class Orders{
 						 	   $info["digitprintfee"],
 						 	   $info["inkjetprintfee"],
 						 	   $info["cuttingprintfee"],
+							   $info3["embroideryprintfee"],
 						 	   $info["exchinkfee"],
 						 	   $info["packfee"],
 						 	   $info["expressfee"],
@@ -1817,7 +1821,7 @@ class Orders{
 							schedule1='%s',schedule2='%s',schedule3='%s',schedule4='%s',destination=%d,arrival='%s',handover='%s',
 							carriage='%s',check_amount=%d,noprint=%d,design='%s',manuscript='%s',discount1='%s',discount2='%s',
 							reduction=%d,reductionname='%s',freeshipping=%d,payment='%s',order_comment='%s',invoicenote='%s',billnote='%s',phase='%s',budget=%d,customer_id=%d,delivery_id=%d,lastmodified='%s',
-							estimated=%d,order_amount=%d,paymentdate='%s',exchink_count=%d,deliver=%d,deliverytime=%d,manuscriptdate='%s',
+							estimated=%d,order_amount=%d,paymentdate='%s',exchink_count=%d,exchthread_count=%d,deliver=%d,deliverytime=%d,manuscriptdate='%s',
 							purpose='%s',purpose_text='%s',job='%s',designcharge=%d,repeater=%d,reuse=%d,free_discount=%d,free_printfee=%d,
 							completionimage=%d, contact_number='%s', additionalname='%s', additionalfee=%d, extradiscountname='%s', extradiscount=%d, shipfrom_id=%d,
 							package_yes=%d,package_no=%d,package_nopack=%d,pack_yes_volume=%d,pack_nopack_volume=%d,boxnumber=%d,factory=%d,destcount=%d,repeatdesign=%d,allrepeat=%d, staffdiscount=%d
@@ -1856,6 +1860,7 @@ class Orders{
 					 	   	$data3["order_amount"],
 					 	   	$data3["paymentdate"],
 					 	   	$data3["exchink_count"],
+							$data3["exchthread_count"],
 					 	   	$data3["deliver"],
 					 	   	$data3["deliverytime"],
 					 	   	$data3["manuscriptdate"],
@@ -2685,7 +2690,7 @@ class Orders{
 				if($data3['ordertype']=='general'){
 					$sql = sprintf("UPDATE estimatedetails
 							SET productfee=%d,printfee=%d,silkprintfee=%d,colorprintfee=%d,digitprintfee=%d,
-							inkjetprintfee=%d,cuttingprintfee=%d,exchinkfee=%d,additionalfee=%d,packfee=%d,
+							inkjetprintfee=%d,cuttingprintfee=%d,embroideryprintfee=%d,exchinkfee=%d,additionalfee=%d,packfee=%d,
 							expressfee=%d,discountfee=%d,reductionfee=%d,carriagefee=%d,extracarryfee=%d,
 							designfee=%d,codfee=%d,conbifee=%d,basefee=%d,salestax=%d,creditfee=%d WHERE orders_id=%d",
 						   	$data3["productfee"],
@@ -2695,6 +2700,7 @@ class Orders{
 						 	$data3["digitprintfee"],
 						 	$data3["inkjetprintfee"],
 						 	$data3["cuttingprintfee"],
+							$data3["embroideryprintfee"],
 						 	$data3["exchinkfee"],
 						 	$data3["additionalfee"],
 						 	$data3["packfee"],
@@ -3159,7 +3165,7 @@ class Orders{
 				}
 				$sql = sprintf("UPDATE estimatedetails
 								SET productfee=%d,printfee=%d,silkprintfee=%d,colorprintfee=%d,digitprintfee=%d,
-								inkjetprintfee=%d,cuttingprintfee=%d,exchinkfee=%d,additionalfee=%d,packfee=%d,
+								inkjetprintfee=%d,cuttingprintfee=%d,embroideryprintfee=%d,exchinkfee=%d,additionalfee=%d,packfee=%d,
 								expressfee=%d,discountfee=%d,reductionfee=%d,carriagefee=%d,extracarryfee=%d,
 								designfee=%d,codfee=%d,conbifee=%d,basefee=%d,salestax=%d,creditfee=%d WHERE orders_id=%d",
 							   	$info["productfee"],
@@ -3169,6 +3175,7 @@ class Orders{
 							 	$info["digitprintfee"],
 							 	$info["inkjetprintfee"],
 							 	$info["cuttingprintfee"],
+							    $info["embroideryprintfee"],
 							 	$info["exchinkfee"],
 							 	$info["additionalfee"],
 							 	$info["packfee"],
@@ -8386,7 +8393,8 @@ class Orders{
 				coalesce(itemcolor.color_name, orderitemext.item_color) as color_name,
 				coalesce(orderitemext.price, item_cost) as cost,
 				coalesce(maker.maker_name, orderitemext.maker) as maker_name,
-				coalesce(orderitemext.stock_number, "") as stock_number
+				coalesce(orderitemext.stock_number, "") as stock_number,
+				print_group_id,item_group1_id, item_group2_id
 				 FROM (((((orderitem
 				 left join orderitemext on orderitem.id=orderitemext.orderitem_id)
 				 left join size on orderitem.size_id=size.id)
@@ -9623,7 +9631,8 @@ class Orders{
 				 					  'digitprintfee'=>array($idx++,'デジタル転写'),
 				 					  'inkjetprintfee'=>array($idx++,'インクジェット'),
 				 					  'cuttingprintfee'=>array($idx++,'カッティング'),
-				 					  'exchinkfee'=>array($idx++,'インク色替え代'),
+									  'embroideryprintfee'=>array($idx++,'刺繍'),
+				 					  'exchinkfee'=>array($idx++,'色替え代'),
 				 					  'packfee'=>array($idx++,'袋詰め代'),
 				 					  'expressfee'=>array($idx++,'特急料金'),
 				 					  'discountfee'=>array($idx++,'割引金額'),
@@ -9645,7 +9654,7 @@ class Orders{
 						sum(reductionfee) as reductionfee,sum(carriagefee) as carriagefee,sum(extracarryfee) as extracarryfee,
 						sum(designfee) as designfee,sum(codfee) as codfee,sum(conbifee) as conbifee,sum(creditfee) as creditfee,
 						sum(silkprintfee) as silkprintfee,sum(colorprintfee) as colorprintfee,sum(digitprintfee) as digitprintfee,
-						sum(inkjetprintfee) as inkjetprintfee,sum(cuttingprintfee) as cuttingprintfee
+						sum(inkjetprintfee) as inkjetprintfee,sum(cuttingprintfee) as cuttingprintfee, sum(embroideryprintfee) as embroideryprintfee
 						 from
 						 (orders inner join estimatedetails on orders.id=estimatedetails.orders_id)
 						 inner join acceptstatus on orders.id=acceptstatus.orders_id
@@ -9668,13 +9677,14 @@ class Orders{
 									  array('digitprintfee','デジタル転写'),
 									  array('inkjetprintfee','インクジェット'),
 									  array('cuttingprintfee','カッティング'),
+									  array('embroideryprintfee','刺繍'),
 									  array('productfee','商品代金')
 									);
 
 					$sql = "select date_format(schedule3, '%c') as month,reception,staffname,
 						sum(estimated) as estimated,sum(productfee) as productfee,
 						sum(silkprintfee) as silkprintfee,sum(colorprintfee) as colorprintfee,sum(digitprintfee) as digitprintfee,
-						sum(inkjetprintfee) as inkjetprintfee,sum(cuttingprintfee) as cuttingprintfee
+						sum(inkjetprintfee) as inkjetprintfee,sum(cuttingprintfee) as cuttingprintfee, sum(embroideryprintfee) as embroideryprintfee
 						 from
 						 ((orders inner join estimatedetails on orders.id=estimatedetails.orders_id)
 						 inner join acceptstatus on orders.id=acceptstatus.orders_id)

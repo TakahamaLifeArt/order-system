@@ -5,14 +5,13 @@ class MYDB2 {
 	
 	
 	/*
-	*	SQLの接続
-	*/
+	 *	SQLの接続
+	 */
 	protected function db_connect(){
 		$dbUser = "tlauser";
 		$dbPass = "crystal428";
 		$dbHost = "localhost";
 		$dbName = "tladata1";
-		$dbType = "mysql";
 		
 		$conn = new mysqli("$dbHost", "$dbUser", "$dbPass", "$dbName");
 		if (mysqli_connect_error()) {
@@ -25,19 +24,18 @@ class MYDB2 {
 	
 	
 	/*
-	*	SQLの接続
-	*/
+	 *	SQLの接続
+	 */
 	public static function getConnection(){
 		return self::db_connect();
 	}
 	
 	
 	/**
-	*	プリペアドステートメントから結果を取得し、バインド変数に格納する
-	*	@stmt	実行するプリペアドステートメントオブジェクト
-	*
-	*	return	[カラム名:値, ...][]
-	*/
+	 *	プリペアドステートメントから結果を取得し、バインド変数に格納する
+	 *	@param {mysqli_stmt} stmt 実行するプリペアドステートメントオブジェクト
+	 *	@return {array} [カラム名:値, ...][]
+	 */
 	public static function fetchAll( &$stmt) {
 		$hits = array();
 		$params = array();

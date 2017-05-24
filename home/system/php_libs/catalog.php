@@ -527,7 +527,8 @@ class Catalog{
 			if($color==''){
 				$prm1 = quote_smart($conn, $itemid);
 				$sql= sprintf("SELECT catalog.id as master_id, category_id, item_id, color_id, color_code, category_name,
-								 category_key, item_name, item_code, printratio_id, color_name, printposition_id, maker_id, maker_name
+								 category_key, item_name, item_code, printratio_id, color_name, printposition_id, maker_id, maker_name,
+								 item_group1_id, item_group2_id
 				 				 FROM (((catalog inner join category on catalog.category_id=category.id)
 				 				 inner join item on catalog.item_id=item.id)
 				 				 inner join itemcolor on catalog.color_id=itemcolor.id)
@@ -541,7 +542,8 @@ class Catalog{
 			}else if($color=='all'){
 				$prm1 = quote_smart($conn, $itemid);
 				$sql= sprintf("SELECT catalog.id as master_id, category_id, item_id, color_id, color_code, category_name,
-								 category_key, item_name, item_code, printratio_id, color_name, printposition_id, maker_id, maker_name
+								 category_key, item_name, item_code, printratio_id, color_name, printposition_id, maker_id, maker_name,
+								 item_group1_id, item_group2_id
 				 				 FROM (((catalog inner join category on catalog.category_id=category.id)
 				 				 inner join item on catalog.item_id=item.id)
 				 				 left join itemcolor on catalog.color_id=itemcolor.id)
@@ -556,7 +558,8 @@ class Catalog{
 				$prm1 = quote_smart($conn, $itemid);
 				$prm2 = quote_smart($conn, $color);
 				$sql= sprintf("SELECT catalog.id as master_id, category_id, item_id, color_id, color_code, category_name,
-								 category_key, item_name, item_code, printratio_id, color_name, printposition_id, maker_id, maker_name
+								 category_key, item_name, item_code, printratio_id, color_name, printposition_id, maker_id, maker_name,
+								 item_group1_id, item_group2_id
 				 				 FROM (((catalog inner join category on catalog.category_id=category.id)
 				 				 inner join item on catalog.item_id=item.id)
 				 				 left join itemcolor on catalog.color_id=itemcolor.id)

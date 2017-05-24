@@ -18,28 +18,29 @@ class HTTP {
     	$url = $this->url;
 	    $data = http_build_query($params);
 	    if($method == 'GET') {
-	        $url = ($data != '')?$url.'?'.$data:$url;
+			$url = ($data != '')?$url.'?'.$data:$url;
 	    }
-	 
+		
 	    $ch = curl_init($url);
-	 
+		
 	    if($method == 'POST'){
-	        curl_setopt($ch,CURLOPT_POST,1);
-	        curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+			curl_setopt($ch,CURLOPT_POST,1);
+			curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
 	    }
-	 
-	    //curl_setopt($ch, CURLOPT_HEADER,true); //header情報も一緒に欲しい場合
+		
+//	    curl_setopt($ch, CURLOPT_HEADER,false); //header情報も一緒に欲しい場合はtrue
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 	    //curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 60000);
 	    $res = curl_exec($ch);
-	 
+		
 	    //ステータスをチェック
 	    $respons = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	    if(preg_match("/^(404|403|500)$/",$respons)){
-	        return false;
+			return false;
 	    }
-	 
+		
 	    return $res;
 	}
 	

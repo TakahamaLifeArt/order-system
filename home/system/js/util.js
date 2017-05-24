@@ -958,6 +958,21 @@ $(function(){
 				disablingClickToClose : true,
 				disablingTheOverlayClickToClose : true
 			});
+		},
+		isset: function(fn) {
+		/*
+		 * 連想配列のキーの存在確認
+		 * @fn {code function(){return a.b.c }}
+		 * @return true or false
+		 */
+			var value;
+			try {
+				value = fn();
+			} catch (e) {
+				value = undefined;
+			} finally {
+				return value !== undefined;
+			}
 		}
 	});
 
@@ -1888,7 +1903,7 @@ $(function(){
 							});
 			if($(this).val()=="industry"){
 				$('#destination').val('13');
-				$('#check_amount, #exchink_count').val('0');
+				$('#check_amount, #exchink_count, #exchthread_count').val('0');
 				$('#floatingbox, #exchink_label').hide();
 				$('tr:lt(2)', '#schedule_selector').hide();
 				$('#category_selector option:last').before('<option value="99">転写シート</option>');
@@ -2828,8 +2843,23 @@ $(function(){
 	$('#exchink_count').change( function(){
 		if(mypage.prop.ordertype=="industry") return;
 		var exch_count = $(this).val()-0;
-		var exchFee = 1500;
-		$('#est_exchink').text(mypage.addFigure( exchFee*exch_count ));
+		var exchFee = 1000;
+		var threadFee = 500 * ($('#exchthread_count').val() - 0);
+		$('#est_exchink').text(mypage.addFigure( exchFee*exch_count + threadFee ));
+		if(mypage.prop.reuse>0 && mypage.prop.reuse!=255){
+			mypage.calcPrintFee();
+		}else{
+			mypage.calcEstimation();
+		}
+		mypage.prop.modified = true;
+	});
+	
+	$('#exchthread_count').change( function(){
+		if(mypage.prop.ordertype=="industry") return;
+		var exch_count = $(this).val()-0;
+		var exchFee = 500;
+		var inkFee = 1000 * ($('#exchink_count').val() - 0);
+		$('#est_exchink').text(mypage.addFigure( exchFee*exch_count + inkFee ));
 		if(mypage.prop.reuse>0 && mypage.prop.reuse!=255){
 			mypage.calcPrintFee();
 		}else{
@@ -2842,10 +2872,12 @@ $(function(){
 		// if(mypage.prop.firmorder) return;	// 2015-04-01 確定注文は変更可にする
 		if($(this).parent().children('.pos_name').val()!=""){
 			var print_type = $(this).closest('.pp_box').find('.print_type').val();
-			if(print_type=='silk'){
+			if (print_type=='silk') {
 				mypage.showInkcolor($(this));
-			}else if(print_type=='cutting'){
+			} else if(print_type=='cutting') {
 				mypage.showInkcolor($(this), 'cuttingcolor');
+			} else if(print_type=='embroidery') {
+				mypage.showInkcolor($(this), 'embroiderycolor');
 			}
 		}
 	});
@@ -3965,7 +3997,8 @@ $(function(){
 						 'inkjet':{'index':1,'abbr':'I'},
 						 'digit':{'index':2,'abbr':'D'},
 						 'trans':{'index':3,'abbr':'T'},
-						 'cutting':{'index':4,'abbr':'C'}
+						 'cutting':{'index':4,'abbr':'C'},
+						 'embroidery':{'index':5,'abbr':'E'}
 					};
 			$('#direction_selector select option').each( function(){
 				var printkey = $(this).val();
