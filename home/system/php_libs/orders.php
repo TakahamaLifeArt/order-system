@@ -26,7 +26,8 @@ class Orders{
 	*	return		暗号化したバイナリーデータ
 	*/
 	public function getSha1Pass($s) {
-		return sha1('Rxjo:akLK(SEs!8E'.$s);
+		if (empty($s)) return;
+		return sha1(_PASSWORD_SALT.$s);
 	}
 
 	/**
@@ -1222,8 +1223,8 @@ class Orders{
 						 	   $info['cutofday'],
 						 	   $info['paymentday'],
 						 	   2,
-						 	   $this->getSha1Pass($info['password']),
-								 $reg_site
+							   $this->getSha1Pass($info['password']),
+							   $reg_site
 								);
 
 				if(exe_sql($conn, $sql)){
@@ -3386,6 +3387,9 @@ class Orders{
 					// delivery_idの付け替え
 					$sql= sprintf("UPDATE orders SET delivery_id=%d WHERE delivery_id=%d", $data["modify"],$id);
 				}else{
+					foreach($data as $key=>$val){
+						$data[$key]	= quote_smart($conn, $val);
+					}
 					$sql= sprintf("UPDATE delivery
 								   SET organization='%s',
 								   agent='%s',
@@ -3414,6 +3418,9 @@ class Orders{
 				break;
 				
 			case 'shipfrom':
+				foreach($data as $key=>$val){
+					$data[$key]	= quote_smart($conn, $val);
+				}
 				$sql= sprintf("UPDATE shipfrom
 							   SET shipfromname='%s',
 							   shipfromruby='%s',
@@ -7604,10 +7611,10 @@ class Orders{
 				$sql .= ' and deliver = 2';
 				
 				// 発送準備：発送可
-				//if($data['readytoship']!=""){
-				//	$sql .= ' and readytoship = "'.$data['readytoship'].'"';
-				//}
-				$sql .= ' and readytoship = "1"';
+				if($data['readytoship']!=""){
+					$sql .= ' and readytoship = "'.$data['readytoship'].'"';
+				}
+				//$sql .= ' and readytoship = "1"';
 				
 				// 発送準備：未発送
 				//if(!empty($data['shipped'])){

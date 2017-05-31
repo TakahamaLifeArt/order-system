@@ -1250,7 +1250,7 @@ $(function(){
 					}
 					func();
 				}else{
-					alert('処理を中止します。');
+					alert('処理を中止しました。');
 				}
 			},true);
 		}else{
@@ -1261,30 +1261,39 @@ $(function(){
 	/********************************
 	*	イメ画アップロード・送信
 	*/
-	$('#btn_imageup').click( function(){
-		var orders_id = $('#order_id').text()-0;
-		$.ajax({url: './php_libs/ordersinfo.php', type: 'POST', data: {'act':'update','mode':'imagecheck','order_id': orders_id},
-			success: function(r){
-				if(!r){
-					alert('Error: イメージ画像アップロード失敗');
+	$('#btn_imageup').live('click', function(){
+		var func = function(){
+			var orders_id = $('#order_id').text()-0;
+			$.ajax({url: './php_libs/ordersinfo.php', type: 'POST', data: {'act':'update','mode':'imagecheck','order_id': orders_id},
+				success: function(r){
+					if(!r){
+						alert('Error: イメージ画像アップロード失敗');
+					}
 				}
-			}
-		});
-		data = [];
-		data.push(orders_id);
-		act = "sendmail_image";
-		$.ajax({url:'./documents/sendmail_image.php', type:'POST', dataType:'json', async:false, data:{'doctype':act, 'json':1, 'data[]':data}, 
-			success:function(r){
-				if(r instanceof Array){
-					alert('イメージ画像をアップロードしました。');
-				}else{
-					alert('Error: p5535\n'+r);
+			});
+			data = [];
+			data.push(orders_id);
+			act = "sendmail_image";
+			$.ajax({url:'./documents/sendmail_image.php', type:'POST', dataType:'json', async:false, data:{'doctype':act, 'json':1, 'data[]':data}, 
+				success:function(r){
+					if(r instanceof Array){
+						alert('イメージ画像をアップロードしました。');
+					}else{
+						alert('Error: p5535\n'+r);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown){
+					alert('Error: p5539\n'+textStatus+'\n'+errorThrown);
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown){
-				alert('Error: p5539\n'+textStatus+'\n'+errorThrown);
+			});
+		};
+		$.confbox('イメージ画像をアップロードします。よろしいですか？', function(){
+			if($.resConf.data=='yes'){
+				func();
+			}else{
+				alert('処理を中止しま下。');
 			}
-		});
+		},true);
 	});
 	
 	/********************************
@@ -4351,9 +4360,9 @@ $(function(){
 			//$(document).scrollTop(0);
 			var act = myname.split('_')[1];
 			var isRegistForTLA = 0;
-			if($('#notRegistForTLA').is(':checked')){
-				isRegistForTLA = 1;	// TLAメンバー登録なし
-			}
+//			if($('#notRegistForTLA').is(':checked')){
+//				isRegistForTLA = 1;	// TLAメンバー登録なし
+//			}
 			parm = new Array(isRegistForTLA, orders_id, discount_name);
 			mypage.sendmail(act, parm);
 			break;

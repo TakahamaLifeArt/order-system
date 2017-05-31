@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
 	見積書、注文確定のメール送信
 	charset UTF-8
@@ -16,8 +16,8 @@
 			require_once dirname(__FILE__).'/../php_libs/estimate.php';
 			require_once dirname(__FILE__).'/../php_libs/jd/japaneseDate.php';
 			require_once dirname(__FILE__).'/../php_libs/phonedata.php';
-			//require_once dirname(__FILE__).'/../php_libs/http.php';
-			require_once dirname(__FILE__).'/../php_libs/member/TLAmember.php';
+			require_once dirname(__FILE__).'/../php_libs/http.php';
+//			require_once dirname(__FILE__).'/../php_libs/member/TLAmember.php';
 
 			/* 2011/4/1 保留
 			define(_ORDER_COMPLETED, "http://takahama428.com/ordercompleted.php");
@@ -514,6 +514,23 @@
 				case 'orderconbi':
 				case 'ordercash':
 				case 'ordercredit':
+					// 受注入力で直接登録してパスワードがないユーザーに仮パスワードを設定する
+					$args = array($orders['email'], $orders['customer_id']);
+					$http = new HTTP(_API);
+					$resp = $http->request('POST', array('act'=>'checkexistemail', 'args'=>$args));
+					$customerData = unserialize($resp);
+					if (!$customerData) throw new Exception("ERROR: ユーザー情報が見つかりませんでした。");
+					if (empty($customerData[0]['password'])) {
+						$password = substr(sha1(time().mt_rand()),0,10);
+						$args = array('userid'=>$orders['customer_id'], 'pass'=>$password, 'temp'=>$password);
+						$http = new HTTP(_API_U);
+						$http->request('POST', array('act'=>'updatepass', 'args'=>$args));
+					} else if (!empty($customerData[0]['temppass'])) {
+						$password = $customerData[0]['temppass'];
+					} else {
+						$password = '';
+					}
+					
 					// 送信前にTLAメンバーの登録を行う必要はない 2017/03/13
 /*
 					if($orders['ordertype']=='general' && !empty($_POST['parm'])){
@@ -643,10 +660,11 @@
 					$doc_title .= _NOTICE_HOLIDAY;
 					
 					
-					if(empty($_POST['parm'])){
+					if (empty($_POST['parm'])) {
 						$doc_title .= "<textarea id=\"add_message\" cols=\"50\" rows=\"4\"></textarea>";
 						$doc_title .= "\n";
-					}else if($isNotRegistForTLA==0){
+					}
+					if ($isNotRegistForTLA==0) {
 						// TLAメンバー登録しない場合は記載しない
 						$doc_title .= "\n=========　≪マイページのご利用のご案内≫　=========\n\n";
 						
@@ -667,31 +685,20 @@
 //						$doc_title .= "※パスワードは仮発行なので、ログイン後アカウントから変更可能です\n\n";
 						
 						$doc_title .= "メールアドレス：".$email['pc']."\n";
-/*
-						if(empty($res['pass'])){
+						if (empty($password)) {
 							$doc_title .= "パスワード：**********\n";
 							$doc_title .= "※ パスワードをお忘れの場合は下記のページで再発行してください。\n";
 							if($orders['reg_site'] == 6) {
-								$doc_title .= "http://www.staff-tshirt.com/user/resend_pass.php\n";
+								$doc_title .= "http://www.staff-tshirt.com/user/resend_pass.php\n\n";
 							} else if($orders['reg_site'] == 5) {
-								$doc_title .= "http://www.sweatjack.jp/user/resend_pass.php\n";
+								$doc_title .= "http://www.sweatjack.jp/user/resend_pass.php\n\n";
 							} else {
-								$doc_title .= "http://www.takahama428.com/user/resend_pass.php\n";
+								$doc_title .= "http://www.takahama428.com/user/resend_pass.php\n\n";
 							}
-						}else{
-							$doc_title .= "パスワード：".$res['pass']."\n\n";
+						} else {
+							$doc_title .= "仮パスワード： ".$password."\n";
+							$doc_title .= "※ 仮パスワードはマイページにログインして、アカウントメニューで変更可能です。\n";
 						}
-
-*/						
-							$doc_title .= "\n";
-							$doc_title .= "※ パスワードをお忘れの場合は下記のページで再発行してください。\n";
-							if($orders['reg_site'] == 6) {
-								$doc_title .= "http://www.staff-tshirt.com/user/resend_pass.php\n";
-							} else if($orders['reg_site'] == 5) {
-								$doc_title .= "http://www.sweatjack.jp/user/resend_pass.php\n";
-							} else {
-								$doc_title .= "http://www.takahama428.com/user/resend_pass.php\n";
-							}
 						$doc_title .= "=====================================================\n\n\n";
 					}
 					

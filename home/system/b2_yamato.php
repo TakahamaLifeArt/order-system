@@ -138,7 +138,7 @@
 											<td>
 												<select name="readytoship">
 												<?php
-													if(!isset($q['readytoship'])) $q['readytoship'] = '';
+													if(!isset($q['readytoship'])) $q['readytoship'] = '1';
 													$tmp = '<option value="" selected="selected">全て</option>
 													<option value="1">発送可</option>
 													<option value="0">発送不可</option>';

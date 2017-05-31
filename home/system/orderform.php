@@ -206,7 +206,7 @@
 				<span id="btn_tool" class="btn_sub">ツール</span>
 				<span id="btn_firmorder" class="btn_sub">注文確定</span>
 				<span id="btn_cancelorder" class="btn_sub">確定解除</span>
-				<span id="btn_imageup" class="btn_sub">イメージ画像アップ</span>
+<!--				<span id="btn_imageup" class="btn_sub">イメージ画像アップ</span>-->
 				<span id="btn_completionimage" class="btn_sub">イメ画確定</span>
 				<p><a href="#order_wrapper">トップ</a><a href="#print_position">プリント位置</a><a href="#order_option">その他料金</a><a href="#order_customer">お客様情報</a><a href="#page_border">フッター</a></p>
 			</div>
@@ -655,17 +655,6 @@
 										<td class="none"><input type="button" value="削除" class="delete_row" /></td>
 										<td class="tip"></td>
 									</tr>
-									<!--
-									<tr class="total_estimate">
-										<td class="tip"></td>
-										<td colspan="5"></td>
-										<td class="br0"><input type="text" value="0" size="8" readonly="readonly" id="total_estimate_amount" /></td>
-										<td class=" br0 bl0" style="text-align:left;"></td>
-										<td colspan="2" class="bl0"></td>
-										<td class="none"></td>
-										<td class="tip"></td>
-									</tr>
-									-->
 									<tr class="total_estimate">
 										<td class="tip"></td>
 										<td colspan="4" class="sum">合計</td>
@@ -788,7 +777,7 @@
 					<h2 class="ordertitle">●イメージ画像</h2>
 						<div class="inner">
 							<table id="designedImg_table" class="design_table">
-								<thead></thead><tbody></tbody>
+								<thead></thead><tfoot></tfoot><tbody></tbody>
 							</table>
 							<table id="uploadDesedImg_table">
 									<tbody>

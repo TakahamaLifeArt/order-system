@@ -1098,6 +1098,7 @@ var mypage = {
     $("#downloadDesedImg").die("click");
     $("#deleteDesedImg").die("click");
 		$('#designedImg_table thead').html("");
+		$('#designedImg_table tfoot').html("");
 		$('#designedImg_table tbody').html("");
 		$.ajax({url:'./php_libs/design.php', type:'POST', dataType:'json', async:false,
 			data:{'act':'showDesignImg', 'order_id':orders_id, 'folder':'imgfile'},
@@ -1108,6 +1109,7 @@ var mypage = {
 				}else{
 					var thead = "<tr><td>順番</td><td>ファイル名</td><td class='last pending'>操作</td></tr>";
 					$('#designedImg_table thead').html(thead);
+					$('#designedImg_table tfoot').html('<tr>><td colspan="2"></td><td class="last"><button id="btn_imageup" class="btn_sub">イメージ画像アップ</button></td></tr>');
 					var tbody = "";
 					var href = "";
 					var ord =0;
@@ -6840,7 +6842,8 @@ console.log("-------------");
 					mypage.setEstimation(data, false, false);
 					
 					// 注文明細テーブルの生成
-					if(!init) mypage.initEstimateList();
+//					if(!init) mypage.initEstimateList();
+					$('#orderlist tfoot tr.heading').remove();
 					$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:false,
 						data:{'act':'search','mode':'estimatedetails', 'field1[]':["orders_id"], 'data1[]':[info['orders_id']]}, success:function(r){
 							if(r.trim()==""){

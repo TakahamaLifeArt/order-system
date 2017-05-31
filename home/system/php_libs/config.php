@@ -48,7 +48,10 @@ define('_SITE', '1');
 define('_TITLE_SYSTEM', mb_convert_encoding('TLA 受注System', 'euc-jp', 'utf-8'));
 
 define('_API', 'http://takahamalifeart.com/v1/api');
+define('_API_U', 'http://takahamalifeart.com/v1/apiu');
 define('_IMG_PSS', 'http://takahamalifeart.com/weblib/img/');
+
+define('_PASSWORD_SALT', 'Rxjo:akLK(SEs!8E');
 
 //休業終始日付、お知らせの取得
 $hol = new Conndb_holiday();
