@@ -6392,21 +6392,22 @@ console.log("-------------");
 		});
 
 		// 備考の入力行数の制御
-		$('.dire_printinfo_table textarea', '#tabs').keyup( function(e){
-			$(this).scrollTop(2);
-			while(this.scrollTop>0){
-				this.value = this.value.substr(0, this.value.length-1);
-				e.preventDefault();
-				$(this).scrollTop(2);
-			}
-		}).blur( function(e){
-			$(this).scrollTop(2);
-			while(this.scrollTop>0){
-				this.value = this.value.substr(0, this.value.length-1);
-				e.preventDefault();
-				$(this).scrollTop(2);
-			}
-		});
+		// 2017-06-03 廃止
+//		$('.dire_printinfo_table textarea', '#tabs').keyup( function(e){
+//			$(this).scrollTop(2);
+//			while(this.scrollTop>0){
+//				this.value = this.value.substr(0, this.value.length-1);
+//				e.preventDefault();
+//				$(this).scrollTop(2);
+//			}
+//		}).blur( function(e){
+//			$(this).scrollTop(2);
+//			while(this.scrollTop>0){
+//				this.value = this.value.substr(0, this.value.length-1);
+//				e.preventDefault();
+//				$(this).scrollTop(2);
+//			}
+//		});
 		
 		$('#tabs :input').change(function(){
 			mypage.prop.modified = true;
@@ -6843,7 +6844,7 @@ console.log("-------------");
 					
 					// 注文明細テーブルの生成
 //					if(!init) mypage.initEstimateList();
-					$('#orderlist tfoot tr.heading').remove();
+					$('#orderlist tfoot tr.estimate').remove();
 					$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:false,
 						data:{'act':'search','mode':'estimatedetails', 'field1[]':["orders_id"], 'data1[]':[info['orders_id']]}, success:function(r){
 							if(r.trim()==""){
