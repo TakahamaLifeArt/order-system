@@ -403,8 +403,8 @@
 					$('#result_count').text(result_len);
 					if(start_row+LEN<=result_len) result_len = start_row+LEN;
 					$('.pos_pagenavi').text(start_row+1+'-'+result_len);
-					head = '<table><thead><tr><th>受注No.</th><th>工場</th><th>発送日</th><th>配達時間</th><th>袋詰</th><th>送り状種類</th><th>個口数</th>';
-					head += '<th>お届け先名</th><th>商品種類</th><th>入金方法</th><th>同梱</th><th>発送方法</th><th>B2送り状印刷</th></tr>';
+					head = '<table><thead><tr><th>受注No.</th><th>工場</th><th>発送日</th><th>配達時間</th><th>発送準備</th><th>袋詰</th><th>送り状種類</th><th>個口</th>';
+					head += '<th>顧客名</th><th>お届け先名</th><th>住所</th><th>商品種類</th><th>入金方法</th><th>同梱</th><th>発送方法</th><th>B2送り状印刷</th></tr>';
 					head += '</thead>';
 					var curdate = lines[0]['schedule3'];
 					list = "<tbody>";
@@ -422,9 +422,10 @@
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+factory[lines[i]['factory']]+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+lines[i]['schedule3']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+mypage.strDeliverytime(lines[i]['deliverytime'])+'</td>';
+						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+ready[lines[i]['readytoship']]+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+mypage.strPackmode(lines[i])+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">';
-						list += '<select name="invoiceKind[]" id="invoiceKind[]">';
+						list += '<select name="invoiceKind[]" class="invoiceKind">';
 						if(lines[i]['payment'] == "cod") { 
 							list += '<option value="0">発払い</option>';
 							list += '<option value="2" selected="selected">コレクト</option>';
@@ -438,14 +439,16 @@
 						list += '<option value="9">宅急便コンパクトコレクト</option>';
 						list += '</select></td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">';
-						list += '<input type="number" name="printCount[]" id="printCount[]" value="1"/></td>';
+						list += '<input type="number" name="printCount[]" class="printCount" value="'+lines[i]['boxnumber']+'"/></td>';
+						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['customername']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['organization']+'</td>';
+						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['addr0']+lines[i]['addr1']+lines[i]['addr2']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['category_name']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+mypage.strPayment(lines[i]['payment'])+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+mypage.strBundle(lines[i]['bundle'])+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+carry[lines[i]['carriage']]+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">';
-						list += '<label><input type="checkbox" name="b2printchk[]" value="'+ lines[i]['orders_id'] +'" onchange="mypage.checkb2print(this,'+lines[i]['orders_id'] + ')" ';
+						list += '<label><input type="checkbox" name="b2printchk[]" class="b2printchk" value="'+ lines[i]['orders_id'] +'" onchange="mypage.checkb2print(this,'+lines[i]['orders_id'] + ')" ';
 						var isB2print = lines[i]['b2print'];
 						if(lines[i]['b2print']==2){
 							list += ' checked="checked"';
@@ -511,21 +514,33 @@
 				}
 				elem = document.forms.searchresult_form.elements;
 				var outputid = "";
-				for (var j=0; j < elem.length; j++) {
-					if(elem[j].type=="text" || elem[j].type=="select-one" || elem[j].type=="number"){
-						param[idx++] = elem[j].name+'='+(elem[j].value).trim();
+				$('#result_searchtop tbody tr').each(function(){
+					var self = $(this);
+					if (!self.children('td:last').find('.b2printchk').is(':checked')) return true; // continue;
+					param[idx++] = self.find('.invoiceKind').attr('name')+'='+(self.find('.invoiceKind').val()).trim();
+					param[idx++] = self.find('.printCount').attr('name')+'='+(self.find('.printCount').val()).trim();
+					param[idx++] = self.find('.b2printchk').attr('name')+'='+(self.find('.b2printchk').val()).trim()+'_checked';
+					if(outputid != "") {
+						outputid +=",";
 					}
-					if(elem[j].type=="checkbox") {
-						if(elem[j].checked){
-							param[idx++] = elem[j].name+'='+(elem[j].value).trim()+'_checked';
-							if(outputid != "") {
-								outputid +=",";
-							}
-							outputid +=(elem[j].value).trim();
-							bChecked = true;
-						}
-					}
-				}
+					outputid += (self.find('.b2printchk').val()).trim();
+					bChecked = true;
+				});
+//				for (var j=0; j < elem.length; j++) {
+//					if(elem[j].type=="text" || elem[j].type=="select-one" || elem[j].type=="number"){
+//						param[idx++] = elem[j].name+'='+(elem[j].value).trim();
+//					}
+//					if(elem[j].type=="checkbox") {
+//						if(elem[j].checked){
+//							param[idx++] = elem[j].name+'='+(elem[j].value).trim()+'_checked';
+//							if(outputid != "") {
+//								outputid +=",";
+//							}
+//							outputid +=(elem[j].value).trim();
+//							bChecked = true;
+//						}
+//					}
+//				}
 				param [idx++] = 'orderidlist=' +outputid;
 				if(bChecked == false) {
 					alert('B2送り状対象を選択してください。');

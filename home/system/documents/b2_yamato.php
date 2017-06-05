@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
 	発送予定リストのPDF変換と印刷処理
 	charset UTF-8
@@ -77,16 +77,18 @@
 		$factory = array('1'=>'[1]', '2'=>'[2]', '9'=>'[1,2]');
 		
 		$doc = '<table class="shipping"><thead>';
-		$doc .= '<tr><th>受注No.</th><th>工場</th><th>発送日</th><th>配達時間</th><th>袋詰</th><th>送り状種類</th><th>個口数</th><th>お届け先名</th><th>商品種類</th><th>入金方法</th><th>同梱</th><th>発送方法</th></tr>';
+		$doc .= '<tr><th>受注No.<br>工場</th><th>顧客</th><th>発送日<br>配達時間</th><th>袋詰</th><th>送り状種類</th><th>個口数</th><th>お届け先名</th><th>商品種類</th><th>入金方法</th><th>同梱</th><th>発送方法</th></tr>';
 		$doc .= '</thead>';
 
 		$doc .= '<tbody>';
 		for($c=0; $c<count($info); $c++){
 			$doc .= '<tr class="row">';
-			$doc .= '<td class="ac">'.$info[$c]['orders_id'].'</td>';
-			$doc .= '<td class="ac">'.$factory[$info[$c]['factory']].'</td>';
-			$doc .= '<td class="ac">'.$info[$c]['schedule3'].'</td>';
-			$doc .= '<td class="ac">'.strDeliverytime($info[$c]['deliverytime']).'</td>';
+			$doc .= '<td class="ac">'.$info[$c]['orders_id'].'<br>';
+			$doc .= $factory[$info[$c]['factory']].'</td>';
+			$doc .= '<td class="ac">'.$info[$c]['customername'].'<br>';
+			$doc .= $info[$c]['addr0'].$info[$c]['addr1'].'</td>';
+			$doc .= '<td class="ac">'.$info[$c]['schedule3'].'<br>';
+			$doc .= strDeliverytime($info[$c]['deliverytime']).'</td>';
 			// 袋詰
 			if($info[$c]['package_no']==1){
 				$pack = '-';
