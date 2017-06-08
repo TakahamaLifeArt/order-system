@@ -86,7 +86,7 @@
 			$doc .= '<td class="ac">'.$info[$c]['orders_id'].'<br>';
 			$doc .= $factory[$info[$c]['factory']].'</td>';
 			$doc .= '<td class="ac">'.$info[$c]['customername'].'<br>';
-			$doc .= $info[$c]['addr0'].$info[$c]['addr1'].'</td>';
+			$doc .= $info[$c]['deliaddr0'].$info[$c]['deliaddr1'].'</td>';
 			$doc .= '<td class="ac">'.$info[$c]['schedule3'].'<br>';
 			$doc .= strDeliverytime($info[$c]['deliverytime']).'</td>';
 			// 袋詰

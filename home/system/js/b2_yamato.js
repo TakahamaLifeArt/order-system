@@ -442,7 +442,7 @@
 						list += '<input type="number" name="printCount[]" class="printCount" value="'+lines[i]['boxnumber']+'"/></td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['customername']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['organization']+'</td>';
-						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['addr0']+lines[i]['addr1']+lines[i]['addr2']+'</td>';
+						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['deliaddr0']+lines[i]['deliaddr1']+lines[i]['deliaddr2']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+lines[i]['category_name']+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8">'+mypage.strPayment(lines[i]['payment'])+'</td>';
 						list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">'+mypage.strBundle(lines[i]['bundle'])+'</td>';
