@@ -476,13 +476,17 @@ class Orders{
 				foreach($data3 as $key=>$val){
 					$info3[$key] = quote_smart($conn, $val);
 				}
-				/*
-				if($info3["phase"]=="copy"){
-					$progress_id = 2;	// 入稿待ち
-				}else{
-					$progress_id = 1;	// 問い合わせ中
+					
+				// Web注文の場合に箱数を算出
+				if (isset($site)) {
+					$package = $data3["package_yes"]==1? 'yes': 'no';
+					$param = array(
+						array('curdate'=>'', 'package'=>$package),
+						$data4,
+					);
+					$info3["boxnumber"] = $this->search($conn, 'numberOfBox', $param);
 				}
-				 */
+					
 				if(empty($info3["customer_id"]) || $customer_id!=0) $info3["customer_id"] = $customer_id;
 				$info3["delivery_id"] = $delivery_id;
 				$info3["shipfrom_id"] = $ship_id;
@@ -700,8 +704,8 @@ class Orders{
 						mysqli_query($conn, 'ROLLBACK');
 						return null;
 					}
-
-					//Web注文の場合90、注文システムでの新規の場合、1。
+					
+					// 進捗ID  Web注文: 90、注文システム: 1
 					if(isset($site)){
 						$sql = sprintf("INSERT INTO acceptstatus(orders_id,progress_id) VALUES(%d, 90)", $orders_id);
 					} else {
