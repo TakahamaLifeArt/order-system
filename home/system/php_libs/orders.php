@@ -3528,18 +3528,20 @@ class Orders{
 					
 					/* 終了チェック判定
 						- リピ版は終了チェックを入れる
-						- リピ版を除き、変更があれば未指定にする
+						- リピ版を除き、変更があれば未指定にする（2017-06-21 廃止）
 					*/
 					if($s1==28){
 						$f1 = 1;
 						$f2 = 1;
+						$sql = sprintf("update printstatus set state_1=%d, state_2=%d, fin_1=%d, fin_2=%d where prnstatusid=%d",
+									   $s1,$s2,$f1,$f2,$res['prnstatusid']);
 					}else{
-						$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
-						$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
+//						$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
+//						$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
+						$sql = sprintf("update printstatus set state_1=%d, state_2=%d where prnstatusid=%d",
+									   $s1,$s2,$res['prnstatusid']);
 					}
-						
-					$sql = sprintf("update printstatus set state_1=%d, state_2=%d, fin_1=%d, fin_2=%d where prnstatusid=%d",
-						$s1,$s2,$f1,$f2,$res['prnstatusid']);
+					
 					if(!exe_sql($conn, $sql)){
 						mysqli_query($conn, 'ROLLBACK');
 						return null;
@@ -3612,21 +3614,20 @@ class Orders{
 						
 						/* 終了チェック判定
 							- リピ版は終了チェックを入れる
-							- リピ版を除き、変更があれば未指定にする
+							- リピ版を除き、変更があれば未指定にする（2017-06-21 廃止）
 						*/
 						if($s1==28){
 							$f1 = 1;
-						}else{
-							$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
-						}
-						if($s2==28){
 							$f2 = 1;
+							$sql = sprintf("update printstatus set state_1=%d, state_2=%d, fin_1=%d, fin_2=%d where prnstatusid=%d",
+										   $s1,$s2,$f1,$f2,$res['prnstatusid']);
 						}else{
-							$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
+//							$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
+//							$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
+							$sql = sprintf("update printstatus set state_1=%d, state_2=%d where prnstatusid=%d",
+										   $s1,$s2,$res['prnstatusid']);
 						}
 						
-						$sql = sprintf("update printstatus set state_1=%d, state_2=%d, fin_1=%d, fin_2=%d where prnstatusid=%d",
-							$s1,$s2,$f1,$f2,$res['prnstatusid']);
 						if(!exe_sql($conn, $sql)){
 							mysqli_query($conn, 'ROLLBACK');
 							return null;
