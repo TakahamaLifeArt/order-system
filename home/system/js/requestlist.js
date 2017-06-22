@@ -214,6 +214,7 @@
 										lines = r;
 									}
 								}
+								$('#result_wrapper').show();
 							}else{
 								alert('Error: p154\n'+r);
 							}
