@@ -567,7 +567,7 @@
 						$printinfo[$printname][] = array('scale'=>$scale, 'ink'=>$ink, 'pos'=>$pos);
 					}
 					
-					$deliverytime = array('', '午前中', '12-14時', '14-16時', '16-18時', '18-20時', '20-21時');
+					$deliverytime = array('', '午前中', '12-14時', '14-16時', '16-18時', '18-20時', '19-21時');
 					
 					$item_title = "\n【　ご注文内容　】\n\n";
 					$mail_subject = 'ご注文の受付が完了いたしました※必ずご確認の程お願い申し上げます';

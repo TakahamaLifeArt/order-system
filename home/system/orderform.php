@@ -941,11 +941,11 @@
 						 					<select name="deliverytime" id="deliverytime">
 						 						<option value="0">---</option>
 						 						<option value="1">∏·¡∞√Ê</option>
-						 						<option value="2">12-14</option>
+<!--						 						<option value="2">12-14</option>-->
 						 						<option value="3">14-16</option>
 						 						<option value="4">16-18</option>
 						 						<option value="5">18-20</option>
-						 						<option value="6">20-21</option>
+						 						<option value="6">19-21</option>
 						 					</select></label>
 						 				</p>
 						 			</td>

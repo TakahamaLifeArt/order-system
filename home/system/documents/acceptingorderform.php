@@ -75,7 +75,7 @@ $arrival = substr(preg_replace('/-/','/',$orders['arrival']),5);
 $shipped['year'] = substr($orders['schedule3'],0,4);
 $shipped['date'] = substr(preg_replace('/-/','/',$orders['schedule3']),5);
 $deliverydate = substr(preg_replace('/-/','/',$orders['schedule4']),5);
-$deliverytime = array('', 'am', '12-14', '14-16', '16-18', '18-20', '20-21');
+$deliverytime = array('', 'am', '12-14', '14-16', '16-18', '18-20', '19-21');
 $completionimage = $orders['completionimage']==1? 'あり': 'なし';
 
 $ln = mb_strwidth($orders['customername'],'utf-8');

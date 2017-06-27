@@ -6067,7 +6067,7 @@ console.log("-------------");
 			default:		$('#shipment').text('¤½¤ÎÂ¾');
 							break;
 		}
-		var delitime = ['','(am)','(12:00-14:00)','(14:00-16:00)','(16:00-18:00)','(18:00-20:00)','(20:00-21:00)'];
+		var delitime = ['','(am)','(12:00-14:00)','(14:00-16:00)','(16:00-18:00)','(18:00-20:00)','(19:00-21:00)'];
 		$('#numberofbox').text(directions[0]['boxnumber']);
 		$('#envelope').val(directions[0]['envelope']);
 		//$('#ret_note').val(directions[0]['ret_note']);
