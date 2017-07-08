@@ -47,13 +47,25 @@ define('_SITE', '1');
 
 define('_TITLE_SYSTEM', mb_convert_encoding('TLA 受注System', 'euc-jp', 'utf-8'));
 
-define('_API', 'http://takahamalifeart.com/v1/api');
-define('_API_U', 'http://takahamalifeart.com/v1/apiu');
+// テスト環境のサブドメインを判定
+if (strpos($_SERVER['HTTP_HOST'], 'test.')===false) {
+	$_API_DOMAIN = 'http://takahamalifeart.com/v1';
+	$_REST_DOMAIN = 'http://takahamalifeart.com/weblib/api';
+} else {
+	$_API_DOMAIN = 'http://test.takahamalifeart.com/v1';
+	$_REST_DOMAIN = 'http://test.takahamalifeart.com/weblib/api';
+}
+define('_API_REST', $_REST_DOMAIN);
+define('_API', $_API_DOMAIN.'/api');
+define('_API_U', $_API_DOMAIN.'/apiu');
 define('_IMG_PSS', 'http://takahamalifeart.com/weblib/img/');
 
 define('_PASSWORD_SALT', 'Rxjo:akLK(SEs!8E');
 
-//休業終始日付、お知らせの取得
+// REST API
+define('_ACCESS_TOKEN', 'dR7cr3cHasucetaYA8Re82xUtHuB3A7a');
+
+// 休業終始日付、お知らせの取得
 $hol = new Conndb_holiday();
 $holiday_data = $hol->getHolidayinfo();
 if($holiday_data['notice']=="" && $holiday_data['notice-ext']==""){
@@ -66,33 +78,12 @@ if($holiday_data['notice']=="" && $holiday_data['notice-ext']==""){
 $time_start = str_replace("-","/",$holiday_data['start']);
 $time_end = str_replace("-","/",$holiday_data['end']);
 
-//休業終始日付、お知らせ
+// 休業終始日付、お知らせ
 define('_FROM_HOLIDAY', $time_start);
 define('_TO_HOLIDAY', $time_end);
 
-/*
-$_NOTICE_HOLIDAY = "\n<==========  年末年始休業のお知らせ  ==========>\n";
-$_NOTICE_HOLIDAY .= "12月27日(火)から1月5日(木)の間、休業とさせて頂きます。\n";
-$_NOTICE_HOLIDAY .= "休業期間中に頂きましたお問合せにつきましては、1月6日(金)以降対応させて頂きます。\n";
-$_NOTICE_HOLIDAY .= "お急ぎの方はご注意下さい。何卒よろしくお願い致します。\n\n";
-
-$_NOTICE_HOLIDAY = '';
-*/	
-//define('_NOTICE_HOLIDAY', $_NOTICE_HOLIDAY);
+// 告知文
 define('_NOTICE_HOLIDAY', $notice);
-
-/*
-$_EXTRA_NOTICE = "\n\n<==========  価格改定のお知らせ  ==========>\n";
-$_EXTRA_NOTICE .= "タカハマライフアートをご利用頂きありがとうございます。\n";
-$_EXTRA_NOTICE .= "3月14日(月)より下記のブランドのアイテムが価格改定となります。\n";
-$_EXTRA_NOTICE .= "「Printstar」「glimmer」「DALUC」「AIMY」\n";
-$_EXTRA_NOTICE .= "改定前に御見積りいただいた場合でも、ご注文確定が3月14日(月)以降になりますと改定後の価格となりますのでご注意くださいませ。\n";
-$_EXTRA_NOTICE .= "※リピート注文の場合も改定後は改定価格でのご提供となりますのでご了承ください。\n";
-$_EXTRA_NOTICE .= "\n\n";
-
-$_EXTRA_NOTICE = '';
-
-define('_EXTRA_NOTICE', $_EXTRA_NOTICE);
-*/
 define('_EXTRA_NOTICE', $extra_noitce);
+
 ?>

@@ -137,7 +137,36 @@
 
 	if(isset($_REQUEST['act'], $_REQUEST['mode'])){
 		$orders = new Orders();
-		if($_REQUEST['mode']=='order'){
+		if ($_REQUEST['act']=='sync') {
+			// 顧客リストの同期
+			try {
+				$method = strtoupper($_REQUEST['mode']);
+				//				$data = array("curdate"=>date('Y-m-d'));
+				//				$json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
+				//				$param = $json->encode($data);
+				$param = "";
+				$header = array(
+					'X-TLA-Access-Token: '._ACCESS_TOKEN
+				);
+				$url = _API_REST.'/v1/customers';
+				if ($method==='POST') {
+					$header[] = 'Content-Type: application/json';
+					$url .= '/'.date('Y-m-d');
+				}
+				if ($method==='IMPORT') {
+					$method = 'POST';
+					$url .= '/2015-04-01/csv';
+				}
+				$http = new Http($url);
+				$result = $http->requestRest($method, $param, $header);
+				if (TRUE !== $result) {
+					throw new Exception($result);
+				}
+			} catch (Exception $e) {
+				$result = $e->getMessage();
+			}
+		} else if($_REQUEST['mode']=='order'){
+			// Webサイトからの注文データ
 			$file = $_REQUEST['file'];
 			$name = $_REQUEST['name'];
 			$site = $_REQUEST['site'];

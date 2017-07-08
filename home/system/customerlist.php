@@ -165,6 +165,7 @@
 						<input type="button" value="¸¡º÷" title="search" />
 						<input type="button" value="reset" title="reset" />
 						<input type="button" value=" ¿·µ¬ÅÐÏ¿ " title="addnew" />
+						<input type="button" value=" WillMail ¹¹¿· " title="sync" />
 					</p>
 				</fieldset>
 
