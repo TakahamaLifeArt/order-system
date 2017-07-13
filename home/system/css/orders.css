@@ -972,6 +972,8 @@ table#orderlist tfoot tr.estimate td .price {
 }
 .pp_toggler p.title {
 	width: 700px;
+	white-space: nowrap;
+	overflow-x: scroll;
 }
 .pp_toggler p span {
 	margin-left: 30px;
