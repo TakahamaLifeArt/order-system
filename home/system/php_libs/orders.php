@@ -1813,6 +1813,8 @@ class Orders{
 							return null;
 						}
 					}
+				} else if($ship_id!=0) {
+					$ship_id = 0;
 				}
 
 				$data3["delivery_id"] = $delivery_id;
