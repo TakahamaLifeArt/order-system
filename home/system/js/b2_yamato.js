@@ -107,9 +107,9 @@
 			mypage.screenOverlay(true);
 			
 			if($(my).attr('checked')){
-				args = 2;	 
+				args = 2;
 			}else{
-				args = 1;	
+				args = 1;
 			}
 			
 			$.ajax({url: './php_libs/ordersinfo.php', type: 'POST',
@@ -219,15 +219,15 @@
 									break;
 				case '1': deliverytime_str="午前中";
 									break;
-				case '2': deliverytime_str="12-14";
-									break;
+//				case '2': deliverytime_str="12-14";
+//									break;
 				case '3': deliverytime_str="14-16";
 									break;
 				case '4': deliverytime_str="16-18";
 									break;
 				case '5': deliverytime_str="18-20";
 									break;
-				case '6': deliverytime_str="20-21";
+				case '6': deliverytime_str="19-21";
 									break;
 				default:
 									break;
@@ -514,33 +514,36 @@
 				}
 				elem = document.forms.searchresult_form.elements;
 				var outputid = "";
-				$('#result_searchtop tbody tr').each(function(){
-					var self = $(this);
-					if (!self.children('td:last').find('.b2printchk').is(':checked')) return true; // continue;
-					param[idx++] = self.find('.invoiceKind').attr('name')+'='+(self.find('.invoiceKind').val()).trim();
-					param[idx++] = self.find('.printCount').attr('name')+'='+(self.find('.printCount').val()).trim();
-					param[idx++] = self.find('.b2printchk').attr('name')+'='+(self.find('.b2printchk').val()).trim()+'_checked';
+				
+				$.each(mypage.prop.searchdata, function(index, val){
+					if(val['b2print']==1) return true;	// continue
+					if(val['payment']=="cod") {
+						param[idx++] = 'invoiceKind[]=2';
+					} else {
+						param[idx++] = 'invoiceKind[]=0';
+					}
+					param[idx++] = 'printCount[]='+val['boxnumber'];
+					param[idx++] = 'b2printchk[]='+(val['orders_id']).trim()+'_checked';
 					if(outputid != "") {
 						outputid +=",";
 					}
-					outputid += (self.find('.b2printchk').val()).trim();
+					outputid += (val['orders_id']).trim();
 					bChecked = true;
 				});
-//				for (var j=0; j < elem.length; j++) {
-//					if(elem[j].type=="text" || elem[j].type=="select-one" || elem[j].type=="number"){
-//						param[idx++] = elem[j].name+'='+(elem[j].value).trim();
+				
+//				$('#result_searchtop tbody tr').each(function(){
+//					var self = $(this);
+//					if (!self.children('td:last').find('.b2printchk').is(':checked')) return true; // continue;
+//					param[idx++] = self.find('.invoiceKind').attr('name')+'='+(self.find('.invoiceKind').val()).trim();
+//					param[idx++] = self.find('.printCount').attr('name')+'='+(self.find('.printCount').val()).trim();
+//					param[idx++] = self.find('.b2printchk').attr('name')+'='+(self.find('.b2printchk').val()).trim()+'_checked';
+//					if(outputid != "") {
+//						outputid +=",";
 //					}
-//					if(elem[j].type=="checkbox") {
-//						if(elem[j].checked){
-//							param[idx++] = elem[j].name+'='+(elem[j].value).trim()+'_checked';
-//							if(outputid != "") {
-//								outputid +=",";
-//							}
-//							outputid +=(elem[j].value).trim();
-//							bChecked = true;
-//						}
-//					}
-//				}
+//					outputid += (self.find('.b2printchk').val()).trim();
+//					bChecked = true;
+//				});
+
 				param [idx++] = 'orderidlist=' +outputid;
 				if(bChecked == false) {
 					alert('B2送り状対象を選択してください。');
