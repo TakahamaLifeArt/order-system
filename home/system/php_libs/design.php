@@ -11,9 +11,47 @@ $des = new Design();
 	* saveDesFile
 	*	フロントエンドからの注文デザイン画像ファイル保存
 	*	$order_id ,$file ,$name ,$site
+	*
+	* @return {int} アップロードファイルの数
 	*/
-
 		public function saveDesFile($order_id, $file, $name, $site){
+			$path =  $_SERVER['DOCUMENT_ROOT']."/system/attatchfile/".$order_id;
+			if(!is_dir($path)) {
+				mkdir($path);
+			}
+
+			$root = $_SERVER['DOCUMENT_ROOT']."/../../";
+			$fileCount = count($file);
+			$up = 0;
+			for($i=0;$i<$fileCount;$i++){
+				if(!$file[$i]){
+					break;
+				}
+				$fileName = basename($file[$i]);
+
+				// 同じファイル名の場合
+				//				while($this->checkFileName($order_id,$fileName)) {
+				//					$fileName = str_replace(".", "_next_.", $fileName);
+				//				}
+				$fileName = $path."/".$fileName;
+
+				// ファイルを移動
+				rename($root.$file[$i], $fileName);
+				$up++;
+			}
+
+			if ($up>0 && $up==$fileCount) {
+				$tmpPath = dirname($root.$file[0]);
+				$this->removeDirectory($tmpPath);
+			}
+
+			return $up;
+		}
+
+		/**
+		 * 未使用（旧バージョン）
+		 */
+		public function saveDesFile_old($order_id, $file, $name, $site){
 			$path =  $_SERVER['DOCUMENT_ROOT']."/system/attatchfile/".$order_id;
 			if(!is_dir($path)) {
 				mkdir($path);
@@ -43,6 +81,27 @@ $des = new Design();
 				$uploadfile = file_put_contents($fileName,$img_decode64);
 			}
 			return null;
+		}
+
+	/*****************************************************
+	* removeDirectory
+	*	ディレクトリとファイルを再帰的に全削除
+	*	$dir
+	*/
+		public function removeDirectory($dir) {
+			if ($handle = opendir("$dir")) {
+				while (false !== ($item = readdir($handle))) {
+					if ($item != "." && $item != "..") {
+						if (is_dir("$dir/$item")) {
+							$this->removeDirectory("$dir/$item");
+						} else {
+							unlink("$dir/$item");
+						}
+					}
+				}
+				closedir($handle);
+				rmdir($dir);
+			}
 		}
 
 	/*****************************************************
