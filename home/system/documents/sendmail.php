@@ -761,8 +761,8 @@
 			case 'estimation':
 				if($orders['ordertype']=='general'){
 					$mail_contents .= "◆下記は注意点になります。必ずご覧ください\n\n";
-					$mail_contents .= "※イメージ画像の作成は、￥30,000以上ご注文のお客様対象のサービスとなっており、\n";
-					$mail_contents .= "　通常納期に加えて３営業日の期間が必要となります。\n";
+					$mail_contents .= "※イメージ画像の作成は、";
+					$mail_contents .= "通常納期に加えて３営業日の期間が必要となります。\n";
 					$mail_contents .= "　ご注文締切日は、イメージ画像をご確認後、あらためての設定となり、\n";
 					$mail_contents .= "　お伝えしている締切日が変更となる場合がありますので、ご承知おきください。\n";
 					$mail_contents .= "※お支払いがお振込みの場合、振り込み手数料はお客様のご負担となります。\n";

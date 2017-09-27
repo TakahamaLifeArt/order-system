@@ -91,13 +91,15 @@ $(function(){
 	var starttime = new Date(start.replace("-", "/").replace("-", "/")); 
 	var endtime = new Date(end.replace("-", "/").replace("-", "/")); 
 
-	if(!start.match(/^[0-9A-Za-z-]+$/)){
-		$.msgbox('開始日付を確認してください。');
-		return;
-	}else if(!end.match(/^[0-9A-Za-z-]+$/)){
-		$.msgbox('終了日付を確認してください。');
-		return;
-	}else if(end < start){
+//	if(!start.match(/^[0-9A-Za-z-]+$/)){
+//		$.msgbox('開始日付を確認してください。');
+//		return;
+//	}else if(!end.match(/^[0-9A-Za-z-]+$/)){
+//		$.msgbox('終了日付を確認してください。');
+//		return;
+//	}else 
+	
+	if(end < start){
 		$.msgbox('終始日付のをチェックしてください。');
 		return;
 	}
