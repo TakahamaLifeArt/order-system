@@ -120,6 +120,11 @@
 						mypage.screenOverlay(false);
 						return;
 					}
+					$.each(mypage.prop.searchdata, function(index, val){
+						if(val['orders_id']!=order_id) return true;	// continue
+						val['b2print'] = args;
+						return false;
+					});
 					mypage.screenOverlay(false);
 				}
 			});
