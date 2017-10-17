@@ -1680,12 +1680,13 @@
 							$sql = sprintf("select * from itemsize where item_id=%d and itemsizeapply<='%s' and itemsizedate>'%s' order by series limit 1",
 								 $item_id, $curdate, $curdate);
 							$result = exe_sql($conn, $sql);
+							$tmp = array();
 							while($rec = mysqli_fetch_array($result)){
 								$tmp[] = $rec;
 							}
 							
 							$sql = sprintf("insert into itemsize (series,item_id,size_from,size_to,numbernopack,numberpack,printarea_1,printarea_2,printarea_3,printarea_4,printarea_5,printarea_6,printarea_7,itemsizeapply) 
-									 values(%d,%d,%d,%d,%d,%d,'%s','%s','%s','%s','%s','%s','%s')", 
+									 values(%d,%d,%d,%d,%d,%d,'%s','%s','%s','%s','%s','%s','%s','%s')", 
 									 $tmp[0]['series'], $item_id, $info2[$i]["size_id"], $info2[$i]["size_id"], $info2[$i]["numbernopack"], $info2[$i]["numberpack"], 
 										   $info2[$i]["printarea_1"], $info2[$i]["printarea_2"], $info2[$i]["printarea_3"], $info2[$i]["printarea_4"], $info2[$i]["printarea_5"], $info2[$i]["printarea_6"], $info2[$i]["printarea_7"], $curdate);
 							if(!exe_sql($conn, $sql)){
@@ -1705,13 +1706,13 @@
 									 $curdate);
 							
 						}else{
-							$sql = sprintf("select itemsizedate from itemsize where itemsizeapply<='%s' and itemsizedate>'%s' and item_id=%d and size_from=%d",
-										   $curdate, $curdate, $item_id, $info2[$i]["size_id"]);
-							$result = exe_sql($conn, $sql);
-							$tmp = array();
-							while($rec = mysqli_fetch_array($result)){
-								$tmp[] = $rec;
-							}
+//							$sql = sprintf("select itemsizedate from itemsize where itemsizeapply<='%s' and itemsizedate>'%s' and item_id=%d and size_from=%d",
+//										   $curdate, $curdate, $item_id, $info2[$i]["size_id"]);
+//							$result = exe_sql($conn, $sql);
+//							$tmp = array();
+//							while($rec = mysqli_fetch_array($result)){
+//								$tmp[] = $rec;
+//							}
 							$sql = sprintf("select count(*) as recordCount from itemprice where item_id=%d and itempriceapply>='%s' and size_from=%d", 
 										   $item_id, $info2[$i]['itempricedate'], $info2[$i]["size_id"]);
 							$result = exe_sql($conn, $sql);
@@ -1812,7 +1813,7 @@
 									if(mysqli_num_rows($result)==0){
 									// 新規追加
 										$sql = sprintf("insert into itemsize (series,item_id,size_from,size_to,numbernopack,numberpack,printarea_1,printarea_2,printarea_3,printarea_4,printarea_5,printarea_6,printarea_7,itemsizeapply) 
-										 values(%d,%d,%d,%d,%d,%d,'%s','%s','%s','%s','%s','%s','%s')", 
+										 values(%d,%d,%d,%d,%d,%d,'%s','%s','%s','%s','%s','%s','%s','%s')", 
 										 $series, $item_id, $info2[$i]["size_id"], $info2[$i]["size_id"], $info2[$i]["numbernopack"], $info2[$i]["numberpack"], 
 													   $info2[$i]["printarea_1"], $info2[$i]["printarea_2"], $info2[$i]["printarea_3"], $info2[$i]["printarea_4"], 
 													   $info2[$i]["printarea_5"], $info2[$i]["printarea_6"], $info2[$i]["printarea_7"], $curdate);
