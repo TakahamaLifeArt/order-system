@@ -49,8 +49,8 @@ define('_TITLE_SYSTEM', mb_convert_encoding('TLA 受注System', 'euc-jp', 'utf-8
 
 // テスト環境のサブドメインを判定
 if (strpos($_SERVER['HTTP_HOST'], 'test.')===false) {
-	$_API_DOMAIN = 'http://takahamalifeart.com/v1';
-	$_REST_DOMAIN = 'http://takahamalifeart.com/weblib/api';
+	$_API_DOMAIN = 'https://takahamalifeart.com/v1';
+	$_REST_DOMAIN = 'https://takahamalifeart.com/weblib/api';
 } else {
 	$_API_DOMAIN = 'http://test.takahamalifeart.com/v1';
 	$_REST_DOMAIN = 'http://test.takahamalifeart.com/weblib/api';
@@ -58,7 +58,7 @@ if (strpos($_SERVER['HTTP_HOST'], 'test.')===false) {
 define('_API_REST', $_REST_DOMAIN);
 define('_API', $_API_DOMAIN.'/api');
 define('_API_U', $_API_DOMAIN.'/apiu');
-define('_IMG_PSS', 'http://takahamalifeart.com/weblib/img/');
+define('_IMG_PSS', 'https://takahamalifeart.com/weblib/img/');
 
 define('_PASSWORD_SALT', 'Rxjo:akLK(SEs!8E');
 

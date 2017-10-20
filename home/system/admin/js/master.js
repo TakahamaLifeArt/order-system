@@ -2326,6 +2326,6 @@ jQuery.extend({
 		list:[]
 	},
 	_DB: {
-		'imgPath': 'http://takahamalifeart.com/weblib/img/'
+		'imgPath': 'https://takahamalifeart.com/weblib/img/'
 	}
 });

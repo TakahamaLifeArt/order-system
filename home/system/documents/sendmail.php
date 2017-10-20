@@ -20,7 +20,7 @@
 //			require_once dirname(__FILE__).'/../php_libs/member/TLAmember.php';
 
 			/* 2011/4/1 保留
-			define(_ORDER_COMPLETED, "http://takahama428.com/ordercompleted.php");
+			define(_ORDER_COMPLETED, "https://takahama428.com/ordercompleted.php");
 			*/
 
 			$DB = new Orders();
@@ -477,7 +477,7 @@
 						$doc_title .= "ご承知おきいただきますよう、お願いいたします。\n\n";
 						
 						$doc_title .= "下記をご参照の上、メールまたはFAXでデザインのご入稿をお願いいたします。\n";
-						$doc_title .= "【　http://www.takahama428.com/design/designguide.html　】\n\n";
+						$doc_title .= "【　https://www.takahama428.com/design/designguide.html　】\n\n";
 						
 					}
 					
@@ -627,7 +627,7 @@
 						} else if($orders['reg_site'] == 5) {
 									$doc_title .= "URL：http://www.sweatjack.jp/user/login.php\n";
 						} else {
-									$doc_title .= "URL：http://www.takahama428.com/user/login.php\n";
+									$doc_title .= "URL：https://www.takahama428.com/user/login.php\n";
 						}
 						$doc_title .= "1. 上記のURLからマイページへログインしてください。\n";
 						$doc_title .= "　※ログイン情報は下記「マイページのご利用のご案内」をご覧ください。\n";
@@ -645,7 +645,7 @@
 						} else if($orders['reg_site'] == 5) {
 									$doc_title .= "URL：http://www.sweatjack.jp/user/login.php\n";
 						} else {
-									$doc_title .= "URL：http://www.takahama428.com/user/login.php\n";
+									$doc_title .= "URL：https://www.takahama428.com/user/login.php\n";
 						}
 						$doc_title .= "1. 上記のURLからマイページへログインしてください。\n";
 						$doc_title .= "　※ログイン情報は下記「マイページのご利用のご案内」をご覧ください。\n";
@@ -679,7 +679,7 @@
 						} else if($orders['reg_site'] == 5) {
 							$doc_title .= "http://www.sweatjack.jp/user/login.php\n\n";
 						} else {
-							$doc_title .= "http://www.takahama428.com/user/login.php\n\n";
+							$doc_title .= "https://www.takahama428.com/user/login.php\n\n";
 						}
 						$doc_title .= "上記のURLで以下のメールアドレスで入力しログインして下さい。\n";
 //						$doc_title .= "※パスワードは仮発行なので、ログイン後アカウントから変更可能です\n\n";
@@ -693,7 +693,7 @@
 							} else if($orders['reg_site'] == 5) {
 								$doc_title .= "http://www.sweatjack.jp/user/resend_pass.php\n\n";
 							} else {
-								$doc_title .= "http://www.takahama428.com/user/resend_pass.php\n\n";
+								$doc_title .= "https://www.takahama428.com/user/resend_pass.php\n\n";
 							}
 						} else {
 							$doc_title .= "仮パスワード： ".$password."\n";
@@ -835,7 +835,7 @@
 			} else if($orders['reg_site'] == 5) {
 				$mail_contents .= "　Web site：　http://www.sweatjack.jp/\n";
 			} else {
-				$mail_contents .= "　Web site：　http://www.takahama428.com/\n";
+				$mail_contents .= "　Web site：　https://www.takahama428.com/\n";
 			}
 			$mail_contents .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
 
@@ -849,7 +849,7 @@
 				$reply = $data[0];
 			}else{
 				// メール送信
-				$http = new HTTP('http://www.takahama428.com/v1/via_mailer.php');
+				$http = new HTTP('https://www.takahama428.com/v1/via_mailer.php');
 				$param = array(
 					'mail_subject'=>$mail_subject,
 					'mail_contents'=>$mail_contents,
