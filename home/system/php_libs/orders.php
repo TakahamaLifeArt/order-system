@@ -1199,6 +1199,10 @@ class Orders{
 				if($reg_site == null || $reg_site == "" || ($reg_site != "1" && $reg_site != "5" && $reg_site != "6")) {
 					$reg_site = "1";
 				}
+				$zipcode = str_replace('-', '', $info["zipcode"]);
+				$tel = str_replace('-', '', $info["tel"]);
+				$fax = str_replace('-', '', $info["fax"]);
+				$mobile = str_replace('-', '', $info["mobile"]);
 				$sql = sprintf("INSERT INTO customer(number,cstprefix,customername,customerruby,zipcode,addr0,addr1,addr2,addr3,addr4,tel,fax,email,mobmail,
 				company,companyruby,mobile,job,customernote,bill,remittancecharge,cyclebilling,cutofday,paymentday,consumptiontax,password,reg_site,use_created)
 							   VALUES(%d,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,'%s','%s', now())",
@@ -1206,19 +1210,19 @@ class Orders{
 							   $info['cstprefix'],
 							   $info["customername"],
 						 	   $info["customerruby"],
-						 	   $info["zipcode"],
+						 	   $zipcode,
 						 	   $info["addr0"],
 						 	   $info["addr1"],
 						 	   $info["addr2"],
 						 	   $info["addr3"],
 						 	   $info["addr4"],
-						 	   $info["tel"],
-						 	   $info["fax"],
+						 	   $tel,
+						 	   $fax,
 						 	   $info["email"],
 						 	   $info["mobmail"],
 						 	   $info["company"],
 						 	   $info["companyruby"],
-						 	   $info['mobile'],
+						 	   $mobile,
 						 	   $info["job"],
 						 	   $info['customernote'],
 						 	   $info['bill'],
@@ -3229,21 +3233,27 @@ class Orders{
 				if(isset($data['cancel'])){		// 受注伝票との関連付けを取り消す 2013-11-02 廃止
 					// $sql = sprintf("UPDATE orders SET customer_id='0' WHERE id='%s'", $data["id"]);
 				}else if(!isset($data['from_ordersystem']) && isset($data['reg_site'])){
+					$zipcode = str_replace('-', '', $data["zipcode"]);
+					$tel = str_replace('-', '', $data["tel"]);
 					$sql = sprintf("UPDATE customer
 							   SET customername='%s',customerruby='%s',
 							   zipcode='%s',addr0='%s',addr1='%s',addr2='%s',tel='%s',email='%s' WHERE id=%d",
 							   $data["customername"],
-						 	   $data["customerruby"],
-						 	   $data["zipcode"],
-						 	   $data["addr0"],
-						 	   $data["addr1"],
-						 	   $data["addr2"],
-						 	   $data["tel"],
-						 	   $data["email"],
-						 	   $data["customer_id"]);
+							   $data["customerruby"],
+							   $zipcode,
+							   $data["addr0"],
+							   $data["addr1"],
+							   $data["addr2"],
+							   $tel,
+							   $data["email"],
+							   $data["customer_id"]);
 				}else{
+					$zipcode = str_replace('-', '', $data["zipcode"]);
+					$tel = str_replace('-', '', $data["tel"]);
+					$fax = str_replace('-', '', $data["fax"]);
+					$mobile = str_replace('-', '', $data["mobile"]);
 					if(isset($data['reg_site'])) {
-					$sql = sprintf("UPDATE customer
+						$sql = sprintf("UPDATE customer
 							   SET customername='%s',customerruby='%s',
 							   zipcode='%s',addr0='%s',addr1='%s',addr2='%s',addr3='%s',addr4='%s',tel='%s',fax='%s',email='%s',mobmail='%s',
 							   company='%s',companyruby='%s',mobile='%s',job='%s',customernote='%s',
@@ -3251,16 +3261,16 @@ class Orders{
 							   cutofday=%d,paymentday=%d,consumptiontax=%d, reg_site=%s WHERE id=%d",
 							   $data["customername"],
 						 	   $data["customerruby"],
-						 	   $data["zipcode"],
+						 	   $zipcode,
 						 	   $data["addr0"],
 						 	   $data["addr1"],
 						 	   $data["addr2"],
 						 	   $data["addr3"],
 						 	   $data["addr4"],
-						 	   $data["tel"],
-						 	   $data["fax"],
+						 	   $tel,
+						 	   $fax,
 						 	   $data["email"],
-						 	   $data["mobmail"],
+						 	   $mobmail,
 						 	   $data["company"],
 						 	   $data["companyruby"],
 						 	   $data["mobile"],
@@ -3274,38 +3284,38 @@ class Orders{
 						 	   2,
 						 	   $data["reg_site"],
 						 	   $data["customer_id"]);
-						} else {
+					} else {
 						$sql = sprintf("UPDATE customer
-								   SET customername='%s',customerruby='%s',
-								   zipcode='%s',addr0='%s',addr1='%s',addr2='%s',addr3='%s',addr4='%s',tel='%s',fax='%s',email='%s',mobmail='%s',
-								   company='%s',companyruby='%s',mobile='%s',job='%s',customernote='%s',
-								   bill=%d,remittancecharge=%d,cyclebilling=%d,
-								   cutofday=%d,paymentday=%d,consumptiontax=%d WHERE id=%d",
-								   $data["customername"],
-							 	   $data["customerruby"],
-							 	   $data["zipcode"],
-							 	   $data["addr0"],
-							 	   $data["addr1"],
-							 	   $data["addr2"],
-							 	   $data["addr3"],
-							 	   $data["addr4"],
-							 	   $data["tel"],
-							 	   $data["fax"],
-							 	   $data["email"],
-							 	   $data["mobmail"],
-							 	   $data["company"],
-							 	   $data["companyruby"],
-							 	   $data["mobile"],
-							 	   $data["job"],
-							 	   $data["customernote"],
-							 	   $data["bill"],
-							 	   $data["remittancecharge"],
-							 	   $data["cyclebilling"],
-							 	   $data["cutofday"],
-							 	   $data["paymentday"],
-							 	   2,
-							 	   $data["customer_id"]);
-						}
+							   SET customername='%s',customerruby='%s',
+							   zipcode='%s',addr0='%s',addr1='%s',addr2='%s',addr3='%s',addr4='%s',tel='%s',fax='%s',email='%s',mobmail='%s',
+							   company='%s',companyruby='%s',mobile='%s',job='%s',customernote='%s',
+							   bill=%d,remittancecharge=%d,cyclebilling=%d,
+							   cutofday=%d,paymentday=%d,consumptiontax=%d WHERE id=%d",
+							   $data["customername"],
+							   $data["customerruby"],
+							   $zipcode,
+							   $data["addr0"],
+							   $data["addr1"],
+							   $data["addr2"],
+							   $data["addr3"],
+							   $data["addr4"],
+							   $tel,
+							   $fax,
+							   $data["email"],
+							   $mobmail,
+							   $data["company"],
+							   $data["companyruby"],
+							   $data["mobile"],
+							   $data["job"],
+							   $data["customernote"],
+							   $data["bill"],
+							   $data["remittancecharge"],
+							   $data["cyclebilling"],
+							   $data["cutofday"],
+							   $data["paymentday"],
+							   2,
+							   $data["customer_id"]);
+					}
 				}
 				$rs = exe_sql($conn, $sql);
 				if(!$rs){
