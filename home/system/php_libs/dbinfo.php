@@ -38,12 +38,12 @@
 		private $mode = '';		// ソートする項目の優先順位
 		private $size_hash = array(
 			'70'=>1,'80'=>2,'90'=>3,'100'=>4,'110'=>5,'120'=>6,'130'=>7,'140'=>8,'150'=>9,'160'=>10,
-	    	'JS'=>11,'JM'=>12,'JL'=>13,'WS'=>14,'WM'=>15,'WL'=>16,'GS'=>17,'GM'=>18,'GL'=>19,
-	    	'SSS'=>20,'SS'=>21,'XS'=>22,
-	    	'S'=>23,'M'=>24,'L'=>25,'XL'=>26,
-	    	'XXL'=>27,
-	    	'O'=>28,'XO'=>29,'2XO'=>30,'YO'=>31,
-	    	'3L'=>32,'4L'=>33,'5L'=>34,'6L'=>35,'7L'=>36,'8L'=>37);
+			'JS'=>11,'JM'=>12,'JL'=>13,'WS'=>14,'WM'=>15,'WL'=>16,'GS'=>17,'GM'=>18,'GL'=>19,
+			'SSS'=>20,'SS'=>21,'XS'=>22,
+			'S'=>23,'M'=>24,'L'=>25,'XL'=>26,
+			'XXL'=>27,
+			'O'=>28,'XO'=>29,'2XO'=>30,'YO'=>31,
+			'3L'=>32,'4L'=>33,'5L'=>34,'6L'=>35,'7L'=>36,'8L'=>37);
 		
 		public function __construct($mode='color'){
 			$this->mode = $mode;
@@ -1063,13 +1063,13 @@
 			
 			$printtype = array('silk'=>'シルク','trans'=>'カラー転写','digit'=>'デジタル転写','inkjet'=>'インクジェット','cutting'=>'カッティング','embroidery'=>'刺繍');
 			$inkjet_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
-			$inkjet_selector .= '<option value="0">大（40×28）</option><option value="1">中（28×20）</option><option value="2">小（15×15）</option></select>';
+			$inkjet_selector .= '<option value="0">大（27×38）</option><option value="1">中（27×18）</option><option value="2">小（10×10）</option></select>';
 
 			$trans_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
-			$trans_selector .= '<option value="0">大（38×27）</option><option value="1">中（27×18）</option><option value="2">小（10×10）</option></select>';
+			$trans_selector .= '<option value="0">大（27×38）</option><option value="1">中（27×18）</option><option value="2">小（10×10）</option></select>';
 
 			$cutting_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
-			$cutting_selector .= '<option value="0">大（40×30）</option><option value="1">中（30×10）</option><option value="2">小（10×10）</option></select>';
+			$cutting_selector .= '<option value="0">大（27×38）</option><option value="1">中（27×18）</option><option value="2">小（10×10）</option></select>';
 			
 			$embroidery_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
 			$embroidery_selector .= '<option value="0">大（25×25）</option><option value="1">中（18×18）</option><option value="2">小（10×10）</option></select>';
