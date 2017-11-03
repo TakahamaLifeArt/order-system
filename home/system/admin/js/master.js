@@ -1355,10 +1355,10 @@ jQuery.extend({
 		var curdate = $('#apply').val();
 		var checkRes="";
 		$.ajax({
-			url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+			url: '../php_libs/admin/master.php', type:'POST', dataType:'json', async:false,
 			data:{'act':'codeCheck','item_code':item_code, 'curdate':curdate}, 
 			success: function(r){
-				checkRes=r[1];
+				checkRes=r[0];
 			}
 		});
 		return checkRes;

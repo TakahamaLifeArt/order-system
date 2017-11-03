@@ -800,7 +800,7 @@
 		*		item_code item_ame 重複かのチェック
 		*/
 			if(isset($_REQUEST['act'])){
-				$rec = Master::codeCheck( $_REQUEST['item_code']);
+				$rec = Master::codeCheck($_REQUEST['item_code'], $_REQUEST['curdate']);
 				$count = count($rec);
 				if($count==0){
 					$list[0] = 0;
@@ -1006,10 +1006,10 @@
 		/**
 -----------------------------------------------------------1107
 		*/
-		public static function codeCheck($item_code){
+		public static function codeCheck($item_code, $curdate){
 			try{
 				$conn = db_connect();
-				$sql = sprintf("SELECT * FROM item WHERE item_code='%s'",$item_code);
+				$sql = sprintf("SELECT * FROM item WHERE item_code='%s' and itemapply<='%s' and itemdate>'%s'", $item_code, $curdate, $curdate);
 				$result = exe_sql($conn, $sql);
 				while($rec = mysqli_fetch_array($result)){
 					$rs[] = $rec;
