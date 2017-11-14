@@ -998,7 +998,10 @@
 							closedir($dh);
 							$res .= '</li>';
 						}else die("Cannot open directory:  $path");
-					}else die("Path is not a directory:  $path");
+					}else {
+						$res .= '<li>Path is not a directory:  '.$path.'</li>';
+//						die("Path is not a directory:  $path");
+					}
 				}
 			
 			}else{

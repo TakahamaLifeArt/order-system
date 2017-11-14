@@ -1,0 +1,1179 @@
+@charset "EUC-JP";
+
+/*------------------------------------------------------------
+
+File_name    : printposition.css
+Description  : takahama system print position images stylesheet
+Version      : 0.1
+Log		     : 
+2010-01-20 created
+2013-04-20 boxerpants, mascot-tshirts, pocket-tshirts を追加
+2013-05-30 army-work-cap, active-dry-cap, chino-pants, fraise-tshirts, henry-neck-tshirts, button-down-shirt-long, button-down-shirt-short, polyester-pants を追加
+2013-06-07 プリントなしのダミー用にblankを指定
+2014-10-12 スウェットにプリント位置の追加
+2016-11-17 エプロンの絵型を追加 apron_pocket_left, apron_pocket_right, apron_suso
+2017-11-13 絵型追加に伴う更新
+
+-------------------------------------------------------------- */
+
+
+
+
+/*		プリント位置画像
+===============================================================*/
+
+/* プリントなし */
+.blank {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+
+/* 前 */
+.mae_hood{
+	position: absolute;
+	top: 18px;
+	left: 85px;
+	cursor: pointer;
+}
+.mae{
+	position: absolute;
+	top: 42px;
+	left: 73px;
+	cursor: pointer;
+}
+.mae_mini{
+	position: absolute;
+	top: 85px;
+	left: 73px;
+	cursor: pointer;
+}
+.jacket_mae_mini{
+	position: absolute;
+	top: 52px;
+	left: 73px;
+	cursor: pointer;
+}
+.mae_mini_2{
+	position: absolute;
+	top: 85px;
+	left: 73px;
+	cursor: pointer;
+}
+.parker_mae_mini_2,
+.parker_mae_mini_zip {
+	position: absolute;
+	top: 56px;
+	left: 73px;
+	cursor: pointer;
+}
+.apron_mae{
+	position: absolute;
+	top: 50px;
+	left: 85px;
+	cursor: pointer;
+}
+.tote_mae{
+	position: absolute;
+	top: 68px;
+	left: 72px;
+	cursor: pointer;
+}
+.tote_mae_mini{
+	position: absolute;
+	top: 56px;
+	left: 83px;
+	cursor: pointer;
+}
+.tote_mae_pocket{
+	position: absolute;
+	top: 105px;
+	left: 83px;
+	cursor: pointer;
+}
+.tote_mae_non_pocket{
+	position: absolute;
+	top: 61px;
+	left: 82px;
+	cursor: pointer;
+}
+.mae_backpack{
+	position: absolute;
+	top: 25px;
+	left: 56px;
+	cursor: pointer;
+}
+.mune_left{
+	position: absolute;
+	top: 48px;
+	left: 110px;
+	cursor: pointer;
+}
+.mune_right{
+	position: absolute;
+	top: 48px;
+	left: 63px;
+	cursor: pointer;
+}
+.parker_mune_left{
+	position: absolute;
+	top: 58px;
+	left: 109px;
+	cursor: pointer;
+}
+.parker_mune_right{
+	position: absolute;
+	top: 58px;
+	left: 62px;
+	cursor: pointer;
+}
+.parker_mae_pocket{
+	position: absolute;
+	top: 112px;
+	left: 84px;
+	cursor: pointer;
+}
+.active_mune_left{
+	position: absolute;
+	top: 48px;
+	left: 106px;
+	cursor: pointer;
+}
+.active_mune_right{
+	position: absolute;
+	top: 48px;
+	left: 68px;
+	cursor: pointer;
+}
+.polo_mune_left{
+	position: absolute;
+	top: 30px;
+	left: 111px;
+	cursor: pointer;
+}
+.pocket{
+	position: absolute;
+	top: 54px;
+	left: 112px;
+	cursor: pointer;
+}
+.apron_pocket{
+	position: absolute;
+	top: 87px;
+	left: 70px;
+	cursor: pointer;
+}
+.apron_pocket_left{
+	position: absolute;
+	top: 87px;
+	left: 107px;
+	cursor: pointer;
+}
+.apron_pocket_right{
+	position: absolute;
+	top: 87px;
+	left: 75px;
+	cursor: pointer;
+}
+.tsunagi_mune_right {
+	position: absolute;
+	top: 24px;
+	left: 76px;
+	cursor: pointer;
+}
+.tsunagi_mune_left {
+	position: absolute;
+	top: 24px;
+	left: 104px;
+	cursor: pointer;
+}
+
+.suso_left{
+	position: absolute;
+	top: 93px;
+	left: 110px;
+	cursor: pointer;
+}
+.suso_right{
+	position: absolute;
+	top: 93px;
+	left: 58px;
+	cursor: pointer;
+}
+.suso_left_1 {
+	position: absolute;
+	top: 84px;
+	left: 110px;
+	cursor: pointer;
+}
+.suso_right_1 {
+	position: absolute;
+	top: 84px;
+	left: 58px;
+	cursor: pointer;
+}
+
+.shirt_mune_right,
+.basket_mae{
+	position: absolute;
+	top: 48px;
+	left: 66px;
+	cursor: pointer;
+}
+.shirt_suso_left{
+	position: absolute;
+	top: 78px;
+	left: 106px;
+	cursor: pointer;
+}
+.shirt_suso_right{
+	position: absolute;
+	top: 78px;
+	left: 60px;
+	cursor: pointer;
+}
+
+.apron_suso{
+	position: absolute;
+	top: 122px;
+	left: 70px;
+	cursor: pointer;
+}
+.apron_suso_left{
+	position: absolute;
+	top: 90px;
+	left: 105px;
+	cursor: pointer;
+}
+.suso_mae{
+	position: absolute;
+	top: 127px;
+	left: 70px;
+	cursor: pointer;
+}
+
+.short_apron_front {
+	position: absolute;
+	top: 57px;
+	left: 65px;
+	cursor: pointer;
+}
+.short_apron_mae_narrow {
+	position: absolute;
+	top: 57px;
+	left: 92px;
+	cursor: pointer;
+}
+.short_apron_mae {
+	position: absolute;
+	top: 75px;
+	left: 106px;
+	cursor: pointer;
+}
+.short_apron_pocket {
+	position: absolute;
+	top: 76px;
+	left: 64px;
+	cursor: pointer;
+}
+.short_apron_pocket_2 {
+	position: absolute;
+	top: 65px;
+	left: 60px;
+	cursor: pointer;
+}
+.short_apron_ue {
+	position: absolute;
+	top: 60px;
+	left: 65px;
+	cursor: pointer;
+}
+
+.cap_mae{
+	position: absolute;
+	top: 46px;
+	left: 75px;
+	cursor: pointer;
+}
+.hat_mae {
+	position: absolute;
+	top: 82px;
+	left: 56px;
+	cursor: pointer;
+}
+.hat_teppen{
+	position: absolute;
+	top: 7px;
+	left: 56px;
+	cursor: pointer;
+}
+.knit_mae {
+	position: absolute;
+	top: 109px;
+	left: 31px;
+	cursor: pointer;
+}
+.cap_mae_left{
+	position: absolute;
+	top: 55px;
+	left: 113px;
+	cursor: pointer;
+}
+.cap_mae_right{
+	position: absolute;
+	top: 55px;
+	left: 63px;
+	cursor: pointer;
+}
+
+.visor_mae {
+	position: absolute;
+	top: 55px;
+	left: 73px;
+	cursor: pointer;
+}
+
+.army_mae {
+	position: absolute;
+	top: 42px;
+	left: 60px;
+	cursor: pointer;
+}
+
+.active_mae {
+	position: absolute;
+	top: 50px;
+	left: 62px;
+	cursor: pointer;
+}
+
+.mae_right{
+	position: absolute;
+	top: 18px;
+	left: 75px;
+	cursor: pointer;
+}
+.mae_left,
+.workwear_mae_left {
+	position: absolute;
+	top: 18px;
+	left: 109px;
+	cursor: pointer;
+}
+.mae_suso_right{
+	position: absolute;
+	top: 93px;
+	left: 47px;
+	cursor: pointer;
+}
+.mae_suso_left{
+	position: absolute;
+	top: 93px;
+	left: 112px;
+	cursor: pointer;
+}
+
+.mae_asi_right{
+	position: absolute;
+	top: 70px;
+	left: 68px;
+	cursor: pointer;
+}
+.mae_asi_left,
+.workwear_mae_asi_left {
+	position: absolute;
+	top: 70px;
+	left: 118px;
+	cursor: pointer;
+}
+.mae_momo_right {
+	position: absolute;
+	top: 44px;
+	left: 70px;
+	cursor: pointer;
+}
+.mae_momo_left,
+.workwear_mae_momo_left {
+	position: absolute;
+	top: 44px;
+	left: 120px;
+	cursor: pointer;
+}
+.mae_hiza_right{
+	position: absolute;
+	top: 82px;
+	left: 68px;
+	cursor: pointer;
+}
+.mae_hiza_left,
+.workwear_mae_hiza_left {
+	position: absolute;
+	top: 82px;
+	left: 118px;
+	cursor: pointer;
+}
+
+.game_pants_suso_right, 
+.game_pants_usiro_suso_right, {
+	position: absolute;
+	top: 120px;
+	left: 110px;
+	cursor: pointer;
+}
+.game_pants_suso_left, 
+.game_pants_usiro_suso_left, {
+	position: absolute;
+	top: 120px;
+	left: 36px;
+	cursor: pointer;
+}
+
+.workwear_mae_right{
+	position: absolute;
+	top: 18px;
+	left: 72px;
+	cursor: pointer;
+}
+.workwear_mae_asi_right {
+	position: absolute;
+	top: 70px;
+	left: 61px;
+	cursor: pointer;
+}
+.workwear_mae_momo_right {
+	position: absolute;
+	top: 44px;
+	left: 63px;
+	cursor: pointer;
+}
+.workwear_mae_hiza_right {
+	position: absolute;
+	top: 82px;
+	left: 62px;
+	cursor: pointer;
+}
+
+.happi_mune_left{
+	position: absolute;
+	top: 33px;
+	left: 123px;
+	cursor: pointer;
+}
+.happi_mune_right{
+	position: absolute;
+	top: 33px;
+	left: 56px;
+	cursor: pointer;
+}
+.happi_maetate_left{
+	position: absolute;
+	top: 40px;
+	left: 106px;
+	cursor: pointer;
+}
+.happi_maetate_right{
+	position: absolute;
+	top: 40px;
+	left: 80px;
+	cursor: pointer;
+}
+.happi_sode_left{
+	position: absolute;
+	top: 26px;
+	left: 154px;
+	cursor: pointer;
+}
+.happi_sode_right{
+	position: absolute;
+	top: 26px;
+	left: 15px;
+	cursor: pointer;
+}
+
+.towel_front {
+	position: absolute;
+	top: 32px;
+	left: 50px;
+	cursor: pointer;
+}
+.towel_center{
+	position: absolute;
+	top: 57px;
+	left: 71px;
+	cursor: pointer;
+}
+.towel_left{
+	position: absolute;
+	top: 57px;
+	left: 33px;
+	cursor: pointer;
+}
+.towel_right{
+	position: absolute;
+	top: 57px;
+	left: 138px;
+	cursor: pointer;
+}
+
+.boxerpants_left {
+	position: absolute;
+	top: 40px;
+	left: 134px;
+	cursor: pointer;
+}
+.boxerpants_right {
+	position: absolute;
+	top: 40px;
+	left: 40px;
+	cursor: pointer;
+}
+.boxerpants_suso_left {
+	position: absolute;
+	top: 90px;
+	left: 134px;
+	cursor: pointer;
+}
+.boxerpants_suso_right {
+	position: absolute;
+	top: 90px;
+	left: 35px;
+	cursor: pointer;
+}
+
+
+
+
+
+/* 脇 */
+.sode_left{
+	position: absolute;
+	top: 50px;
+	left: 138px;
+	cursor: pointer;
+}
+.sode_right{
+	position: absolute;
+	top: 50px;
+	left: 43px;
+	cursor: pointer;
+}
+
+.sode_left2 {
+	position: absolute;
+	top: 50px;
+	left: 130px;
+	cursor: pointer;
+}
+.sode_right2 {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	cursor: pointer;
+}
+
+.shirt_sode_left {
+	position: absolute;
+	top: 50px;
+	left: 125px;
+	cursor: pointer;
+}
+.shirt_sode_right {
+	position: absolute;
+	top: 50px;
+	left: 55px;
+	cursor: pointer;
+}
+
+.active_sode_left {
+	position: absolute;
+	top: 50px;
+	left: 122px;
+	cursor: pointer;
+}
+.active_sode_right {
+	position: absolute;
+	top: 50px;
+	left: 58px;
+	cursor: pointer;
+}
+
+.long_sode_left,
+.shirt_long_sode_left {
+	position: absolute;
+	top: 30px;
+	left: 120px;
+	cursor: pointer;
+}
+.long_sode_right{
+	position: absolute;
+	top: 30px;
+	left: 65px;
+	cursor: pointer;
+}
+.shirt_long_sode_right{
+	position: absolute;
+	top: 30px;
+	left: 60px;
+	cursor: pointer;
+}
+.long_ude_left,
+.shirt_long_ude_left {
+	position: absolute;
+	top: 46px;
+	left: 120px;
+	cursor: pointer;
+}
+.long_ude_right{
+	position: absolute;
+	top: 46px;
+	left: 65px;
+	cursor: pointer;
+}
+.shirt_long_ude_right{
+	position: absolute;
+	top: 46px;
+	left: 61px;
+	cursor: pointer;
+}
+.long_sodeguti_left{
+	position: absolute;
+	top: 111px;
+	left: 120px;
+	cursor: pointer;
+}
+.long_sodeguti_right{
+	position: absolute;
+	top: 111px;
+	left: 65px;
+	cursor: pointer;
+}
+.long_waki_left{
+	position: absolute;
+	top: 83px;
+	left: 155px;
+	cursor: pointer;
+}
+.long_waki_right{
+	position: absolute;
+	top: 83px;
+	left: 14px;
+	cursor: pointer;
+}
+
+.trainer_sode_left{
+	position: absolute;
+	top: 30px;
+	left: 140px;
+	cursor: pointer;
+}
+.trainer_sode_right{
+	position: absolute;
+	top: 30px;
+	left: 42px;
+	cursor: pointer;
+}
+.trainer_ude_left{
+	position: absolute;
+	top: 46px;
+	left: 140px;
+	cursor: pointer;
+}
+.trainer_ude_right{
+	position: absolute;
+	top: 46px;
+	left: 42px;
+	cursor: pointer;
+}
+.trainer_sodeguti_left{
+	position: absolute;
+	top: 111px;
+	left: 140px;
+	cursor: pointer;
+}
+.trainer_sodeguti_right{
+	position: absolute;
+	top: 111px;
+	left: 42px;
+	cursor: pointer;
+}
+
+.hood_left{
+	position: absolute;
+	top: 18px;
+	left: 140px;
+	cursor: pointer;
+}
+.hood_right{
+	position: absolute;
+	top: 18px;
+	left: 40px;
+	cursor: pointer;
+}
+.parker_sode_left{
+	position: absolute;
+	top: 60px;
+	left: 140px;
+	cursor: pointer;
+}
+.parker_sode_right{
+	position: absolute;
+	top: 60px;
+	left: 42px;
+	cursor: pointer;
+}
+.parker_ude_left{
+	position: absolute;
+	top: 76px;
+	left: 140px;
+	cursor: pointer;
+}
+.parker_ude_right{
+	position: absolute;
+	top: 76px;
+	left: 42px;
+	cursor: pointer;
+}
+
+.blouson_sode_left{
+	position: absolute;
+	top: 42px;
+	left: 138px;
+	cursor: pointer;
+}
+.blouson_sode_right{
+	position: absolute;
+	top: 42px;
+	left: 44px;
+	cursor: pointer;
+}
+.blouson_ude_left{
+	position: absolute;
+	top: 58px;
+	left: 139px;
+	cursor: pointer;
+}
+.blouson_ude_right{
+	position: absolute;
+	top: 58px;
+	left: 44px;
+	cursor: pointer;
+}
+.coat_sode_left{
+	position: absolute;
+	top: 52px;
+	left: 138px;
+	cursor: pointer;
+}
+.coat_sode_right{
+	position: absolute;
+	top: 52px;
+	left: 44px;
+	cursor: pointer;
+}
+.coat_ude_left{
+	position: absolute;
+	top: 68px;
+	left: 139px;
+	cursor: pointer;
+}
+.coat_ude_right{
+	position: absolute;
+	top: 68px;
+	left: 44px;
+	cursor: pointer;
+}
+
+.cap_side_left{
+	position: absolute;
+	top: 35px;
+	left: 128px;
+	cursor: pointer;
+}
+.cap_side_right{
+	position: absolute;
+	top: 108px;
+	left: 51px;
+	cursor: pointer;
+}
+
+.active_cap_side_left{
+	position: absolute;
+	top: 80px;
+	left: 148px;
+	cursor: pointer;
+}
+.active_cap_side_right{
+	position: absolute;
+	top: 80px;
+	left: 26px;
+	cursor: pointer;
+}
+
+.hat_side_left{
+	position: absolute;
+	top: 70px;
+	left: 120px;
+	cursor: pointer;
+}
+.hat_side_right{
+	position: absolute;
+	top: 70px;
+	left: 38px;
+	cursor: pointer;
+}
+
+.knit_side_left{
+	position: absolute;
+	top: 109px;
+	left: 106px;
+	cursor: pointer;
+}
+.knit_side_right{
+	position: absolute;
+	top: 109px;
+	left: 23px;
+	cursor: pointer;
+}
+
+.waki_left{
+	position: absolute;
+	top: 85px;
+	left: 132px;
+	cursor: pointer;
+}
+.waki_right{
+	position: absolute;
+	top: 85px;
+	left: 36px;
+	cursor: pointer;
+}
+.waki_left2 {
+	position: absolute;
+	top: 85px;
+	left: 120px;
+	cursor: pointer;
+}
+.waki_right2 {
+	position: absolute;
+	top: 85px;
+	left: 46px;
+	cursor: pointer;
+}
+
+.boxerpants_side_left {
+	position: absolute;
+	top: 40px;
+	left: 134px;
+	cursor: pointer;
+}
+.boxerpants_side_right {
+	position: absolute;
+	top: 40px;
+	left: 30px;
+	cursor: pointer;
+}
+
+
+
+
+/* 後 */
+.usiro{
+	position: absolute;
+	top: 40px;
+	left: 72px;
+	cursor: pointer;
+}
+.usiro_mini{
+	position: absolute;
+	top: 28px;
+	left: 70px;
+	cursor: pointer;
+}
+.tsunagi_usiro {
+	position: absolute;
+	top: 28px;
+	left: 83px;
+	cursor: pointer;
+}
+.parker_usiro{
+	position: absolute;
+	top: 55px;
+	left: 72px;
+	cursor: pointer;
+}
+.bench_usiro{
+	position: absolute;
+	top: 50px;
+	left: 74px;
+	cursor: pointer;
+}
+.best_usiro{
+	position: absolute;
+	top: 40px;
+	left: 75px;
+	cursor: pointer;
+}
+.tote_usiro{
+	position: absolute;
+	top: 68px;
+	left: 72px;
+	cursor: pointer;
+}
+.tote_usiro_2{
+	position: absolute;
+	top: 61px;
+	left: 84px;
+	cursor: pointer;
+}
+
+.cap_usiro{
+	position: absolute;
+	top: 77px;
+	left: 70px;
+	cursor: pointer;
+}
+.hat_usiro {
+	position: absolute;
+	top: 56px;
+	left:56px;
+	cursor: pointer;
+}
+.knit_usiro {
+	position: absolute;
+	top: 109px;
+	left: 31px;
+	cursor: pointer;
+}
+.active_cap_usiro {
+	position: absolute;
+	top: 35px;
+	left: 72px;
+	cursor: pointer;
+}
+.active_cap_usiro_2 {
+	position: absolute;
+	top: 57px;
+	left: 74px;
+	cursor: pointer;
+}
+
+.eri{
+	position: absolute;
+	top: 8px;
+	left: 84px;
+	cursor: pointer;
+}
+.kubi_usiro{
+	position: absolute;
+	top: 24px;
+	left: 79px;
+	cursor: pointer;
+}
+
+.shirt_long_kubi_usiro{
+	position: absolute;
+	top: 20px;
+	left: 79px;
+	cursor: pointer;
+}
+.shirt_short_kubi_usiro{
+	position: absolute;
+	top: 12px;
+	left: 79px;
+	cursor: pointer;
+}
+
+
+.usiro_suso{
+	position: absolute;
+	top: 122px;
+	left: 68px;
+	cursor: pointer;
+}
+.usiro_suso_left{
+	position: absolute;
+	top: 88px;
+	left: 56px;
+	cursor: pointer;
+}
+.usiro_suso_right{
+	position: absolute;
+	top: 88px;
+	left: 109px;
+	cursor: pointer;
+}
+
+.parker_usiro_suso{
+	position: absolute;
+	top: 125px;
+	left: 69px;
+	cursor: pointer;
+}
+.parker_usiro_suso_left{
+	position: absolute;
+	top: 91px;
+	left: 64px;
+	cursor: pointer;
+}
+.parker_usiro_suso_right{
+	position: absolute;
+	top: 91px;
+	left: 104px;
+	cursor: pointer;
+}
+
+.shirt_usiro_suso_left{
+	position: absolute;
+	top: 88px;
+	left: 66px;
+	cursor: pointer;
+}
+.shirt_usiro_suso_right{
+	position: absolute;
+	top: 88px;
+	left: 100px;
+	cursor: pointer;
+}
+
+.pants_usiro_left{
+	position: absolute;
+	top: 42px;
+	left: 49px;
+	cursor: pointer;
+}
+.pants_usiro_right{
+	position: absolute;
+	top: 42px;
+	left: 114px;
+	cursor: pointer;
+}
+.pants_usiro_suso_left{
+	position: absolute;
+	top: 93px;
+	left: 45px;
+	cursor: pointer;
+}
+.pants_usiro_suso_right{
+	position: absolute;
+	top: 93px;
+	left: 118px;
+	cursor: pointer;
+}
+.pants_osiri{
+	position: absolute;
+	top: 42px;
+	left: 72px;
+	cursor: pointer;
+}
+
+.osiri{
+	position: absolute;
+	top: 19px;
+	left: 72px;
+	cursor: pointer;
+}
+.usiro_left{
+	position: absolute;
+	top: 19px;
+	left: 75px;
+	cursor: pointer;
+}
+.usiro_right,
+.workwear_usiro_right {
+	position: absolute;
+	top: 19px;
+	left: 109px;
+	cursor: pointer;
+}
+.usiro_asi_left {
+	position: absolute;
+	top: 70px;
+	left: 68px;
+	cursor: pointer;
+}
+.usiro_asi_right,
+.workwear_usiro_asi_right {
+	position: absolute;
+	top: 70px;
+	left: 118px;
+	cursor: pointer;
+}
+.usiro_momo_left {
+	position: absolute;
+	top: 44px;
+	left: 70px;
+	cursor: pointer;
+}
+.usiro_momo_right,
+.workwear_usiro_momo_right {
+	position: absolute;
+	top: 44px;
+	left: 120px;
+	cursor: pointer;
+}
+.usiro_hiza_left {
+	position: absolute;
+	top: 82px;
+	left: 68px;
+	cursor: pointer;
+}
+.usiro_hiza_right,
+.workwear_usiro_hiza_right {
+	position: absolute;
+	top: 82px;
+	left: 118px;
+	cursor: pointer;
+}
+
+.workwear_usiro_left {
+	position: absolute;
+	top: 19px;
+	left: 72px;
+	cursor: pointer;
+}
+.workwear_usiro_asi_left{
+	position: absolute;
+	top: 70px;
+	left: 61px;
+	cursor: pointer;
+}
+.workwear_usiro_momo_left{
+	position: absolute;
+	top: 44px;
+	left: 63px;
+	cursor: pointer;
+}
+.workwear_usiro_hiza_left{
+	position: absolute;
+	top: 82px;
+	left: 63px;
+	cursor: pointer;
+}
+
+.boxerpants_osiri {
+	position: absolute;
+	top: 50px;
+	left: 75px;
+	cursor: pointer;
+}
+.boxerpants_usiro_suso_right {
+	position: absolute;
+	top: 93px;
+	left: 134px;
+	cursor: pointer;
+}
+.boxerpants_usiro_suso_left {
+	position: absolute;
+	top: 93px;
+	left: 40px;
+	cursor: pointer;
+}
+
+.basket_usiro {
+	position: absolute;
+	top: 25px;
+	left: 65px;
+	cursor: pointer;
+}

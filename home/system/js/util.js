@@ -3119,7 +3119,7 @@ $(function(){
 		var ppImage = $(this).parent().siblings('.pp_image');
 		var base = $(this).children('span').text();
 		var src = ppImage.children('img:first').attr('src');
-		var path = src.replace(/img\/printposition/, 'txt');
+		var path = src.replace(/.*?img\/printposition/, 'txt');
 		path = path.slice(0, path.lastIndexOf('/')+1);
 		path += base+'.txt';
 		var ppInfo = $(this).parent().siblings('.pp_info');
