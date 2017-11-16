@@ -91,13 +91,13 @@ if($ln<=20){
 $package = array();
 if($orders['package_yes']==1) $package[] = '<span>あり</span>';
 if($orders['package_no']==1)  $package[] = 'なし';
-if($orders['package_nopack']==1) $package[] = '袋のみ';
+if($orders['package_nopack']==1) $package[] = '<span>袋のみ</span>';
 $package = implode(',', $package);
 if(empty($package)){
 	if($orders['package']=='yes'){
 		$package = '<span>あり</span>';		// 赤字
 	}else if($orders['package']=='nopack'){
-		$package = '袋のみ';
+		$package = '<span>袋のみ</span>';		// 赤字
 	}else{
 		$package = 'なし';
 	}
