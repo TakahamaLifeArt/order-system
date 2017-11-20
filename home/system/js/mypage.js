@@ -1111,7 +1111,7 @@ var mypage = {
 			data: {
 				'act': 'showDesignImg',
 				'order_id': orders_id,
-				'folder': 'attatchfile'
+				'folder': 'attachfile'
 			},
 			success: function (data) {
 				if (data == "") {
@@ -1125,7 +1125,7 @@ var mypage = {
 					var href = "";
 					var ord = 0;
 					for (var i = 2; i < data.length; i++) {
-						href = "./attatchfile/" + orders_id + "/" + data[i];
+						href = "./attachfile/" + orders_id + "/" + data[i];
 						ord = i - 1;
 						tbody += "<tr><td>" + ord + "</td>";
 						tbody += "<td>" + data[i] + "</td>";
@@ -1174,7 +1174,7 @@ var mypage = {
 					'act': 'deleteDesFile',
 					'order_id': orders_id,
 					'file_name': file_name,
-					'folder': 'attatchfile'
+					'folder': 'attachfile'
 				},
 				success: function (r) {
 					if (r == 1) {
@@ -1216,7 +1216,7 @@ var mypage = {
 					'act': 'checkFileName',
 					'order_id': orders_id,
 					'file_name': file_name,
-					'folder': 'attatchfile'
+					'folder': 'attachfile'
 				},
 				success: function (r) {
 					if (r) {

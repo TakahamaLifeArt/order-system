@@ -15,7 +15,7 @@ $des = new Design();
 	* @return {int} アップロードファイルの数
 	*/
 		public function saveDesFile($order_id, $file, $name, $site){
-			$path =  $_SERVER['DOCUMENT_ROOT']."/system/attatchfile/".$order_id;
+			$path =  $_SERVER['DOCUMENT_ROOT']."/system/attachfile/".$order_id;
 			if(!is_dir($path)) {
 				mkdir($path);
 			}
@@ -52,7 +52,7 @@ $des = new Design();
 		 * 未使用（旧バージョン）
 		 */
 		public function saveDesFile_old($order_id, $file, $name, $site){
-			$path =  $_SERVER['DOCUMENT_ROOT']."/system/attatchfile/".$order_id;
+			$path =  $_SERVER['DOCUMENT_ROOT']."/system/attachfile/".$order_id;
 			if(!is_dir($path)) {
 				mkdir($path);
 			}
@@ -111,9 +111,13 @@ $des = new Design();
 	*/
 
 		public function getDesFile($order_id, $folder){
-			//$folderurl = $_SERVER['DOCUMENT_ROOT']."/system/attatchfile/".$order_id;
 			$folderurl = $_SERVER['DOCUMENT_ROOT'].'/system/'.$folder.'/'.$order_id;
-			$file = scandir($folderurl);
+			$tmp = scandir($folderurl);
+			$file = array();
+			for ($i=0; $i<count($tmp); $i++) {
+				if ($tmp[$i]=='thumbnail') continue;
+				$file[] = $tmp[$i];
+			}
 			return $file;
 		}
 
@@ -171,7 +175,7 @@ $des = new Design();
 			case 'uploadDesFile':
 				$des = new Design();
 				$file_id = "";
-				if($_REQUEST[folder] == "attatchfile") {
+				if($_REQUEST[folder] == "attachfile") {
 					$file_id = "attach_des";
 				} else {
 					$file_id = "attach_img";

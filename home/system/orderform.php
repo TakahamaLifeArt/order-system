@@ -759,7 +759,7 @@
 										<td>
 											<form enctype="multipart/form-data" target="upload_iframe"  method="post"  action="./php_libs/design.php" id="uploaderform">
 												<input type="hidden" value="uploadDesFile" name="act" />
-												<input type="hidden" value="attatchfile" name="folder" />
+												<input type="hidden" value="attachfile" name="folder" />
 												<input type="hidden" id="order_id" name="order_id" />
 												<input type="file"  id="attach_des" name="attach_des"/>
 												<input type= "button"  value="確認" id = "desImgup" />
@@ -1638,7 +1638,7 @@
 										<tr>
 											<th>更新日</th>
 											<td colspan="3">
-												<input type="text" value="" name="lm_from" size="10" class="forDate datepicker" /> ~<input type="text" value="" name="lm_to" size="10" class="forDate datepicker" />
+												<input type="text" value="" name="lm_from" size="10" class="forDate datepicker" /> 〜<input type="text" value="" name="lm_to" size="10" class="forDate datepicker" />
 												<input type="button" value="クリア" id="clear_lastmodified" class="btn" >
 												<span style="padding-left:10px;">受注担当</span>
 												<select name="staff_id" id="staff_id" class="staff" rel="rowid1">
@@ -1649,7 +1649,7 @@
 										<tr>
 											<th>発送日</th>
 											<td colspan="3">
-												<input type="text" value="" name="term_from" id="term_from" size="10" class="forDate datepicker" /> ~<input type="text" value="" name="term_to" id="term_to" size="10" class="forDate datepicker" />
+												<input type="text" value="" name="term_from" id="term_from" size="10" class="forDate datepicker" /> 〜<input type="text" value="" name="term_to" id="term_to" size="10" class="forDate datepicker" />
 												<input type="button" value="クリア" id="clear_term" class="btn" >
 												<span style="padding-left:10px;">工場</span>
 												<select name="factory">
