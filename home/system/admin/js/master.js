@@ -1205,7 +1205,7 @@ $(function(){
 		});
 		
 		// 商品詳細ページ情報
-		var fld5 = ['itemdetailid','item_code','i_color_code','i_caption','i_description','i_material','i_silk','i_digit','i_inkjet','i_cutting','i_note_label','i_note'];
+		var fld5 = ['itemdetailid','item_code','i_color_code','i_caption','i_description','i_material','i_silk','i_digit','i_inkjet','i_cutting','i_embroidery','i_note_label','i_note'];
 		var data5 = [];
 		var detail = $("#detailtable tbody");
 		data5[0] = detail.attr('class').split('_')[1];
@@ -1213,10 +1213,10 @@ $(function(){
 		for(var i=2; i<6; i++){
 			data5[i] = detail.find("."+fld5[i]).val();
 		}
-		for(var i=6; i<10; i++){
+		for(var i=6; i<11; i++){
 			data5[i] = detail.find("."+fld5[i]+":checked").length;
 		}
-		for(var i=10; i<fld5.length; i++){
+		for(var i=11; i<fld5.length; i++){
 			data5[i] = detail.find("."+fld5[i]).val();
 		}
 
@@ -1751,6 +1751,7 @@ jQuery.extend({
 					if(r["i_digit"]==1) printing.push("デジタル転写");
 					if(r["i_inkjet"]==1) printing.push("インクジェット");
 					if(r["i_cutting"]==1) printing.push("カッティング");
+					if(r["i_embroidery"]==1) printing.push("刺繍");
 					tbl += '<tr><th>プリント方法</th><td>'+printing.join(", ")+'</td></tr>';
 					tbl += '<tr><th>脚注タイトル</th><td>'+r["i_note_label"]+'</td></tr>';
 					tbl += '<tr><th>脚注</th><td>'+r["i_note"]+'</td></tr>';
@@ -2014,6 +2015,8 @@ jQuery.extend({
 				tbl += '<p><label><input type="checkbox" value="1" class="i_inkjet" '+isInkjet+'> インクジェット</label></p>';
 				var isCutting = r["i_cutting"]==1? 'checked="checked"': "";
 				tbl += '<p><label><input type="checkbox" value="1" class="i_cutting" '+isCutting+'> カッティング</label></p>';
+				var isEmb = r["i_embroidery"]==1? 'checked="checked"': "";
+				tbl += '<p><label><input type="checkbox" value="1" class="i_embroidery" '+isEmb+'> 刺繍</label></p>';
 				tbl += '</td></tr>';
 				tbl += '<tr><th>脚注タイトル</th><td><input type="text" value="'+r["i_note_label"]+'" class="i_note_label"></td></tr>';
 				tbl += '<tr><th>脚注</th><td><textarea cols="100" rows="6" class="i_note">'+r["i_note"]+'</textarea></td></tr>';

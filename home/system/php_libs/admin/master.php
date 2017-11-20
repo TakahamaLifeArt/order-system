@@ -1440,13 +1440,13 @@
 					
 					// item detail
 					if(!$info5["itemdetailid"]){
-						$sql = sprintf("insert into itemdetail(item_code,i_color_code,i_caption,i_description,i_material,i_silk,i_digit,i_inkjet,i_cutting,i_note_label,i_note) values('%s','%s','%s','%s','%s',%d,%d,%d,%d,'%s','%s')",
+						$sql = sprintf("insert into itemdetail(item_code,i_color_code,i_caption,i_description,i_material,i_silk,i_digit,i_inkjet,i_cutting,i_embroidery,i_note_label,i_note) values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,'%s','%s')",
 						$info5["item_code"], $info5["i_color_code"], $info5["i_caption"], $info5["i_description"], $info5["i_material"], 
-						$info5["i_silk"], $info5["i_digit"], $info5["i_inkjet"], $info5["i_cutting"], $info5["i_note_label"], $info5["i_note"]);
+						$info5["i_silk"], $info5["i_digit"], $info5["i_inkjet"], $info5["i_cutting"], $info5["i_embroidery"], $info5["i_note_label"], $info5["i_note"]);
 					}else{
-						$sql = sprintf("update itemdetail set item_code='%s', i_color_code='%s', i_caption='%s', i_description='%s', i_material='%s', i_silk=%d, i_digit=%d, i_inkjet=%d, i_cutting=%d, i_note_label='%s', i_note='%s' where itemdetailid=%d", 
+						$sql = sprintf("update itemdetail set item_code='%s', i_color_code='%s', i_caption='%s', i_description='%s', i_material='%s', i_silk=%d, i_digit=%d, i_inkjet=%d, i_cutting=%d, i_embroidery=%d, i_note_label='%s', i_note='%s' where itemdetailid=%d", 
 						$info5["item_code"], $info5["i_color_code"], $info5["i_caption"], $info5["i_description"], $info5["i_material"], 
-						$info5["i_silk"], $info5["i_digit"], $info5["i_inkjet"], $info5["i_cutting"], $info5["i_note_label"], $info5["i_note"], $info5["itemdetailid"]);
+						$info5["i_silk"], $info5["i_digit"], $info5["i_inkjet"], $info5["i_cutting"], $info5["i_embroidery"], $info5["i_note_label"], $info5["i_note"], $info5["itemdetailid"]);
 					}
 					if(!exe_sql($conn, $sql)){
 						mysqli_query($conn, 'ROLLBACK');
