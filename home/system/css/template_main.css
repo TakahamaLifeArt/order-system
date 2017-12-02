@@ -8,6 +8,7 @@
 	log		     : 2010.02.25	created
 				 : 2013.06.10	global menu を更新
 				 : 2013.07.10	liquid layout
+				 : 2017-12-02	グローバルメニューのレイアウトを更新
 
 -------------------------------------------------------------- */
 
@@ -184,6 +185,7 @@ body > .main_bg {
 
 /* main menu for acceptance */
 #header .mainmenu {
+	display: flex;
 	height: 25px;
 	padding: 1px 0px 1px 6px;
 	border: 1px solid #aed0ea;
@@ -200,12 +202,14 @@ body > .main_bg {
 	border-left: 1px solid #aed0ea;
 }
 #header .mainmenu li > span {
+	display: block;
 	padding: 0px 20px;
 	background: #3baae3 url(../img/ui-bg_glass_50_3baae3_1x400.png) 50% 50% repeat-x;
 	color: #ffffff;
 }
 #header .mainmenu li > span.pull,
 #header .mainmenu li a {
+	display: block;
 	padding: 0px 20px;
 	background: #e4f1fb url(../img/ui-bg_glass_100_e4f1fb_1x400.png) 50% 50% repeat-x;
 	color: #2779aa;
