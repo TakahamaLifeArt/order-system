@@ -1064,7 +1064,7 @@
 				$icons = '<div class="show_list">list &gt</div>';
 			}
 			
-			$printtype = array('silk'=>'シルク','trans'=>'カラー転写','digit'=>'デジタル転写','inkjet'=>'インクジェット','cutting'=>'カッティング','embroidery'=>'刺繍');
+			$printtype = array('silk'=>'シルク','trans'=>'カラー転写','digit'=>'デジタル転写','inkjet'=>'インクジェット','cutting'=>'カッティング','embroidery'=>'刺繍','recommend'=>'おまかせ');
 			$inkjet_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
 			$inkjet_selector .= '<option value="0">大（27×38）</option><option value="1">中（27×18）</option><option value="2">小（10×10）</option></select>';
 
