@@ -5,7 +5,7 @@
 File_name    : printposition.css
 Description  : takahama system print position images stylesheet
 Version      : 0.1
-Log		     : 
+Log		     :
 2010-01-20 created
 2013-04-20 boxerpants, mascot-tshirts, pocket-tshirts を追加
 2013-05-30 army-work-cap, active-dry-cap, chino-pants, fraise-tshirts, henry-neck-tshirts, button-down-shirt-long, button-down-shirt-short, polyester-pants を追加
@@ -13,6 +13,7 @@ Log		     :
 2014-10-12 スウェットにプリント位置の追加
 2016-11-17 エプロンの絵型を追加 apron_pocket_left, apron_pocket_right, apron_suso
 2017-11-13 絵型追加に伴う更新
+2017-12-27 プリント箇所追加に伴う更新
 
 -------------------------------------------------------------- */
 
@@ -967,8 +968,8 @@ Log		     :
 }
 .kubi_usiro{
 	position: absolute;
-	top: 24px;
-	left: 79px;
+	top: 30px;
+	left: 80px;
 	cursor: pointer;
 }
 
@@ -1177,3 +1178,4 @@ Log		     :
 	left: 65px;
 	cursor: pointer;
 }
+

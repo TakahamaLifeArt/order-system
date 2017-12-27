@@ -765,8 +765,10 @@
 					$res .= '<div class="repeat_check_wrap"><label>リピ版<input type="checkbox" name="repeat_check" class="repeat_check"></label></div>';
 				}
 				$res .= '<div class="pp_image">';
-				//$res .= file_get_contents(_DOC_ROOT.'txt/free/free.txt');
-				$res .= file_get_contents(_DOC_ROOT.'txt/t-shirts/normal-tshirts/front.txt');
+				
+				$imgfile = file_get_contents(_DOC_ROOT.'txt/t-shirts/normal-tshirts/front.txt');
+				$res .= preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				
 				$res .= '</div>';
 				
 				$res .= '<div class="pp_info"><table><tbody>';
@@ -833,7 +835,10 @@
 				// $res .= '<div class="position_reset">reset</div>';
 				//$res .= '<div class="repeat_check_wrap"><label>リピ版<input type="checkbox" name="repeat_check" class="repeat_check"></label></div>';
 				$res .= '<div class="pp_image">';
-				$res .= file_get_contents(_DOC_ROOT.'txt/misc/others/fixed.txt');
+				
+				$imgfile = file_get_contents(_DOC_ROOT.'txt/misc/others/fixed.txt');
+				$res .= preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				
 				$res .= '</div>';
 				
 				$res .= '<div class="pp_info"><table><tbody><tr style="visibility:hidden;"><td colspan="2">色数 ';
@@ -907,7 +912,10 @@
 					$res .= '<div class="repeat_check_wrap"><label>リピ版<input type="checkbox" name="repeat_check" class="repeat_check"></label></div>';
 				}
 				$res .= '<div class="pp_image">';
-				$res .= file_get_contents($files[$isFirstIndex]['filename']);
+				
+				$imgfile = file_get_contents($files[$isFirstIndex]['filename']);
+				$res .= preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				
 				$res .= '</div>';
 				
 				$res .= '<div class="pp_info"><table><tbody><tr><td colspan="2"><form>色数 ';
