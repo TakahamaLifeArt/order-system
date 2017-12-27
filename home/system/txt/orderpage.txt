@@ -1,0 +1,708 @@
+		<div class="maincontents">
+			<div class="contents">
+
+				<ul class="crumbs" id="accept_navi">
+					<li><p>1.問い合わせ中</p></li>
+				   	<li><p>2.入稿待ち</p></li>
+				   	<li><p>3.見積りメール済</p></li>
+				   	<li><p>4.注文確定</p></li>
+				   	<li><p>5.発送済</p></li>
+				</ul>
+
+				<div id="phase_wrapper" class="phasecheck clearfix">
+					<div class="phase_label"><p>進</p><p>行</p></div>
+					<label><input type="radio" name="phase" value="enq" checked="checked" />問い合わせ中</label>
+					<label><input type="radio" name="phase" value="copy" />入稿待ち</label>
+					<span class="fontred toright">★</span>
+					<ins id="order_estimate">見積り確認中</ins>
+					<ins id="order_completed">注文確定済み</ins>
+					<ins id="order_cancel">注文取消し</ins>
+				</div>
+
+				<div class="phase_box freeform">
+					<h2 class="ordertitle">●メディアチェック</h2>
+					<div class="inner" id="mediacheck_wrapper">
+						<table>
+						<tfoot>
+							<tr><td colspan="2"><input type="button" value="リセット" id="mediacheck_reset" /></td></tr>
+						</tfoot>
+						<tbody>
+							<tr>
+								<th>問い合わせ方法</th>
+								<td>
+									<label><input type="radio" name="mediacheck01" value="phone" /> 電話</label>
+									<label><input type="radio" name="mediacheck01" value="email" /> メール</label>
+								</td>
+							</tr>
+							<tr>
+								<th>何で知ったか</th>
+								<td>
+									<label><input type="radio" name="mediacheck02" value="428HP" /> 428HP</label>
+									<label><input type="radio" name="mediacheck02" value="print-t" /> Print-t</label>
+									<label><input type="radio" name="mediacheck02" value="428mobile" /> 428携帯</label>
+									<label><input type="radio" name="mediacheck02" value="sweatjack" /> sweatJack</label>
+									<label><input type="radio" name="mediacheck02" value="self-design" /> SEIF-DESIGN</label>
+									<label><input type="radio" name="mediacheck02" value="request" /> 資料請求から</label>
+									<label><input type="radio" name="mediacheck02" value="introduction" /> 紹介</label>
+								</td>
+							</tr>
+							<tr>
+								<th>問い合わせ種類</th>
+								<Td>
+									<label><input type="radio" name="mediacheck03" value="estimate" /> お見積</label>
+									<label><input type="radio" name="mediacheck03" value="order" /> ご注文</label>
+									<label><input type="radio" name="mediacheck03" value="delivery" /> 納期</label>
+									<label><input type="radio" name="mediacheck03" value="other" /> その他</label><input type="text" value="その他" id="mediacheck03_other" />
+								</Td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="phase_box freeform">
+					<h2 class="ordertitle">●スケジュール</h2>
+					<div class="inner clearfix">
+						<div id="show_calendar">
+							<img alt="納期計算機を表示" src="./img/calender.png" width="50" />
+							<p>お届け日を<br />調べる</p>
+						</div>
+
+						<div class="schedulebox">
+							<div class="plan_label"><p>予</p><p>定</p></div>
+							<div class="plan_info">
+								<p>
+									納品先都道府県&nbsp;
+									<select id="destination">
+										<option value="1">北海道</option>
+										<option value="2">青森県</option>
+										<option value="3">岩手県</option>
+										<option value="4">宮城県</option>
+										<option value="5">秋田県</option>
+										<option value="6">山形県</option>
+										<option value="7">福島県</option>
+										<option value="8">茨城県</option>
+										<option value="9">栃木県</option>
+										<option value="10">群馬県</option>
+										<option value="11">埼玉県</option>
+										<option value="12">千葉県</option>
+										<option value="13" selected="selected">東京都</option>
+										<option value="48">東京　離島</option>
+										<option value="14">神奈川県</option>
+										<option value="15">新潟県</option>
+										<option value="16">富山県</option>
+										<option value="17">石川県</option>
+										<option value="18">福井県</option>
+										<option value="19">山梨県</option>
+										<option value="20">長野県</option>
+										<option value="21">岐阜県</option>
+										<option value="22">静岡県</option>
+										<option value="23">愛知県</option>
+										<option value="24">三重県</option>
+										<option value="25">滋賀県</option>
+										<option value="26">京都府</option>
+										<option value="27">大阪府</option>
+										<option value="28">兵庫県</option>
+										<option value="29">奈良県</option>
+										<option value="30">和歌山県</option>
+										<option value="31">鳥取県</option>
+										<option value="32">島根県</option>
+										<option value="49">島根隠岐郡</option>
+										<option value="33">岡山県</option>
+										<option value="34">広島県</option>
+										<option value="35">山口県</option>
+										<option value="36">徳島県</option>
+										<option value="37">香川県</option>
+										<option value="38">愛媛県</option>
+										<option value="39">高知県</option>
+										<option value="40">福岡県</option>
+										<option value="41">佐賀県</option>
+										<option value="42">長崎県</option>
+										<option value="43">熊本県</option>
+										<option value="44">大分県</option>
+										<option value="45">宮崎県</option>
+										<option value="46">鹿児島県</option>
+										<option value="47">沖縄県</option>
+									</select>　
+									&nbsp;<ins class="note">※ 変更したら再計算!</ins>
+								</p>
+								<table id="schedule">
+									<tbody>
+										<tr>
+											<th>入稿〆<ins class="fontred">(13:00〆)</ins></th>
+											<th>&nbsp;</th>
+											<th>注文確定<ins class="fontred">(13:00〆)</ins></th>
+											<th>&nbsp;</th>
+											<th>発　送</th>
+											<th>&nbsp;</th>
+											<th>お届け</th>
+											<th>&nbsp;</th>
+										</tr>
+										<tr>
+											<td><input type="text" size="10" value="" id="schedule_date1" name="schedule1" class="forDate" readonly="readonly" /></td>
+											<td>⇒</td>
+											<td><input type="text" size="10" value="" id="schedule_date2" name="schedule2" class="forDate" readonly="readonly" /></td>
+											<td>⇒</td>
+											<td><input type="text" size="10" value="" id="schedule_date3" name="schedule3" class="forDate" readonly="readonly" /></td>
+											<td>⇒</td>
+											<td><input type="text" size="10" value="" id="schedule_date4" name="schedule4" class="forDate" readonly="readonly" /></td>
+											<td><input type="button" value="リセット" id="reset_schedule" /></td>
+										</tr>
+										<tr class="btn">
+											<th><input type="button" value="お届け日を計算" id="calc_schedule_date1" /></th>
+											<td>&nbsp;</td>
+											<th><input type="button" value="お届け日を計算" id="calc_schedule_date2" /></th>
+											<td colspan="3">&nbsp;</td>
+											<th><input type="button" value="入稿〆日を計算" id="calc_schedule_date4" /></th>
+											<td>&nbsp;</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<table id="schedule_selector">
+								<tbody>
+									<tr>
+										<th>袋詰め</th>
+										<td>
+											<label><input type="radio" name="package" value="no" checked="checked" />なし</label>
+											<label><input type="radio" name="package" value="yes" />あり</label>
+											<label class="check_cmount_wrapper">合計枚数</label>&nbsp;<input type="text" size="4" value="0" id="check_amount" name="check_amount" class="forNum" />&nbsp;枚
+										</td>
+							 		</tr>
+							 		<tr>
+										<th>配送方法</th>
+										<td>
+											<label><input type="radio" name="carriage" value="normal" checked="checked" />宅急便</label>
+											<label><input type="radio" name="carriage" value="accept" />引取り</label>
+											<label><input type="radio" name="carriage" value="air" />超速便</label>
+											<label><input type="radio" name="carriage" value="time" />タイム便</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<p id="express_message">&nbsp;</p>
+						</div>
+						<p class="remarks">※ 袋詰めや、配送方法の指定を変更にしたら再計算!</p>
+					</div>
+				</div>
+
+				<div class="phase_box freeform">
+					<h2 class="ordertitle">●商品情報</h2>
+					<div class="inner clearfix">
+						<div id="item_wrapper"><img alt="imgPattern_0" src="./img/blank.gif" width="150" /></div>
+						<table class="iteminfo">
+							<tbody>
+								<tr>
+									<td>商品種類</td>
+									<td id="categoryIs"></td>
+									<td>商品名</td>
+									<td colspan="3" id="itemIs"></td>
+								</tr>
+								<tr>
+									<td>品　　番</td>
+									<td><input type="text" readonly="readonly" size="15" id="stock_number" /></td>
+									<td>メーカー</td>
+									<td><input type="text" readonly="readonly" size="15" id="maker" /></td>
+									<td>色</td>
+									<td>
+										<img alt="アイテムカラー" src="./img/circle.png" width="25" id="item_color" />
+										<input type="text" readonly="readonly" size="18" id="itemcolor_name" value="" />&nbsp;<img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
+									</td>
+								</tr>
+								<tr>
+									<td><input type="hidden" size="5" id="master_id" value="" /></td>
+									<td><input type="hidden" size="5" id="itemcolor_code" value="" /></td>
+									<td colspan="4">&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="phase_box freeform">
+					<h2 class="ordertitle">●サイズ　＆　枚数</h2>
+					<div class="inner">
+						<form name="size_amount_form" action="" onsubmit="return false;">
+							<div id="size_table"></div>
+						</form>
+						<form name="orderlist" action="" onsubmit="return false;">
+							<table id="orderlist" class="tablesorter">
+								<thead>
+									<tr>
+										<th class="first tip"></th>
+										<th>種類</th>
+										<th>商品名</th>
+										<th>サイズ</th>
+										<th>商品の色</th>
+										<th width="40">枚数</th>
+										<th width="55">単価</th>
+										<th width="80" class="last">金額</th>
+										<th class="none"></th>
+										<th class="tip"></th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr class="total">
+										<td class="tip"></td>
+										<td colspan="4" class="sum">商品代計</td>
+										<td><input type="text" value="0" size="8" readonly="readonly" id="total_amount" />&nbsp;枚</td>
+										<td></td>
+										<td><input type="text" value="0" size="8" readonly="readonly" id="total_cost" />&nbsp;円</td>
+										<td class="none"></td>
+										<td class="tip"></td>
+									</tr>
+									<tr class="heading">
+										<th class="tip"></th>
+										<th colspan="3">商品名</th>
+										<th>分類</th>
+										<th>数量</th>
+										<th>単価</th>
+										<th class="last">金額</th>
+										<th class="none"></th>
+										<th class="tip"></th>
+									</tr>
+									<tr class="estimate">
+										<td class="tip">0</td>
+										<td colspan="3"><input type="text" value="" class="summary" /></td>
+										<td><input type="text" value="" class="group" /></td>
+										<td><input type="text" value="0" class="amount forNum" /></td>
+										<td><input type="text" value="0" class="cost" /></td>
+										<td><input type="text" value="0" class="price" readonly="readonly" /></td>
+										<td class="none"><input type="button" value="削除" class="delete_row" /></td>
+										<td class="tip"></td>
+									</tr>
+									<tr class="total_estimate">
+										<td class="tip"></td>
+										<td colspan="4" class="sum">合計</td>
+										<td><input type="text" value="0" size="8" readonly="readonly" id="total_estimate_amount" />&nbsp;枚</td>
+										<td></td>
+										<td><input type="text" value="0" size="8" readonly="readonly" id="total_estimate_cost" />&nbsp;円</td>
+										<td class="none"></td>
+										<td class="tip"></td>
+									</tr>
+								</tfoot>
+								<tbody></tbody>
+							</table>
+							<p id="estimation_toolbar">
+								<input type="button" value="行の追加" class="add_row" />
+							</p>
+						</form>
+					</div>
+				</div>
+
+				<div class="phase_box freeform">
+					<p>
+						<input type="button" value="インク色替を表示 >>" id="toggle_ink_pattern" /><ins>色替え情報あり</ins>
+						<label>インク色替え数：<input type="text" value="0" id="exchink_count" class="forNum" /></label>
+					</p>
+					<div id="ink_pattern_wrapper">
+						<h2 class="ordertitle">●インク色替<input type="button" value=">> reset" id="reset_exchink" /></h2>
+						<div class="inner"></div>
+					</div>
+				</div>
+
+				<div class="phase_box freeform">
+					<h2 class="ordertitle">●プリント位置</h2>
+					<div class="inner">
+						<p id="print_position" class="anchorpoint">プリント位置</p>
+						<p><input type="checkbox" value="noprint" name="noprint" id="noprint" /><label for="noprint">&nbsp;プリントなし</label></p>
+						<div id="pp_wrapper"></div>
+					</div>
+				</div>
+
+				<div class="phase_box">
+					<h2 class="ordertitle">●原　稿</h2>
+					<div class="inner">
+						<p id="order_option" class="anchorpoint">注文オプション</p>
+						<p class="scrolltop"><a href="#order_wrapper">ページトップへ</a></p>
+						<div class="designfee_wrapper"><p>デザイン代<input type="text" value="0" id="designcharge" name="designcharge" class="forPrice" size="8" />&nbsp;円</p></div>
+						<table id="designtype_table">
+							<tbody>
+								<tr>
+									<td>デザイン</td>
+									<td>
+										<label><input type="radio" name="design" value="手書き" />手書き</label>
+										<label><input type="radio" name="design" value="文字打ち" />文字打ち</label>
+										<label><input type="radio" name="design" value="画像" />画像</label>
+										<label><input type="radio" name="design" value="イラレ" />イラレ</label>
+										<label><input type="radio" name="design" value="その他" />その他</label>
+									</td>
+									<td class="last pending"><label><input type="radio" name="design" value="0" checked="checked" />未定</label></td>
+								</tr>
+								<tr class="separate"><td colspan="3">&nbsp;</td></tr>
+								<tr>
+									<td>入稿方法</td>
+									<td>
+										<label><input type="radio" name="manuscript" value="メール" />メール</label>
+										<label><input type="radio" name="manuscript" value="FAX" />ＦＡＸ</label>
+										<label><input type="radio" name="manuscript" value="郵送" />郵送（費用お客様負担）</label>
+										<label><input type="radio" name="manuscript" value="お客様持参" />お客様持参</label>
+										<label><input type="radio" name="manuscript" value="その他" />その他</label>
+										<p><label>入稿予定日</label><input type="text" value="" class="fordate datepicker" id="manuscriptdate" /></p>
+									</td>
+									<td class="last pending"><label><input type="radio" name="manuscript" value="0" checked="checked" />未定</label></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="phase_box" id="options_wrapper">
+					<h2 class="ordertitle">●その他料金</h2>
+					<div class="inner">
+						<table id="optprice_table">
+						 	<tbody>
+						 		<tr>
+						 			<th>割　引&nbsp;<img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" /></th>
+						 			<td>
+						 				<table id="discount_table">
+						 				<colgroup class="classification"></colgroup>
+						 				<tbody>
+						 					<tr>
+						 						<td>単独</td>
+						 						<td>
+						 							<label><input type="checkbox" name="discount" value="blog" />ブログ協力割(<ins class="fontred">-3％</ins>)</label>
+						 							<span id="discount_illust">イラレ割(-1,000)</span><br />
+						 							<label><input type="checkbox" name="discount" value="quick" disabled="disabled" />早割(-5％)</label>
+						 							<label><input type="checkbox" name="discount" value="imgdesign" />イメ画無料</label>
+
+						 						</td>
+						 					</tr>
+						 					<tr>
+						 						<td>学生</td>
+						 						<td>
+						 							<label><input type="radio" name="discount1" value="student" />学割(<ins class="fontred">-3%</ins>)</label><br />
+									 				<label><input type="radio" name="discount1" value="team2" />クラス割（2ｸﾗｽ　<ins class="fontred">-5%</ins>）</label>
+									 				<label><input type="radio" name="discount1" value="team3" />クラス割（3ｸﾗｽ以上　<ins class="fontred">-7%</ins>）</label>
+									 			</td>
+									 		</tr>
+									 		<tr>
+									 			<td>一般</td>
+									 			<td>
+						 							<label><input type="radio" name="discount2" value="repeat" />リピート・紹介割(<ins class="fontred">-3％</ins>)</label>
+						 							<label><input type="radio" name="discount2" value="vip" />ＶＩＰ割(<ins class="fontred">-5％</ins>)</label>
+						 						</td>
+						 					</tr>
+						 					<tr>
+						 						<td>&nbsp;</td>
+						 						<td><input type="button" id="reset_discount" value="割引なし" /></td>
+						 					</tr>
+						 				</tbody>
+						 				</table>
+
+						 			</td>
+						 			<td class="last"><p>割引金額</p><p><input type="text" value="0" id="discountfee" size="8" readonly="readonly" />&nbsp;円</p></td>
+						 		</tr>
+						 		<tr class="separate"><td colspan="2"></td></tr>
+						 		<tr>
+						 			<th>値引き</th>
+						 			<td>
+						 				<label class="fontred">▲</label>&nbsp;<input type="text" value="0" id="reductionprice" name="reduction" class="forPrice" />&nbsp;円
+						 			</td>
+						 			<td class="last">&nbsp;</td>
+						 		</tr>
+						 		<tr class="separate"><td colspan="2"></td></tr>
+						 		<tr>
+				 					<th>支払方法</th>
+						 			<td>
+						 				<p>
+						 					<label><input type="radio" name="payment" value="wiretransfer" />振込（手数料お客様負担）</label>
+						 					<label>入金予定日</label><input type="text" name="paymentdate" id="paymentdate" class="forDate datepicker" /><img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
+							 			</p>
+						 				<p>
+						 					<label><input type="radio" name="payment" value="cod" />代金引換</label><img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
+							 				<label><input type="radio" name="payment" value="cash" />現金</label><img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
+							 				<label><input type="radio" name="payment" value="check" />小切手</label><img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
+							 				<label><input type="radio" name="payment" value="note" />手形</label><img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
+						 					<label class="pending"><input type="radio" name="payment" value="0" checked="checked" />未定</label>
+						 				</p>
+						 			</td>
+						 			<td class="last"><p>代引手数料</p><p><input type="text" value="0" id="codfee" size="8" readonly="readonly" />&nbsp;円</p></td>
+						 		</tr>
+						 		<tr class="separate"><td colspan="2"></td></tr>
+						 		<tr>
+						 			<th>発送方法</th>
+						 			<td>
+						 				<p id="deliver_wrapper">
+						 					<label><input type="radio" name="deliver" value="1" />佐川急便</label>
+						 					<label><input type="radio" name="deliver" value="2" />ヤマト運輸</label>
+						 					<label class="pending"><input type="radio" name="deliver" value="0" checked="checked" />未定</label>
+							 			</p>
+						 				<p>
+						 					<span id="carriage_name">宅急便</span>
+						 					<label id="deliverytime_wrapper">配達時間帯
+						 					<select name="deliverytime" id="deliverytime">
+						 						<option value="0">---</option>
+						 						<option value="1">午前中</option>
+						 						<option value="2">12-14</option>
+						 						<option value="3">14-16</option>
+						 						<option value="4">16-18</option>
+						 						<option value="5">18-20</option>
+						 						<option value="6">20-21</option>
+						 					</select></label>
+						 				</p>
+						 			</td>
+						 		</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+				<div class="phase_box freeform" id="modify_customer_wrapper">
+					<h2 class="ordertitle">●お客様情報</h2>
+					<div class="inner">
+						<p id="order_customer" class="anchorpoint">顧客情報</p>
+						<form id="customer_form" name="customer_form" action="" onsubmit="return false;">
+							<p><input type="button" value="検索する" id="search_customer" />
+							<input type="button" value="お客様情報を修正する" id="modify_customer" />&nbsp;<ins>修正中です。保存されていません！</ins>
+							<input type="button" value="取消" id="cancel_customer" />
+							<input type="button" value="上書保存する" id="update_customer" /></p>
+							<div class="pulldown">
+								<div id="result_customer_wrapper" class="popup_wrapper">
+									<div class="inner">
+										<p class="popup_title">検索結果<img alt="閉じる" src="./img/cross.png" class="close_popup" /></p>
+										<div class="result_list"></div>
+									</div>
+								</div>
+							</div>
+
+							<fieldset>
+								<legend>必須項目</legend>
+								<table>
+									<tbody>
+										<tr>
+											<th>会社名</th>
+											<td colspan="2"><input type="text" name="company" value="" size="36" /></td>
+											<td>&nbsp;</td>
+											<th><img alt="会員" src="./img/i_kaiin.png" />No,</th><td><input type="text" name="number" value="" size="15" readonly="readonly" /></td>
+										</tr>
+										<tr>
+											<th><img alt="名前" src="./img/i_name.png" />氏名</th><td><input type="text" name="customername" value="" size="20" id="customername" /></td>
+											<th>フリガナ</th><td colspan="2"><input type="text" name="customerruby" value="" size="20" id="customerkana" /></td>
+											<td class="fontred"><p id="alert_exist"><img alt="ダブり確認" src="./img/i_alert.png" width="30" />&nbsp;ダブり確認</p></td>
+										</tr>
+										<tr>
+											<th><img alt="TEL" src="./img/i_tel.png" />TEL</th><td><input type="text" name="tel" value="" size="20" id="cus_tel" class="forPhone" /></td>
+											<th><img alt="FAX" src="./img/i_fax.png" />FAX</th><td><input type="text" name="fax" value="" size="20" class="forPhone" /></td>
+											<th><img alt="Mobile" src="./img/i_tel.png" />携帯</th><td><input type="text" name="mobile" value="" size="20" class="forPhone" /></td>
+										</tr>
+										<tr>
+											<th><img alt="メール" src="./img/i_mail.png" />E-Mail</th><td colspan="2"><input type="text" name="email" value="" size="36" /></td>
+											<td><input type="button" value="テスト" id="check_email" /></td>
+											<td colspan="2"></td>
+										</tr>
+									</tbody>
+								</table>
+							</fieldset>
+
+							<p>●月〆請求情報を<input type="button" value="開く" id="switch_cyclebill" /></p>
+							<div id="cyclebill_wrapper">
+								<table>
+									<caption>月締め請求情報</caption>
+									<tbody>
+										<tr>
+											<th>請求区分</th>
+											<td><?php echo $selectors['bill']['src'];?></td>
+											<th>取引区分</th>
+											<td><?php echo $selectors['sales']['src'];?></td>
+											<th>入金区分</th>
+											<td><?php echo $selectors['receipt']['src'];?></td>
+										</tr>
+										<tr>
+											<th>回収サイクル</th>
+											<td><?php echo $selectors['cycle']['src'];?></td>
+											<th>請求〆日</th>
+											<td><?php echo $selectors['cutofday']['src'];?></td>
+											<th>回収日</th>
+											<td><?php echo $selectors['paymentday']['src'];?></td>
+											<th>振込手数料</th>
+											<td><?php echo $selectors['charge']['src'];?>&nbsp;負担</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<table>
+								<tbody>
+									<tr>
+										<th>郵便番号</th>
+										<td>
+											<input type="text" name="zipcode" value="" size="10" id="zipcode1" class="forZip" />&nbsp;
+											<input type="button" value=" 〒 " onclick="mypage.getAddr('zipcode1','zipcode')" />&nbsp;<input type="button" value="住所" onclick="mypage.getAddr('addr1', 'word')" />
+										</td>
+									</tr>
+									<tr><th>住所１</th>
+										<td>
+											<input type="text" name="addr1" value="" size="100" id="addr1" />
+											<div class="pulldown">
+												<div id="address_wrapper1" class="popup_wrapper">
+													<div class="inner">
+														<p class="popup_title">Address List<img alt="閉じる" src="./img/cross.png" class="close_popup" /></p>
+														<div id="address_list1" class="result_list"></div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr><th>住所２</th><td><input type="text" name="addr2" value="" size="100" id="addr2" /></td></tr>
+								</tbody>
+							</table>
+						</form>
+
+					</div>
+				</div>
+
+				<div class="phase_box freeform" id="delivery_address_wrapper">
+					<h2 class="ordertitle">●納品先住所</h2>
+					<div class="inner">
+						<form id="delivery_form" name="delivery_form" action="" onsubmit="return false;">
+							<p><label><input type="checkbox" />納品先後日連絡</label>&nbsp;<input type="button" value="住所と同じ" id="deliveryaddr" />&nbsp;
+							<input type="button" value="一覧を表示する" id="show_delivery" /></p>
+							<div class="pulldown">
+								<div id="result_delivery_wrapper" class="popup_wrapper">
+									<div class="inner">
+										<p class="popup_title">検索結果<img alt="閉じる" src="./img/cross.png" class="close_popup" /></p>
+										<div class="result_list"></div>
+									</div>
+								</div>
+							</div>
+							<fieldset>
+								<legend>必須項目</legend>
+								<table>
+									<tbody>
+										<tr>
+											<th>団体名</th><td colspan="5"><input type="text" name="organization" value="" size="64" />（お届け先の宛名）</td>
+										</tr>
+										<tr>
+											<th>担当者</th><td><input type="text" name="agent" value="" size="20" /></td>
+											<th>クラス</th><td><input type="text" name="team" value="" size="20" /></td>
+											<th>先生</th><td><input type="text" name="teacher" value="" size="20" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</fieldset>
+							<table>
+								<tbody>
+									<tr>
+										<th>郵便番号</th>
+										<td>
+											<input type="text" name="delizipcode" value="" size="10" id="zipcode2" class="forZip" />&nbsp;
+											<input type="button" value=" 〒 " onclick="mypage.getAddr('zipcode2','zipcode')" />&nbsp;<input type="button" value="住所" onclick="mypage.getAddr('addr3', 'word')" />
+										</td>
+										<th><img alt="TEL" src="./img/i_tel.png" />TEL</th><td><input type="text" name="delitel" value="" size="24" class="forPhone" /></td>
+									</tr>
+									<tr><th>住所１</th>
+										<td colspan="3">
+											<input type="text" name="deliaddr1" value="" size="100" id="addr3" />
+											<div class="pulldown">
+												<div id="address_wrapper2" class="popup_wrapper">
+													<div class="inner">
+														<p class="popup_title">Address List<img alt="閉じる" src="./img/cross.png" class="close_popup" /></p>
+														<div id="address_list2" class="result_list"></div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr><th>住所２</th><td colspan="3"><input type="text" name="deliaddr2" value="" size="100" id="addr4" /></td></tr>
+								</tbody>
+							</table>
+						</form>
+
+					</div>
+				</div>
+
+				<div class="phase_box">
+					<h2 class="ordertitle">●アンケート</h2>
+					<div class="inner">
+						<table id="questionnaire_table">
+							<tbody>
+								<tr>
+									<td>用　途</td>
+									<td>
+										<p>
+											<label><input type="radio" name="purpose" value="文化祭" />文化祭</label>
+											<label><input type="radio" name="purpose" value="体育祭" />体育祭</label>
+											<label><input type="radio" name="purpose" value="サークル" />サークル（仲間）</label>
+											<label><input type="radio" name="purpose" value="部活" />部活</label>
+											<label><input type="radio" name="purpose" value="ユニフォーム" />ユニフォーム</label>
+											<label><input type="radio" name="purpose" value="販促用" />販促用</label>
+										</p>
+										<p>
+											<label><input type="radio" name="purpose" value="プレゼント" />プレゼント</label>
+											<label><input type="radio" name="purpose" value="イベント" />イベント</label>
+											<label><input type="radio" name="purpose" value="その他" />その他</label>
+											<input type="text" value="" id="purpose_text" />
+											<label><input type="radio" name="purpose" value="" checked="checked" />未定</label>
+										</p>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="phase_box freeform" id="page_border">
+					<h2 class="ordertitle">●コメント</h2>
+					<div class="inner">
+						<p class="scrolltop"><a href="#order_wrapper">ページトップへ</a></p>
+						<p><textarea id="order_comment" cols="80" rows="8"></textarea></p>
+					</div>
+				</div>
+
+				<div id="confirm_button"></div>
+
+			</div>
+
+			<div id="floatingbox">
+				<h3>見積り金額</h3>
+				<div class="estimate_body">
+					<table id="est_table1">
+						<tbody>
+							<tr><th>商品代</th><td id="est_price">0</td></tr>
+							<tr><th>印刷代</th><td id="est_printfee">0</td></tr>
+							<tr><th class="sub">シルク</th><td id="est_silk_printfee">0</td></tr>
+							<tr><th class="sub">カラー転写</th><td id="est_color_printfee">0</td></tr>
+							<tr><th class="sub">デジタル転写</th><td id="est_digit_printfee">0</td></tr>
+							<tr><th class="sub">インクジェット</th><td id="est_inkjet_printfee">0</td></tr>
+							<tr><th class="sub">カッティング</th><td id="est_cutting_printfee">0</td></tr>
+							<tr class="separate"><th>インク色替え</th><td id="est_exchink">0</td></tr>
+							<tr><th><p class="fontred">割引▲</p></th><td id="est_discount" class="fontred">0</td></tr>
+							<tr class="separate"><th><p class="fontred">値引▲</p></th><td id="est_reduction" class="fontred">0</td></tr>
+							<tr><th>特急料金</th><td id="est_express">0</td></tr>
+							<tr><th>送料</th><td id="est_carriage">0</td></tr>
+							<tr class="separate"><th>特別送料</th><td id="est_extracarry">0</td></tr>
+							<tr><th>デザイン代</th><td id="est_designfee">0</td></tr>
+							<tr class="separate"><th>代引手数料</th><td id="est_codfee">0</td></tr>
+							<tr><th>袋詰め代</th><td id="est_package">0</td></tr>
+						</tbody>
+					</table>
+				</div>
+
+				<table class="estimate_total" id="est_table2">
+					<tfoot><tr><td colspan="2"><img alt="saveall" src="./img/btn_save.png" height="25" class="saveall" /></td></tr></tfoot>
+					<tbody>
+						<tr class="total"><th>合計</th><td id="est_total_price">0</td></tr>
+						<tr class="separate"><td colspan="2"></td></tr>
+						<tr><th><p>枚数</p></th><td><p><span id="est_amount">0</span>枚</p></td></tr>
+						<tr><th>1枚あたり</th><td id="est_perone">0</td></tr>
+						<tr class="separate"><td colspan="2"></td></tr>
+						<tr class="total"><th>予算</th><td><input type="text" value="0" id="est_budget" name="budget" class="forPrice" />&nbsp;円</td></tr>
+						<tr class="separate"><td colspan="2"></td></tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+		<div id="order_footer" class="footer">
+			<div class="clearfix">
+				<img alt="saveall" src="./img/btn_save.png" height="25" class="saveall" />
+				<input type="image" src="./img/btn_gomenu.png" class="gotomenu" />
+			</div>
+		</div>
+

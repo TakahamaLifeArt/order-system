@@ -1,0 +1,6 @@
+<img alt="プリント位置" src="./img/printposition/sweat/zip-parker/base_front.png" />
+<img alt="フード" src="./img/printposition/z-print-parts/front/mae_hood.png" class="mae_hood" />
+<img alt="前" src="./img/printposition/z-print-parts/front/mae_mini_2.png" class="parker_mae_mini_zip" />
+<img alt="左胸" src="./img/printposition/z-print-parts/front/mune_left.png" class="parker_mune_left" />
+<img alt="右胸" src="./img/printposition/z-print-parts/front/mune_right.png" class="parker_mune_right" />
+<img alt="ﾎﾟｹｯﾄ" src="./img/printposition/z-print-parts/front/mae_pocket.png" class="parker_mae_pocket" />

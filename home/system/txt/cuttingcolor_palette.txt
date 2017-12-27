@@ -1,0 +1,37 @@
+	<table id="inkcolor_table" class="tablesorter" cellspacing="0">
+		<thead><tr><th>code</th><th>cuttingcolor</th></tr></thead>
+		<tbody>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>000</td><td><p class="ink_undefined">手入力</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>401</td><td><p class="ink_white">ホワイト</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>402</td><td><p class="ink_gold">ゴールド</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>403</td><td><p class="ink_black">ブラック</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>404</td><td><p class="ink_sunflower">ゴールデンイエロー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>405</td><td><p class="ink_orange">オレンジ</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>406</td><td><p class="ink_red">レッド</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>408</td><td><p class="ink_sax">ライトブルー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>409</td><td><p class="ink_reflexblue">ロイヤルブルー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>410</td><td><p class="ink_green">ダークグリーン</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>412</td><td><p class="ink_navy">ネイビーブルー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>413</td><td><p class="ink_yellow">レモンイエロー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>423</td><td><p class="ink_silver">シルバー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>428</td><td><p class="ink_pink">ピンク</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>432</td><td><p class="ink_hotpink">蛍光ピンク</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>440</td><td><p class="ink_apricot">パステルオレンジ</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>444</td><td><p class="ink_lightpink">パステルピンク</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>451</td><td><p class="ink_shockingpink">フューシャ</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>455</td><td><p class="ink_glassgreen">アップルグリーン</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>457</td><td><p class="ink_goldyellow">アプリコット</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>459</td><td><p class="ink_purple">プラム</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>470</td><td><p class="ink_lavender">ライラック</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>610</td><td><p class="ink_jeans">ジーンズ</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>620</td><td><p class="ink_leopard">レオパード</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>630</td><td><p class="ink_cobra">コブラ</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>640</td><td><p class="ink_army">アーミー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>660</td><td><p class="ink_brown-leather">ブラウンレザー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>661</td><td><p class="ink_red-leather">レッドレザー</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>665</td><td><p class="ink_red-tartan">レッドタータン</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>2201</td><td><p class="ink_perfothan-white">パーフォタンホワイト</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>2202</td><td><p class="ink_perfothan-gold">パーフォタンゴールド</p></td></tr>
+			<tr onclick="mypage.changeCuttingcolor(this)"><td>2203</td><td><p class="ink_perfothan-black">パーフォタンブラック</p></td></tr>
+		</tbody>
+	</table>
