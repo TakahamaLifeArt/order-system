@@ -1131,6 +1131,7 @@
 					$res .= '<div class="pp_image">';
 					if($val['area_name']!='free' && !empty($val['areaid'])){
 						$ppImg = file_get_contents(_DOC_ROOT.$val['area_path']);
+						$ppImg = preg_replace('/\.\/img\//', _IMG_PSS, $ppImg);
 						$pos = $orders->db('search', 'orderposition', array('orderarea_id'=>$val['areaid']));
 						if(!empty($pos)){
 							/*
@@ -1327,7 +1328,7 @@
 						}
 						
 						if ($val['print_type'] != 'embroidery') {
-							$inkListCount = 4;
+							$inkListCount = 10;
 						} else {
 							$inkListCount = 12;
 						}
