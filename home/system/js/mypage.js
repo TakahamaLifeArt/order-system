@@ -5159,7 +5159,8 @@ var mypage = {
 								area_path = "free";
 							} else {
 								area_path = self.children('.pp_image').children('img:nth-child(1)').attr('src');
-								area_path = area_path.slice(20, area_path.lastIndexOf('/'));
+//								area_path = area_path.slice(20, area_path.lastIndexOf('/'));
+								area_path = area_path.slice(area_path.indexOf('printposition/')+14,area_path.lastIndexOf('/'));
 							}
 							var origin = 1;
 							if (self.children('.pp_price').find('.del_print_position').length == 1) {
