@@ -3114,23 +3114,35 @@ $(function(){
 	/* change print position */
 	$('.position_name_wrapper .position_name:not(.current)', '#pp_wrapper').live('click', function(){
 		if(mypage.prop.firmorder) return;	// 確定注文は変更不可
-		$(this).siblings('.current').removeClass('current');
-		$(this).addClass('current');
-		var ppImage = $(this).parent().siblings('.pp_image');
-		var base = $(this).children('span').text();
+		var self = $(this);
+		self.siblings('.current').removeClass('current');
+		self.addClass('current');
+		var ppImage = self.parent().siblings('.pp_image');
+		var base = self.children('span').text();
 		var src = ppImage.children('img:first').attr('src');
 		var path = src.replace(/.*?img\/printposition/, 'txt');
 		path = path.slice(0, path.lastIndexOf('/')+1);
 		path += base+'.txt';
-		var ppInfo = $(this).parent().siblings('.pp_info');
+		var ppInfo = self.parent().siblings('.pp_info');
 		ppInfo.find('.ink_count').val('0');
-		var ppInk = $(this).parent().siblings('.pp_ink');
+		var ppInk = self.parent().siblings('.pp_ink');
 		ppInk.children('p').children('.pos_name').each( function(){
 			$(this).attr('alt','').next('img').attr({'src':'./img/circle.png'}).siblings('input').attr('readonly', true).val('');
 		});
-		$(this).parent().siblings('.pp_image').load(path, function(){
-			if(mypage.prop.ordertype=='general'){
-				mypage.calcPrintFee();
+		$.ajax({
+			url: path,
+			type: 'GET',
+			dataType: 'html',
+			async: true,
+			success: function (r) {
+				var imgPath = r.replace(/\.\/img\//g, mypage.prop.img_path);
+				self.parent().siblings('.pp_image').html(imgPath);
+				if(mypage.prop.ordertype=='general'){
+					mypage.calcPrintFee();
+				}
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				alert('Error: p3144\n' + textStatus + '\n' + errorThrown);
 			}
 		});
 		mypage.prop.modified = true;

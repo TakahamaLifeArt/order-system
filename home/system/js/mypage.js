@@ -41,7 +41,8 @@ var mypage = {
 		'intervalID': 0,
 		'attach_file_number': 0, // ファイル数
 		'show_design_time': 0, // ファイル表示回数
-		'spec_v2': "2017/5/25" // プリント代計算の仕様変更適用日
+		'spec_v2': "2017/5/25", // プリント代計算の仕様変更適用日
+		'img_path': 'https://takahamalifeart.com/weblib/img/'
 	},
 	order_info: {
 		id: ['order_id', 'reception', 'destination', 'order_comment', 'paymentdate', 'exchink_count', 'exchthread_count', 'deliverytime', 'manuscriptdate', 'invoicenote', 'billnote',
