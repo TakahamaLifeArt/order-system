@@ -3,6 +3,7 @@
  * 受注票　印刷フォーム
  * log
  * 2016-10-07 電話番号及びFAX番号の表記を廃止
+ * 2018-01-12 刺繍の絵型表示を修正
  */
 if(!isset($_GET['printkey'],$_GET['orderid'])) exit('No such file exists');
 $root_path = "../";
@@ -617,7 +618,9 @@ if($orders['noprint']==0){
 		
 		if ($print_key=='embroidery') {
 			$print_hash[] = $tmp;
-			$tmp .= '<td class="pp_wrap">';
+			$print_info .= $tmp;
+			
+			$tmp = '<td class="pp_wrap">';
 			$tmp .= '<h3 class="lbl">刺繍糸の色</h3>';
 			if(!empty($printpos[$tab]['ink_name'])){
 				foreach($printpos[$tab]['ink_name'] as $ink){
@@ -631,6 +634,7 @@ if($orders['noprint']==0){
 			$posCount += 2;
 			$print_hash[] = $tmp;
 			$print_info .= $tmp;
+			
 			$tmp = '<td class="pp_wrap"></td>';
 		}
 		
