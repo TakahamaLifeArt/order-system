@@ -3517,6 +3517,7 @@ $(function(){
 			document.forms.customer_form.cstprefix.value = 'g';
 		}
 		$('#customer_id').text("000000000");
+		$('#rank').text('');
 		mypage.displayFor('addnew');
 		
 		/* 2013-11-02 保存済み受注の顧客データの削除処理を廃止

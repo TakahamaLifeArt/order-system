@@ -37,7 +37,7 @@ var mypage = {
 		'delivery_list': [], // 納品先情報の検索結果
 		'shipfrom_list': [], // 発送元情報の検索結果
 		'tax': 0, // 消費税
-		'credit_rate': 0.05, // カード決済手数料
+		'credit_rate': 0, // カード決済手数料 - 2018-01-18廃止
 		'intervalID': 0,
 		'attach_file_number': 0, // ファイル数
 		'show_design_time': 0, // ファイル表示回数
@@ -5770,6 +5770,29 @@ console.log("-------------");
 		var f = document.forms.customer_form;
 		var elem = f.elements;
 		var number = '';
+		
+		$.api(['users', data['id'], 'sales'], 'GET', null).then(function(u){
+			var rank = 0,	// 会員割引の割引率
+				rankName = '',
+				sales = 0;
+			if (u.length>0) sales = u[0]['total_price'];
+			if (sales>300000) {
+				rank = 7;
+				rankName = 'ゴールド';
+			} else if(sales>150000) {
+				rank = 5;
+				rankName = 'シルバー';
+			} else if(sales>80000) {
+				rank = 3;
+				rankName = 'ブロンズ';
+			} else {
+				rank = 0;
+				rankName = '-';
+			}
+
+			$('#rank').text(rankName);
+		});
+		
 		for (i = 0; i < elem.length; i++) {
 			if ((elem[i].type == 'text' && elem[i].name != 'number') || elem[i].type == 'select-one' || elem[i].type == 'textarea') {
 				$(':input[name="' + elem[i].name + '"]', '#customer_form').val(data[elem[i].name]).focusout();
@@ -8743,7 +8766,32 @@ console.log("-------------");
 				}
 			});
 
+			// 顧客ランク取得
+			$('#rank').text('');
+			$.api(['users', info['customer_id'], 'sales'], 'GET', null).then(function(u){
+				var rank = 0,	// 会員割引の割引率
+					rankName = '',
+					sales = 0;
+				if (u.length>0) sales = u[0]['total_price'];
+				if (sales>300000) {
+					rank = 7;
+					rankName = 'ゴールド';
+				} else if(sales>150000) {
+					rank = 5;
+					rankName = 'シルバー';
+				} else if(sales>80000) {
+					rank = 3;
+					rankName = 'ブロンズ';
+				} else {
+					rank = 0;
+					rankName = '-';
+				}
+				
+				$('#rank').text(rankName);
+			});
+			
 			// 顧客データの設定
+			
 			elem = document.forms.customer_form.elements;
 			for (i = 0; i < elem.length; i++) {
 				if ((elem[i].type == 'text' && elem[i].name != 'number') || elem[i].type == 'hidden' || elem[i].type == 'select-one' || elem[i].type == 'textarea') {

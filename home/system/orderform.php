@@ -173,6 +173,7 @@
 	<script type="text/javascript" src="./js/modalbox/jquery.modalbox-min.js"></script>
 	<script type="text/javascript" src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8" async></script>
 	<script type="text/javascript" src="./js/phonedata.js"></script>
+	<script type="text/javascript" src="./js/api.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="./js/mypage.js"></script>
 	<script type="text/javascript" src="./js/util.js"></script>
 
@@ -823,7 +824,7 @@
 													<!--
 														<span id="discount_illust">イラレ割(-1,000)</span>
 													-->
-						 							<label><input type="checkbox" name="discount" value="quick" disabled="disabled" />早割(-5％)</label>
+						 							<label style="display:none;"><input type="checkbox" name="discount" value="quick" />早割(-5％)</label>
 						 							<label><input type="checkbox" name="discount" value="imgdesign" />イメ画無料</label>
 
 						 						</td>
@@ -902,7 +903,7 @@
 						 			<td>
 						 				<p>
 						 					<label><input type="radio" name="payment" value="wiretransfer" />振込（手数料お客様負担）</label>
-						 					<label><input type="radio" name="payment" value="credit" />カード（手数料5%お客様負担）</label>
+											<label><input type="radio" name="payment" value="credit" />カード</label>
 						 					<label><input type="radio" name="payment" value="conbi" />コンビニ決済</label>
 							 			</p>
 						 				<p>
@@ -980,7 +981,9 @@
 									<tbody>
 										<tr>
 											<th>顧客ID</th>
-											<td colspan="3"><input type="text" name="number" value="" size="15" readonly="readonly" class="nostyle" /></td>
+											<td><input type="text" name="number" value="" size="15" readonly="readonly" class="nostyle" /></td>
+											<th>ランク：</th>
+											<td id="rank"></td>
 											<td><input type="hidden" name="cstprefix" value="k" /></td>
 											<td><input type="hidden" name="customer_id" value="0" /></td>
 										</tr>
@@ -1375,7 +1378,7 @@
 					<tbody>
 						<tr><th>計</th><td id="est_basefee">0</td></tr>
 						<tr><th>消費税</th><td id="est_salestax">0</td></tr>
-						<tr><th>カード手数料</th><td id="est_creditfee">0</td></tr>
+						<tr style="display:none;"><th>カード手数料</th><td id="est_creditfee">0</td></tr>
 						<tr class="total division"><th>合計</th><td id="est_total_price">0</td></tr>
 						<tr class="separate"><td colspan="2"></td></tr>
 						<tr><th>枚数</th><td><span id="est_amount">0</span>枚</td></tr>
