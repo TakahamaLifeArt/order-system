@@ -820,7 +820,7 @@
 						 						<td>
 						 							<span id="discount_reuse">リピート版</span><br />
 						 							<label><input type="checkbox" name="discount" value="blog" />ブログ協力割(<ins>-3％</ins>)</label>
-						 							<label><input type="checkbox" name="discount" value="illust" />イラレ割(<ins>-1,000</ins>)</label>
+													<label><input type="checkbox" name="discount" value="illust" />そままプリント割(<ins>-1,000</ins>)</label>
 													<!--
 														<span id="discount_illust">イラレ割(-1,000)</span>
 													-->

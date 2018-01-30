@@ -4236,7 +4236,7 @@ $(function(){
 				}else if($(this).val()=='quick'){
 					discount_name.push('早割');
 				}else if($(this).val()=='illust'){
-					discount_name.push('イラレ割');
+					discount_name.push('そのままプリント割');
 				}
 			});
 			// その他割引

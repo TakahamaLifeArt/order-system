@@ -3470,8 +3470,8 @@ var mypage = {
 		 *	prm1			商品代＋インク色替え代
 		 *	prm2			割引金額
 		 *	prm4			特急料金
-		 *	checkdesign		デザイン原稿の種類（0:プリントなし, 1:イラレ以外がある, 2:全てイラレ ）
-		 *	illustrator_fee	イラレ割の金額（金額制限無し-1000）
+		 *	checkdesign		デザイン原稿の種類（0:プリントなし, 1:イラレ以外がある, 2:全てイラレ ） 2018-01-31廃止
+		 *	illustrator_fee	そのままプリント（旧イラレ 2018-01-31廃止）割の金額（金額制限無し-1000）
 		 *	discount_ratio	社員割引
 		 *	discount_ratio1	割引率（金額制限無し　ブログ割　臨時割引）
 		 *	discount_ratio2	割引率（金額制限あり）
@@ -3488,8 +3488,8 @@ var mypage = {
 		var prm1 = 0;
 		var prm2 = 0;
 		var prm4 = 0;
-		var checkdesign = 0;
-		var illustrator_fee = 0;
+//		var checkdesign = 0;
+//		var illustrator_fee = 0;
 		var discount_ratio = 0;
 		var discount_ratio1 = 0;
 		var discount_ratio2 = 0;
@@ -3584,37 +3584,38 @@ var mypage = {
 					discountfee += Math.ceil((p1 * discount_ratio) / 100);
 				}
 
-				// イラレ割
-				$('.pp_toggle_body', '#pp_wrapper').each(function () {
-					$(this).children().children('.pp_box').each(function () {
-						var selectlength = $(this).children('.pp_image').find('img:not(:nth-child(1))').filter(function () {
-							return $(this).attr('src').match(/_on.png$/);
-						}).length;
-						if (selectlength > 0) {
-							var ppInfo = $(this).children('.pp_info');
-							var printtype = ppInfo.find('.print_type').val();
-							var designtype = ppInfo.find('.design_type').val();
-							if (!(printtype == 'silk' && ppInfo.find('.ink_count').val() == '0') && $(this).find('.repeat_check').is(':checked') == false) {
-								if (designtype == 'イラレ') {
-									checkdesign = 2;
-								} else {
-									checkdesign = 1;
-								}
-							}
-						}
-						if (checkdesign == 1) return false;
-					});
-					if (checkdesign == 1) return false;
-				});
-
-				if (checkdesign == 2 && discount_ratio == 0) {
-					$('input[value="illust"]', '#optprice_table').attr('checked', 'checked').parent().addClass('fontred');
-				} else {
-					$('input[value="illust"]', '#optprice_table').removeAttr('checked').parent().removeClass('fontred');
-				}
+				// イラレ割 2018-01-31廃止
+//				$('.pp_toggle_body', '#pp_wrapper').each(function () {
+//					$(this).children().children('.pp_box').each(function () {
+//						var selectlength = $(this).children('.pp_image').find('img:not(:nth-child(1))').filter(function () {
+//							return $(this).attr('src').match(/_on.png$/);
+//						}).length;
+//						if (selectlength > 0) {
+//							var ppInfo = $(this).children('.pp_info');
+//							var printtype = ppInfo.find('.print_type').val();
+//							var designtype = ppInfo.find('.design_type').val();
+//							if (!(printtype == 'silk' && ppInfo.find('.ink_count').val() == '0') && $(this).find('.repeat_check').is(':checked') == false) {
+//								if (designtype == 'イラレ') {
+//									checkdesign = 2;
+//								} else {
+//									checkdesign = 1;
+//								}
+//							}
+//						}
+//						if (checkdesign == 1) return false;
+//					});
+//					if (checkdesign == 1) return false;
+//				});
+//
+//				if (checkdesign == 2 && discount_ratio == 0) {
+//					$('input[value="illust"]', '#optprice_table').attr('checked', 'checked').parent().addClass('fontred');
+//				} else {
+//					$('input[value="illust"]', '#optprice_table').removeAttr('checked').parent().removeClass('fontred');
+//				}
+				
 				if ($('input[value="illust"]:checked', '#optprice_table').length > 0 && discount_ratio == 0) {
 					discountfee += 1000;
-					illustrator_fee = 1000;
+//					illustrator_fee = 1000;
 				}
 
 				if (mypage.prop.isRepeat == false && discount_ratio == 0) { // リピート版注文ではなく且つ社員割ではない場合に割引を適用する
@@ -3846,37 +3847,38 @@ var mypage = {
 							discountfee += Math.ceil((p1 * discount_ratio) / 100);
 						}
 
-						// イラレ割
-						$('.pp_toggle_body', '#pp_wrapper').each(function () {
-							$(this).children().children('.pp_box').each(function () {
-								var selectlength = $(this).children('.pp_image').find('img:not(:nth-child(1))').filter(function () {
-									return $(this).attr('src').match(/_on.png$/);
-								}).length;
-								if (selectlength > 0) {
-									var ppInfo = $(this).children('.pp_info');
-									var printtype = ppInfo.find('.print_type').val();
-									var designtype = ppInfo.find('.design_type').val();
-									if (!(printtype == 'silk' && ppInfo.find('.ink_count').val() == '0') && $(this).find('.repeat_check').is(':checked') == false) {
-										if (designtype == 'イラレ') {
-											checkdesign = 2;
-										} else {
-											checkdesign = 1;
-										}
-									}
-								}
-								if (checkdesign == 1) return false;
-							});
-							if (checkdesign == 1) return false;
-						});
-
-						if (checkdesign == 2 && discount_ratio == 0) {
-							$('input[value="illust"]', '#optprice_table').attr('checked', 'checked').parent().addClass('fontred');
-						} else {
-							$('input[value="illust"]', '#optprice_table').removeAttr('checked').parent().removeClass('fontred');
-						}
+						// イラレ割 2018-01-31廃止
+//						$('.pp_toggle_body', '#pp_wrapper').each(function () {
+//							$(this).children().children('.pp_box').each(function () {
+//								var selectlength = $(this).children('.pp_image').find('img:not(:nth-child(1))').filter(function () {
+//									return $(this).attr('src').match(/_on.png$/);
+//								}).length;
+//								if (selectlength > 0) {
+//									var ppInfo = $(this).children('.pp_info');
+//									var printtype = ppInfo.find('.print_type').val();
+//									var designtype = ppInfo.find('.design_type').val();
+//									if (!(printtype == 'silk' && ppInfo.find('.ink_count').val() == '0') && $(this).find('.repeat_check').is(':checked') == false) {
+//										if (designtype == 'イラレ') {
+//											checkdesign = 2;
+//										} else {
+//											checkdesign = 1;
+//										}
+//									}
+//								}
+//								if (checkdesign == 1) return false;
+//							});
+//							if (checkdesign == 1) return false;
+//						});
+//
+//						if (checkdesign == 2 && discount_ratio == 0) {
+//							$('input[value="illust"]', '#optprice_table').attr('checked', 'checked').parent().addClass('fontred');
+//						} else {
+//							$('input[value="illust"]', '#optprice_table').removeAttr('checked').parent().removeClass('fontred');
+//						}
+						
 						if ($('input[value="illust"]:checked', '#optprice_table').length > 0) {
 							discountfee += 1000;
-							illustrator_fee = 1000;
+//							illustrator_fee = 1000;
 						}
 
 						if (mypage.prop.isRepeat == false && discount_ratio == 0) { // リピート版注文ではなく且つ社員割ではない場合だけ割引を適用する
@@ -4227,7 +4229,7 @@ var mypage = {
 
 		sum = Math.floor(tot * (1 + mypage.prop.tax));
 
-		// カード決済の場合、税込合計の5％を計上
+		// カード決済の場合、税込合計の5％を計上（2018-01-30 廃止）
 		var creditfee = 0;
 		if ($('input[name="payment"]:checked', '#optprice_table').val() == 'credit') {
 			creditfee = Math.ceil(sum * mypage.prop.credit_rate);
@@ -8749,7 +8751,7 @@ console.log("-------------");
 					r = $.getDelimiter(r);
 					discount_val = r.split($.delimiter['rec']);
 					for (var v = 0; v < discount_val.length; v++) {
-						// リピート版注文の初期表示の場合にブログ割とイラレ割を外す
+						// リピート版注文の初期表示の場合にブログ割とそのままプリント（旧イラレ）割を外す
 						if (mode == "repeat" && (discount_val[v] == 'blog' || discount_val[v] == 'illust')) continue;
 
 						$(':checkbox[value="' + discount_val[v] + '"]', '#discount_table').attr('checked', 'checked');
