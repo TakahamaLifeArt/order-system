@@ -3291,9 +3291,6 @@ var mypage = {
 						repeat = 0;
 					}
 
-					// プリント箇所と指定内容（サイズ、オプション）が同じものが既にであれば、true
-					var isExistDesign = false;
-
 					// プリント方法毎のプリント箇所別でパラメータを集計
 					if (typeof param[print_type] == 'undefined') {
 						param[print_type] = {};
@@ -3304,8 +3301,6 @@ var mypage = {
 						param[print_type][pos_name][sectKey] = {};
 					} else if (typeof param[print_type][pos_name][sectKey] == 'undefined') {
 						param[print_type][pos_name][sectKey] = {};
-					} else {
-						isExistDesign = true;
 					}
 
 					for (var grp in items[ppId]) {
@@ -3330,13 +3325,6 @@ var mypage = {
 								// シルクは、同版分類毎にリピートの判別
 								var g2 = ca[grp]['itemId'][item_id]['group2'];
 								param[print_type][pos_name][sectKey][grp]['repeat'][g2] = repeat;
-							} else if (print_type == 'digit' || print_type == 'embroidery') {
-								// デジ転と刺繍は、プリント箇所と指定内容（サイズ、オプション）が同じであれば枚数レンジ分類が違っても計上しない
-								if (isExistDesign === true) {
-									param[print_type][pos_name][sectKey][grp]['repeat'] = repeat == 1 ? 1 : 2;
-								} else {
-									param[print_type][pos_name][sectKey][grp]['repeat'] = repeat;
-								}
 							} else {
 								param[print_type][pos_name][sectKey][grp]['repeat'] = repeat;
 							}
