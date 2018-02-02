@@ -1053,7 +1053,7 @@
 				array('front'=>'前'),
 				array('front'=>'前', 'back'=>'後'),
 				array('front'=>'前', 'back'=>'後', 'side'=>'横'),
-				array('front'=>'前', 'back'=>'後', 'side_p4'=>'横')
+				array('front'=>'前', 'back'=>'後', 'side'=>'横')
 				//array('front'=>'前', 'back'=>'後', 'side_p2'=>'横', 'side_p4'=>'横')
 			);
 			
@@ -1108,9 +1108,17 @@
 					}else{
 						$info = Catalog::getPrintposition(0, $_POST['ppID']);
 						$pp_types = $pp_pattern[$info[0]['pos_pattern']];
+						
+						// 絵型のテキストファイル名side_p4.txtとside_p2.txtを廃止してside.txtに統一
+						if (strpos($val['area_name'], 'side_p')!==false) {
+							$targetArea = 'side';
+						} else {
+							$targetArea = $val['area_name'];
+						}
+						
 						foreach($pp_types as $position_key=>$position_name){
 							$res .= '<div class="position_name';
-							if(strpos($val['area_name'], $position_key)!==false){
+							if (strpos($targetArea, $position_key)!==false) {
 								$res .=' current';
 							}
 							$res .='"><span>'.$position_key.'</span>'.$position_name.'</div>';
