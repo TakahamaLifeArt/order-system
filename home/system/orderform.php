@@ -1378,7 +1378,7 @@
 					<tbody>
 						<tr><th>計</th><td id="est_basefee">0</td></tr>
 						<tr><th>消費税</th><td id="est_salestax">0</td></tr>
-						<tr style="display:none;"><th>カード手数料</th><td id="est_creditfee">0</td></tr>
+						<tr><th>カード手数料</th><td id="est_creditfee">0</td></tr>
 						<tr class="total division"><th>合計</th><td id="est_total_price">0</td></tr>
 						<tr class="separate"><td colspan="2"></td></tr>
 						<tr><th>枚数</th><td><span id="est_amount">0</span>枚</td></tr>

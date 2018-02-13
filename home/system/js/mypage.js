@@ -37,7 +37,7 @@ var mypage = {
 		'delivery_list': [], // 納品先情報の検索結果
 		'shipfrom_list': [], // 発送元情報の検索結果
 		'tax': 0, // 消費税
-		'credit_rate': 0, // カード決済手数料 - 2018-01-18廃止
+		'credit_rate': 0.05, // カード決済手数料 - 注文確定日が2018-01-29より廃止、それ以前の注文確定には適用
 		'intervalID': 0,
 		'attach_file_number': 0, // ファイル数
 		'show_design_time': 0, // ファイル表示回数
@@ -4220,7 +4220,16 @@ var mypage = {
 		// カード決済の場合、税込合計の5％を計上（2018-01-30 廃止）
 		var creditfee = 0;
 		if ($('input[name="payment"]:checked', '#optprice_table').val() == 'credit') {
-			creditfee = Math.ceil(sum * mypage.prop.credit_rate);
+			
+			// 注文確定日の指定がある場合、2018-01-29からカード決済手数料廃止
+			if (mypage.prop.firmorderdate) {
+				var schedule2 = new Date(mypage.prop.firmorderdate+"T00:00:00+09:00");
+				var abolition = new Date("2018-01-29T00:00:00+09:00");
+				if (schedule2 < abolition) {
+					creditfee = Math.ceil(sum * mypage.prop.credit_rate);
+				}
+			}
+			
 			sum += creditfee;
 		}
 		$('#est_creditfee').text(mypage.addFigure(creditfee));
