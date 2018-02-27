@@ -49,6 +49,7 @@
 			$mail_contents .= "\n";
 			$mail_contents .= "イメージ画像は作成完了しましたので、マイページでご確認お願いいたします。\n";
 			$mail_contents .= "※注文確定後のため、制作したイメージ画像の変更はできません。ご了承ください。\n";
+			$mail_contents .= "※カッティングプリント・刺繍の名入れは、一番文字数の多いお名前にてイメージ画像を作成しております。\n";
 			$mail_contents .= "\n";
 			$mail_contents .= "\n";
 			$mail_contents .= "マイページ：\n";
