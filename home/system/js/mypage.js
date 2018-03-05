@@ -3876,23 +3876,24 @@ var mypage = {
 								discount_ratio1 += 3;
 							}
 
-							if (express == 0) {
-								var discount = $('input[name="discount1"]:checked', '#optprice_table').val();
-								switch (discount) {
-									case 'student':
-										discountfee += Math.ceil((p1 * 3) / 100);
-										discount_ratio2 += 3;
-										break;
-									case 'team2':
-										discountfee += Math.ceil((p1 * 5) / 100);
-										discount_ratio2 += 5;
-										break;
-									case 'team3':
-										discountfee += Math.ceil((p1 * 7) / 100);
-										discount_ratio2 += 7;
-										break;
-								}
+							// 2018-03-05 特急の場合でも学割を適用する様に仕様変更
+							var discount = $('input[name="discount1"]:checked', '#optprice_table').val();
+							switch (discount) {
+								case 'student':
+									discountfee += Math.ceil((p1 * 3) / 100);
+									discount_ratio2 += 3;
+									break;
+								case 'team2':
+									discountfee += Math.ceil((p1 * 5) / 100);
+									discount_ratio2 += 5;
+									break;
+								case 'team3':
+									discountfee += Math.ceil((p1 * 7) / 100);
+									discount_ratio2 += 7;
+									break;
+							}
 
+							if (express == 0) {
 								discount = $('input[name="discount2"]:checked', '#optprice_table').val();
 								switch (discount) {
 									case 'repeat':
