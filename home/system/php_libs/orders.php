@@ -4835,7 +4835,7 @@ class Orders{
 				/*
 				*	アンケート集計
 				*/
-				$sql = 'select enq1id,enq1date,customer_number,enq1name,ans2,ans8,ans9,ans10,ans11,ans12,ans13,ans14 from enquete1 order by enq1id desc';
+				$sql = 'select enq1id,enq1date,customer_number,enq1name,ans2,ans8,ans9,ans10,ans11,ans12,ans13,ans14,ans15,ans16,ans17,ans18 from enquete1 order by enq1id desc';
 				$result = exe_sql($conn, $sql);
 				while($res = mysqli_fetch_assoc($result)){
 					$rs1[] = $res;

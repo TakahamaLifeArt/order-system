@@ -83,7 +83,24 @@
 				var lines1 = [];		// 集計結果
 				var lines2 = [];		// 選択質問の集計結果
 				var list = '';			// HTML
+				var tmp = [];
+				var ans17 = [];
+				var ans17Label = [
+					"特になし",
+					"注文確定の電話",
+					"商品の選び方",
+					"商品の素材や色",
+					"お届け日",
+					"商品の見積もり",
+					"デザインの入稿の方法",
+					"プリントサイズ",
+					"プリント方法",
+					"割引の内容や条件",
+					"資料請求・商品サンプルの注文",
+					"ホームページ全体"
+				];
 				
+
 				$('#result_searchtop').html('');
 
 				if(my.attr('title')=="search"){
@@ -105,130 +122,216 @@
 
 				if(lines2.length>0){
 					var i = 0;
+					var t = 0;
 					var w = 750;
 					var count = lines2[0]['cnt'];
 					$('#result_count').text(count);
+					list += '<p class="q">Q1　商品、プリントの品質には満足できましたか？</p>';
+					list += '<table class="ans_choice"><tbody>';
+					list += '<tr><td>5</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_5']+'</td></tr>';
+					list += '<tr><td>4</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_4']+'</td></tr>';
+					list += '<tr><td>3</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_3']+'</td></tr>';
+					list += '<tr><td>2</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_2']+'</td></tr>';
+					list += '<tr><td>1</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_1']+'</td></tr>';
+					list += '</tbody></table>';
 					
-					list += '<p class="q">Q1　今回、タカハマライフアートをお選びいただいた理由をお聞かせ下さい。</p>';
+					list += '<p class="q">Q2　その理由があればお聞かせください</p>';
 					list += '<div class="ans_text"><textarea>';
 					for(i=0; i<count; i++){
+						if (lines1[i]['ans15']=='') continue;
 						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
 						list += lines1[i]['enq1date']+"\n\n";
-						list += lines1[i]['ans12'];
+						list += lines1[i]['ans15'];
 						list += "\n\n--------------------------\n\n";
 					}
 					list += '</textarea></div>';
 					
-					list += '<p class="q">Q2　タカハマライフアートのホームページはわかりやすかったでしょうか？</p>';
+					list += '<p class="q">Q3　スタッフの対応には満足できましたか?</p>';
 					list += '<table class="ans_choice"><tbody>';
-					list += '<tr><td>とても分りやすかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_5']+'</td></tr>';
-					list += '<tr><td>分りやすかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_4']+'</td></tr>';
-					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_3']+'</td></tr>';
-					list += '<tr><td>分りにくかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_2']+'</td></tr>';
-					list += '<tr><td>とても分りにくかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_1']+'</td></tr>';
-//					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_0']+'</td></tr>';
+					list += '<tr><td>5</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_5']+'</td></tr>';
+					list += '<tr><td>4</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_4']+'</td></tr>';
+					list += '<tr><td>3</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_3']+'</td></tr>';
+					list += '<tr><td>2</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_2']+'</td></tr>';
+					list += '<tr><td>1</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_1']+'</td></tr>';
 					list += '</tbody></table>';
 					
-					list += '<p class="q">Q3　ホームページで、わかりやすかった点、わかりにくかった点について</p>';
+					list += '<p class="q">Q4　その理由があればお聞かせください</p>';
 					list += '<div class="ans_text"><textarea>';
 					for(i=0; i<count; i++){
+						if (lines1[i]['ans16']=='') continue;
 						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
 						list += lines1[i]['enq1date']+"\n\n";
-						list += lines1[i]['ans2'];
+						list += lines1[i]['ans16'];
 						list += "\n\n--------------------------\n\n";
 					}
 					list += '</textarea></div>';
 					
-					list += '<p class="q">Q4　ご注文いただいた際の弊社の対応はいかがでしたでしょうか？</p>';
-					list += '<table class="ans_choice"><tbody>';
-					list += '<tr><td>とても良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_5']+'</td></tr>';
-					list += '<tr><td>良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_4']+'</td></tr>';
-					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_3']+'</td></tr>';
-					list += '<tr><td>悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_2']+'</td></tr>';
-					list += '<tr><td>とても悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_1']+'</td></tr>';
-//					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_0']+'</td></tr>';
-					list += '</tbody></table>';
-					
-					list += '<p class="q">Q5　プリントの仕上がりは、お客様のイメージ通りでしたでしょうか？</p>';
-					list += '<table class="ans_choice"><tbody>';
-					list += '<tr><td>イメージ以上に良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_5']+'</td></tr>';
-					list += '<tr><td>イメージ通り良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_4']+'</td></tr>';
-					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_3']+'</td></tr>';
-					list += '<tr><td>イメージしていたより悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_2']+'</td></tr>';
-					list += '<tr><td>全くイメージ通りではなかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_1']+'</td></tr>';
-//					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_0']+'</td></tr>';
-					list += '</tbody></table>';
-					
-					list += '<p class="q">Q6　商品が到着した際の梱包状態はいかがでしたでしょうか？</p>';
-					list += '<table class="ans_choice"><tbody>';
-					list += '<tr><td>とても良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_5']+'</td></tr>';
-					list += '<tr><td>良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_4']+'</td></tr>';
-					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_3']+'</td></tr>';
-					list += '<tr><td>悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_2']+'</td></tr>';
-					list += '<tr><td>とても悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_1']+'</td></tr>';
-//					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_0']+'</td></tr>';
-					list += '</tbody></table>';
-					
-					list += '<p class="q">Q7　実際に商品を着用・使用してみての、アイテムに関する感想</p>';
-					list += '<div class="ans_text"><textarea>';
-					for(i=0; i<count; i++){
-						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
-						list += lines1[i]['enq1date']+"\n\n";
-						list += lines1[i]['ans10'];
-						list += "\n\n--------------------------\n\n";
+					list += '<p class="q">Q5　タカハマライフアートの「ここが使いづらい！」という点を教えてください。</p>';
+					for (i=0; i<ans17Label.length; i++) {
+						ans17[i] = 0;
 					}
-					list += '</textarea></div>';
-					
-//					list += '<p class="q">Q8　デザイン、色、サイズ、素材など、「もっとこんな商品（アイテム）があればよいのに！」というご希望</p>';
-//					list += '<div class="ans_text"><textarea>';
-//					for(i=0; i<count; i++){
-//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
-//						list += lines1[i]['enq1date']+"\n\n";
-//						list += lines1[i]['ans11'];
-//						list += "\n\n--------------------------\n\n";
-//					}
-//					list += '</textarea></div>';
-					
-					list += '<p class="q">Q8　ご使用の用途（音楽イベント、文化祭など）</p>';
-					list += '<div class="ans_text"><textarea>';
-					for(i=0; i<count; i++){
-						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
-						list += lines1[i]['enq1date']+"\n\n";
-						list += lines1[i]['ans13'];
-						list += "\n\n--------------------------\n\n";
+					for (i=0; i<count; i++) {
+						if (lines1[i]['ans17']=='') continue;
+						tmp = lines1[i]['ans17'].split(',');
+						for (t=0; t<tmp.length; t++) {
+							ans17[tmp[t]] += 1;
+						}
+						
 					}
-					list += '</textarea></div>';
-					
-					list += '<p class="q">Q9　「もっとこんなサービス・商品があれば良いのに！」というご要望</p>';
-					list += '<div class="ans_text"><textarea>';
-					for(i=0; i<count; i++){
-						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
-						list += lines1[i]['enq1date']+"\n\n";
-						list += lines1[i]['ans8'];
-						list += "\n\n--------------------------\n\n";
-					}
-					list += '</textarea></div>';
-					
-					list += '<p class="q">Q10　弊社を知ったきっかけ</p>';
 					list += '<table class="ans_choice"><tbody>';
-					list += '<tr><td>インターネット検索</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_6']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_6']+'</td></tr>';
-					list += '<tr><td>知り合いの紹介</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_5']+'</td></tr>';
-					list += '<tr><td>雑誌、新聞記事、広告</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_4']+'</td></tr>';
-					list += '<tr><td>セミナー講演会</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_3']+'</td></tr>';
-					list += '<tr><td>2回目以降の購入</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_2']+'</td></tr>';
-					list += '<tr><td>その他</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_1']+'</td></tr>';
-//					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_0']+'</td></tr>';
+					for(i=0; i<ans17Label.length; i++){
+						list += '<tr><td>'+ans17Label[i]+'</td><td><p class="bar" style="width:'+ (ans17[i]/count)*w +'px;"></p></td><td>'+ans17[i]+'</td></tr>';
+					}
 					list += '</tbody></table>';
 					
-					list += '<p class="q">Q11　その他、注文してみての感想・お気づきの点</p>';
+					list += '<p class="q">Q6　全体を通して、ご意見ご感想がありましたらご記入お願いします</p>';
 					list += '<div class="ans_text"><textarea>';
 					for(i=0; i<count; i++){
+						if (lines1[i]['ans9']=='') continue;
 						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
 						list += lines1[i]['enq1date']+"\n\n";
 						list += lines1[i]['ans9'];
 						list += "\n\n--------------------------\n\n";
 					}
 					list += '</textarea></div>';
+					
+					list += '<p class="q">Q7　写真掲載割をご利用のお客様は、商品到着後の感想やコメントをご入力ください。</p>';
+					list += '<div class="ans_text"><textarea>';
+					for(i=0; i<count; i++){
+						if (lines1[i]['ans18']=='') continue;
+						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+						list += lines1[i]['enq1date']+"\n\n";
+						list += lines1[i]['ans18'];
+						list += "\n\n--------------------------\n\n";
+					}
+					list += '</textarea></div>';
+					
+					
+					
+					
+					
+					
+					
+//					list += '<p class="q">Q1　今回、タカハマライフアートをお選びいただいた理由をお聞かせ下さい。</p>';
+//					list += '<div class="ans_text"><textarea>';
+//					for(i=0; i<count; i++){
+//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+//						list += lines1[i]['enq1date']+"\n\n";
+//						list += lines1[i]['ans12'];
+//						list += "\n\n--------------------------\n\n";
+//					}
+//					list += '</textarea></div>';
+//					
+//					list += '<p class="q">Q2　タカハマライフアートのホームページはわかりやすかったでしょうか？</p>';
+//					list += '<table class="ans_choice"><tbody>';
+//					list += '<tr><td>とても分りやすかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_5']+'</td></tr>';
+//					list += '<tr><td>分りやすかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_4']+'</td></tr>';
+//					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_3']+'</td></tr>';
+//					list += '<tr><td>分りにくかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_2']+'</td></tr>';
+//					list += '<tr><td>とても分りにくかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_1']+'</td></tr>';
+////					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans1_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans1_0']+'</td></tr>';
+//					list += '</tbody></table>';
+//					
+//					list += '<p class="q">Q3　ホームページで、わかりやすかった点、わかりにくかった点について</p>';
+//					list += '<div class="ans_text"><textarea>';
+//					for(i=0; i<count; i++){
+//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+//						list += lines1[i]['enq1date']+"\n\n";
+//						list += lines1[i]['ans2'];
+//						list += "\n\n--------------------------\n\n";
+//					}
+//					list += '</textarea></div>';
+//					
+//					list += '<p class="q">Q4　ご注文いただいた際の弊社の対応はいかがでしたでしょうか？</p>';
+//					list += '<table class="ans_choice"><tbody>';
+//					list += '<tr><td>とても良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_5']+'</td></tr>';
+//					list += '<tr><td>良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_4']+'</td></tr>';
+//					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_3']+'</td></tr>';
+//					list += '<tr><td>悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_2']+'</td></tr>';
+//					list += '<tr><td>とても悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_1']+'</td></tr>';
+////					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans5_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans5_0']+'</td></tr>';
+//					list += '</tbody></table>';
+//					
+//					list += '<p class="q">Q5　プリントの仕上がりは、お客様のイメージ通りでしたでしょうか？</p>';
+//					list += '<table class="ans_choice"><tbody>';
+//					list += '<tr><td>イメージ以上に良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_5']+'</td></tr>';
+//					list += '<tr><td>イメージ通り良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_4']+'</td></tr>';
+//					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_3']+'</td></tr>';
+//					list += '<tr><td>イメージしていたより悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_2']+'</td></tr>';
+//					list += '<tr><td>全くイメージ通りではなかった</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_1']+'</td></tr>';
+////					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans6_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans6_0']+'</td></tr>';
+//					list += '</tbody></table>';
+//					
+//					list += '<p class="q">Q6　商品が到着した際の梱包状態はいかがでしたでしょうか？</p>';
+//					list += '<table class="ans_choice"><tbody>';
+//					list += '<tr><td>とても良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_5']+'</td></tr>';
+//					list += '<tr><td>良かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_4']+'</td></tr>';
+//					list += '<tr><td>普通</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_3']+'</td></tr>';
+//					list += '<tr><td>悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_2']+'</td></tr>';
+//					list += '<tr><td>とても悪かった</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_1']+'</td></tr>';
+////					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans7_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans7_0']+'</td></tr>';
+//					list += '</tbody></table>';
+//					
+//					list += '<p class="q">Q7　実際に商品を着用・使用してみての、アイテムに関する感想</p>';
+//					list += '<div class="ans_text"><textarea>';
+//					for(i=0; i<count; i++){
+//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+//						list += lines1[i]['enq1date']+"\n\n";
+//						list += lines1[i]['ans10'];
+//						list += "\n\n--------------------------\n\n";
+//					}
+//					list += '</textarea></div>';
+//					
+////					list += '<p class="q">Q8　デザイン、色、サイズ、素材など、「もっとこんな商品（アイテム）があればよいのに！」というご希望</p>';
+////					list += '<div class="ans_text"><textarea>';
+////					for(i=0; i<count; i++){
+////						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+////						list += lines1[i]['enq1date']+"\n\n";
+////						list += lines1[i]['ans11'];
+////						list += "\n\n--------------------------\n\n";
+////					}
+////					list += '</textarea></div>';
+//					
+//					list += '<p class="q">Q8　ご使用の用途（音楽イベント、文化祭など）</p>';
+//					list += '<div class="ans_text"><textarea>';
+//					for(i=0; i<count; i++){
+//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+//						list += lines1[i]['enq1date']+"\n\n";
+//						list += lines1[i]['ans13'];
+//						list += "\n\n--------------------------\n\n";
+//					}
+//					list += '</textarea></div>';
+//					
+//					list += '<p class="q">Q9　「もっとこんなサービス・商品があれば良いのに！」というご要望</p>';
+//					list += '<div class="ans_text"><textarea>';
+//					for(i=0; i<count; i++){
+//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+//						list += lines1[i]['enq1date']+"\n\n";
+//						list += lines1[i]['ans8'];
+//						list += "\n\n--------------------------\n\n";
+//					}
+//					list += '</textarea></div>';
+//					
+//					list += '<p class="q">Q10　弊社を知ったきっかけ</p>';
+//					list += '<table class="ans_choice"><tbody>';
+//					list += '<tr><td>インターネット検索</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_6']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_6']+'</td></tr>';
+//					list += '<tr><td>知り合いの紹介</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_5']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_5']+'</td></tr>';
+//					list += '<tr><td>雑誌、新聞記事、広告</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_4']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_4']+'</td></tr>';
+//					list += '<tr><td>セミナー講演会</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_3']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_3']+'</td></tr>';
+//					list += '<tr><td>2回目以降の購入</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_2']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_2']+'</td></tr>';
+//					list += '<tr><td>その他</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_1']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_1']+'</td></tr>';
+////					list += '<tr><td>無回答</td><td><p class="bar" style="width:'+ (lines2[0]['ans14_0']/count)*w +'px;"></p></td><td>'+lines2[0]['ans14_0']+'</td></tr>';
+//					list += '</tbody></table>';
+//					
+//					list += '<p class="q">Q11　その他、注文してみての感想・お気づきの点</p>';
+//					list += '<div class="ans_text"><textarea>';
+//					for(i=0; i<count; i++){
+//						list += 'K'+("000000"+lines1[i]['customer_number']).slice(-6)+" "+lines1[i]['enq1name']+"\n";
+//						list += lines1[i]['enq1date']+"\n\n";
+//						list += lines1[i]['ans9'];
+//						list += "\n\n--------------------------\n\n";
+//					}
+//					list += '</textarea></div>';
 					
 					$('#result_table').html(list);
 					

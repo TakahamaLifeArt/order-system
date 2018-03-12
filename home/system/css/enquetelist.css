@@ -1,0 +1,45 @@
+@charset "EUC-JP";
+
+/*------------------------------------------------------------
+
+	File_name    : enquetelist.css
+	Description  : takahama system enquete stylesheet
+	Version      : 0.1
+	Log          : 2012.08.12 created
+				   2012.10.08 棒グラフの調整
+				   2018.03.08 テーブルレイアウトを更新
+
+-------------------------------------------------------------- */
+
+
+
+
+/*		外部スタイルシートの読込
+===============================================================*/
+@import url(list.css);
+
+
+
+
+/*		result list
+===============================================================*/
+.q {
+	font-size: 125%;
+}
+#result_table .ans_choice,
+#result_table .ans_text {
+	margin-left: 3em;
+	margin-bottom: 1.5em;
+}
+#result_table .ans_choice td:first-child {
+	padding-right: 1em;
+}
+#result_table .ans_choice .bar {
+	height: 1em;
+	background-color: #2779aa;
+}
+#result_table .ans_text textarea {
+	width: 750px;
+	height: 10em;
+	cursor: pointer;
+}
