@@ -42,7 +42,7 @@
 		$zipcode = 			preg_replace('/^(\d{3})(\d{1,4})$/', '$1-$2', $orders['zipcode']);
 		$deli1 = 			$orders['addr0'].$orders['addr1'];
 		$deli2 = 			$orders['addr2'];
-		$billnote = 		$orders['billnote'];
+		$invoicenote = 		$orders['invoicenote'];
 		
 		// 消費税
 		$_TAX = $catalog->getSalesTax($orders['schedule3'], $ordertype);
@@ -426,7 +426,7 @@
 		}
 
 		$details .= '<p style="margin:0;">【　備　考　】</p>';
-		$details .= '<div style="padding:0px 5px; border:1px solid #a9a9a9;"><p>'.nl2br($billnote).'</p></div>';
+		$details .= '<div style="padding:0px 5px; border:1px solid #a9a9a9;"><p>'.nl2br($invoicenote).'</p></div>';
 				
 		// 出力フォーム
 		$html .= '
