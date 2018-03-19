@@ -294,8 +294,21 @@
 				// オプション計
 				$optionfee = $printfee+$exchinkfee+$packfee+$discountfee+$reductionfee+$expressfee+$carriagefee+$designfee+$codfee+$conbifee+$additionalfee;
 				
-				// 総合計
-				$total += ($tot_itemprice + $optionfee);
+				$tot_itemprice += $optionfee;
+
+				// 2018-03-20 受注ID毎に消費税と合計を表記
+				if($_TAX>0){
+					$tax = floor($tot_itemprice*$_TAX);			// 消費税
+					$tbl .= '
+					<tr><td colspan="4" style="border:none;"></td><th>小　　計</th><td>'.number_format($tot_itemprice).'</td></tr>
+					<tr><td colspan="4" style="border:none;"></td><th>消費税額</th><td>'.number_format($tax).'</td></tr>';
+					// 総合計
+					$total += $tot_itemprice+$tax;
+				}else{
+					$tbl .= '<tr><td colspan="4" style="border:none;"></td><td>小　　計</td><td>'.number_format($tot_itemprice).'</td></tr>';
+					// 総合計
+					$total += $tot_itemprice;
+				}
 			}
 			
 			
@@ -303,31 +316,34 @@
 					<tr><th>No.</th><th colspan="2">商品名</th><th style="width:100px;">数量</th><th>商品単価</th><th>金額</th></tr>
 				</thead>
 
-				<tfoot>';
+				<tfoot>
+					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($total).'</td></tr>
+				</tfoot>';
 				
-			if($_TAX>0){
-				$tax = floor($total*$_TAX);			// 消費税
-				$sum = floor($total*(1+$_TAX));		// 見積り合計
-				$details .= '
-					<tr><td colspan="4" style="border:none;"></td><th>小　　計</th><td>'.number_format($total).'</td></tr>
-					<tr><td colspan="4" style="border:none;"></td><th>消費税額</th><td>'.number_format($tax).'</td></tr>';
-				if($bundle[0][0]['payment']=='credit'){
-					$sum += $creditfee;
-					$details .= '<tr><td colspan="4" style="border:none;"></td><th>カード手数料</th><td>'.number_format($creditfee).'</td></tr>';
-				}
-				$details .= '
-					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($sum).'</td></tr>
-				</tfoot>';
-			}else{
-				$sum = $total;					// 見積り合計
-				if($bundle[0][0]['payment']=='credit'){
-					$sum += $creditfee;
-					$details .= '<tr><td colspan="4" style="border:none;"></td><th>カード手数料</th><td>'.number_format($creditfee).'</td></tr>';
-				}
-				$details .= '
-					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($sum).'</td></tr>
-				</tfoot>';
-			}
+			// 2018-03-20 受注ID毎に消費税と合計を表記
+//			if($_TAX>0){
+//				$tax = floor($total*$_TAX);			// 消費税
+//				$sum = floor($total*(1+$_TAX));		// 見積り合計
+//				$details .= '
+//					<tr><td colspan="4" style="border:none;"></td><th>小　　計</th><td>'.number_format($total).'</td></tr>
+//					<tr><td colspan="4" style="border:none;"></td><th>消費税額</th><td>'.number_format($tax).'</td></tr>';
+//				if($bundle[0][0]['payment']=='credit'){
+//					$sum += $creditfee;
+//					$details .= '<tr><td colspan="4" style="border:none;"></td><th>カード手数料</th><td>'.number_format($creditfee).'</td></tr>';
+//				}
+//				$details .= '
+//					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($sum).'</td></tr>
+//				</tfoot>';
+//			}else{
+//				$sum = $total;					// 見積り合計
+//				if($bundle[0][0]['payment']=='credit'){
+//					$sum += $creditfee;
+//					$details .= '<tr><td colspan="4" style="border:none;"></td><th>カード手数料</th><td>'.number_format($creditfee).'</td></tr>';
+//				}
+//				$details .= '
+//					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($sum).'</td></tr>
+//				</tfoot>';
+//			}
 			$details.= '<tbody>'.$tbl;
 			$details .= '</tbody></table>';
 			
@@ -373,8 +389,16 @@
 					}
 				}
 				
+				$tot_itemprice += $optionfee;
+
+				// 2018-03-20 受注ID毎に消費税と合計を表記
+				$tax = floor($tot_itemprice*$_TAX);			// 消費税
+				$tbl .= '
+					<tr><td colspan="4" style="border:none;"></td><td>小　　計</td><td>'.number_format($tot_itemprice).'</td></tr>
+					<tr><td colspan="4" style="border:none;"></td><td>消費税額</td><td>'.number_format($tax).'</td></tr>';
+
 				// 総合計
-				$total += ($tot_itemprice + $optionfee);
+				$total += ($tot_itemprice + $tax);
 			}
 			
 			// $tbl.= '<tr><td colspan="2"></td><th>商品計</th><td><p>'.number_format($tot_amount).' 枚</p></td><td colspan="2"><p style="font-size:100%;">'.number_format($tot_price).'</p></td></tr>';
@@ -401,17 +425,22 @@
 			
 			$details .= '<thead>
 					<tr><th>No.</th><th colspan="2">商品名</th><th style="width:100px;">数量</th><th>商品単価</th><th>金額</th></tr>
-				</thead>';
+				</thead>
+				<tfoot>
+					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($total).'</td></tr>
+				</tfoot>';
 				
 			//if($orders['consumptiontax']==2){	2014-04-30 税区分を廃止し全て外税
-				$tax = floor($total*$_TAX);			// 消費税
-				$sum = floor($total*(1+$_TAX));		// 見積り合計
-				$details .= '
-				<tfoot>
-					<tr><td colspan="4" style="border:none;"></td><th>小　　計</th><td>'.number_format($total).'</td></tr>
-					<tr><td colspan="4" style="border:none;"></td><th>消費税額</th><td>'.number_format($tax).'</td></tr>
-					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($sum).'</td></tr>
-				</tfoot>';
+			
+			// 2018-03-20 受注ID毎に消費税と合計を表記
+//				$tax = floor($total*$_TAX);			// 消費税
+//				$sum = floor($total*(1+$_TAX));		// 見積り合計
+//				$details .= '
+//				<tfoot>
+//					<tr><td colspan="4" style="border:none;"></td><th>小　　計</th><td>'.number_format($total).'</td></tr>
+//					<tr><td colspan="4" style="border:none;"></td><th>消費税額</th><td>'.number_format($tax).'</td></tr>
+//					<tr><td colspan="4" style="border:none;"></td><th>合　　計</th><td>'.number_format($sum).'</td></tr>
+//				</tfoot>';
 			/*
 			}else{
 				$sum = $total;					// 見積り合計
@@ -459,7 +488,7 @@
 			
 		$html .= '
 		<p style="margin:10 0 0 0;">平素は格別のご高配を賜り、誠にありがとうございます。下記の通り納品申し上げます</p>
-		<p style="font-size:14pt;font-weight:bold;margin:0;">合計金額　<ins style="font-size:100%;font-weight:bold;color:#003f75;">&yen;'.number_format($sum).' －</ins> （消費税含む）</p>';
+		<p style="font-size:14pt;font-weight:bold;margin:0;">合計金額　<ins style="font-size:100%;font-weight:bold;color:#003f75;">&yen;'.number_format($total).' －</ins> （消費税含む）</p>';
 		
 		
 		$html .= $details;
