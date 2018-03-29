@@ -65,7 +65,7 @@
 					$list .= $value;
 				}
 */
-			$list .='</td>';			
+			$list .='</td>';
 		}else{
 			$list .= '<td>';
 			$item_site = explode(',',$rec['show_site']);
@@ -213,29 +213,15 @@
 	<title><?php echo _TITLE_SYSTEM; ?></title>
 	<meta http-equiv="Content-Style-Type" content="text/css" />
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
-
 	<link rel="stylesheet" type="text/css" media="screen" href="../js/ui/cupertino/jquery.ui.all.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="../js/modalbox/css/jquery.modalbox.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="../css/template_main.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="./css/itemdb.css" />
-	
-	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-	<!--
-	<script type="text/javascript" src="../js/jquery.js"></script>
-	<script type="text/javascript" src="../js/jquery.smoothscroll.js"></script>
-	<script type="text/javascript" src="../js/ui/jquery.ui.core.js"></script>
-	<script type="text/javascript" src="../js/ui/jquery.ui.widget.js"></script>
-	<script type="text/javascript" src="../js/ui/jquery.ui.position.js"></script>
-	<script type="text/javascript" src="../js/ui/jquery.ui.button.js"></script>
-	<script type="text/javascript" src="../js/ui/jquery.ui.autocomplete.js"></script>
-	<script type="text/javascript" src="../js/ui/jquery.ui.datepicker.js"></script>
- -->
 	<script type="text/javascript" src="../js/ui/i18n/jquery.ui.datepicker-ja.js"></script>
 	<script type="text/javascript" src="../js/modalbox/jquery.modalbox-min.js"></script>
 	<script type="text/javascript" src="./js/master.js"></script>
-
 </head>
 <body class="main_bg" id="page_top">
 	<div id="overlay"></div>

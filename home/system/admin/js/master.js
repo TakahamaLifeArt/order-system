@@ -3,7 +3,7 @@
 *	Form input control and library
 *	charset euc-jp
 *
-*	depends: 	jQuery.js
+*	depends:	jQuery.js
 *				modalbox/css/jquery.modalbox.css
 *				modalbox/jquery.modalbox.js
 */
@@ -18,50 +18,50 @@ $(function(){
 			var code=(e.charCode) ? e.charCode : ((e.which) ? e.which : e.keyCode);
 			switch(mode){
 			case 'num':
-				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && (code < 48 || code > 57)) // 0..9
-			    	e.preventDefault();
+				if ( !e.ctrlKey 				// Ctrl+?
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& (code < 48 || code > 57)) // 0..9
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursor(my).change();
-		    	break;
+				if(code == 13 || code == 3) $(this).moveCursor(my).change();
+				break;
 			case 'price':
-				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && code != 45				// -
-			        && code != 46				// .
-			        && (code < 48 || code > 57)) // 0-9
-			    	e.preventDefault();
+				if ( !e.ctrlKey 				// Ctrl+?
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& code != 45				// -
+					&& code != 46				// .
+					&& (code < 48 || code > 57)) // 0-9
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursor(my).change();
-		    	break;
-		    case 'date':
-				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && code != 45				// -
-			        && (code < 47 || code > 57)) // 0-9 /
-			    	e.preventDefault();
+				if(code == 13 || code == 3) $(this).moveCursor(my).change();
+				break;
+			case 'date':
+				if ( !e.ctrlKey 				// Ctrl+?
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& code != 45				// -
+					&& (code < 47 || code > 57)) // 0-9 /
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursor(my);
-		    	break;
-		    }
+				if(code == 13 || code == 3) $(this).moveCursor(my);
+				break;
+			}
 
-		    return this;
+			return this;
 		},
 		moveCursor: function(my){
 			if(!my.form){
@@ -71,22 +71,22 @@ $(function(){
 			var first = -1;		// form内の最初のtext（readonlyは除く）のインデックス
 			var isMove = false;	// カーソル移動が出来たかどうかのチェック
 			var elem = my.form.elements;
-		    for(var i=0; i<elem.length; i++){
-		    	if( first==-1 && elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ) first = i;
-		    	if( elem[i]==my ){
-	    			while(i<elem.length-1){
-	    				i++;
-		    			if( elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ){
-		    				elem[i].focus();
-		    				isMove = true;
-		    				break;
-		    			}
-		    		}
-		    		if( !isMove && first!=-1 ) elem[first].focus();
-		    		break;
-		    	}
-		    }
-		    return this;
+			for(var i=0; i<elem.length; i++){
+				if( first==-1 && elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ) first = i;
+				if( elem[i]==my ){
+					while(i<elem.length-1){
+						i++;
+						if( elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ){
+							elem[i].focus();
+							isMove = true;
+							break;
+						}
+					}
+					if( !isMove && first!=-1 ) elem[first].focus();
+					break;
+				}
+			}
+			return this;
 		}
 	});
 
@@ -111,51 +111,51 @@ $(function(){
 	$('.forPrice').live('keypress', function(e){
 		$(this).restrictKey(e, 'price');
 	}).focus( function(){
-    	var c = this.value;
-      	this.value = c.replace(/,/g, '');
-      	var self = this;
-      	$(self).select();
-    }).blur( function(e){
-    	var c = this.value;
+		var c = this.value;
+		this.value = c.replace(/,/g, '');
+		var self = this;
+		$(self).select();
+	}).blur( function(e){
+		var c = this.value;
 		this.value = $.addFigure(c);
 	});
 
 	// 日付　0から9 / - のみ入力し、不正値は""
 	$('.forDate').live('keypress',function(e){
 		$(this).restrictKey(e,'date');
-    }).blur( function(e){
-    	$.check_date(e, this);
-    });
+	}).blur( function(e){
+		$.check_date(e, this);
+	});
 
-    // zipcode mask
+	// zipcode mask
 	$('.forZip').keypress( function(e) {
 		$(this).restrictKey(e,'num');
-    }).focus( function(){
-    	$.restrict_num(7, this);
-    }).blur( function(){
-    	this.maxLength = 8;
-    	this.value = $.zip_mask(this.value);
-    });
+	}).focus( function(){
+		$.restrict_num(7, this);
+	}).blur( function(){
+		this.maxLength = 8;
+		this.value = $.zip_mask(this.value);
+	});
 
 	// tel and fax mask
 	$('.forPhone').keypress( function(e) {
 		$(this).restrictKey(e,'num');
-    }).focus( function(){
-    	$.restrict_num(11, this);
-    }).blur( function(){
-    	var res = $.phone_mask(this.value);
-    	this.maxLength = res.l;
-    	this.value = res.c;
-    });
+	}).focus( function(){
+		$.restrict_num(11, this);
+	}).blur( function(){
+		var res = $.phone_mask(this.value);
+		this.maxLength = res.l;
+		this.value = res.c;
+	});
 	
 	
 	
 /***********************************************************************************************************************
  *
  *		Event module
- *		
+ *
  ***********************************************************************************************************************/
-	
+
 	/********************************
 	*	pulldown list for main menu
 	*		height is 30 * row + 5(margin)
@@ -175,8 +175,7 @@ $(function(){
 		}
 		$.screenOverlay(false);
 	});
-		
-		
+	
 	/********************************
 	 *	カテゴリーの変更でアイテム一覧の表示切替
 	 */
@@ -184,7 +183,6 @@ $(function(){
 		var category_id = $(this).children('span').text();
 		$.viewlist(category_id);
 	});
-	
 	
 	/********************************
 	 *	商品以外の一覧表示
@@ -210,7 +208,6 @@ $(function(){
 		this.form.submit();
 	});
 	
-	
 	/********************************
 	 *	一覧表示へ
 	 */
@@ -226,15 +223,13 @@ $(function(){
 		$('.button_wraptop, .button_wrapbottom').hide();
 	});
 	
-	
 	/********************************
 	 *	編集画面へ
 	 */
 	$('#editmode').click( function(){
 		$.updatemode();
 	});
-   
-   
+
 	/********************************
 	 *	キャンセル
 	 */
@@ -242,7 +237,6 @@ $(function(){
 		$.updatemode();
 	});
 
-	
 	/********************************
 	 *	価格テーブルに行を追加
 	 */
@@ -274,7 +268,6 @@ $(function(){
 	$('.delrow_price').live('click', function(){
 		$(this).closest('tr').remove();
 	});
-	
 	
 	/********************************
 	 *	カラーテーブルに行を追加
@@ -312,7 +305,6 @@ $(function(){
 		$(this).closest('tr').remove();
 	});
 	
-	
 	/********************************
 	 *	寸法テーブルに行を追加
 	 */
@@ -327,7 +319,6 @@ $(function(){
 	$('.delrow_measure').live('click', function(){
 		$(this).closest('tr').remove();
 	});
-	
 	
 	/********************************
 	 *	新規登録のモード切替
@@ -401,7 +392,6 @@ $(function(){
 		$('.button_wraptop, .button_wrapbottom').show();
 	});
 	
-	
 	/********************************
 	*	カラーの新規追加行を取り消す
 	*/
@@ -434,7 +424,6 @@ $(function(){
 		
 	});
 	
-	
 	/********************************
 	*	アイテムカラー名の新規登録
 	*/
@@ -457,7 +446,6 @@ $(function(){
 			}
 		});
  	});
-	
 
 	/********************************
 	*	メーカーの新規登録
@@ -521,7 +509,7 @@ $(function(){
 
 	/********************************
 	*	メーカーの削除
-*/
+	*/
 	$('.delete_maker', '#mastertable').live('click', function(){
 		var curdate = $('#apply').val();
 		var fld = ['maker_id'];
@@ -546,7 +534,7 @@ $(function(){
 	/*********************************
 	*	タグ名の新規登録
  	*/
-		$('.addnew_tag', '#tagtable').live('click', function(){
+	$('.addnew_tag', '#tagtable').live('click', function(){
 		var curdate = $('#apply').val();
 		var tag_name = $('.tag_name', '#tagtable').val().trim();
 		var tag_order = parseInt($('.tag_order', '#tagtable').val().trim());
@@ -589,7 +577,7 @@ $(function(){
 	/*********************************
 	*	タグ名の更新
 	*/
-		$('.update_tag', '#tagmastertable').live('click', function(){
+	$('.update_tag', '#tagmastertable').live('click', function(){
 		var curdate = $('#apply').val();
 		var fld = ['tagid','tag_name','tag_type','tag_order'];
 		var dat = [];
@@ -640,11 +628,10 @@ $(function(){
 		});
  	});
 
-
 	/*********************************
 	*	タグ名の削除
 	*/
-		$('.delete_tag', '#tagmastertable').live('click', function(){
+	$('.delete_tag', '#tagmastertable').live('click', function(){
 		var curdate = $('#apply').val();
 		var vlist = $('#tagmastertable tbody tr').attr('class');
 		var tagid = $(this).attr('no');
@@ -665,7 +652,6 @@ $(function(){
 			}
 		});
  	});
-
 
 	/********************************
 	*	サイズシリーズの新規追加
@@ -700,7 +686,6 @@ $(function(){
 			}
 		});
  	});
-	
 	
 	/********************************
 	*	スタッフの新規登録
@@ -740,7 +725,6 @@ $(function(){
 		});
  	});
 	
-	
 	/********************************
 	*	スタッフ情報の更新
 	*/
@@ -774,7 +758,6 @@ $(function(){
 		});
 	});
 	
-	
 	/********************************
 	*	商品の新規登録
 	*/
@@ -802,9 +785,9 @@ $(function(){
 		var oz = tbl.find('.oz').val();
 		var lineup = tbl.find('.lineup:checked').length;
 		var show_site_list = $('.show_site:checked').map(function() {
-		  return $(this).val();
+		return $(this).val();
 		});
-    var show_site="";
+	var show_site="";
 		for(var i=0; i<show_site_list.length; i++){
 				if(i != 0) {
 					show_site += ",";
@@ -1030,8 +1013,7 @@ $(function(){
 		});
 		
 	});
-   
-   
+
 	/********************************
 	*	データ更新
 	*/
@@ -1052,17 +1034,19 @@ $(function(){
 		var lineup = tbl.find('.lineup:checked').length;
 		var opp = tbl.find('.opp').val();
 		var oz = tbl.find('.oz').val();
+		var show_site="";
 		var show_site_list = $('.show_site:checked').map(function() {
-		  return $(this).val();
+			return $(this).val();
 		});
-    var show_site="";
+		
+		$.screenOverlay(true);
+		
 		for(var i=0; i<show_site_list.length; i++){
-				if(i != 0) {
-					show_site += ",";
-				}
-				show_site += show_site_list[i];
+			if(i != 0) {
+				show_site += ",";
+			}
+			show_site += show_site_list[i];
 		}
-
 
 		var itemdate = $('#basictable tbody').find('.datepicker').val();
 		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
@@ -1078,7 +1062,6 @@ $(function(){
 		}
 		var fld1 = ['id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','lineup','opp','oz','show_site','itemdate'];
 		var data1 = [item_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,lineup,opp,oz,show_site,itemdate];
-		
 		
 		// 価格
 		var tmpsize = {};
@@ -1145,7 +1128,6 @@ $(function(){
 			}
 		});
 		if(n==0) return;
-		
 		
 		// カラー
 		var tmpcolor = {};
@@ -1220,22 +1202,21 @@ $(function(){
 			data5[i] = detail.find("."+fld5[i]).val();
 		}
 
-
 		//タグ
 		var fld6 = ['tag_itemid','tag_id'];
 		var data6 = [];
 		var itemtag = $("#itemtagtable tbody");
 		var tagchecked = $('.itemtag:checked').map(function() {
-		  return $(this).val();
+		return $(this).val();
 		});
 		var item_id = $('.item_id').val();
 		for(var i = 0 ;i < tagchecked.length;i++){
 		tmp = item_id;
-		tmp += '|' +  tagchecked[i];
+		tmp += '|' + tagchecked[i];
 		data6.push(tmp);
 		}
 		//--------------------------------------------------------
-				
+
 		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
 			data:{'act':'db', 'func':'update', 'mode':'item', 'curdate':curdate, 
 						'field1[]':fld1, 'data1[]':data1, 'field2[]':fld2, 'data2[]':data2, 'field3[]':fld3, 'data3[]':data3, 
@@ -1248,6 +1229,12 @@ $(function(){
 				}else{
 					alert('Error: p980\n'+r);
 				}
+			},
+			error: function(){
+				alert('Error: p1234\n'+r);
+			},
+			complete: function() {
+				$.screenOverlay(false);
 			}
 		});
 	});
@@ -1602,8 +1589,8 @@ jQuery.extend({
 						orderMin=251;
 						orderMax=300;
 					}
-					thead =  '<thead>';
-				  thead += '<tr><td colspan="8" class="ar"><input type="button" value="更新する" class="update_tag" name="'+category_id+'" /></td></tr>';
+					thead = '<thead>';
+				thead += '<tr><td colspan="8" class="ar"><input type="button" value="更新する" class="update_tag" name="'+category_id+'" /></td></tr>';
 					thead += '<tr>';
 					thead += '<th>ID</th>';
 					thead += '<th>表示順（'+orderMin+'-'+orderMax+'）</th>';
@@ -1638,6 +1625,9 @@ jQuery.extend({
 },
 //--------------------------------------------------------------------------------------------------------
 
+	/**
+	 * アイテム詳細画面を表示
+	 */
 	showItemDetail: function(item_id){
 		var curdate = $('#apply').val();
 		if(curdate==''){
@@ -1849,6 +1839,10 @@ jQuery.extend({
 		});
 	},
 
+
+	/**
+	 * アイテム編集画面を表示
+	 */
 	updatemode: function(){
 		var curdate = $('#apply').val();
 		if(curdate==''){
@@ -2043,19 +2037,19 @@ jQuery.extend({
 							var index4j = 0;
 							for(var i=0; i<list.length; i++){
 					 	 		if(list[i][0]==j){
-					 	   		index4j++;
+					 			index4j++;
 									tbody += '<input type="checkbox"';
-					  	   		 for(var t=0; t<list1.length; t++){
-					   	     			if(list1[t][0]==list[i][1] ){
-										  		tbody += 'checked = "checked"';
-					       	 			}
-					    	  	 }
-					   	 		tbody +='value="'+list[i][1]+'" class="itemtag"/>'+list[i][2]+'&nbsp';
+								 for(var t=0; t<list1.length; t++){
+									if(list1[t][0]==list[i][1] ){
+												tbody += 'checked = "checked"';
+									}
+								 }
+							tbody +='value="'+list[i][1]+'" class="itemtag"/>'+list[i][2]+'&nbsp';
 									if(index4j % 5==0){
 										tbody +='<br>';
 									}
-					   		}
-				   		}
+							}
+						}
 							tbody += '<input type="hidden" class="item_id" value="'+item_id+'"></td>';
 							tbody += '</tr>';
 						}
@@ -2068,8 +2062,8 @@ jQuery.extend({
 						tbl += tbody;
 						tbl += '</table>';
 						$('#itemtagtable_wrap').html(tbl);
-		 			}
-	      });
+				}
+		});
 		 }
 	});
 
@@ -2168,39 +2162,39 @@ jQuery.extend({
 	*/
 		var str = new String(args);
 		str = str.replace(/[０-９]/g, function(m){
-    				var a = "０１２３４５６７８９";
-	    			var r = a.indexOf(m);
-	    			return r==-1? m: r;
-	    		});
-	    str -= 0;
-    	var num = new String(str);
-    	if( num.match(/^[-]?\d+(\.\d+)?/) ){
-    		//while(num != (num = num.replace(/^(-?\d+)(\d{3})/, "$1,$2")));
+					var a = "０１２３４５６７８９";
+					var r = a.indexOf(m);
+					return r==-1? m: r;
+				});
+		str -= 0;
+		var num = new String(str);
+		if( num.match(/^[-]?\d+(\.\d+)?/) ){
+			//while(num != (num = num.replace(/^(-?\d+)(\d{3})/, "$1,$2")));
 			var num0 = num.replace(/^(-?\d+)(\d{3})/, "$1,$2");
 			while(num != num0){
 				num = num0;
 				num0 = num0.replace(/^(-?\d+)(\d{3})/, "$1,$2");
 			}
-    	}else{
-    		num = "0";
-    	}
-    	return num;
+		}else{
+			num = "0";
+		}
+		return num;
 	},
 	check_NaN: function(my){
 	/*
 	*	自然数でなければ0にする
-	* 	第二引数があれば、自然数以外のときの返り値として使用
+	*第二引数があれば、自然数以外のときの返り値として使用
 	*	@my		Object
 	*
 	*/
 		var err = arguments.length>1? arguments[1]: 0;
 		var str = my.value.trim().replace(/[０-９]/g, function(m){
-    				var a = "０１２３４５６７８９";
-	    			var r = a.indexOf(m);
-	    			return r==-1? m: r;
-	    		});
-	    my.value = (str.match(/^\d+$/))? str-0: err;
-	    return my.value;
+					var a = "０１２３４５６７８９";
+					var r = a.indexOf(m);
+					return r==-1? m: r;
+				});
+		my.value = (str.match(/^\d+$/))? str-0: err;
+		return my.value;
 	},
 	check_date: function(e, my){
 	/*
@@ -2209,7 +2203,7 @@ jQuery.extend({
 	*	@my		オブジェクト
 	*/
 		var val = my.value;
-	 	var date = new Date();
+	var date = new Date();
 		var res = new Array();
 		var yy, mm, dd;
 		if(val.match(/^(\d{4})-([01]?\d{1})-([0123]?\d{1})$/)){
@@ -2233,20 +2227,20 @@ jQuery.extend({
 		}
 		var evt = e? e: event;
 		evt.preventDefault();
-    },
-    restrict_num: function(n, my) {
-    /*
-    *	テキストフィールドの入力文字数を制限する、当該オブジェクトを選択状態にする
-    *	@n		入力可能な文字数
-    *	@my		オブジェクト
-    */
-  		var c = my.value;
-      	c = c.replace(/[^\d]/g, '');
-	    my.maxLength = n;
-	    my.value = c;
-	    var self = my;
-	    $(self).select();
-    },
+	},
+	restrict_num: function(n, my) {
+	/*
+	*	テキストフィールドの入力文字数を制限する、当該オブジェクトを選択状態にする
+	*	@n		入力可能な文字数
+	*	@my		オブジェクト
+	*/
+		var c = my.value;
+		c = c.replace(/[^\d]/g, '');
+		my.maxLength = n;
+		my.value = c;
+		var self = my;
+		$(self).select();
+	},
 	scrollto: function(target){
 	/*
 	*	指定位置にスクロール
@@ -2258,12 +2252,12 @@ jQuery.extend({
 		var targetOffset = target.offset().top;
 		$($.browser.opera ? document.compatMode == 'BackCompat' ? 'body' : 'html' :'html,body')
 		.animate({scrollTop: targetOffset}, 500, 'easeQuart', fnc);
-    },
-    getDelimiter: function(r){
-    /*
-    *	データベースからの抽出結果の文字列をデータに区切るコードを取得
-    *	@r		抽出結果の文字列
-    */
+	},
+	getDelimiter: function(r){
+	/*
+	*	データベースからの抽出結果の文字列をデータに区切るコードを取得
+	*	@r		抽出結果の文字列
+	*/
 		var b = r.lastIndexOf('|')+1;
 		var cnt = r.slice(b);
 		var boundary = -3*cnt-cnt.length;

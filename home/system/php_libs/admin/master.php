@@ -1256,14 +1256,13 @@
 		*				item
 		*				data1 [item_id, item_code, item_name, printratio_id, printposition_id, maker_id, item_row, itemdate, curdate]
 		*				data2 [0][item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, itempricedate,
-	 	* 					numbernopack, numberpack, size_lineup, printarea_1, printarea_2, printarea_3, printarea_4, printarea_5, printarea_6, printarea_7, (series)]
+		* 					numbernopack, numberpack, size_lineup, printarea_1, printarea_2, printarea_3, printarea_4, printarea_5, printarea_6, printarea_7, (series)]
 		*						(series)は複数あるアイテムの場合だけ、(seriesID)_(checked 0 or 1)
 		*				data3 [0][master_id, color_code, color_id, size_series, catalogdate]
-	 	* 				data5 [item_code, i_color_code, i_caption, i_description, i_material]
+		* 				data5 [item_code, i_color_code, i_caption, i_description, i_material]
 		*				curdate 抽出条件に使用する日付
-	 	* 				
-	 	* 				dropping
-	 	* 				data [ , ...]
+		* 				dropping
+		* 				data [ , ...]
 		*	@mode		item:商品, staff:スタッフ, dropping:取扱中止
 		*
 		*	return		成功したらTRUE
@@ -1920,7 +1919,6 @@
 		/**
 		*	レコードの新規追加
 		*	@data	データの配列
-		*			
 		*			カラー名の追加
 		*			data1 [color_name]
 		*
@@ -1928,7 +1926,7 @@
 		*			data1 [staff_name, 担当する作業のフィールド名, ...]
 		*			curdate 登録する日付
 		*
-		*			商品の追加	
+		*			商品の追加
 		*			data1 [category_id, item_code, item_name, ratio_id, pp_id, maker_id, item_row, curdate]
 		*			data2 [0][size_id, price_0, price_1, price_maker_0, price_maker_1, numbernopack, numberpack]
 		*			data3 [0][size_id, price_0, price_1, price_maker_0, price_maker_1]
