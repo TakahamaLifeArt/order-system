@@ -607,7 +607,7 @@
 						$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
 						$doc_title .= "下記弊社指定口座にお振込みをお願いいたします。\n\n";
 						$doc_title .= "---------------　≪お振込み先≫　---------------\n\n";
-						$doc_title .= "お振込先：　三菱東京ＵＦＪ銀行\n";
+						$doc_title .= "お振込先：　三菱ＵＦＪ銀行\n";
 						$doc_title .= "支　　店：　新小岩支店７４４\n";
 						$doc_title .= "口座番号：　普通預金　３７１６３３３\n";
 						$doc_title .= "口座名義：　ユ）タカハマライフアート\n\n";
