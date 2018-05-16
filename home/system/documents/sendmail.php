@@ -130,7 +130,7 @@
 				$option_info .= "■送　　　料：　".number_format($orders['carriagefee'])." 円\n";
 				//$option_info .= "■特別送料：　".number_format($orders['extracarryfee'])." 円\n";
 				$option_info .= "■代引手数料：".number_format($orders['codfee'])." 円\n";
-				$option_info .= "■コンビニ手数料：".number_format($orders['conbifee'])." 円\n";
+//				$option_info .= "■コンビニ手数料：".number_format($orders['conbifee'])." 円\n";
 				$option_info .= "■諸経費計：　".number_format($optionfee_2)." 円\n";
 				$option_info .= "■----------------------------------------\n\n";
 			}else{
