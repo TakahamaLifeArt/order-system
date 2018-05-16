@@ -2091,7 +2091,7 @@ var mypage = {
 		mypage.prop.curr_inkcolor = my;
 		var offsetY = $(document).scrollTop() + 200;
 		var palettename = arguments.length == 1 ? 'inkcolor' : arguments[1];
-		$('#inkcolor_list').load('./txt/' + palettename + '_palette.txt',
+		$('#inkcolor_list').load('./txt/' + palettename + '_palette.txt?v=' + Math.round(Math.random() * 1000),
 			function () {
 				$("#inkcolor_table").tablesorter({
 					sortList: [[0, 0]],
