@@ -1,0 +1,438 @@
+@charset "EUC-JP";
+
+/*------------------------------------------------------------
+
+	File_name    : template.css
+	Description  : takahama system template stylesheet
+	Version      : 0.1
+	The date     : 2009.11.17
+	Last up date : 2009.11.17
+
+-------------------------------------------------------------- */
+
+
+
+
+/*		外部スタイルシートの読込
+===============================================================*/
+@import url(common.css);
+@import url(jquery.ui.extend.css);
+
+
+
+
+/*		ヘッダー
+===============================================================*/
+#header {
+	position: fixed !important;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 156px;
+	background: transparent;
+	z-index: 50;
+}
+#header .inner {
+	position: relative;
+	width: 1200px;
+	height: 156px;
+	margin: 0px auto;
+	z-index: 20;
+}
+#header .inner img {
+	margin-bottom: 4px;
+	vertical-align: middle;
+}
+#header .inner .btnarea {
+	height: 37px;
+	padding-top: 8px;
+}
+#header .inner input[type="image"] {
+	margin: 10px 20px 5px;
+}
+#header .inner .tab_contents {
+	position: relative;
+	height: 111px;
+	padding: 0px 10px;
+	clear: both;
+}
+#header .inner .tab_contents p {
+	height: 24px;
+	line-height: 24px;
+}
+#header .inner .tab_contents p input[type="radio"],
+#header .inner .tab_contents p input[type="checkbox"] {
+	margin-left: 10px;
+	vertical-align: middle;
+}
+#header .inner #alertarea {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	width: 320px;
+	text-align: right;
+	color: #ff0000;
+}
+
+
+/*----- accepting order info line -----*/
+#reception {
+	width: 70px;
+	margin-right: 15px;
+}
+#order_id {
+	padding: 0px 10px;
+}
+#reuse_plate {
+	padding: 0px 15px 1px;
+	font-size: 14px;
+	color: #fff;
+	border: 2px solid #000;
+	background: #080404;
+	border-radius: 5px 5px 0 0 / 5px 5px 0 0;
+	box-shadow: inset 2px 1px 2px 0px #eee;
+}
+#disableline {
+	display: none;
+}
+#disableline li {
+	float: left;
+}
+#disableline li p {
+	display: block;
+	width: 100px;
+	margin: 0px 15px 0px 5px;
+	padding: 3px 5px 0px;
+	border-bottom: 1px solid #fbfbfd;
+}
+
+#repeat_checker,
+#rakuhan_checker,
+#state_0 {
+	padding: 0 10px 0 0;
+	font-size: 14px;
+}
+
+
+/*----- customer log -----*/
+#btn_customerlog {
+	position: absolute;
+	left: 150px;
+	bottom: 22px;
+	width: 80px;
+	height: 23px;
+	text-align: center;
+	font-size: 90%;
+	color: #efefef;
+	border: 1px solid #d3edb3;
+	background: #4c800f;
+	cursor: pointer;
+	-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;
+}
+#btn_customerlog:hover {
+	background: #73be1e;
+}
+
+
+/*----- customer info line -----*/
+#maintitle_wrapper {
+	position: absolute;
+	left: 250px;
+	bottom: 22px;
+	width: 360px;
+	height: 25px;
+}
+#maintitle {
+	width: 230px;
+	padding: 2px 5px;
+}
+#header #customer_id {
+	position: absolute;
+	left: 625px;
+	bottom: 22px;
+	width: 100px;
+	height: 25px;
+	padding-left: 25px;
+	background: url('../img/i_kaiin.png') center left no-repeat;
+}
+#customer_info {
+	position: absolute;
+	left: 770px;
+	bottom: 22px;
+	width: 200px;
+	height: 40px;
+}
+#customer_info p:first-child {
+	width: 180px;
+	height: 15px;
+	margin-left: 20px;
+	line-height: 15px;
+	font-size: 11px;
+	overflow: hidden;
+}
+#customer_info p + p {
+	width: 180px;
+	height: 20px;
+	padding-left: 20px;
+	line-height: 20px;
+	border-bottom: 1px solid #237bc3;
+	background: url(../img/i_name.png) center left no-repeat;
+	overflow: hidden;
+}
+#header .inner .contact_area {
+	position: absolute;
+	left: 1000px;
+	bottom: 22px;
+	width: 180px;
+	height: 45px;
+}
+#header .inner .contact_area p {
+	height: 15px;
+	line-height: 15px;
+	font-size: 11px;
+	overflow: hidden;
+}
+#header .inner .contact_area p span {
+	margin-left: 5px;
+	font-size: 100%;
+}
+
+
+/*----- tabs pane -----*/
+.headertabs {
+	position: absolute;
+	width: 88px;
+	height: 29px;
+	background: #fff;
+	cursor: pointer;
+	filter: alpha(opacity=20);
+	-moz-opacity:.20;
+	opacity:.20;
+}
+.headertabs:hover {
+	filter: alpha(opacity=0);
+	-moz-opacity:0;
+	opacity:0;
+}
+#tab_order {
+	top: 14px;
+	left: 152px;
+}
+#tab_direction {
+	top: 14px;
+	left: 255px;
+}
+
+
+#tab_confirm {
+	top: 14px;
+	left: 357px;
+
+	display: none;
+}
+
+
+
+
+
+/*		フッター
+===============================================================*/
+.footer {
+	position: relative;
+	width: 1200px;
+	height: 60px;
+	margin-top: 10px;
+	clear: both;
+}
+.footer input[type="image"], .footer .saveall {
+	margin: 25px 20px;
+}
+.footer .button_centerarea {
+	position: absolute;
+	top: 10px;
+	left: 477px;
+	width: 500px;
+}
+.footer .button_centerarea img {
+	margin: 0px;
+	cursor: pointer;
+}
+
+
+
+
+/*		メインコンテンツ
+===============================================================*/
+.wrapper {
+	width: 1200px;
+	margin: 0px auto;
+	padding-top: 186px;
+	
+}
+.maincontents {
+	position: relative;
+	width: 100%;
+	min-width: 1200px;
+	margin-bottom: 20px;
+	
+}
+.maincontents .contents {
+	margin-right: 250px;
+}
+
+
+
+
+/*		ページ共通スタイル
+===============================================================*/
+.icon_answer {
+	padding: 0 5px;
+	cursor: pointer;
+}
+.icon_answer:hover {
+	-webkit-transform: skew(-15deg);  
+    -moz-transform: skew(-15deg); 
+}
+p.scrolltop {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	height: 16px;
+	line-height: 16px;
+}
+p.scrolltop a {
+	padding-right: 20px;
+	font-size: 70%;
+	color: #848c8c;
+	background: url(../img/arrow_up.png) no-repeat top right;
+}
+.gotomenu {
+	height: 25px;
+}
+#header .inner input[type=image].gotomenu {
+	margin-left: 35px;
+}
+
+#header #goback {
+	position: absolute;
+	top: 5px;
+	left: 0px;
+	padding: 5px;
+}
+#header #goback:hover {
+	background-color:#efefef;
+}
+#header #goback img {
+	margin-bottom: 0;
+}
+
+
+
+/*----- numeric field -----*/
+.forNum, .forBlank, .forPrice {
+	text-align: right;
+	ime-mode: inactive;
+}
+
+
+/*----- date field -----*/
+.forDate {
+	text-align: center;
+	ime-mode: inactive;
+}
+
+
+/*----- IME mode -----*/
+forPhone, forZip,
+.phone, .zip,
+.imeoff {
+	ime-mode: inactive;
+}
+.imeon {
+	ime-mode: active;
+}
+
+
+
+
+/*		テーブル
+===============================================================*/
+.mytable {
+	width: 100%;
+}
+.mytable caption {
+	padding-top: 20px;
+	font-size: 150%;
+	font-weight: bold;
+}
+.mytable thead tr th, .mytable tbody tr th.head {
+	text-align: center;
+	font-weight: bold;
+	white-space: nowrap;
+	background: #e6eeee;
+}
+.mytable td, .mytable th {
+	padding: 4px 10px;
+	font-weight: normal;
+	border: 1px solid #d8d8d8;
+}
+.mytable .note {
+	font-size: 12px;
+}
+
+
+
+
+/*		オーバーレイ
+===============================================================*/
+#overlay {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 0px;
+	height: 0px;
+	display: none;
+	cursor: pointer;
+	background: #666666 url(../img/overlay_back_20_666666_40x40.png) 50% 50% repeat;
+	z-index: 100;
+}
+#loadingbar {
+	display: none;
+	position: absolute;
+	width: 300px;
+	line-height: 3;
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
+	background: #000;
+	z-index: 101;
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;
+}
+
+
+
+
+/*		カレンダー
+===============================================================*/
+
+/*--------------------------
+	祝祭日のスタイルを追加
+----------------------------*/
+.days_red,
+.ui-datepicker-calendar .days_red a {
+	color: #000;
+	background-image: none;
+	background-color: #f09;
+}
+.days_blue,
+.ui-datepicker-calendar .days_blue a {
+	color: #fff;
+	background-image: none;
+	background-color:blue;
+}
+.days_black {
+	background-image: none;
+	background-color:black;
+}
+
