@@ -182,7 +182,6 @@
 		var _MAIN = "<?php echo $_SERVER['SCRIPT_NAME']; ?>";
 		var _ID = "<?php echo $orderID; ?>";
 	</script>
-
 </head>
 <body class="main_bg" id="page_top">
 	<div id="overlay"></div>
@@ -344,6 +343,13 @@
 					<div class="inner">
 						<table id="schedule_selector">
 							<tbody>
+								<tr>
+									<th>イメ画</th>
+									<td class="buttongroup">
+										<input type="radio" value="0" name="imega" id="imega_0"><label for="imega_0">作成しない</label>
+										<input type="radio" value="1" name="imega" id="imega_1"><label for="imega_1">作成する</label>
+									</td>
+								</tr>
 								<tr>
 									<th>注文枚数の予定</th>
 									<td><input type="number" min="0" value="0" id="check_amount" name="check_amount" class="forNum" />&nbsp;枚</td>
@@ -909,6 +915,7 @@
 						 				<p>
 						 					<label><input type="radio" name="payment" value="cod" />代金引換</label>
 											<label><input type="radio" name="payment" value="cash" />現金</label>
+											<label><input type="radio" name="payment" value="later_payment" />後払い</label>
 											<label><input type="radio" name="payment" value="other" />その他 <input type="text" value="" id="payment_other" /></label>
 											<!--
 							 				<label><input type="radio" name="payment" value="check" />小切手</label><img alt="ヘルプ" src="./img/b_wakabamark.png" class="help_mark" />
@@ -1368,6 +1375,7 @@
 							<!--<tr class="separate"><th>特別送料</th><td id="est_extracarry">0</td></tr>-->
 							<tr><th>デザイン代</th><td id="est_designfee">0</td></tr>
 							<tr><th>代引手数料</th><td id="est_codfee">0</td></tr>
+							<tr><th>後払い手数料</th><td id="est_paymentfee">0</td></tr>
 							<tr><th>コンビニ手数料</th><td id="est_conbifee">0</td></tr>
 						</tbody>
 					</table>

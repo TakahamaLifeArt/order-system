@@ -135,6 +135,7 @@
 			$carriagefee = 0;
 			$designfee = 0;
 			$codfee = 0;
+			$paymentfee = 0;
 			$conbifee = 0;
 			$additionalfee = 0;
 			$creditfee = 0;
@@ -193,6 +194,7 @@
 				$carriagefee = $info[0]['carriagefee'];
 				$designfee = $info[0]['designfee'];
 				$codfee = $info[0]['codfee'];
+				$paymentfee = $info[0]['paymentfee'];
 				$conbifee = $info[0]['conbifee'];
 				$additionalfee = $info[0]['additionalfee'];
 				$creditfee = $info[0]['creditfee'];
@@ -284,6 +286,9 @@
 				if(!empty($codfee)){
 					$tbl.= '<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">代金引換手数料</td><td>'.number_format($codfee).'</td></tr>';
 				}
+				if(!empty($paymentfee)){
+					$tbl.= '<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">後払い手数料</td><td>'.number_format($paymentfee).'</td></tr>';
+				}
 				if(!empty($conbifee)){
 					$tbl.= '<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">コンビニ決済手数料</td><td>'.number_format($conbifee).'</td></tr>';
 				}
@@ -292,7 +297,7 @@
 				}
 				
 				// オプション計
-				$optionfee = $printfee+$exchinkfee+$packfee+$discountfee+$reductionfee+$expressfee+$carriagefee+$designfee+$codfee+$conbifee+$additionalfee;
+				$optionfee = $printfee+$exchinkfee+$packfee+$discountfee+$reductionfee+$expressfee+$carriagefee+$designfee+$codfee+$paymentfee+$conbifee+$additionalfee;
 				
 				$tot_itemprice += $optionfee;
 				

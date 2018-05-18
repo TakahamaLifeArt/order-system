@@ -180,6 +180,7 @@
 					<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">特別送料</td><td>'.number_format($orders['extracarryfee']).'</td></tr>
 					<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">デザイン料</td><td>'.number_format($orders['designfee']).'</td></tr>
 					<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">代金引換手数料</td><td>'.number_format($orders['codfee']).'</td></tr>
+					<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">後払い手数料</td><td>'.number_format($orders['paymentfee']).'</td></tr>
 					<tr><td style="border-right:none;"></td><td colspan="4" style="text-align:left;border-left:none;">コンビニ手数料</td><td>'.number_format($orders['conbifee']).'</td></tr>';
 			
 			if(!empty($orders['additionalfee'])){
@@ -187,7 +188,7 @@
 			}
 			
 			// オプション計
-			$optionfee += $orders['printfee']+$orders['exchinkfee']+$orders['packfee']+$orders['discountfee']+$orders['reductionfee']+$orders['expressfee']+$orders['carriagefee']+$orders['designfee']+$orders['codfee']+$orders['conbifee']+$orders['additionalfee'];
+			$optionfee += $orders['printfee']+$orders['exchinkfee']+$orders['packfee']+$orders['discountfee']+$orders['reductionfee']+$orders['expressfee']+$orders['carriagefee']+$orders['designfee']+$orders['codfee']+$orders['paymentfee']+$orders['conbifee']+$orders['additionalfee'];
 			$total = $tot_price + $optionfee;	// 総合計
 			
 			$details .= '<thead>

@@ -50,7 +50,7 @@ var mypage = {
 			],
 		name: ['ordertype', 'schedule1', 'schedule2', 'schedule3', 'schedule4', 'arrival', 'carriage', 'check_amount', 'noprint', 'design',
 				'manuscript', 'discount1', 'discount2', 'reduction', 'reductionname', 'freeshipping', 'payment', 'phase', 'budget', 'deliver', 'purpose', 'designcharge', 'job',
-				'free_printfee', 'free_discount', 'additionalfee', 'extradiscount', 'rakuhan', 'completionimage', 'staffdiscount'
+				'free_printfee', 'free_discount', 'additionalfee', 'extradiscount', 'rakuhan', 'completionimage', 'staffdiscount', 'imega'
 			]
 	},
 	init: function () {
@@ -2091,7 +2091,7 @@ var mypage = {
 		mypage.prop.curr_inkcolor = my;
 		var offsetY = $(document).scrollTop() + 200;
 		var palettename = arguments.length == 1 ? 'inkcolor' : arguments[1];
-		$('#inkcolor_list').load('./txt/' + palettename + '_palette.txt?v=' + Math.round(Math.random() * 1000),
+		$('#inkcolor_list').load('./txt/' + palettename + '_palette.txt',
 			function () {
 				$("#inkcolor_table").tablesorter({
 					sortList: [[0, 0]],
@@ -3452,9 +3452,10 @@ var mypage = {
 		 *	p9  袋詰め代
 		 *	p10 袋代
 		 *	p11 追加料金
-		 * 	p12  コンビニ手数料
+		 *	p12 コンビニ手数料
+		 *	p13 後払い手数料
 		 *
-		 *　初回リピートのプリント代算出に使用
+		 *	初回リピートのプリント代算出に使用
 		 *	prm1			商品代＋インク色替え代
 		 *	prm2			割引金額
 		 *	prm4			特急料金
@@ -3522,6 +3523,7 @@ var mypage = {
 		var p10 = 0;
 		var p11 = $('#additionalfee').val();
 		var p12 = 0;
+		var p13 = 0;
 		var subtotal = 0;
 		var pack = '';
 		var packfee = 0;
@@ -3716,6 +3718,17 @@ var mypage = {
 			$('#est_conbifee').text(conbifee);
 			p12 = $('#est_conbifee').text().replace(/,/g, '') - 0;
 
+			// 後払い手数料
+			p13 = 0;
+			if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
+				if (mypage.prop.tax == 0) {
+					p13 = 324;
+				} else {
+					p13 = 300;
+				}
+			}
+			$('#est_paymentfee').text(p13);
+			
 			$('#est_express').text("0");
 
 			$('#carriage_name').text($(':radio[name="carriage"]:checked', '#schedule_selector').parent().text());
@@ -3740,7 +3753,7 @@ var mypage = {
 			p6 = $('#est_extracarry').text().replace(/,/g, '') - 0;
 			*/
 
-			tot = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12;
+			tot = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12 + p13;
 			//per = amount==0? 0: Math.ceil(tot/amount);
 
 		} else {
@@ -3977,6 +3990,17 @@ var mypage = {
 					$('#est_conbifee').text(conbifee);
 					p12 = $('#est_conbifee').text().replace(/,/g, '') - 0;
 
+					// 後払い手数料
+					p13 = 0;
+					if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
+						if (mypage.prop.tax == 0) {
+							p13 = 324;
+						} else {
+							p13 = 300;
+						}
+					}
+					$('#est_paymentfee').text(p13);
+					
 					// 初期表示の時はメッセージを出さない
 					if (term < 0 && !isNaN(base) && !isNaN(send) && !isNaN(deli)) {
 						alert('製作日数が足りません。');
@@ -4011,7 +4035,7 @@ var mypage = {
 					}
 					p6 = $('#est_extracarry').text().replace(/,/g, '') - 0;
 					*/
-					tot = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12;
+					tot = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12 + p13;
 					//per = amount==0? 0: Math.ceil(tot/amount);
 				}
 			});
@@ -4130,7 +4154,7 @@ var mypage = {
 					}
 				}
 				$('#est_carriage').text(mypage.addFigure(p5));
-				tot = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12;
+				tot = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 + p11 + p12 + p13;
 			}
 
 			/*
@@ -4822,6 +4846,7 @@ var mypage = {
 				for (i = mypage.order_info.id.length, t = 0; t < mypage.order_info.name.length; i++, t++) {
 					field3[i] = mypage.order_info.name[t];
 					elem = $(':input[name="' + mypage.order_info.name[t] + '"]');
+					if (elem.length===0) continue;
 					switch (elem[0].type) {
 						case 'text':
 						case 'number':
@@ -4957,7 +4982,7 @@ var mypage = {
 					//------------------------
 					var ary = ['productfee', 'printfee', 'silkprintfee', 'colorprintfee', 'digitprintfee', 'inkjetprintfee', 'cuttingprintfee', 'embroideryprintfee',
 						'exchinkfee', 'additionalfee', 'packfee', 'expressfee', 'discountfee', 'reductionfee', 'carriagefee', 'extracarryfee', 'designfee',
-						'codfee', 'conbifee', 'basefee', 'salestax', 'creditfee'];
+						'codfee', 'paymentfee', 'conbifee', 'basefee', 'salestax', 'creditfee'];
 					field3 = field3.concat(ary);
 					var len3 = data3.length;
 					data3[len3++] = $('#est_price').text().replace(/,/g, '');
@@ -4978,6 +5003,7 @@ var mypage = {
 					data3[len3++] = 0; // extracarryfee
 					data3[len3++] = $('#est_designfee').text().replace(/,/g, '');
 					data3[len3++] = $('#est_codfee').text().replace(/,/g, '');
+					data3[len3++] = $('#est_paymentfee').text().replace(/,/g, '');
 					data3[len3++] = $('#est_conbifee').text().replace(/,/g, '');
 					data3[len3++] = $('#est_basefee').text().replace(/,/g, '');
 					data3[len3++] = $('#est_salestax').text().replace(/,/g, '');
@@ -5279,33 +5305,7 @@ var mypage = {
 				data3.push(repeatdesign);
 				field3.push('allrepeat');
 				data3.push(allrepeat);
-				/*
-console.log("-------------");
-console.log(field1);
-console.log(data1);
-console.log(field2);
-console.log(data2);
-console.log(field3);
-console.log(data3);
-console.log(field4);
-console.log(data4);
-console.log(field5);
-console.log(data5);
-console.log(field6);
-console.log(orderprint);
-console.log(field7);
-console.log(orderarea);
-console.log(field8);
-console.log(orderselectivearea);
-console.log(field9);
-console.log(orderink);
-console.log(field10);
-console.log(exchink);
-console.log(field12);
-console.log(data12);
-console.log("-------------");
-*/
-				//return;
+				
 				// send orders data
 				//------------------------
 				$.ajax({
@@ -8113,7 +8113,11 @@ console.log("-------------");
 								notices = [];
 								//if(r[i]['repeatdesign']!=0 || (r[i]['repeater']>0 && r[i]['ordertype']=='industry')) notices.push('リピ');
 								if (r[i]['all_repeat'] == 1 || (r[i]['repeater'] > 0 && r[i]['ordertype'] == 'industry')) notices.push('リピ');
-								if (r[i]['completionimage'] == 1) notices.push('イメ画');
+								if (r[i]['completionimage'] == 1) {
+									notices.push('イメ画');
+								} else if (r[i]['imega'] ==1) {
+									notices.push('要イメ画');
+								}
 								if (r[i]['express'] != 0) notices.push('特急' + r[i]['express']);
 								if (r[i]['mixture'] != '') notices.push(r[i]['mixture']);
 								if (r[i]['bundle'] == 1) notices.push('同梱');
@@ -8451,10 +8455,11 @@ console.log("-------------");
 
 			// 見積ボックス
 			var ary1 = ['productfee', 'silkprintfee', 'colorprintfee', 'digitprintfee', 'inkjetprintfee', 'cuttingprintfee', 'embroideryprintfee',
-						'exchinkfee', 'additionalfee', 'packfee', 'expressfee', 'discountfee', 'reductionfee', 'carriagefee', 'designfee', 'codfee', 'conbifee',
-						'creditfee', 'basefee', 'salestax'];
+						'exchinkfee', 'additionalfee', 'packfee', 'expressfee', 'discountfee', 'reductionfee', 'carriagefee', 'designfee', 
+						'codfee', 'paymentfee', 'conbifee', 'creditfee', 'basefee', 'salestax'];
 			var ary2 = ['est_price', 'est_silk_printfee', 'est_color_printfee', 'est_digit_printfee', 'est_inkjet_printfee', 'est_cutting_printfee', 'est_embroidery_printfee',
-						'est_exchink', 'est_additionalfee', 'est_package', 'est_express', 'est_discount', 'est_reduction', 'est_carriage', 'est_designfee', 'est_codfee', 'est_conbifee',
+						'est_exchink', 'est_additionalfee', 'est_package', 'est_express', 'est_discount', 'est_reduction', 'est_carriage', 'est_designfee', 
+						'est_codfee', 'est_paymentfee', 'est_conbifee',
 						'est_creditfee', 'est_basefee', 'est_salestax'];
 			for (var a = 0; a < ary2.length; a++) {
 				$('#' + ary2[a]).text(mypage.addFigure(info[ary1[a]]));
@@ -8629,6 +8634,7 @@ console.log("-------------");
 					continue; // データベースにこの名前のフィールドが存在しない
 				}
 				elem = $(':input[name="' + mypage.order_info.name[i] + '"]');
+				if (elem.length===0) continue;
 				switch (elem[0].type) {
 					case 'checkbox':
 						if (info[mypage.order_info.name[i]] == '0') elem.attr('checked', false);
@@ -8648,7 +8654,7 @@ console.log("-------------");
 						break;
 					case 'radio':
 						if (mypage.order_info.name[i] == 'payment') {
-							if (!(info[mypage.order_info.name[i]]).match(/(wiretransfer|cod|cash|credit|conbi|other|0)/)) {
+							if (!(info[mypage.order_info.name[i]]).match(/(wiretransfer|cod|later_payment|cash|credit|conbi|other|0)/)) {
 								$('#optprice_table input[name="payment"]').val(['other']);
 								$('#payment_other').val(info[mypage.order_info.name[i]]);
 							} else {

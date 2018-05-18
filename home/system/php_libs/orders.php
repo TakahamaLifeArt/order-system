@@ -498,14 +498,14 @@ class Orders{
 					lastmodified, estimated, order_amount, paymentdate, exchink_count, exchthread_count, deliver, deliverytime, manuscriptdate, purpose, 
 					purpose_text, job, designcharge, repeater, reuse, free_discount, free_printfee, completionimage, contact_number, additionalname, 
 					additionalfee, extradiscountname, extradiscount, shipfrom_id, package_yes, package_no, package_nopack, pack_yes_volume, pack_nopack_volume, boxnumber, 
-					factory, destcount, repeatdesign, allrepeat, staffdiscount)
+					factory, destcount, repeatdesign, allrepeat, staffdiscount, imega)
 								VALUES(%d,'%s',%d,'%s','%s','%s','%s','%s',%d,'%s',
 								'%s',%d,%d,'%s','%s','%s','%s',%d,'%s','%s',
 								%d,'%s','%s','%s','%s','%s',%d,%d,%d,'%s',
 								'%s',%d,%d,'%s',%d,%d,%d,%d,'%s','%s',
 								'%s','%s',%d,%d,%d,%d,%d,%d,'%s','%s',
 								%d,'%s',%d,%d,%d,%d,%d,%d,%d,%d,
-								%d,%d,%d,%d,%d)",
+								%d,%d,%d,%d,%d,%d)",
 								$info3["reception"],
 								$info3["ordertype"],
 								$info3["applyto"],
@@ -570,8 +570,8 @@ class Orders{
 								$info3["destcount"],
 								$info3["repeatdesign"],
 								$info3["allrepeat"],
-								$info3["staffdiscount"]
-								
+								$info3["staffdiscount"],
+								$info3["imega"]
 								);
 
 				if(exe_sql($conn, $sql)){
@@ -798,8 +798,8 @@ class Orders{
 						$sql = sprintf("INSERT INTO estimatedetails(productfee,printfee,
 								silkprintfee,colorprintfee,digitprintfee,inkjetprintfee,cuttingprintfee,embroideryprintfee,
 								exchinkfee,packfee,expressfee,discountfee,reductionfee,carriagefee,
-								extracarryfee,designfee,codfee,conbifee,basefee,salestax,creditfee,orders_id)
-							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
+								extracarryfee,designfee,codfee,paymentfee,conbifee,basefee,salestax,creditfee,orders_id)
+							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
 							   $info3["productfee"],
 						 	   $info3["printfee"],
 						 	   $info3["silkprintfee"],
@@ -817,6 +817,7 @@ class Orders{
 						 	   $info3["extracarryfee"],
 						 	   $info3["designfee"],
 						 	   $info3["codfee"],
+							   $info3["paymentfee"],
 						 	   $info3["conbifee"],
 						 	   $info3["basefee"],
 						 	   $info3["salestax"],
@@ -1072,8 +1073,8 @@ class Orders{
 				$sql = sprintf("INSERT INTO estimatedetails(productfee,printfee,
 								silkprintfee,colorprintfee,digitprintfee,inkjetprintfee,cuttingprintfee,embroideryprintfee,
 								exchinkfee,packfee,expressfee,discountfee,reductionfee,carriagefee,
-								extracarryfee,designfee,codfee,conbifee,basefee,salestax,creditfee,orders_id)
-							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
+								extracarryfee,designfee,codfee,paymentfee,conbifee,basefee,salestax,creditfee,orders_id)
+							   VALUES(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
 							   $info["productfee"],
 						 	   $info["printfee"],
 						 	   $info["silkprintfee"],
@@ -1091,6 +1092,7 @@ class Orders{
 						 	   $info["extracarryfee"],
 						 	   $info["designfee"],
 						 	   $info["codfee"],
+							   $info["paymentfee"],
 						 	   $info["conbifee"],
 						 	   $info["basefee"],
 						 	   $info["salestax"],
@@ -1835,7 +1837,8 @@ class Orders{
 							estimated=%d,order_amount=%d,paymentdate='%s',exchink_count=%d,exchthread_count=%d,deliver=%d,deliverytime=%d,manuscriptdate='%s',
 							purpose='%s',purpose_text='%s',job='%s',designcharge=%d,repeater=%d,reuse=%d,free_discount=%d,free_printfee=%d,
 							completionimage=%d, contact_number='%s', additionalname='%s', additionalfee=%d, extradiscountname='%s', extradiscount=%d, shipfrom_id=%d,
-							package_yes=%d,package_no=%d,package_nopack=%d,pack_yes_volume=%d,pack_nopack_volume=%d,boxnumber=%d,factory=%d,destcount=%d,repeatdesign=%d,allrepeat=%d, staffdiscount=%d
+							package_yes=%d,package_no=%d,package_nopack=%d,pack_yes_volume=%d,pack_nopack_volume=%d,boxnumber=%d,factory=%d,destcount=%d,repeatdesign=%d,allrepeat=%d, staffdiscount=%d,
+							imega=%d
 							 WHERE id=%d",
 						   	$data3["reception"],
 					 	   	$data3["ordertype"],
@@ -1901,7 +1904,8 @@ class Orders{
 							$data3["repeatdesign"],
 							$data3["allrepeat"],
 							$data3["staffdiscount"],
-					 	   	$data3["id"]);
+							$data3["imega"],
+							$data3["id"]);
 				$rs = exe_sql($conn, $sql);
 				if(!$rs){
 					mysqli_query($conn, 'ROLLBACK');
@@ -2703,30 +2707,31 @@ class Orders{
 							SET productfee=%d,printfee=%d,silkprintfee=%d,colorprintfee=%d,digitprintfee=%d,
 							inkjetprintfee=%d,cuttingprintfee=%d,embroideryprintfee=%d,exchinkfee=%d,additionalfee=%d,packfee=%d,
 							expressfee=%d,discountfee=%d,reductionfee=%d,carriagefee=%d,extracarryfee=%d,
-							designfee=%d,codfee=%d,conbifee=%d,basefee=%d,salestax=%d,creditfee=%d WHERE orders_id=%d",
-						   	$data3["productfee"],
-						 	$data3["printfee"],
-						 	$data3["silkprintfee"],
-						 	$data3["colorprintfee"],
-						 	$data3["digitprintfee"],
-						 	$data3["inkjetprintfee"],
-						 	$data3["cuttingprintfee"],
+							designfee=%d,codfee=%d,paymentfee=%d,conbifee=%d,basefee=%d,salestax=%d,creditfee=%d WHERE orders_id=%d",
+							$data3["productfee"],
+							$data3["printfee"],
+							$data3["silkprintfee"],
+							$data3["colorprintfee"],
+							$data3["digitprintfee"],
+							$data3["inkjetprintfee"],
+							$data3["cuttingprintfee"],
 							$data3["embroideryprintfee"],
-						 	$data3["exchinkfee"],
-						 	$data3["additionalfee"],
-						 	$data3["packfee"],
-						 	$data3["expressfee"],
-						 	$data3["discountfee"],
-						 	$data3["reductionfee"],
-						 	$data3["carriagefee"],
-						 	$data3["extracarryfee"],
-						 	$data3["designfee"],
-						 	$data3["codfee"],
-						 	$data3["conbifee"],
-						 	$data3["basefee"],
-						 	$data3["salestax"],
-						 	$data3["creditfee"],
-						 	$orders_id);
+							$data3["exchinkfee"],
+							$data3["additionalfee"],
+							$data3["packfee"],
+							$data3["expressfee"],
+							$data3["discountfee"],
+							$data3["reductionfee"],
+							$data3["carriagefee"],
+							$data3["extracarryfee"],
+							$data3["designfee"],
+							$data3["codfee"],
+							$data3["paymentfee"],
+							$data3["conbifee"],
+							$data3["basefee"],
+							$data3["salestax"],
+							$data3["creditfee"],
+							$orders_id);
 					if(!exe_sql($conn, $sql)){
 						mysqli_query($conn, 'ROLLBACK');
 						return null;
@@ -3178,7 +3183,7 @@ class Orders{
 								SET productfee=%d,printfee=%d,silkprintfee=%d,colorprintfee=%d,digitprintfee=%d,
 								inkjetprintfee=%d,cuttingprintfee=%d,embroideryprintfee=%d,exchinkfee=%d,additionalfee=%d,packfee=%d,
 								expressfee=%d,discountfee=%d,reductionfee=%d,carriagefee=%d,extracarryfee=%d,
-								designfee=%d,codfee=%d,conbifee=%d,basefee=%d,salestax=%d,creditfee=%d WHERE orders_id=%d",
+								designfee=%d,codfee=%d,paymentfee=%d,conbifee=%d,basefee=%d,salestax=%d,creditfee=%d WHERE orders_id=%d",
 							   	$info["productfee"],
 							 	$info["printfee"],
 							 	$info["silkprintfee"],
@@ -3197,6 +3202,7 @@ class Orders{
 							 	$info["extracarryfee"],
 							 	$info["designfee"],
 							 	$info["codfee"],
+								$info["paymentfee"],
 							 	$info["conbifee"],
 							 	$info["basefee"],
 							 	$info["salestax"],
@@ -5049,10 +5055,10 @@ class Orders{
 				*	orderplates を除外　platesid is null
 				*****************************/
 				$sql = 'select orders.id as ordersid, applyto, maintitle, created, schedule3, customer_id, factory, ordertype, bundle, 
-						 number, cstprefix, company, customername, shipped, rakuhan, order_amount,completionimage, repeater, reuse, repeatdesign, 
+						 number, cstprefix, company, customername, shipped, rakuhan, order_amount, completionimage, repeater, reuse, repeatdesign, 
 						 progress_id, progressname, staffname, imagecheck, coalesce(coalesce(category.category_name,orderitemext.item_name),"") as category_name, 
 						 canceljobmail, cancelarrivalmail, cancelshipmail, cancelpendingmail, 
-						 coalesce(category_id,"") as category_id, print_type, repeat_check,
+						 coalesce(category_id,"") as category_id, print_type, repeat_check, imega,
 						 (case when coalesce(expressfee,0)=0 then 0 else round(expressfee/(productfee+printfee+exchinkfee+packfee+discountfee+designfee),1)+1 end) as express
 						 from ((((((((((((orders
 						 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
@@ -6366,7 +6372,7 @@ class Orders{
 				
 			case 'platelist':
 		 		/****************************
-				*	製版　
+				*	製版
 				*	シルクとデジタル転写で版ありを指定してプリントありの注文
 				*****************************/
 				$rs1=array();
@@ -6563,7 +6569,6 @@ class Orders{
 		 		/****************************
 				*	シルク
 				*	状況確認、作業予定、印刷、仕事量（分）グラフ
-				*	
 				*****************************/
 				
 				// ドライのタグが付いているアイテムを取得
@@ -9433,7 +9438,7 @@ class Orders{
 				 size.size_name,itemcolor.color_name,maker.maker_name, 
 				 truncate(itemprice.price_0*itemprice.margin_pvt*(1+(taxratio/100))+9,-1) as price, truncate(itemprice.price_1*itemprice.margin_pvt*(1+(taxratio/100))+9,-1) as price_white,
 				 productfee,printfee,exchinkfee,packfee,expressfee,discountfee,reductionfee,
-				 carriagefee,extracarryfee,designfee,codfee,conbifee,conbifee,netsales,order_amount,
+				 carriagefee,extracarryfee,designfee,codfee,paymentfee,conbifee,conbifee,netsales,order_amount,
 				 orders.ordertype
 				 from salestax, (((((((((((((orderitem inner join orders on orders.id=orderitem.orders_id)
 				 inner join progressstatus on orders.id=progressstatus.orders_id)
@@ -9664,6 +9669,7 @@ class Orders{
 				 					  'carriagefee'=>array($idx++,'送料'),
 				 					  'designfee'=>array($idx++,'デザイン代'),
 				 					  'codfee'=>array($idx++,'代引き手数料'),
+									  'paymentfee'=>array($idx++,'後払い手数料'),
 				 					  'conbifee'=>array($idx++,'コンビニ手数料'),
 				 					  'creditfee'=>array($idx++,'カード手数料')
 				 					);
@@ -9676,7 +9682,7 @@ class Orders{
 					$sql = "select date_format(schedule3, '%c') as month,
 						sum(exchinkfee) as exchinkfee,sum(packfee) as packfee,sum(expressfee) as expressfee,sum(discountfee) as discountfee,
 						sum(reductionfee) as reductionfee,sum(carriagefee) as carriagefee,sum(extracarryfee) as extracarryfee,
-						sum(designfee) as designfee,sum(codfee) as codfee,sum(conbifee) as conbifee,sum(creditfee) as creditfee,
+						sum(designfee) as designfee,sum(codfee) as codfee,sum(paymentfee) as paymentfee,sum(conbifee) as conbifee,sum(creditfee) as creditfee,
 						sum(silkprintfee) as silkprintfee,sum(colorprintfee) as colorprintfee,sum(digitprintfee) as digitprintfee,
 						sum(inkjetprintfee) as inkjetprintfee,sum(cuttingprintfee) as cuttingprintfee, sum(embroideryprintfee) as embroideryprintfee
 						 from

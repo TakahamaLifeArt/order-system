@@ -495,6 +495,7 @@
 					'carriagefee'=>'送料', 
 					'designfee'=>'デザイン代', 
 					'codfee'=>'代引き手数料', 
+					'paymentfee'=>'後払い手数料', 
 					'creditfee'=>'カード手数料', 
 					'salestax'=>'消費税', 
 					'basefee'=>'税抜き額', 
