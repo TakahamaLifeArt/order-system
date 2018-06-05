@@ -1355,7 +1355,7 @@ class Orders{
 					
 
 					/* プリント方法ごとにレコードを検証して関連テーブルも含めて更新する */
-					foreach($prn as $print_key=>$printtype_id){						
+					foreach($prn as $print_key=>$printtype_id){
 						$isNewproduct = true;				// 登録済みデータの確認フラグ
 						
 						if(!empty($products[$print_key])){	// 当該プリント方法のデータが既にある場合
@@ -2645,18 +2645,19 @@ class Orders{
 				}
 				
 				// 注文が確定しているかを確認
-				$sql = sprintf("SELECT * FROM acceptstatus WHERE orders_id=%d", $orders_id);
-				$result = exe_sql($conn, $sql);
-				if(!$result){
-					mysqli_query($conn, 'ROLLBACK');
-					return null;
-				}
-				$res = mysqli_fetch_assoc($result);
-				if($res['progress_id']==4){
-					$isFixed = true;
-				}else{
-					$isFixed = false;
-				}
+// 2018-06-04 入金チェックの仕様変更に伴い廃止
+//				$sql = sprintf("SELECT * FROM acceptstatus WHERE orders_id=%d", $orders_id);
+//				$result = exe_sql($conn, $sql);
+//				if(!$result){
+//					mysqli_query($conn, 'ROLLBACK');
+//					return null;
+//				}
+//				$res = mysqli_fetch_assoc($result);
+//				if($res['progress_id']==4){
+//					$isFixed = true;
+//				}else{
+//					$isFixed = false;
+//				}
 				
 				$sql = sprintf("SELECT * FROM progressstatus WHERE orders_id=%d", $orders_id);
 				$result = exe_sql($conn, $sql);
@@ -2679,9 +2680,12 @@ class Orders{
 				// 支払区分が月締めの場合は入金をチェック済みにする
 				if($bill_type==2){
 					$deposit=2;	// 入金済み
-				}else if(! $isFixed){
-					$deposit=1;	// 未入金
 				}
+				
+// 2018-06-04 入金チェックの仕様変更
+//				else if(! $isFixed){
+//					$deposit=1;	// 未入金
+//				}
 				
 				$sql = sprintf("update progressstatus set readytoship=%d, deposit=%d, rakuhan=%d where orders_id=%d", 
 						$readytoship, $deposit, $data3['rakuhan'], $orders_id);
@@ -2690,13 +2694,13 @@ class Orders{
 					return null;
 				}
 
-				$res = $this->update($conn, 'discount', array("orders_id"=>$orders_id, "discount"=>$data3["discount"]));
+				$result = $this->update($conn, 'discount', array("orders_id"=>$orders_id, "discount"=>$data3["discount"]));
 				if(is_null($result)){
 					mysqli_query($conn, 'ROLLBACK');
 					return null;
 				}
 
-				$res = $this->update($conn, 'media', array("orders_id"=>$orders_id, "media"=>array($data3["media"], $data3['media_other'])));
+				$result = $this->update($conn, 'media', array("orders_id"=>$orders_id, "media"=>array($data3["media"], $data3['media_other'])));
 				if(is_null($result)){
 					mysqli_query($conn, 'ROLLBACK');
 					return null;
@@ -3344,20 +3348,29 @@ class Orders{
 							$readytoship=1;	// 発送可
 							$deposit=2;		// 入金済み
 						}else{
-							$sql2 = "select * from orders inner join customer on customer_id=customer.id where orders.id=".$data['orders_id'];
+							// 入金状態を取得
+							$sql2 = sprintf("SELECT * FROM progressstatus WHERE orders_id=%d", $data['orders_id']);
 							$result = exe_sql($conn, $sql2);
-							if($result===false){
-								mysqli_query($conn, 'ROLLBACK');
-								return null;
-							}
-							$rec = mysqli_fetch_assoc($result);
-							$payment = $rec['payment'];
-							if($payment=='cash' || $payment=='cod'){
-								$readytoship=1;	// 発送可
+							if(mysqli_num_rows($result)>0){
+								$res = mysqli_fetch_assoc($result);
+								$deposit = $res['deposit'];
+								$readytoship = $res['readytoship'];
 							}else{
-								$readytoship=0;	// 発送不可
+								$sql2 = "select * from orders inner join customer on customer_id=customer.id where orders.id=".$data['orders_id'];
+								$result = exe_sql($conn, $sql2);
+								if($result===false){
+									mysqli_query($conn, 'ROLLBACK');
+									return null;
+								}
+								$rec = mysqli_fetch_assoc($result);
+								$payment = $rec['payment'];
+								if($payment=='cash' || $payment=='cod'){
+									$readytoship=1;	// 発送可
+								}else{
+									$readytoship=0;	// 発送不可
+								}
+								$deposit=1;		// 未入金
 							}
-							$deposit=1;		// 未入金
 						}
 
 						$sql = sprintf("update progressstatus set readytoship=%d, deposit=%d where orders_id=%d", $readytoship, $deposit, $data['orders_id']);
@@ -4042,6 +4055,34 @@ class Orders{
 					*/
 				}
 				if($progress){
+					$sql = sprintf("SELECT * FROM progressstatus WHERE orders_id=%d", $info['orders_id']);
+					$result = exe_sql($conn, $sql);
+					if(mysqli_num_rows($result)>0){
+						$res = mysqli_fetch_assoc($result);
+						$deposit = $res['deposit'];
+						$readytoship = $res['readytoship'];
+					}else{
+						$deposit = 1;
+
+						// 支払方法が現金か代引または、支払区分が月締めの場合は、発送可にする
+						if($payment=='cash' || $payment=='cod' || $bill_type==2){
+							$readytoship=1;
+						}else{
+							$readytoship=0;
+						}
+					}
+
+					// 支払区分が月締めの場合は入金をチェック済みにする
+					if($bill_type==2){
+						$deposit=2;	// 入金済み
+					}
+
+					$sql2 = sprintf("update progressstatus set readytoship=%d, deposit=%d where orders_id=%d", $readytoship, $deposit, $info['orders_id']);
+					if(!exe_sql($conn, $sql2)){
+						mysqli_query($conn, 'ROLLBACK');
+						return null;
+					}
+					
 					// 注文確定時に現金出納帳を作成
 					$sql2 = "select * from cashbook where orders_id=".$info['orders_id']." and netsales>0";
 					$result = exe_sql($conn, $sql2);
@@ -4119,26 +4160,6 @@ class Orders{
 					
 					// 製作指示書データの登録
 					$chk = $this->insert($conn, 'direction', array('orders_id'=>$info['orders_id'], 'ordertype'=>$info['ordertype']));
-					
-					// 支払方法が現金か代引または、支払区分が月締めの場合は、発送可にする
-					if($payment=='cash' || $payment=='cod' || $bill_type==2){
-						$readytoship=1;
-					}else{
-						$readytoship=0;
-					}
-					
-					// 支払区分が月締めの場合は入金をチェック済みにする
-					if($bill_type==2){
-						$deposit=2;	// 入金済み
-					}else{
-						$deposit=1;	// 未入金
-					}
-					$sql2 = sprintf("update progressstatus set readytoship=%d, deposit=%d where orders_id=%d", $readytoship, $deposit, $info['orders_id']);
-					if(!exe_sql($conn, $sql2)){
-						mysqli_query($conn, 'ROLLBACK');
-						return null;
-					}
-					
 				}
 				
 				$sql = "UPDATE acceptstatus SET ";
@@ -7237,7 +7258,7 @@ class Orders{
 						$rs1[$i]['area_item'] = 1;
 						$rs1[$i]['vol_item'] = $rec['volume'];
 						$rs1[$i]['shot'] = 0;
-					}else{						
+					}else{
 						if($rs1[$i]['item']==$rec['item']){
 							$rs1[$i]['area'] += 1;
 							$rs1[$i]['area_item'] += 1;
