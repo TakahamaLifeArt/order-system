@@ -3268,7 +3268,7 @@ var mypage = {
 							break;
 						case 'embroidery':
 							opt = ppInfo.find('.inkoption').val() - 0; // 0:オリジナル　1:ネーム
-							shot = ppInfo.find('.areasize_id').val() - 0; // 0:大　1:中　2:小
+							shot = ppInfo.find('.areasize_id').val() - 0; // 0:大　1:中　2:小　3:極小
 							break;
 						case 'digit':
 							shot = ppInfo.find('.areasize_id').val() - 0; // 0:大　1:中　2:小
@@ -4392,6 +4392,7 @@ var mypage = {
 					'<option value="0" selected="selected">大（25×25）</option>' +
 					'<option value="1">中（18×18）</option>' +
 					'<option value="2">小（10×10）</option>' +
+					'<option value="3">極小（5×5）</option>' +
 					'</select>';
 				html2 = 'サイズ <input type="text" value="" class="design_size" />';
 				html3 = 'オプション&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
@@ -6892,7 +6893,8 @@ var mypage = {
 						case 'embroidery':
 							if (areasize_id == '0') size_select = '大（25×25）cm';
 							else if (areasize_id == '1') size_select = '中（18×18）cm';
-							else size_select = '小（10×10）cm';
+							else if (areasize_id == '2') size_select = '小（10×10）cm';
+							else size_select = '極小（5×5）cm';
 							break;
 					}
 				}

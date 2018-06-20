@@ -1083,7 +1083,7 @@
 			$cutting_selector .= '<option value="0">大（27×38）</option><option value="1">中（27×18）</option><option value="2">小（10×10）</option></select>';
 			
 			$embroidery_selector = '版 <select class="areasize_id" onchange="mypage.limit_size(this)">';
-			$embroidery_selector .= '<option value="0">大（25×25）</option><option value="1">中（18×18）</option><option value="2">小（10×10）</option></select>';
+			$embroidery_selector .= '<option value="0">大（25×25）</option><option value="1">中（18×18）</option><option value="2">小（10×10）</option><option value="3">極小（5×5）</option></select>';
 				
 			$orders = new Orders();
 
