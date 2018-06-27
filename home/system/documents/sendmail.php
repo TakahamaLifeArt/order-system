@@ -482,17 +482,12 @@
 						
 					}
 					
-					
-					// 休業の告知文を挿入
-					$doc_title .= _NOTICE_HOLIDAY;
-					
-					
 					// 臨時の告知文を挿入
 					$doc_title .= _EXTRA_NOTICE;
 					
-					if($doctype=="estimation" && time()<mktime(0,0,0,10,1,2015)){
-						$doc_title .= "なお、価格改定のためお見積りの有効期限を2015/9/30注文確定分までとさせていただきます。\n\n";
-					}
+//					if($doctype=="estimation" && time()<mktime(0,0,0,10,1,2015)){
+//						$doc_title .= "なお、価格改定のためお見積りの有効期限を2015/9/30注文確定分までとさせていただきます。\n\n";
+//					}
 					
 					if(!is_null($add_msg)){
 						$doc_title .= $add_msg."\n";
@@ -659,10 +654,8 @@
 						$doc_title .= "------------------------------------------------\n\n";
 					}
 					
-					
-					// 休業の告知文を挿入
-					$doc_title .= _NOTICE_HOLIDAY;
-					
+					// 臨時の告知文を挿入
+					$doc_title .= _EXTRA_NOTICE;
 					
 					if (empty($_POST['parm'])) {
 						$doc_title .= "<textarea id=\"add_message\" cols=\"50\" rows=\"4\"></textarea>";
