@@ -2670,8 +2670,8 @@ class Orders{
 					$readytoship = 0;
 				}
 
-				// 支払方法が現金か代引きの場合は発送可にする
-				if($data3["payment"]=='cash' || $data3["payment"]=='cod' || $bill_type==2){
+				// 支払方法が現金、代引き、後払いの場合は発送可にする
+				if($data3["payment"]=='cash' || $data3["payment"]=='cod' || $data3["payment"]=='later_payment' || $bill_type==2){
 					$readytoship=1;	// 発送可
 				}else if($data3["payment"]!=$payment){
 					$readytoship=0;	// 発送不可
@@ -3364,7 +3364,7 @@ class Orders{
 								}
 								$rec = mysqli_fetch_assoc($result);
 								$payment = $rec['payment'];
-								if($payment=='cash' || $payment=='cod'){
+								if($payment=='cash' || $payment=='cod' || $payment=='later_paymet'){
 									$readytoship=1;	// 発送可
 								}else{
 									$readytoship=0;	// 発送不可
@@ -4064,8 +4064,8 @@ class Orders{
 					}else{
 						$deposit = 1;
 
-						// 支払方法が現金か代引または、支払区分が月締めの場合は、発送可にする
-						if($payment=='cash' || $payment=='cod' || $bill_type==2){
+						// 支払方法が現金、代引、後払いまたは、支払区分が月締めの場合は、発送可にする
+						if($payment=='cash' || $payment=='cod' || $payment=='later_paymet' || $bill_type==2){
 							$readytoship=1;
 						}else{
 							$readytoship=0;
