@@ -12,6 +12,7 @@
 	
 	log		     : 2012.07.13	created
 				 : 2013.06.13	検品欄を追加
+				 : 2018-07-31	発送日の０詰廃止に伴いスタイル変更
 				 
 -------------------------------------------------------------- */
 
@@ -207,8 +208,7 @@ textarea{
 }
 
 #shippingdate {
-	display: table-cell;
-	vertical-align: bottom;
+/*	vertical-align: bottom;*/
 }
 
 #shippingyear,

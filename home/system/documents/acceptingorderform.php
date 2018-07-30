@@ -4,6 +4,7 @@
  * log
  * 2016-10-07 電話番号及びFAX番号の表記を廃止
  * 2018-01-12 刺繍の絵型表示を修正
+ * 2018-07-31 商品テーブル表示を複数ページに対応
  */
 if(!isset($_GET['printkey'],$_GET['orderid'])) exit('No such file exists');
 $root_path = "../";
@@ -73,8 +74,10 @@ $fax = PhoneData::phonemask($orders['fax']);
 $fax = $fax['c'];
  */ 
 $arrival = substr(preg_replace('/-/','/',$orders['arrival']),5);
-$shipped['year'] = substr($orders['schedule3'],0,4);
-$shipped['date'] = substr(preg_replace('/-/','/',$orders['schedule3']),5);
+$shipped = explode('-', $orders['schedule3']);
+$shipped['year'] = $shipped[0];
+$shipped['month'] = intval($shipped[1], 10);
+$shipped['day'] = intval($shipped[2], 10);
 $deliverydate = substr(preg_replace('/-/','/',$orders['schedule4']),5);
 $deliverytime = array('', 'am', '12-14', '14-16', '16-18', '18-20', '19-21');
 $completionimage = $orders['completionimage']==1? 'あり': 'なし';
@@ -320,9 +323,10 @@ $tableHeight = 0;		// 商品テーブルの高さ
 $itemnameFont = 11*1.2;	// 商品名のフォントサイズ11px
 $colornameFont = 14*1.2;// カラー名のフォントサイズ14px
 $cellHeight = 22;
+$rows = 0;
+
 foreach($items as $key=>$val){
 	$size_rows = 0;
-	
 	$tmpColor = array();
 	$tmpHeight = 0;
 	foreach($val['color'] as $colorname=>$colors){
@@ -338,10 +342,12 @@ foreach($items as $key=>$val){
 			$sizeVolume[$sizename] += $arg[0];
 			$size_rows++;
 			$curColor_rows++;
+			$rows++;
 		}
 		
 		// 別紙で且つ1ページを超える場合に分割
-		if($size_rows>36){
+		if($rows>32){
+			$rows = $curColor_rows;
 			$size_rows -= $curColor_rows;
 			
 			$items_list .= '<tr>';
@@ -366,14 +372,12 @@ foreach($items as $key=>$val){
 				$items_list .= $tmpColor[$i];
 			}
 			
-			
 			$tmpColor = array();
 			$size_rows = $curColor_rows;
 			
 			$items_list_ext[] = $items_list;
 			$items_list = '';
 		}
-		
 		
 		
 		$l = count($tmpSize);
@@ -396,10 +400,8 @@ foreach($items as $key=>$val){
 				$tmpColor[] = '<td class="td04">'.$colorname.'</td>'.$tmpSize[0].'</tr>';
 			}
 			
-			
 			$tmpHeight += max($cellHeight, floor($colornameFont*$W+4));
 		}
-		
 		
 	}
 	
@@ -783,7 +785,7 @@ $html = <<<DOC
 			<div id="heading" class="clearfix">
 				<div id="date_wrap">
 					<p id="shippingyear"><span>{$shipped['year']}</span>年</p>
-					<p id="shippingdate"><span>{$shipped['date']}</span>発</p>
+					<p id="shippingdate"><span>{$shipped['month']}/{$shipped['day']}</span>発</p>
 					<p id="carriage">{$shipment}</p>
 					<p><span id="deliverydate">{$deliverydate}</span><span id="deliverytime">{$deliverytime[$orders['deliverytime']]}</span>着</p>
 				</div>
@@ -984,7 +986,7 @@ if($itemlist_overflow){
 			<div id="heading" class="clearfix">
 				<div id="date_wrap">
 					<p id="shippingyear"><span>{$shipped['year']}</span>年</p>
-					<p id="shippingdate"><span>{$shipped['date']}</span>発</p>
+					<p id="shippingdate"><span>{$shipped['month']}/{$shipped['day']}</span>発</p>
 					<p id="carriage">{$shipment}</p>
 					<p><span id="deliverydate">{$deliverydate}</span><span id="deliverytime">{$deliverytime[$orders['deliverytime']]}</span>着</p>
 				</div>
@@ -1064,7 +1066,7 @@ $html .= <<<DOC
 			<div id="heading" class="clearfix">
 				<div id="date_wrap">
 					<p id="shippingyear"><span>{$shipped['year']}</span>年</p>
-					<p id="shippingdate"><span>{$shipped['date']}</span>発</p>
+					<p id="shippingdate"><span>{$shipped['month']}/{$shipped['day']}</span>発</p>
 					<p id="carriage">{$shipment}</p>
 					<p><span id="deliverydate">{$deliverydate}</span><span id="deliverytime">{$deliverytime[$orders['deliverytime']]}</span>着</p>
 				</div>
@@ -1151,4 +1153,5 @@ $html .= <<<DOC
 
 DOC;
 echo $html;
+
 ?>
