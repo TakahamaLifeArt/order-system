@@ -57,7 +57,7 @@ $(function(){
 				if (typeof jqXHR.statusCode[jqXHR.status] != 'undefined') {
 					return false;
 				}
-				alert("不正なリクエストです");
+				alert("不正なリクエスト、またはタイムアウトです");
 			});
 		}
 	});
