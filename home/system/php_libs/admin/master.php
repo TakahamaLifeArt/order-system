@@ -3,6 +3,8 @@
 *	タカハマライフアート
 *	マスターデータベースの操作
 *	charset UTF-8
+*	log
+*	2018-09-07 アイテムカラーにインクジェットの淡色チェックを追加
 */
 	require_once dirname(__FILE__).'/../catalog.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
@@ -724,7 +726,11 @@
 			if(isset($_REQUEST['list_id'])){
 				$rec = Master::getMaster( $_REQUEST['list_id'], $_REQUEST['curdate'] );
 				$count = count($rec);
-				if($_REQUEST['list_id']==3){	// for print position
+				if ($_REQUEST['list_id'] ==1) {	// itemcolor
+					for($i=0; $i<$count; $i++){
+						$list[] = array($rec[$i]['id'], $rec[$i][1], $rec[$i][2]);
+					}
+				} else if($_REQUEST['list_id']==3){	// for print position
 					for($i=0; $i<$count; $i++){
 						if($rec[$i]['id']==46){
 							$fname = 'layout_noprint';
@@ -835,6 +841,8 @@
 				if($_POST['func']=='update'){
 					if($_POST['mode']=='item'){
 						$data = array($data1, $data2, $data3, $data4, $data5, $data6, $curdate);
+					}else if($_POST['mode']=='itemcolor'){
+						$data = $data2;
 					}else if($_POST['mode']=='maker'){
 						$data = $data2;
 					}else if($_POST['mode']=='staff'){
@@ -1271,6 +1279,23 @@
 			$res = true;
 			try{
 				switch($mode){
+				case 'itemcolor':
+					for($i=0; $i<count($data); $i++){
+						foreach($data[$i] as $key=>$val){
+							$info[$i][$key] = quote_smart($conn, $val);
+						}
+						$sql = sprintf("UPDATE itemcolor SET color_name='%s', inkjet_option=%d WHERE id=%d limit 1",
+									   $info[$i]["color_name"],
+									   $info[$i]["inkjet_option"],
+									   $info[$i]["id"]
+									  );
+						if(!exe_sql($conn, $sql)){
+							mysqli_query($conn,'ROLLBACK');
+							return null;
+						}
+					}
+					break;
+
 				case 'maker':
 					for($i=0; $i<count($data); $i++){
 						foreach($data[$i] as $key=>$val){
@@ -1287,7 +1312,6 @@
 						}
 					}
 					break;
-
 
 				case 'tag':
 				  for($i=0; $i<count($data); $i++){
@@ -1954,7 +1978,7 @@
 						return true;
 					}
 					
-					$sql = sprintf("INSERT INTO itemcolor(color_name) VALUES('%s')", $color_name);
+					$sql = sprintf("INSERT INTO itemcolor(color_name, inkjet_option) VALUES('%s', %d)", $color_name, $info['inkjet_option']);
 					if(!exe_sql($conn, $sql)){
 						mysqli_query($conn, 'ROLLBACK');
 						return null;

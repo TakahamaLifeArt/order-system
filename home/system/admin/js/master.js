@@ -6,6 +6,9 @@
 *	depends:	jQuery.js
 *				modalbox/css/jquery.modalbox.css
 *				modalbox/jquery.modalbox.js
+*
+*	log
+*	2018-09-07 アイテムカラーにインクジェットの淡色チェックを追加
 */
 
 $(function(){
@@ -425,14 +428,15 @@ $(function(){
 	});
 	
 	/********************************
-	*	アイテムカラー名の新規登録
+	*	アイテムカラーの新規登録
 	*/
 	$('.addnew_itemcolor', '#itemcolortable').live('click', function(){
 		var curdate = $('#apply').val();
 		var color_name = $('.itemcolor_name', '#itemcolortable').val().trim();
+		var inkjet_option = $('.inkjet_option:checked', '#itemcolortable').val()==1? 1: 0;
 		if(color_name=='') return;
 		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'insert', 'mode':'itemcolor', 'curdate':curdate, 'field1[]':['color_name'], 'data1[]':[color_name]}, 
+			data:{'act':'db', 'func':'insert', 'mode':'itemcolor', 'curdate':curdate, 'field1[]':['color_name', 'inkjet_option'], 'data1[]':[color_name, inkjet_option]}, 
 			success: function(r){
 				if(r){
 					if(r == 2){
@@ -441,12 +445,49 @@ $(function(){
 						$.viewlist(1, 'list');
 					}
 				}else{
-					alert('Error: p344\n'+r);
+					alert('Error: p445\n'+r);
 				}
 			}
 		});
  	});
 
+	/********************************
+	*	アイテムカラーの更新
+	*/
+	$('.update_itemcolor', '#mastertable').live('click', function(){
+		var fld = ['id', 'color_name', 'inkjet_option'];
+		var dat = [];
+		var tmp = '';
+		var curdate = $('#apply').val();
+		if(curdate==''){
+			$.msgbox('登録する日付を指定してください。');
+			return;
+		}
+		$('#mastertable tbody tr').each( function(idx){
+			var self = $(this).children('td'),
+				isCheck = $(this).find('.inkjet_option:checked').val()==1? 1: 0;
+			tmp = $(self[0]).text();
+			tmp += '|' + $(self[1]).text();
+			tmp += '|' + isCheck;
+			dat.push(tmp);
+		});
+
+		if(!confirm('アイテムカラーを更新します、よろしいですか？')){
+			return;
+		}
+
+		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+				data:{'act':'db', 'func':'update', 'mode':'itemcolor', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
+				success: function(r){
+					if(r){
+						$.viewlist(1, 'list');
+					}else{
+						alert('UPDATE ITEMCOLOR ERROR');
+					}
+				}
+			   });
+	});
+	
 	/********************************
 	*	メーカーの新規登録
 	*/
@@ -472,7 +513,8 @@ $(function(){
 				}
 			}
 		});
- 	});	
+ 	});
+	
 	/********************************
 	*	メーカー情報の更新
 	*/
@@ -1397,7 +1439,17 @@ jQuery.extend({
 					var i = 0;
 					var caption = ['', '商品カラー名', 'プリント割増率', 'プリント位置の絵型', 'メーカー名', 'スタッフ'];
 					var tbody = '<tbody>';
-					if(category_id==3){
+					if (category_id == 1) {
+					// アイテムカラー
+						for(i=0; i<rec.length; i++){
+							var isCheck = rec[i][2]==1? ' checked': '';
+							tbody += '<tr>';
+							tbody += '<td>'+rec[i][0]+'</td>';
+							tbody += '<td>'+rec[i][1]+'</td>';
+							tbody += '<td class="ac py-2"><input type="checkbox" value="1" class="inkjet_option"'+ isCheck +' /></td>';
+							tbody += '</tr>';
+						}
+					} else if (category_id == 3) {
 					// 絵型
 						for(i=0; i<rec.length; i++){
 							tbody += '<tr>';
@@ -1440,12 +1492,19 @@ jQuery.extend({
 					tbody += '</tbody>';
 					
 					var thead = '';
-					if(category_id == 4){
+					if (category_id == 1) {
 						thead = '<thead>';
-						thead += '<tr><td colspan="8" class="ar"><input type="button" value="更新する" class="update_maker" /></td></tr>';
-						thead += '<tr><th>ID</th><th>メーカ名</th></tr>';
+						thead += '<tr><td colspan="3" class="ar"><input type="button" value="更新する" class="update_itemcolor" /></td></tr>';
+						thead += '<tr><th>ID</th><th>カラー名</th><th>淡色</th></tr>';
 						thead += '</thead>';
-						thead += '<tfoot><tr><td colspan="8" class="ar"><input type="button" value="更新する" class="update_maker" /></td></tr></tfoot>';
+						thead += '<tfoot><tr><td colspan="3" class="ar"><input type="button" value="更新する" class="update_itemcolor" /></td></tr></tfoot>';
+						
+					} else if(category_id == 4){
+						thead = '<thead>';
+						thead += '<tr><td colspan="3" class="ar"><input type="button" value="更新する" class="update_maker" /></td></tr>';
+						thead += '<tr><th>ID</th><th>メーカ名</th><th></th></tr>';
+						thead += '</thead>';
+						thead += '<tfoot><tr><td colspan="3" class="ar"><input type="button" value="更新する" class="update_maker" /></td></tr></tfoot>';
 
 					}else if(category_id == 5){
 						thead = '<thead>';
@@ -1473,8 +1532,11 @@ jQuery.extend({
 					// アイテムカラー
 						tbl2 = '<table id="itemcolortable">';
 						tbl2 += '<caption>カラー名の登録</caption>';
-						tbl2 += '<tfoot><tr><td colspan="2" class="ar"><input type="button" value="新規追加" class="addnew_itemcolor" /></td></tr></tfoot>';
-						tbl2 += '<tbody><tr><td>カラー名</td><td><input type="text" value="" class="itemcolor_name" /></td></tr></tbody>';
+						tbl2 += '<tfoot><tr><td colspan="4" class="ar"><input type="button" value="新規追加" class="addnew_itemcolor" /></td></tr></tfoot>';
+						tbl2 += '<tbody><tr>';
+						tbl2 += '<td>カラー名</td><td><input type="text" value="" class="itemcolor_name" /></td>';
+						tbl2 += '<td>淡色</td><td><input type="checkbox" value="1" class="inkjet_option" /></td>'
+						tbl2 += '</tr></tbody>';
 						tbl2 += '</table>';
 					
 					}else if(category_id==4){

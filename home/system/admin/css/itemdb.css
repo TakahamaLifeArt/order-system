@@ -11,7 +11,7 @@
 				  2015.04.01 オンスの入力項目追加とcontainerの幅指定を外す
 				  2016.10.15 詳細画面にプリント可能範囲の画像表示とレイアウトの更新
 				  2016.10.28 絵型一覧にプリント可能範囲の画像表示
-	
+				  2018-09-07 アイテムカラーにインクジェットの淡色チェックを追加
 
 -------------------------------------------------------------- */
 
@@ -479,6 +479,10 @@ forPhone, forZip,
 .container #mastertable tfoot td {
 	padding-top: 20px;
 }
+.container #mastertable td.py-2 {
+	padding-top: .5rem;
+	padding-bottom: .5rem
+}
 
 /* 商品カラー名の登録テーブル */
 #itemcolortable {
@@ -487,6 +491,9 @@ forPhone, forZip,
 }
 #itemcolortable tfoot td {
 	padding-top: 1em;
+}
+.inkjet_option {
+	transform: scale(2, 2);
 }
 
 /* メーカー名の登録テーブル */
