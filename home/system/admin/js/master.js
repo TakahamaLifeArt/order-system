@@ -207,9 +207,10 @@ $(function(){
 	/********************************
 	 *	画面モードの切替
 	 */
-	$('#switchover :radio[name="mode"]').change( function(){
-		this.form.submit();
-	});
+// 管理画面移行に伴い廃止
+//	$('#switchover :radio[name="mode"]').change( function(){
+//		this.form.submit();
+//	});
 	
 	/********************************
 	 *	一覧表示へ
@@ -229,9 +230,10 @@ $(function(){
 	/********************************
 	 *	編集画面へ
 	 */
-	$('#editmode').click( function(){
-		$.updatemode();
-	});
+// 管理画面移行に伴い廃止
+//	$('#editmode').click( function(){
+//		$.updatemode();
+//	});
 
 	/********************************
 	 *	キャンセル
@@ -243,491 +245,504 @@ $(function(){
 	/********************************
 	 *	価格テーブルに行を追加
 	 */
-	$('#addrow_price').live('click', function(){
-		var list = '<input type="image" src="../img/remove.gif" width="20" style="vertical-align:middle;" class="delrow_price" />';
-		list += '<select class="change_size" onchange="$.setNewsizeID(this);">';
-		for(var i=0; i<$.size.list.length; i++){
-			var size_name = $.size.list[i];
-			list += '<option value="'+$.size.hash[size_name]+'">'+size_name+'</option>';
-		}
-		list += '</select>';
-		
-		var endrow = $('#pricetable tbody tr:last');
-		var self = endrow.clone().attr('class','price_0');
-		self.children('th:first').html(list).children('.change_size').val(endrow.children('th:first').attr('class').split('_')[1]);
-		self.children(':last').html('<input type="text" value="" class="datepicker forDate" />');
-		self.insertAfter(endrow);
-		self.find('.datepicker').datepicker().blur( function(e){
-			$.check_date(e, this);
-		});
-		self.find('.forBlank').blur( function(){
-			$.check_NaN(this,"");
-		});
-		self.find('.forNum').blur( function(){
-			$.check_NaN(this);
-		});
-	});
-	
-	$('.delrow_price').live('click', function(){
-		$(this).closest('tr').remove();
-	});
+	// 管理画面移行に伴い廃止
+//	$('#addrow_price').live('click', function(){
+//		var list = '<input type="image" src="../img/remove.gif" width="20" style="vertical-align:middle;" class="delrow_price" />';
+//		list += '<select class="change_size" onchange="$.setNewsizeID(this);">';
+//		for(var i=0; i<$.size.list.length; i++){
+//			var size_name = $.size.list[i];
+//			list += '<option value="'+$.size.hash[size_name]+'">'+size_name+'</option>';
+//		}
+//		list += '</select>';
+//		
+//		var endrow = $('#pricetable tbody tr:last');
+//		var self = endrow.clone().attr('class','price_0');
+//		self.children('th:first').html(list).children('.change_size').val(endrow.children('th:first').attr('class').split('_')[1]);
+//		self.children(':last').html('<input type="text" value="" class="datepicker forDate" />');
+//		self.insertAfter(endrow);
+//		self.find('.datepicker').datepicker().blur( function(e){
+//			$.check_date(e, this);
+//		});
+//		self.find('.forBlank').blur( function(){
+//			$.check_NaN(this,"");
+//		});
+//		self.find('.forNum').blur( function(){
+//			$.check_NaN(this);
+//		});
+//	});
+//	
+//	$('.delrow_price').live('click', function(){
+//		$(this).closest('tr').remove();
+//	});
 	
 	/********************************
 	 *	カラーテーブルに行を追加
 	 */
-	$('.addrow_color').live('click', function(){
-		var endrow = $(this).closest('tfoot').siblings('tbody').children('tr:last');
-		var self = endrow.clone().attr('class','master_0');
-		self.children('td:first').html('<input type="image" src="../img/remove.gif" width="20" style="vertical-align:middle;" class="delrow_color" />');
-		self.children(':last').html('<input type="text" value="" class="datepicker forDate" />');
-		self.insertAfter(endrow);
-		self.find('.datepicker').datepicker().blur( function(e){
-			$.check_date(e, this);
-		});
-		self.find(".color_name").autocomplete({
-			source: 
-				function(req, res){
-				var list = [];
-				var n = 0;
-				for(var i=0; i<$.itemcolor.names.length; i++){
-					if($.itemcolor.names[i].indexOf(req.term)==0){
-						list[n++] = $.itemcolor.names[i];
-					}
-				}
-				res(list);
-			},
-			delay: 0,
-			minLength: 1,
-			autoFocus: true
-		}).focus( function(){
-			$(this).autocomplete('search',$(this).val());
-		});
-	});
-	
-	$('.delrow_color').live('click', function(){
-		$(this).closest('tr').remove();
-	});
+	// 管理画面移行に伴い廃止
+//	$('.addrow_color').live('click', function(){
+//		var endrow = $(this).closest('tfoot').siblings('tbody').children('tr:last');
+//		var self = endrow.clone().attr('class','master_0');
+//		self.children('td:first').html('<input type="image" src="../img/remove.gif" width="20" style="vertical-align:middle;" class="delrow_color" />');
+//		self.children(':last').html('<input type="text" value="" class="datepicker forDate" />');
+//		self.insertAfter(endrow);
+//		self.find('.datepicker').datepicker().blur( function(e){
+//			$.check_date(e, this);
+//		});
+//		self.find(".color_name").autocomplete({
+//			source: 
+//				function(req, res){
+//				var list = [];
+//				var n = 0;
+//				for(var i=0; i<$.itemcolor.names.length; i++){
+//					if($.itemcolor.names[i].indexOf(req.term)==0){
+//						list[n++] = $.itemcolor.names[i];
+//					}
+//				}
+//				res(list);
+//			},
+//			delay: 0,
+//			minLength: 1,
+//			autoFocus: true
+//		}).focus( function(){
+//			$(this).autocomplete('search',$(this).val());
+//		});
+//	});
+//	
+//	$('.delrow_color').live('click', function(){
+//		$(this).closest('tr').remove();
+//	});
 	
 	/********************************
 	 *	寸法テーブルに行を追加
 	 */
-	$('.addrow_measure').live('click', function(){
-		var body = $(this).closest('tfoot').siblings('tbody');
-		var self = body.children('tr:first').clone().attr('class','measure_0');
-		self.children('th:first').children("select").val("").after('<input type="image" src="../img/remove.gif" width="20" style="vertical-align:middle;" class="delrow_measure" />');
-		self.find("input").val("");
-		self.appendTo(body);
-	});
-	
-	$('.delrow_measure').live('click', function(){
-		$(this).closest('tr').remove();
-	});
+// 管理画面移行に伴い廃止
+//	$('.addrow_measure').live('click', function(){
+//		var body = $(this).closest('tfoot').siblings('tbody');
+//		var self = body.children('tr:first').clone().attr('class','measure_0');
+//		self.children('th:first').children("select").val("").after('<input type="image" src="../img/remove.gif" width="20" style="vertical-align:middle;" class="delrow_measure" />');
+//		self.find("input").val("");
+//		self.appendTo(body);
+//	});
+//	
+//	$('.delrow_measure').live('click', function(){
+//		$(this).closest('tr').remove();
+//	});
 	
 	/********************************
 	 *	新規登録のモード切替
 	 */
-	$('.step1').live('click', function(){
-		$('.step2').removeClass('cur');
-		$('.step1').addClass('cur');
-		$('.step2_wrap').hide('fast', function(){$('.step1_wrap').show();});
-		$('.button_wraptop, .button_wrapbottom').hide();
-	});
-	$('.step2').live('click', function(){
-		var category_id = $('.category_id').val();
-		if(category_id==''){
-			$.msgbox('商品カテゴリーを指定してください。');
-			return;
-		}
-		
-		var basic = $('#basictable tbody tr:first');
-		var item_code = basic.find('.item_code').val();
-		var item_name = basic.find('.item_name').val();
-		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
-			$.msgbox('アイテムコードに使用できる文字は、半角英数とハイフン(-)だけです。');
-			return;
-		}else if(item_code==""){
-			$.msgbox('アイテムコードを入力してください。');
-			return;
-		}else{
-			var codeCheck = $.codeCheck(item_code);
-			if(codeCheck == 1){
-				$.msgbox('商品コード'+item_code+'が存在しています。');
-				return;
-			}
-		}
-		if(item_name==""){
-			$.msgbox('アイテム名を入力してください。');
-			return;
-		}
-		var size = [];
-		$('#pricetable tbody tr').each( function(){
-			var chk = true;
-			var input_len = $(this).children('td').length;
-			for(var i=0; i<input_len; i++){
-				if($(this).children('td:eq('+i+')').children('input').val()-0 == 0){
-					chk = false;
-					break;
-				}
-			}
-			if(chk){
-				var th = $(this).children('th');
-				size[th.attr('class').split('_')[1]] = th.text();
-			}
-		});
-		if(size.length==0){
-			$.msgbox('サイズと価格または梱包枚数の指定がありません。');
-			return;
-		}
-		
-		var head = '<tr><th>Size</th>';
-		var body = '<tr><th>ﾊﾟﾀｰﾝ</th>';
-		for(var sizeid in size){
-			head += '<th>'+size[sizeid]+'</th>';
-			body += '<td><input type="checkbox" value="'+sizeid+'" name="'+size[sizeid]+'" checked="checked" /></td>';
-		}
-		head += '</tr>';
-		body += '</tr>';
-		$('.seriestable thead').html(head);
-		$('.seriestable tbody').html(body);
-		$('.step1').removeClass('cur');
-		$('.step2').addClass('cur');
-		$('.step1_wrap').hide('fast', function(){$('.step2_wrap').show();});
-		$('.button_wraptop, .button_wrapbottom').show();
-	});
+// 管理画面移行に伴い廃止
+//	$('.step1').live('click', function(){
+//		$('.step2').removeClass('cur');
+//		$('.step1').addClass('cur');
+//		$('.step2_wrap').hide('fast', function(){$('.step1_wrap').show();});
+//		$('.button_wraptop, .button_wrapbottom').hide();
+//	});
+//	$('.step2').live('click', function(){
+//		var category_id = $('.category_id').val();
+//		if(category_id==''){
+//			$.msgbox('商品カテゴリーを指定してください。');
+//			return;
+//		}
+//		
+//		var basic = $('#basictable tbody tr:first');
+//		var item_code = basic.find('.item_code').val();
+//		var item_name = basic.find('.item_name').val();
+//		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
+//			$.msgbox('アイテムコードに使用できる文字は、半角英数とハイフン(-)だけです。');
+//			return;
+//		}else if(item_code==""){
+//			$.msgbox('アイテムコードを入力してください。');
+//			return;
+//		}else{
+//			var codeCheck = $.codeCheck(item_code);
+//			if(codeCheck == 1){
+//				$.msgbox('商品コード'+item_code+'が存在しています。');
+//				return;
+//			}
+//		}
+//		if(item_name==""){
+//			$.msgbox('アイテム名を入力してください。');
+//			return;
+//		}
+//		var size = [];
+//		$('#pricetable tbody tr').each( function(){
+//			var chk = true;
+//			var input_len = $(this).children('td').length;
+//			for(var i=0; i<input_len; i++){
+//				if($(this).children('td:eq('+i+')').children('input').val()-0 == 0){
+//					chk = false;
+//					break;
+//				}
+//			}
+//			if(chk){
+//				var th = $(this).children('th');
+//				size[th.attr('class').split('_')[1]] = th.text();
+//			}
+//		});
+//		if(size.length==0){
+//			$.msgbox('サイズと価格または梱包枚数の指定がありません。');
+//			return;
+//		}
+//		
+//		var head = '<tr><th>Size</th>';
+//		var body = '<tr><th>ﾊﾟﾀｰﾝ</th>';
+//		for(var sizeid in size){
+//			head += '<th>'+size[sizeid]+'</th>';
+//			body += '<td><input type="checkbox" value="'+sizeid+'" name="'+size[sizeid]+'" checked="checked" /></td>';
+//		}
+//		head += '</tr>';
+//		body += '</tr>';
+//		$('.seriestable thead').html(head);
+//		$('.seriestable tbody').html(body);
+//		$('.step1').removeClass('cur');
+//		$('.step2').addClass('cur');
+//		$('.step1_wrap').hide('fast', function(){$('.step2_wrap').show();});
+//		$('.button_wraptop, .button_wrapbottom').show();
+//	});
 	
 	/********************************
 	*	カラーの新規追加行を取り消す
 	*/
-	$('#add_color').click( function(){
-		var tr = '<tr>';
-		tr += '<td><input type="text" value="" class="color_code" /></td>';
-		tr += '<td><input type="text" value="" class="color_name" /></td>';
-		tr += '<td class="ac"><select class="series"><option value="1" selected="selected">制限なし</option><option value="2">制限あり</option></select></td>';
-		tr += '<td><input type="button" value="取消" class="cancel_color" onclick="$.removeColor(this);" /></td>';
-		tr += '</tr>';
-		$('.colortable tbody').append(tr);
-		$( ".step2_wrap .colortable tbody tr:last .color_name" ).autocomplete({
-			source: 
-				function(req, res){
-				var list = [];
-				var n = 0;
-				for(var i=0; i<$.itemcolor.names.length; i++){
-					if($.itemcolor.names[i].indexOf(req.term)==0){
-						list[n++] = $.itemcolor.names[i];
-					}
-				}
-				res(list);
-			},
-			delay: 0,
-			minLength: 1,
-			autoFocus: true
-		}).focus( function(){
-			$(this).autocomplete('search',$(this).val());
-		});
-		
-	});
+// 管理画面移行に伴い廃止
+//	$('#add_color').click( function(){
+//		var tr = '<tr>';
+//		tr += '<td><input type="text" value="" class="color_code" /></td>';
+//		tr += '<td><input type="text" value="" class="color_name" /></td>';
+//		tr += '<td class="ac"><select class="series"><option value="1" selected="selected">制限なし</option><option value="2">制限あり</option></select></td>';
+//		tr += '<td><input type="button" value="取消" class="cancel_color" onclick="$.removeColor(this);" /></td>';
+//		tr += '</tr>';
+//		$('.colortable tbody').append(tr);
+//		$( ".step2_wrap .colortable tbody tr:last .color_name" ).autocomplete({
+//			source: 
+//				function(req, res){
+//				var list = [];
+//				var n = 0;
+//				for(var i=0; i<$.itemcolor.names.length; i++){
+//					if($.itemcolor.names[i].indexOf(req.term)==0){
+//						list[n++] = $.itemcolor.names[i];
+//					}
+//				}
+//				res(list);
+//			},
+//			delay: 0,
+//			minLength: 1,
+//			autoFocus: true
+//		}).focus( function(){
+//			$(this).autocomplete('search',$(this).val());
+//		});
+//		
+//	});
 	
 	/********************************
 	*	アイテムカラーの新規登録
 	*/
-	$('.addnew_itemcolor', '#itemcolortable').live('click', function(){
-		var curdate = $('#apply').val();
-		var color_name = $('.itemcolor_name', '#itemcolortable').val().trim();
-		var inkjet_option = $('.inkjet_option:checked', '#itemcolortable').val()==1? 1: 0;
-		if(color_name=='') return;
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'insert', 'mode':'itemcolor', 'curdate':curdate, 'field1[]':['color_name', 'inkjet_option'], 'data1[]':[color_name, inkjet_option]}, 
-			success: function(r){
-				if(r){
-					if(r == 2){
-						$.msgbox('該当カラーは存在しています。');
-					} else {
-						$.viewlist(1, 'list');
-					}
-				}else{
-					alert('Error: p445\n'+r);
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('.addnew_itemcolor', '#itemcolortable').live('click', function(){
+//		var curdate = $('#apply').val();
+//		var color_name = $('.itemcolor_name', '#itemcolortable').val().trim();
+//		var inkjet_option = $('.inkjet_option:checked', '#itemcolortable').val()==1? 1: 0;
+//		if(color_name=='') return;
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'insert', 'mode':'itemcolor', 'curdate':curdate, 'field1[]':['color_name', 'inkjet_option'], 'data1[]':[color_name, inkjet_option]}, 
+//			success: function(r){
+//				if(r){
+//					if(r == 2){
+//						$.msgbox('該当カラーは存在しています。');
+//					} else {
+//						$.viewlist(1, 'list');
+//					}
+//				}else{
+//					alert('Error: p445\n'+r);
+//				}
+//			}
+//		});
+// 	});
 
 	/********************************
 	*	アイテムカラーの更新
 	*/
-	$('.update_itemcolor', '#mastertable').live('click', function(){
-		var fld = ['id', 'color_name', 'inkjet_option'];
-		var dat = [];
-		var tmp = '';
-		var curdate = $('#apply').val();
-		if(curdate==''){
-			$.msgbox('登録する日付を指定してください。');
-			return;
-		}
-		$('#mastertable tbody tr').each( function(idx){
-			var self = $(this).children('td'),
-				isCheck = $(this).find('.inkjet_option:checked').val()==1? 1: 0;
-			tmp = $(self[0]).text();
-			tmp += '|' + $(self[1]).text();
-			tmp += '|' + isCheck;
-			dat.push(tmp);
-		});
-
-		if(!confirm('アイテムカラーを更新します、よろしいですか？')){
-			return;
-		}
-
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-				data:{'act':'db', 'func':'update', 'mode':'itemcolor', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
-				success: function(r){
-					if(r){
-						$.viewlist(1, 'list');
-					}else{
-						alert('UPDATE ITEMCOLOR ERROR');
-					}
-				}
-			   });
-	});
+// 管理画面移行に伴い廃止
+//	$('.update_itemcolor', '#mastertable').live('click', function(){
+//		var fld = ['id', 'color_name', 'inkjet_option'];
+//		var dat = [];
+//		var tmp = '';
+//		var curdate = $('#apply').val();
+//		if(curdate==''){
+//			$.msgbox('登録する日付を指定してください。');
+//			return;
+//		}
+//		$('#mastertable tbody tr').each( function(idx){
+//			var self = $(this).children('td'),
+//				isCheck = $(this).find('.inkjet_option:checked').val()==1? 1: 0;
+//			tmp = $(self[0]).text();
+//			tmp += '|' + $(self[1]).text();
+//			tmp += '|' + isCheck;
+//			dat.push(tmp);
+//		});
+//
+//		if(!confirm('アイテムカラーを更新します、よろしいですか？')){
+//			return;
+//		}
+//
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//				data:{'act':'db', 'func':'update', 'mode':'itemcolor', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
+//				success: function(r){
+//					if(r){
+//						$.viewlist(1, 'list');
+//					}else{
+//						alert('UPDATE ITEMCOLOR ERROR');
+//					}
+//				}
+//			   });
+//	});
 	
 	/********************************
 	*	メーカーの新規登録
 	*/
-	$('.addnew_maker', '#makertable').live('click', function(){
-		var curdate = $('#apply').val();
-
-		var maker_name = $('.maker_name', '#makertable').val().trim();
-		if(maker_name==''){
- 			$.msgbox('メーカー名を指定してください。');
-			return;
-		}
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'insert', 'mode':'maker', 'curdate':curdate, 'field1[]':['maker_name'], 'data1[]':[maker_name]}, 
-			success: function(r){
-				if(r){
-					if(r == 2){
-						$.msgbox('該当メーカーは存在しています。');
-					} else {
-						$.viewlist(4, 'list');
-					}
-				}else{
-					alert('Error: p465\n'+r);
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('.addnew_maker', '#makertable').live('click', function(){
+//		var curdate = $('#apply').val();
+//
+//		var maker_name = $('.maker_name', '#makertable').val().trim();
+//		if(maker_name==''){
+// 			$.msgbox('メーカー名を指定してください。');
+//			return;
+//		}
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'insert', 'mode':'maker', 'curdate':curdate, 'field1[]':['maker_name'], 'data1[]':[maker_name]}, 
+//			success: function(r){
+//				if(r){
+//					if(r == 2){
+//						$.msgbox('該当メーカーは存在しています。');
+//					} else {
+//						$.viewlist(4, 'list');
+//					}
+//				}else{
+//					alert('Error: p465\n'+r);
+//				}
+//			}
+//		});
+// 	});
 	
 	/********************************
 	*	メーカー情報の更新
 	*/
-	$('.update_maker', '#mastertable').live('click', function(){
-		var curdate = $('#apply').val();
-		if(curdate==''){
-			$.msgbox('登録する日付を指定してください。');
-			return;
-		}
-		var fld = ['maker_id','maker_name'];
-		var dat = [];
-		var tmp = '';
-		$('#mastertable tbody tr').each( function(){
-			tmp = $(this).attr('id').split('_')[1];
-			tmp += '|' + $('.maker_name', this).val();
-			dat.push(tmp);
-		});
-
-		if(!confirm('メーカーを更新します、よろしいですか？')){
-			return;
-		}
-
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'update', 'mode':'maker', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
-			success: function(r){
-				if(r){
-					$.viewlist(4, 'list');
-				}else{
-					alert('UPDATE MAKER ERROR');
-				}
-			}
-		});
-	});
+// 管理画面移行に伴い廃止
+//	$('.update_maker', '#mastertable').live('click', function(){
+//		var curdate = $('#apply').val();
+//		if(curdate==''){
+//			$.msgbox('登録する日付を指定してください。');
+//			return;
+//		}
+//		var fld = ['maker_id','maker_name'];
+//		var dat = [];
+//		var tmp = '';
+//		$('#mastertable tbody tr').each( function(){
+//			tmp = $(this).attr('id').split('_')[1];
+//			tmp += '|' + $('.maker_name', this).val();
+//			dat.push(tmp);
+//		});
+//
+//		if(!confirm('メーカーを更新します、よろしいですか？')){
+//			return;
+//		}
+//
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'update', 'mode':'maker', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
+//			success: function(r){
+//				if(r){
+//					$.viewlist(4, 'list');
+//				}else{
+//					alert('UPDATE MAKER ERROR');
+//				}
+//			}
+//		});
+//	});
 
 	/********************************
 	*	メーカーの削除
 	*/
-	$('.delete_maker', '#mastertable').live('click', function(){
-		var curdate = $('#apply').val();
-		var fld = ['maker_id'];
-		var dat =$(this).attr('no');
-		var info = $(this).attr('name');
-		if(!confirm( 'メーカー '+ info + ' を削除します、よろしいですか？')){
-			return;
-		}
-
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'delete', 'mode':'maker', 'curdate':curdate, 'field1[]':fld, 'data1[]':dat}, 
-			success: function(r){
-				if(r){
-					$.viewlist(4, 'list');
-				}else{
-					alert('Error: MAKER DELETE ERROR');
-				}
-			}
-		});
- 	});	
+// 管理画面移行に伴い廃止
+//	$('.delete_maker', '#mastertable').live('click', function(){
+//		var curdate = $('#apply').val();
+//		var fld = ['maker_id'];
+//		var dat =$(this).attr('no');
+//		var info = $(this).attr('name');
+//		if(!confirm( 'メーカー '+ info + ' を削除します、よろしいですか？')){
+//			return;
+//		}
+//
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'delete', 'mode':'maker', 'curdate':curdate, 'field1[]':fld, 'data1[]':dat}, 
+//			success: function(r){
+//				if(r){
+//					$.viewlist(4, 'list');
+//				}else{
+//					alert('Error: MAKER DELETE ERROR');
+//				}
+//			}
+//		});
+// 	});
 	
 	/*********************************
 	*	タグ名の新規登録
  	*/
-	$('.addnew_tag', '#tagtable').live('click', function(){
-		var curdate = $('#apply').val();
-		var tag_name = $('.tag_name', '#tagtable').val().trim();
-		var tag_order = parseInt($('.tag_order', '#tagtable').val().trim());
-		var vlist = $(this).attr('name');
-//		var tag_type = (vlist-1);
-		var tag_type = (vlist);
-		var orderMin = parseInt($('.orderMin').val());
-		var orderMax = parseInt($('.orderMax').val());
-		if(tag_name==''){
-			$.msgbox('タグ名を指定してください。');
-				return;
-		}else if(tag_order==''){
-			$.msgbox('表示順を指定してください。');
-				return;		
-		}else if(isNaN(tag_order)){
-			$.msgbox('数字を入力してください。');
-				return;		
-				}
-		if( tag_order>orderMax || tag_order<orderMin){
-			$.msgbox('表示順を'+orderMin+'から'+orderMax+'までの間に設定してください');
-				return;
-		}
-		
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'insert', 'mode':'tag', 'curdate':curdate, 'field1[]':['tag_name','tag_type','tag_order'], 'data1[]':[tag_name,tag_type,tag_order]}, 
-			success: function(r){
-				if(r){
-					if(r == 2){
-						$.msgbox('該当タグ名は存在しています。');
-					} else {
-						$.viewlistTag(vlist, 'list');
-					}
-				}else{
-					alert('タグ新規ERROR');
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('.addnew_tag', '#tagtable').live('click', function(){
+//		var curdate = $('#apply').val();
+//		var tag_name = $('.tag_name', '#tagtable').val().trim();
+//		var tag_order = parseInt($('.tag_order', '#tagtable').val().trim());
+//		var vlist = $(this).attr('name');
+//		var tag_type = (vlist);
+//		var orderMin = parseInt($('.orderMin').val());
+//		var orderMax = parseInt($('.orderMax').val());
+//		if(tag_name==''){
+//			$.msgbox('タグ名を指定してください。');
+//				return;
+//		}else if(tag_order==''){
+//			$.msgbox('表示順を指定してください。');
+//				return;
+//		}else if(isNaN(tag_order)){
+//			$.msgbox('数字を入力してください。');
+//				return;
+//				}
+//		if( tag_order>orderMax || tag_order<orderMin){
+//			$.msgbox('表示順を'+orderMin+'から'+orderMax+'までの間に設定してください');
+//				return;
+//		}
+//		
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'insert', 'mode':'tag', 'curdate':curdate, 'field1[]':['tag_name','tag_type','tag_order'], 'data1[]':[tag_name,tag_type,tag_order]}, 
+//			success: function(r){
+//				if(r){
+//					if(r == 2){
+//						$.msgbox('該当タグ名は存在しています。');
+//					} else {
+//						$.viewlistTag(vlist, 'list');
+//					}
+//				}else{
+//					alert('タグ新規ERROR');
+//				}
+//			}
+//		});
+// 	});
 
 	/*********************************
 	*	タグ名の更新
 	*/
-	$('.update_tag', '#tagmastertable').live('click', function(){
-		var curdate = $('#apply').val();
-		var fld = ['tagid','tag_name','tag_type','tag_order'];
-		var dat = [];
-		var tmp = '';
-		var vlist = $('#tagmastertable tbody tr').attr('class');
-		var orderMin = parseInt($('.orderMin').val());
-		var orderMax = parseInt($('.orderMax').val());
-
-		$('#tagmastertable tbody tr').each( function(){
-				var tag_name = $('.tag_name', this).val();
-				var tag_order = $('.tag_order', this).val();
-				if(tag_name==''){
-					$.msgbox('タグ名を指定してください。');
-					return;
-				}else if(tag_order==''){
-					$.msgbox('表示順を指定してください。');
-					return;		
-				}else if(isNaN(tag_order)){
-					$.msgbox('表示順に数字を入力してください。');
-					return;		
-				}
-				if( tag_order>orderMax || tag_order<orderMin ){
-					$.msgbox('表示順を'+orderMin+'から'+orderMax+'までの間に設定してください');
-					return;
-				}
-			tmp = $(this).attr('id').split('_')[1];//id
-//			tmp += '|' + $('.tag_name', this).val();//name
-			tmp += '|' + tag_name;//name
-			tmp += '|' + ($(this).attr('class'));//type
-//			tmp += '|' + $('.tag_order', this).val();//order
-			tmp += '|' + tag_order;//order
-			dat.push(tmp);
-		});
-
-		if(!confirm('タグを更新します、よろしいですか？')){
-			return;
-		}
-
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'update', 'mode':'tag', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
-			success: function(r){
-				if(r){
-					$.viewlistTag(vlist, 'list');
-				}else{
-					alert('タグ更新ERROR');
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('.update_tag', '#tagmastertable').live('click', function(){
+//		var curdate = $('#apply').val();
+//		var fld = ['tagid','tag_name','tag_type','tag_order'];
+//		var dat = [];
+//		var tmp = '';
+//		var vlist = $('#tagmastertable tbody tr').attr('class');
+//		var orderMin = parseInt($('.orderMin').val());
+//		var orderMax = parseInt($('.orderMax').val());
+//
+//		$('#tagmastertable tbody tr').each( function(){
+//				var tag_name = $('.tag_name', this).val();
+//				var tag_order = $('.tag_order', this).val();
+//				if(tag_name==''){
+//					$.msgbox('タグ名を指定してください。');
+//					return;
+//				}else if(tag_order==''){
+//					$.msgbox('表示順を指定してください。');
+//					return;		
+//				}else if(isNaN(tag_order)){
+//					$.msgbox('表示順に数字を入力してください。');
+//					return;		
+//				}
+//				if( tag_order>orderMax || tag_order<orderMin ){
+//					$.msgbox('表示順を'+orderMin+'から'+orderMax+'までの間に設定してください');
+//					return;
+//				}
+//			tmp = $(this).attr('id').split('_')[1];//id
+////			tmp += '|' + $('.tag_name', this).val();//name
+//			tmp += '|' + tag_name;//name
+//			tmp += '|' + ($(this).attr('class'));//type
+////			tmp += '|' + $('.tag_order', this).val();//order
+//			tmp += '|' + tag_order;//order
+//			dat.push(tmp);
+//		});
+//
+//		if(!confirm('タグを更新します、よろしいですか？')){
+//			return;
+//		}
+//
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'update', 'mode':'tag', 'curdate':curdate, 'field2[]':fld, 'data2[]':dat}, 
+//			success: function(r){
+//				if(r){
+//					$.viewlistTag(vlist, 'list');
+//				}else{
+//					alert('タグ更新ERROR');
+//				}
+//			}
+//		});
+// 	});
 
 	/*********************************
 	*	タグ名の削除
 	*/
-	$('.delete_tag', '#tagmastertable').live('click', function(){
-		var curdate = $('#apply').val();
-		var vlist = $('#tagmastertable tbody tr').attr('class');
-		var tagid = $(this).attr('no');
-		var info = $(this).attr('name');
-
-		if(!confirm('タグ ' + info + ' を削除します、よろしいですか？')){
-			return;
-		}
-
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'delete', 'mode':'tag', 'curdate':curdate, 'field1[]':['tagid'], 'data1[]':[tagid]}, 
-			success: function(r){
-				if(r){
-					$.viewlistTag(vlist, 'list');
-				}else{
-					alert('DELETE tag ERROR');
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('.delete_tag', '#tagmastertable').live('click', function(){
+//		var curdate = $('#apply').val();
+//		var vlist = $('#tagmastertable tbody tr').attr('class');
+//		var tagid = $(this).attr('no');
+//		var info = $(this).attr('name');
+//
+//		if(!confirm('タグ ' + info + ' を削除します、よろしいですか？')){
+//			return;
+//		}
+//
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'delete', 'mode':'tag', 'curdate':curdate, 'field1[]':['tagid'], 'data1[]':[tagid]}, 
+//			success: function(r){
+//				if(r){
+//					$.viewlistTag(vlist, 'list');
+//				}else{
+//					alert('DELETE tag ERROR');
+//				}
+//			}
+//		});
+// 	});
 
 	/********************************
 	*	サイズシリーズの新規追加
 	*/
-	$('#add_series').live('click', function(){
-		var curdate = $('#apply').val();
-		if(curdate==''){
-			$.msgbox('登録する日付を指定してください。');
-			return;
-		}
-		var item_id = $('#basictable tbody tr:first').attr('id').split('_')[1];
-		var dat = [];
-		$('#sizetable tbody tr:eq(1) td:gt(0) input:checked').each( function(){
-			dat.push($(this).val());
-		});
-		
-		if(dat.length==0){
-			$.msgbox('サイズを指定してください。');
-			return;
-		}
-		
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'insert', 'mode':'sizeseries', 'curdate':curdate, 'item_id':item_id, 'size_id':dat}, 
-			success: function(r){
-				if(r){
-					$.showItemDetail(item_id);
-					$('#updatetable_wrap').html('');
-					$('.button_wraptop, .button_wrapbottom').hide();
-				}else{
-					alert('Error: p477\n'+r);
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('#add_series').live('click', function(){
+//		var curdate = $('#apply').val();
+//		if(curdate==''){
+//			$.msgbox('登録する日付を指定してください。');
+//			return;
+//		}
+//		var item_id = $('#basictable tbody tr:first').attr('id').split('_')[1];
+//		var dat = [];
+//		$('#sizetable tbody tr:eq(1) td:gt(0) input:checked').each( function(){
+//			dat.push($(this).val());
+//		});
+//		
+//		if(dat.length==0){
+//			$.msgbox('サイズを指定してください。');
+//			return;
+//		}
+//		
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'insert', 'mode':'sizeseries', 'curdate':curdate, 'item_id':item_id, 'size_id':dat}, 
+//			success: function(r){
+//				if(r){
+//					$.showItemDetail(item_id);
+//					$('#updatetable_wrap').html('');
+//					$('.button_wraptop, .button_wrapbottom').hide();
+//				}else{
+//					alert('Error: p477\n'+r);
+//				}
+//			}
+//		});
+// 	});
 	
 	/********************************
 	*	スタッフの新規登録
@@ -803,512 +818,515 @@ $(function(){
 	/********************************
 	*	商品の新規登録
 	*/
-	$('.addnew_button').click( function(){
-		var curdate = $('#apply').val();
-		if(curdate==''){
-			$.msgbox('登録する日付を指定してください。');
-			return;
-		}
-		
-		// 基本情報
-		var category_id = $('.category_id').val();
-		if(category_id==''){
-			$.msgbox('商品カテゴリーを指定してください。');
-			return;
-		}
-		var tbl = $('#basictable tbody tr:first');
-		var item_code = tbl.find('.item_code').val();
-		var item_name = tbl.find('.item_name').val();
-		var ratio_id = tbl.find('.ratio_id').val();
-		var pp_id = tbl.find('.pp_id').attr('alt');
-		var maker_id = tbl.find('.maker_id').val();
-		var item_row = tbl.find('.item_row').val();
-		var opp = tbl.find('.opp').val();
-		var oz = tbl.find('.oz').val();
-		var lineup = tbl.find('.lineup:checked').length;
-		var show_site_list = $('.show_site:checked').map(function() {
-		return $(this).val();
-		});
-	var show_site="";
-		for(var i=0; i<show_site_list.length; i++){
-				if(i != 0) {
-					show_site += ",";
-				}
-				show_site += show_site_list[i];
-		}
-
-		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
-			$.msgbox('アイテムコードに使用できる文字は、半角英数とハイフン(-)だけです。');
-			return;
-		}else{
-			var codeCheck = $.codeCheck(item_code);
-			if(codeCheck == 1){
-				$.msgbox('商品コード'+item_code+'が存在しています。');
-				return;
-			}
-		}
-
-		if(item_name==""){
-			$.msgbox('アイテム名を入力してください。');
-			return;
-		}
-		var fld1 = ['category_id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','opp','oz','lineup','show_site'];
-		var data1 = [category_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,opp,oz,lineup,show_site];
-		
-		// サイズと価格
-		var fld2 = ['size_id','price_1','price_0','price_maker_1','price_maker_0','numbernopack','numberpack'];
-		var data2 = [];
-		var sizeid = [];
-		var n = 0;
-		$('#pricetable tbody tr').each( function(){
-			var chk = true;
-			var tmp = '';
-			var input_len = $(this).children('td').length;
-			for(var i=0; i<input_len; i++){
-				var fee = $(this).children('td:eq('+i+')').children('input').val();
-				if(fee-0 == 0){
-					chk = false;
-					break;
-				}
-				tmp += '|'+fee; 
-			}
-			if(chk){
-				var size_id = $(this).children('th').attr('class').split('_')[1];
-				sizeid[n] = size_id + tmp;
-				data2[n++] = size_id + tmp;
-			}
-		});
-		if(data2.length==0){
-			$.msgbox('サイズと価格の指定がありません。');
-			return;
-		}
-		
-		// サイズシリーズ
-		var fld3 = ['size_id'];
-		var data3 = [];
-		var s = 0;
-		$('.seriestable tbody tr:first td').each( function(index){
-			if($(this).children(':checkbox').is(':checked')){
-				data3[s++] = sizeid[index];
-			}
-		});
-		
-		var series = 2;
-		if(s==n){	// サイズ制限なし
-			data3 = [];
-			series = 1;
-		}
-		
-		// カラー
-		var fld4 = ['color_code','color_id','size_series'];
-		var data4 = [];
-		var msg = ['カラーコードに使用できる文字は、半角英数とハイフン(-)だけです。', 'カラー名を確認して下さい。'];
-		var chk = -1;
-		var p = 0;
-		$('.colortable tbody tr').each( function(){
-			var tmp = '';
-			
-			var td = $(this).children('td');
-			var color_code = td.find('.color_code').val();
-			var color_name = td.find('.color_name').val();
-			if(!color_code.match(/^[0-9A-Za-z-]+$/)){
-				chk = 0;
-			}else{
-				tmp += color_code+'|';
-			}
-			
-			if(color_name=="" || typeof $.itemcolor.hash[color_name]==='undefined'){
-				tmp = '';
-				td.find('.color_name').val('');
-				if(chk==-1){
-					chk = 1;
-				}else if(chk==0){
-					chk = -1;
-				}
-			}else if(tmp!=''){
-				tmp += $.itemcolor.hash[color_name] + '|';
-			}
-			
-			if(tmp!=''){
-				if(series==1){
-					tmp += 1;
-				}else{
-					tmp += td.find('.series').val();
-				}
-				data4[p++] = tmp;
-			}else if(chk!=-1){
-				return false;
-			}
-			
-		});
-		if(p==0){
-			$.msgbox('商品カラーを指定してください。');
-			return;
-		}else if(chk!=-1){
-			$.msgbox(msg[chk]);
-			return;
-		}
-		
-		if(!confirm("【 商品の登録 】\n"+curdate + " から適用されます。")){
-			return;
-		}
-		
-		$('.step2').removeClass('cur');
-		$('.step1').addClass('cur');
-		$('.step2_wrap').hide('fast', function(){$('.step1_wrap').show();});
-		$('.button_wraptop, .button_wrapbottom').hide();
-		$('.category_id').val('');
-		var basic = $('#basictable tbody tr:first');
-		basic.find('.item_code').val('');
-		basic.find('.item_name').val('');
-		basic.find('.ratio_id').val('1');
-		basic.find('.pp_id').attr({'alt':'1', 'src':$._DB.imgPath+'/printposition/t-shirts/normal-tshirts/layout_front.png'});
-		basic.find('.maker_id').val('1');
-		basic.find('.item_row').val('10');
-		basic.find('.opp').val('0');
-		basic.find('.oz').val('0');
-		basic.find('.lineup').removeAttr('checked');
-		$('#pricetable tbody tr td :input').val('0');
-		$('.seriestable thead').html('<tr><th></th></tr>');
-		$('.seriestable tbody').html('<tr><td></td></tr>');
-		var tr = '<tr>';
-		tr += '<td><input type="text" value="" class="color_code" /></td>';
-		tr += '<td><input type="text" value="" class="color_name" /></td>';
-		tr += '<td class="ac"><select class="series"><option value="1" selected="selected">制限なし</option><option value="2">制限あり</option></select></td>';
-		tr += '<td></td>';
-		tr += '</tr>';
-		$('.colortable tbody').html(tr);
-		$( ".step2_wrap .colortable tbody tr:last .color_name" ).autocomplete({
-			source: 
-				function(req, res){
-				var list = [];
-				var n = 0;
-				for(var i=0; i<$.itemcolor.names.length; i++){
-					if($.itemcolor.names[i].indexOf(req.term)==0){
-						list[n++] = $.itemcolor.names[i];
-					}
-				}
-				res(list);
-			},
-			delay: 0,
-			minLength: 1,
-			autoFocus: true
-		}).focus( function(){
-			$(this).autocomplete('search',$(this).val());
-		});
-		
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'insert', 'mode':'item', 'curdate':curdate, 'field1[]':fld1, 'data1[]':data1, 'field2[]':fld2, 'data2[]':data2, 'field3[]':fld3, 'data3[]':data3, 'field4[]':fld4, 'data4[]':data4}, 
-			success: function(r){
-				if(r){
-					$('.step2').removeClass('cur');
-					$('.step1').addClass('cur');
-					$('.step2_wrap').hide('fast', function(){$('.step1_wrap').show();});
-					$('.button_wraptop, .button_wrapbottom').hide();
-					
-					$('.category_id').val('');
-					var basic = $('#basictable tbody tr:first');
-					basic.find('.item_code').val('');
-					basic.find('.item_name').val('');
-					basic.find('.ratio_id').val('1');
-					basic.find('.pp_id').attr({'alt':'1', 'src':$._DB.imgPath+'printposition/t-shirts/normal-tshirts/layout_front.png'});
-					basic.find('.maker_id').val('1');
-					basic.find('.item_row').val('10');
-					basic.find('.opp').val('0');
-					basic.find('.oz').val('0');
-					basic.find('.lineup').removeAttr('checked');
-					
-					$('#pricetable tbody tr td :input').val('0');
-					
-					$('.seriestable thead').html('<tr><th></th></tr>');
-					$('.seriestable tbody').html('<tr><td></td></tr>');
-					
-					var tr = '<tr>';
-					tr += '<td><input type="text" value="" class="color_code" /></td>';
-					tr += '<td><input type="text" value="" class="color_name" /></td>';
-					tr += '<td class="ac"><select class="series"><option value="1" selected="selected">制限なし</option><option value="2">制限あり</option></select></td>';
-					tr += '<td></td>';
-					tr += '</tr>';
-					$('.colortable tbody').html(tr);
-					$( ".step2_wrap .colortable tbody tr:last .color_name" ).autocomplete({
-						source: 
-							function(req, res){
-							var list = [];
-							var n = 0;
-							for(var i=0; i<$.itemcolor.names.length; i++){
-								if($.itemcolor.names[i].indexOf(req.term)==0){
-									list[n++] = $.itemcolor.names[i];
-								}
-							}
-							res(list);
-						},
-						delay: 0,
-						minLength: 1,
-						autoFocus: true
-					}).focus( function(){
-						$(this).autocomplete('search',$(this).val());
-					});
-				}else{
-					alert('Error: p789\n'+r);
-				}
-			}
-		});
-		
-	});
+// 管理画面移行に伴い廃止
+//	$('.addnew_button').click( function(){
+//		var curdate = $('#apply').val();
+//		if(curdate==''){
+//			$.msgbox('登録する日付を指定してください。');
+//			return;
+//		}
+//		
+//		// 基本情報
+//		var category_id = $('.category_id').val();
+//		if(category_id==''){
+//			$.msgbox('商品カテゴリーを指定してください。');
+//			return;
+//		}
+//		var tbl = $('#basictable tbody tr:first');
+//		var item_code = tbl.find('.item_code').val();
+//		var item_name = tbl.find('.item_name').val();
+//		var ratio_id = tbl.find('.ratio_id').val();
+//		var pp_id = tbl.find('.pp_id').attr('alt');
+//		var maker_id = tbl.find('.maker_id').val();
+//		var item_row = tbl.find('.item_row').val();
+//		var opp = tbl.find('.opp').val();
+//		var oz = tbl.find('.oz').val();
+//		var lineup = tbl.find('.lineup:checked').length;
+//		var show_site_list = $('.show_site:checked').map(function() {
+//		return $(this).val();
+//		});
+//	var show_site="";
+//		for(var i=0; i<show_site_list.length; i++){
+//				if(i != 0) {
+//					show_site += ",";
+//				}
+//				show_site += show_site_list[i];
+//		}
+//
+//		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
+//			$.msgbox('アイテムコードに使用できる文字は、半角英数とハイフン(-)だけです。');
+//			return;
+//		}else{
+//			var codeCheck = $.codeCheck(item_code);
+//			if(codeCheck == 1){
+//				$.msgbox('商品コード'+item_code+'が存在しています。');
+//				return;
+//			}
+//		}
+//
+//		if(item_name==""){
+//			$.msgbox('アイテム名を入力してください。');
+//			return;
+//		}
+//		var fld1 = ['category_id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','opp','oz','lineup','show_site'];
+//		var data1 = [category_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,opp,oz,lineup,show_site];
+//		
+//		// サイズと価格
+//		var fld2 = ['size_id','price_1','price_0','price_maker_1','price_maker_0','numbernopack','numberpack'];
+//		var data2 = [];
+//		var sizeid = [];
+//		var n = 0;
+//		$('#pricetable tbody tr').each( function(){
+//			var chk = true;
+//			var tmp = '';
+//			var input_len = $(this).children('td').length;
+//			for(var i=0; i<input_len; i++){
+//				var fee = $(this).children('td:eq('+i+')').children('input').val();
+//				if(fee-0 == 0){
+//					chk = false;
+//					break;
+//				}
+//				tmp += '|'+fee; 
+//			}
+//			if(chk){
+//				var size_id = $(this).children('th').attr('class').split('_')[1];
+//				sizeid[n] = size_id + tmp;
+//				data2[n++] = size_id + tmp;
+//			}
+//		});
+//		if(data2.length==0){
+//			$.msgbox('サイズと価格の指定がありません。');
+//			return;
+//		}
+//		
+//		// サイズシリーズ
+//		var fld3 = ['size_id'];
+//		var data3 = [];
+//		var s = 0;
+//		$('.seriestable tbody tr:first td').each( function(index){
+//			if($(this).children(':checkbox').is(':checked')){
+//				data3[s++] = sizeid[index];
+//			}
+//		});
+//		
+//		var series = 2;
+//		if(s==n){	// サイズ制限なし
+//			data3 = [];
+//			series = 1;
+//		}
+//		
+//		// カラー
+//		var fld4 = ['color_code','color_id','size_series'];
+//		var data4 = [];
+//		var msg = ['カラーコードに使用できる文字は、半角英数とハイフン(-)だけです。', 'カラー名を確認して下さい。'];
+//		var chk = -1;
+//		var p = 0;
+//		$('.colortable tbody tr').each( function(){
+//			var tmp = '';
+//			
+//			var td = $(this).children('td');
+//			var color_code = td.find('.color_code').val();
+//			var color_name = td.find('.color_name').val();
+//			if(!color_code.match(/^[0-9A-Za-z-]+$/)){
+//				chk = 0;
+//			}else{
+//				tmp += color_code+'|';
+//			}
+//			
+//			if(color_name=="" || typeof $.itemcolor.hash[color_name]==='undefined'){
+//				tmp = '';
+//				td.find('.color_name').val('');
+//				if(chk==-1){
+//					chk = 1;
+//				}else if(chk==0){
+//					chk = -1;
+//				}
+//			}else if(tmp!=''){
+//				tmp += $.itemcolor.hash[color_name] + '|';
+//			}
+//			
+//			if(tmp!=''){
+//				if(series==1){
+//					tmp += 1;
+//				}else{
+//					tmp += td.find('.series').val();
+//				}
+//				data4[p++] = tmp;
+//			}else if(chk!=-1){
+//				return false;
+//			}
+//			
+//		});
+//		if(p==0){
+//			$.msgbox('商品カラーを指定してください。');
+//			return;
+//		}else if(chk!=-1){
+//			$.msgbox(msg[chk]);
+//			return;
+//		}
+//		
+//		if(!confirm("【 商品の登録 】\n"+curdate + " から適用されます。")){
+//			return;
+//		}
+//		
+//		$('.step2').removeClass('cur');
+//		$('.step1').addClass('cur');
+//		$('.step2_wrap').hide('fast', function(){$('.step1_wrap').show();});
+//		$('.button_wraptop, .button_wrapbottom').hide();
+//		$('.category_id').val('');
+//		var basic = $('#basictable tbody tr:first');
+//		basic.find('.item_code').val('');
+//		basic.find('.item_name').val('');
+//		basic.find('.ratio_id').val('1');
+//		basic.find('.pp_id').attr({'alt':'1', 'src':$._DB.imgPath+'/printposition/t-shirts/normal-tshirts/layout_front.png'});
+//		basic.find('.maker_id').val('1');
+//		basic.find('.item_row').val('10');
+//		basic.find('.opp').val('0');
+//		basic.find('.oz').val('0');
+//		basic.find('.lineup').removeAttr('checked');
+//		$('#pricetable tbody tr td :input').val('0');
+//		$('.seriestable thead').html('<tr><th></th></tr>');
+//		$('.seriestable tbody').html('<tr><td></td></tr>');
+//		var tr = '<tr>';
+//		tr += '<td><input type="text" value="" class="color_code" /></td>';
+//		tr += '<td><input type="text" value="" class="color_name" /></td>';
+//		tr += '<td class="ac"><select class="series"><option value="1" selected="selected">制限なし</option><option value="2">制限あり</option></select></td>';
+//		tr += '<td></td>';
+//		tr += '</tr>';
+//		$('.colortable tbody').html(tr);
+//		$( ".step2_wrap .colortable tbody tr:last .color_name" ).autocomplete({
+//			source: 
+//				function(req, res){
+//				var list = [];
+//				var n = 0;
+//				for(var i=0; i<$.itemcolor.names.length; i++){
+//					if($.itemcolor.names[i].indexOf(req.term)==0){
+//						list[n++] = $.itemcolor.names[i];
+//					}
+//				}
+//				res(list);
+//			},
+//			delay: 0,
+//			minLength: 1,
+//			autoFocus: true
+//		}).focus( function(){
+//			$(this).autocomplete('search',$(this).val());
+//		});
+//		
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'insert', 'mode':'item', 'curdate':curdate, 'field1[]':fld1, 'data1[]':data1, 'field2[]':fld2, 'data2[]':data2, 'field3[]':fld3, 'data3[]':data3, 'field4[]':fld4, 'data4[]':data4}, 
+//			success: function(r){
+//				if(r){
+//					$('.step2').removeClass('cur');
+//					$('.step1').addClass('cur');
+//					$('.step2_wrap').hide('fast', function(){$('.step1_wrap').show();});
+//					$('.button_wraptop, .button_wrapbottom').hide();
+//					
+//					$('.category_id').val('');
+//					var basic = $('#basictable tbody tr:first');
+//					basic.find('.item_code').val('');
+//					basic.find('.item_name').val('');
+//					basic.find('.ratio_id').val('1');
+//					basic.find('.pp_id').attr({'alt':'1', 'src':$._DB.imgPath+'printposition/t-shirts/normal-tshirts/layout_front.png'});
+//					basic.find('.maker_id').val('1');
+//					basic.find('.item_row').val('10');
+//					basic.find('.opp').val('0');
+//					basic.find('.oz').val('0');
+//					basic.find('.lineup').removeAttr('checked');
+//					
+//					$('#pricetable tbody tr td :input').val('0');
+//					
+//					$('.seriestable thead').html('<tr><th></th></tr>');
+//					$('.seriestable tbody').html('<tr><td></td></tr>');
+//					
+//					var tr = '<tr>';
+//					tr += '<td><input type="text" value="" class="color_code" /></td>';
+//					tr += '<td><input type="text" value="" class="color_name" /></td>';
+//					tr += '<td class="ac"><select class="series"><option value="1" selected="selected">制限なし</option><option value="2">制限あり</option></select></td>';
+//					tr += '<td></td>';
+//					tr += '</tr>';
+//					$('.colortable tbody').html(tr);
+//					$( ".step2_wrap .colortable tbody tr:last .color_name" ).autocomplete({
+//						source: 
+//							function(req, res){
+//							var list = [];
+//							var n = 0;
+//							for(var i=0; i<$.itemcolor.names.length; i++){
+//								if($.itemcolor.names[i].indexOf(req.term)==0){
+//									list[n++] = $.itemcolor.names[i];
+//								}
+//							}
+//							res(list);
+//						},
+//						delay: 0,
+//						minLength: 1,
+//						autoFocus: true
+//					}).focus( function(){
+//						$(this).autocomplete('search',$(this).val());
+//					});
+//				}else{
+//					alert('Error: p789\n'+r);
+//				}
+//			}
+//		});
+//		
+//	});
 
 	/********************************
 	*	データ更新
 	*/
-	$('.update_button').live('click', function(){
-		var curdate = $('#apply').val();
-		if(!confirm(curdate+" 付けでデータを更新します。よろしですか？")){
-			return;
-		}
-		// 基本情報
-		var tbl = $('#basictable tbody tr:first');
-		var item_id = tbl.attr('id').split('_')[1];
-		var item_code = tbl.find('.item_code').val();
-		var item_name = tbl.find('.item_name').val();
-		var ratio_id = tbl.find('.ratio_id').val();
-		var pp_id = tbl.find('.pp_id').attr('alt');
-		var maker_id = tbl.find('.maker_id').val();
-		var item_row = tbl.find('.item_row').val();
-		var lineup = tbl.find('.lineup:checked').length;
-		var opp = tbl.find('.opp').val();
-		var oz = tbl.find('.oz').val();
-		var show_site="";
-		var show_site_list = $('.show_site:checked').map(function() {
-			return $(this).val();
-		});
-		
-		$.screenOverlay(true);
-		
-		for(var i=0; i<show_site_list.length; i++){
-			if(i != 0) {
-				show_site += ",";
-			}
-			show_site += show_site_list[i];
-		}
-
-		var itemdate = $('#basictable tbody').find('.datepicker').val();
-		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
-			$.msgbox('アイテムコードに使用できる文字は、半角英数とハイフン(-)だけです。');
-			return;
-		}
-		if(item_name==""){
-			$.msgbox('アイテム名を入力してください。');
-			return;
-		}
-		if(itemdate==''){
-			itemdate = '3000-01-01';
-		}
-		var fld1 = ['id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','lineup','opp','oz','show_site','itemdate'];
-		var data1 = [item_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,lineup,opp,oz,show_site,itemdate];
-		
-		// 価格
-		var tmpsize = {};
-		var n = 0;
-		var fld2 = [];
-		var data2 = [];
-		var isSeries = $('#pricetable thead tr th.series').length;
-		if(isSeries){
-			var pattern = $('#pricetable thead tr th.series').attr('abbr');
-			fld2 = ['price_id', 'size_id', 'price_0', 'price_1', 'price_maker_0', 'price_maker_1', 'itempricedate', 'numbernopack', 'numberpack', 'size_lineup', 'printarea_1', 'printarea_2', 'printarea_3', 'printarea_4', 'printarea_5', 'printarea_6', 'printarea_7', 'series'];
-		}else{
-			fld2 = ['price_id', 'size_id', 'price_0', 'price_1', 'price_maker_0', 'price_maker_1', 'itempricedate', 'numbernopack', 'numberpack', 'size_lineup', 'printarea_1', 'printarea_2', 'printarea_3', 'printarea_4', 'printarea_5', 'printarea_6', 'printarea_7'];
-		}
-		$('#pricetable tbody tr').each( function(){
-			var price_id = $(this).attr('class').split('_')[1];
-			var size_id = $(this).children('th:first').attr('class').split('_')[1];
-			var price_0 = $(this).find('.price_0').val();
-			var price_1 = $(this).find('.price_1').val();
-			var price_maker_0 = $(this).find('.price_maker_0').val();
-			var price_maker_1 = $(this).find('.price_maker_1').val();
-			var numbernopack = $(this).find('.numbernopack').val();
-			var numberpack = $(this).find('.numberpack').val();
-			var size_lineup = $(this).find('.size_lineup:checked').length;
-			var printarea_1 = $(this).find('.printarea_1').val().trim();
-			var printarea_2 = $(this).find('.printarea_2').val().trim();
-			var printarea_3 = $(this).find('.printarea_3').val().trim();
-			var printarea_4 = $(this).find('.printarea_4').val().trim();
-			var printarea_5 = $(this).find('.printarea_5').val().trim();
-			var printarea_6 = $(this).find('.printarea_6').val().trim();
-			var printarea_7 = $(this).find('.printarea_7').val().trim();
-			var itempricedate = $(this).find('.datepicker').val();
-			if(itempricedate==''){
-				itempricedate = '3000-01-01';
-			}
-			
-			if(typeof tmpsize[size_id] != 'undefined'){
-				$.msgbox('サイズが重複しています。');
-				n = 0;
-				return false;
-			}
-			tmpsize[size_id] = true;
-			
-			if(!price_0.match(/^[0-9]+$/) || !price_1.match(/^[0-9]+$/) || !price_maker_0.match(/^[0-9]+$/) || !price_maker_1.match(/^[0-9]+$/)){
-				$.msgbox('価格に使用できる文字は、半角数値だけです。');
-				n = 0;
-				return false;
-			}
-			if(!numbernopack.match(/^[0-9]+$/) || !numberpack.match(/^[0-9]+$/)){
-				$.msgbox('梱包枚数に使用できる文字は、半角数値だけです。');
-				n = 0;
-				return false;
-			}
-			if(isSeries){
-				var series = '';
-				var pattern = $(this).find('td.series');
-				for(var i=0; i<pattern.length; i++){
-					var chk = pattern.children(':checkbox');
-					series += chk.attr('name').split('_')[1]+':'+chk.val()+':'+pattern.children(':checkbox:checked').length+',';
-				}
-				series = series.slice(0,-1);
-				data2[n++] = price_id+'|'+size_id+'|'+price_0+'|'+price_1+'|'+price_maker_0+'|'+price_maker_1+'|'+itempricedate+'|'+numbernopack+'|'+numberpack+'|'+size_lineup+'|'+printarea_1+'|'+printarea_2+'|'+printarea_3+'|'+printarea_4+'|'+printarea_5+'|'+printarea_6+'|'+printarea_7+'|'+series;
-			}else{
-				data2[n++] = price_id+'|'+size_id+'|'+price_0+'|'+price_1+'|'+price_maker_0+'|'+price_maker_1+'|'+itempricedate+'|'+numbernopack+'|'+numberpack+'|'+size_lineup+'|'+printarea_1+'|'+printarea_2+'|'+printarea_3+'|'+printarea_4+'|'+printarea_5+'|'+printarea_6+'|'+printarea_7;
-			}
-		});
-		if(n==0) return;
-		
-		// カラー
-		var tmpcolor = {};
-		var fld3 = ['master_id','color_code','color_id','size_series','catalogdate','color_lineup'];
-		var data3 = [];
-		n = 0;
-		$('.colortable tbody tr', '#updatetable_wrap').each( function(){
-			var master_id = $(this).attr('class').split('_')[1];
-			var color_code = $(this).find('.color_code').val();
-			var color_name = $(this).find('.color_name').val();
-			var color_id = $(this).find('.color_name').parent().attr('abbr');
-			var size_series = $(this).find('.series').val();
-			var color_lineup = $(this).find('.color_lineup:checked').length;
-			var catalogdate = $(this).find('.datepicker').val();
-			if(catalogdate==''){
-				catalogdate = '3000-01-01';
-			}
-			if(!color_code.match(/^[0-9A-Za-z-]+$/)){
-				$.msgbox('カラーコードに使用できる文字は、半角英数とハイフン(-)だけです。');
-				n = 0;
-				return false;
-			}
-			if(color_name=="" || typeof $.itemcolor.hash[color_name]==='undefined'){
-				$(this).find('.color_name').val('');
-				$.msgbox('カラー名を確認して下さい。');
-				n = 0;
-				return false;
-			}else{
-				color_id = $.itemcolor.hash[color_name];
-			}
-			
-			if(typeof tmpcolor[color_id] != 'undefined'){
-				$.msgbox('カラーが重複しています。');
-				n = 0;
-				return false;
-			}
-			tmpcolor[color_id] = true;
-			
-			data3[n++] = master_id+'|'+color_code+'|'+color_id+'|'+size_series+'|'+catalogdate+'|'+color_lineup;
-		});
-		if(n==0) return;
-		
-		// 寸法
-		var fld4 = ['itemmeasureid','item_code','size_id','measure_id','dimension'];
-		var data4 = [];
-		$('#measuretable tbody tr').each( function(){
-			var id = $(this).attr('class').split('_')[1];
-			var measure_id = $(this).children('th').children("select").val();
-			if(measure_id=="") return true;
-			$(this).children("td").each( function(){
-				var txt = $(this).children("input");
-				var size_id = txt.attr("class").split("_")[1];
-				var dimension = txt.val();
-				var val = id+"|"+item_code+"|"+size_id+"|"+measure_id+"|"+dimension;
-				data4.push(val);
-			});
-		});
-		
-		// 商品詳細ページ情報
-		var fld5 = ['itemdetailid','item_code','i_color_code','i_caption','i_description','i_material','i_silk','i_digit','i_inkjet','i_cutting','i_embroidery','i_note_label','i_note'];
-		var data5 = [];
-		var detail = $("#detailtable tbody");
-		data5[0] = detail.attr('class').split('_')[1];
-		data5[1] = item_code;
-		for(var i=2; i<6; i++){
-			data5[i] = detail.find("."+fld5[i]).val();
-		}
-		for(var i=6; i<11; i++){
-			data5[i] = detail.find("."+fld5[i]+":checked").length;
-		}
-		for(var i=11; i<fld5.length; i++){
-			data5[i] = detail.find("."+fld5[i]).val();
-		}
-
-		//タグ
-		var fld6 = ['tag_itemid','tag_id'];
-		var data6 = [];
-		var itemtag = $("#itemtagtable tbody");
-		var tagchecked = $('.itemtag:checked').map(function() {
-		return $(this).val();
-		});
-		var item_id = $('.item_id').val();
-		for(var i = 0 ;i < tagchecked.length;i++){
-		tmp = item_id;
-		tmp += '|' + tagchecked[i];
-		data6.push(tmp);
-		}
-		//--------------------------------------------------------
-
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'update', 'mode':'item', 'curdate':curdate, 
-						'field1[]':fld1, 'data1[]':data1, 'field2[]':fld2, 'data2[]':data2, 'field3[]':fld3, 'data3[]':data3, 
-						'field4[]':fld4, 'data4[]':data4, 'field5[]':fld5, 'data5[]':data5, 'field6[]':fld6, 'data6[]':data6}, 
-			success: function(r){
-				if(r){
-					$('#updatetable_wrap, #detailtable_wrap, #measuretable_wrap').html('');
-					$('.button_wraptop, .button_wrapbottom').hide();
-					$.showItemDetail(item_id);
-				}else{
-					alert('Error: p980\n'+r);
-				}
-			},
-			error: function(){
-				alert('Error: p1234\n'+r);
-			},
-			complete: function() {
-				$.screenOverlay(false);
-			}
-		});
-	});
+// 管理画面移行に伴い廃止
+//	$('.update_button').live('click', function(){
+//		var curdate = $('#apply').val();
+//		if(!confirm(curdate+" 付けでデータを更新します。よろしですか？")){
+//			return;
+//		}
+//		// 基本情報
+//		var tbl = $('#basictable tbody tr:first');
+//		var item_id = tbl.attr('id').split('_')[1];
+//		var item_code = tbl.find('.item_code').val();
+//		var item_name = tbl.find('.item_name').val();
+//		var ratio_id = tbl.find('.ratio_id').val();
+//		var pp_id = tbl.find('.pp_id').attr('alt');
+//		var maker_id = tbl.find('.maker_id').val();
+//		var item_row = tbl.find('.item_row').val();
+//		var lineup = tbl.find('.lineup:checked').length;
+//		var opp = tbl.find('.opp').val();
+//		var oz = tbl.find('.oz').val();
+//		var show_site="";
+//		var show_site_list = $('.show_site:checked').map(function() {
+//			return $(this).val();
+//		});
+//		
+//		$.screenOverlay(true);
+//		
+//		for(var i=0; i<show_site_list.length; i++){
+//			if(i != 0) {
+//				show_site += ",";
+//			}
+//			show_site += show_site_list[i];
+//		}
+//
+//		var itemdate = $('#basictable tbody').find('.datepicker').val();
+//		if(!item_code.match(/^[0-9A-Za-z-]+$/)){
+//			$.msgbox('アイテムコードに使用できる文字は、半角英数とハイフン(-)だけです。');
+//			return;
+//		}
+//		if(item_name==""){
+//			$.msgbox('アイテム名を入力してください。');
+//			return;
+//		}
+//		if(itemdate==''){
+//			itemdate = '3000-01-01';
+//		}
+//		var fld1 = ['id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','lineup','opp','oz','show_site','itemdate'];
+//		var data1 = [item_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,lineup,opp,oz,show_site,itemdate];
+//		
+//		// 価格
+//		var tmpsize = {};
+//		var n = 0;
+//		var fld2 = [];
+//		var data2 = [];
+//		var isSeries = $('#pricetable thead tr th.series').length;
+//		if(isSeries){
+//			var pattern = $('#pricetable thead tr th.series').attr('abbr');
+//			fld2 = ['price_id', 'size_id', 'price_0', 'price_1', 'price_maker_0', 'price_maker_1', 'itempricedate', 'numbernopack', 'numberpack', 'size_lineup', 'printarea_1', 'printarea_2', 'printarea_3', 'printarea_4', 'printarea_5', 'printarea_6', 'printarea_7', 'series'];
+//		}else{
+//			fld2 = ['price_id', 'size_id', 'price_0', 'price_1', 'price_maker_0', 'price_maker_1', 'itempricedate', 'numbernopack', 'numberpack', 'size_lineup', 'printarea_1', 'printarea_2', 'printarea_3', 'printarea_4', 'printarea_5', 'printarea_6', 'printarea_7'];
+//		}
+//		$('#pricetable tbody tr').each( function(){
+//			var price_id = $(this).attr('class').split('_')[1];
+//			var size_id = $(this).children('th:first').attr('class').split('_')[1];
+//			var price_0 = $(this).find('.price_0').val();
+//			var price_1 = $(this).find('.price_1').val();
+//			var price_maker_0 = $(this).find('.price_maker_0').val();
+//			var price_maker_1 = $(this).find('.price_maker_1').val();
+//			var numbernopack = $(this).find('.numbernopack').val();
+//			var numberpack = $(this).find('.numberpack').val();
+//			var size_lineup = $(this).find('.size_lineup:checked').length;
+//			var printarea_1 = $(this).find('.printarea_1').val().trim();
+//			var printarea_2 = $(this).find('.printarea_2').val().trim();
+//			var printarea_3 = $(this).find('.printarea_3').val().trim();
+//			var printarea_4 = $(this).find('.printarea_4').val().trim();
+//			var printarea_5 = $(this).find('.printarea_5').val().trim();
+//			var printarea_6 = $(this).find('.printarea_6').val().trim();
+//			var printarea_7 = $(this).find('.printarea_7').val().trim();
+//			var itempricedate = $(this).find('.datepicker').val();
+//			if(itempricedate==''){
+//				itempricedate = '3000-01-01';
+//			}
+//			
+//			if(typeof tmpsize[size_id] != 'undefined'){
+//				$.msgbox('サイズが重複しています。');
+//				n = 0;
+//				return false;
+//			}
+//			tmpsize[size_id] = true;
+//			
+//			if(!price_0.match(/^[0-9]+$/) || !price_1.match(/^[0-9]+$/) || !price_maker_0.match(/^[0-9]+$/) || !price_maker_1.match(/^[0-9]+$/)){
+//				$.msgbox('価格に使用できる文字は、半角数値だけです。');
+//				n = 0;
+//				return false;
+//			}
+//			if(!numbernopack.match(/^[0-9]+$/) || !numberpack.match(/^[0-9]+$/)){
+//				$.msgbox('梱包枚数に使用できる文字は、半角数値だけです。');
+//				n = 0;
+//				return false;
+//			}
+//			if(isSeries){
+//				var series = '';
+//				var pattern = $(this).find('td.series');
+//				for(var i=0; i<pattern.length; i++){
+//					var chk = pattern.children(':checkbox');
+//					series += chk.attr('name').split('_')[1]+':'+chk.val()+':'+pattern.children(':checkbox:checked').length+',';
+//				}
+//				series = series.slice(0,-1);
+//				data2[n++] = price_id+'|'+size_id+'|'+price_0+'|'+price_1+'|'+price_maker_0+'|'+price_maker_1+'|'+itempricedate+'|'+numbernopack+'|'+numberpack+'|'+size_lineup+'|'+printarea_1+'|'+printarea_2+'|'+printarea_3+'|'+printarea_4+'|'+printarea_5+'|'+printarea_6+'|'+printarea_7+'|'+series;
+//			}else{
+//				data2[n++] = price_id+'|'+size_id+'|'+price_0+'|'+price_1+'|'+price_maker_0+'|'+price_maker_1+'|'+itempricedate+'|'+numbernopack+'|'+numberpack+'|'+size_lineup+'|'+printarea_1+'|'+printarea_2+'|'+printarea_3+'|'+printarea_4+'|'+printarea_5+'|'+printarea_6+'|'+printarea_7;
+//			}
+//		});
+//		if(n==0) return;
+//		
+//		// カラー
+//		var tmpcolor = {};
+//		var fld3 = ['master_id','color_code','color_id','size_series','catalogdate','color_lineup'];
+//		var data3 = [];
+//		n = 0;
+//		$('.colortable tbody tr', '#updatetable_wrap').each( function(){
+//			var master_id = $(this).attr('class').split('_')[1];
+//			var color_code = $(this).find('.color_code').val();
+//			var color_name = $(this).find('.color_name').val();
+//			var color_id = $(this).find('.color_name').parent().attr('abbr');
+//			var size_series = $(this).find('.series').val();
+//			var color_lineup = $(this).find('.color_lineup:checked').length;
+//			var catalogdate = $(this).find('.datepicker').val();
+//			if(catalogdate==''){
+//				catalogdate = '3000-01-01';
+//			}
+//			if(!color_code.match(/^[0-9A-Za-z-]+$/)){
+//				$.msgbox('カラーコードに使用できる文字は、半角英数とハイフン(-)だけです。');
+//				n = 0;
+//				return false;
+//			}
+//			if(color_name=="" || typeof $.itemcolor.hash[color_name]==='undefined'){
+//				$(this).find('.color_name').val('');
+//				$.msgbox('カラー名を確認して下さい。');
+//				n = 0;
+//				return false;
+//			}else{
+//				color_id = $.itemcolor.hash[color_name];
+//			}
+//			
+//			if(typeof tmpcolor[color_id] != 'undefined'){
+//				$.msgbox('カラーが重複しています。');
+//				n = 0;
+//				return false;
+//			}
+//			tmpcolor[color_id] = true;
+//			
+//			data3[n++] = master_id+'|'+color_code+'|'+color_id+'|'+size_series+'|'+catalogdate+'|'+color_lineup;
+//		});
+//		if(n==0) return;
+//		
+//		// 寸法
+//		var fld4 = ['itemmeasureid','item_code','size_id','measure_id','dimension'];
+//		var data4 = [];
+//		$('#measuretable tbody tr').each( function(){
+//			var id = $(this).attr('class').split('_')[1];
+//			var measure_id = $(this).children('th').children("select").val();
+//			if(measure_id=="") return true;
+//			$(this).children("td").each( function(){
+//				var txt = $(this).children("input");
+//				var size_id = txt.attr("class").split("_")[1];
+//				var dimension = txt.val();
+//				var val = id+"|"+item_code+"|"+size_id+"|"+measure_id+"|"+dimension;
+//				data4.push(val);
+//			});
+//		});
+//		
+//		// 商品詳細ページ情報
+//		var fld5 = ['itemdetailid','item_code','i_color_code','i_caption','i_description','i_material','i_silk','i_digit','i_inkjet','i_cutting','i_embroidery','i_note_label','i_note'];
+//		var data5 = [];
+//		var detail = $("#detailtable tbody");
+//		data5[0] = detail.attr('class').split('_')[1];
+//		data5[1] = item_code;
+//		for(var i=2; i<6; i++){
+//			data5[i] = detail.find("."+fld5[i]).val();
+//		}
+//		for(var i=6; i<11; i++){
+//			data5[i] = detail.find("."+fld5[i]+":checked").length;
+//		}
+//		for(var i=11; i<fld5.length; i++){
+//			data5[i] = detail.find("."+fld5[i]).val();
+//		}
+//
+//		//タグ
+//		var fld6 = ['tag_itemid','tag_id'];
+//		var data6 = [];
+//		var itemtag = $("#itemtagtable tbody");
+//		var tagchecked = $('.itemtag:checked').map(function() {
+//		return $(this).val();
+//		});
+//		var item_id = $('.item_id').val();
+//		for(var i = 0 ;i < tagchecked.length;i++){
+//		tmp = item_id;
+//		tmp += '|' + tagchecked[i];
+//		data6.push(tmp);
+//		}
+//		//--------------------------------------------------------
+//
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'update', 'mode':'item', 'curdate':curdate, 
+//						'field1[]':fld1, 'data1[]':data1, 'field2[]':fld2, 'data2[]':data2, 'field3[]':fld3, 'data3[]':data3, 
+//						'field4[]':fld4, 'data4[]':data4, 'field5[]':fld5, 'data5[]':data5, 'field6[]':fld6, 'data6[]':data6}, 
+//			success: function(r){
+//				if(r){
+//					$('#updatetable_wrap, #detailtable_wrap, #measuretable_wrap').html('');
+//					$('.button_wraptop, .button_wrapbottom').hide();
+//					$.showItemDetail(item_id);
+//				}else{
+//					alert('Error: p980\n'+r);
+//				}
+//			},
+//			error: function(){
+//				alert('Error: p1234\n'+r);
+//			},
+//			complete: function() {
+//				$.screenOverlay(false);
+//			}
+//		});
+//	});
 
 	/********************************
 	*	データ削除
 	*/
-	$('.delete_button').live('click', function(){
-		var curdate = $('#apply').val();
-		//var category_id = $('.category_id').val();
-		var category_id = $('#basictable caption').text().split('.')[0];
-
-		var tbl = $('#basictable tbody tr:first');
-		var item_id = tbl.attr('id').split('_')[1];
-		var item_code = tbl.find('.item_code').val();
-		var item_name = tbl.find('.item_name').val();
-		if(!confirm("商品 [" + item_code + " "+item_name+"] をデータベースから削除します。よろしですか？")){
-			return;
-		}
-		var fld = ['item_id'];
-		var dat = item_id;
-		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
-			data:{'act':'db', 'func':'delete', 'mode':'item', 'curdate':curdate, 'field1[]':fld, 'data1[]':dat}, 
-			success: function(r){
-				if(r){
-					$.viewlist(category_id);
-				}else{
-					alert('Error: ITEM DELETE ERROR');
-				}
-			}
-		});
- 	});
+// 管理画面移行に伴い廃止
+//	$('.delete_button').live('click', function(){
+//		var curdate = $('#apply').val();
+//		//var category_id = $('.category_id').val();
+//		var category_id = $('#basictable caption').text().split('.')[0];
+//
+//		var tbl = $('#basictable tbody tr:first');
+//		var item_id = tbl.attr('id').split('_')[1];
+//		var item_code = tbl.find('.item_code').val();
+//		var item_name = tbl.find('.item_name').val();
+//		if(!confirm("商品 [" + item_code + " "+item_name+"] をデータベースから削除します。よろしですか？")){
+//			return;
+//		}
+//		var fld = ['item_id'];
+//		var dat = item_id;
+//		$.ajax({url: '../php_libs/admin/master.php', type:'POST', dataType:'text', async:false,
+//			data:{'act':'db', 'func':'delete', 'mode':'item', 'curdate':curdate, 'field1[]':fld, 'data1[]':dat}, 
+//			success: function(r){
+//				if(r){
+//					$.viewlist(category_id);
+//				}else{
+//					alert('Error: ITEM DELETE ERROR');
+//				}
+//			}
+//		});
+// 	});
 
 
 
