@@ -1,11 +1,9 @@
 <?php
-	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
+require_once dirname(__FILE__).'/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
+require_once dirname(__FILE__).'/http.php';
 
-
-$des = new Design();
-
-
-	class Design {
+class Design {
 
 	/*****************************************************
 	* saveDesFile
@@ -115,9 +113,37 @@ $des = new Design();
 			$tmp = scandir($folderurl);
 			$file = array();
 			for ($i=0; $i<count($tmp); $i++) {
-				if ($tmp[$i]=='thumbnail') continue;
-				$file[] = $tmp[$i];
+				if (empty($tmp[$i]) || $tmp[$i]=='thumbnail' || $tmp[$i]=='.' || $tmp[$i]=='..') continue;
+				
+				if ($folder !== 'attachfile') {
+					$file[] = $tmp[$i];
+				} else {
+					$file[] = [
+						'path' => "./" . $folder . "/" . $order_id . "/" . $tmp[$i],
+						'name' => $tmp[$i],
+					];
+				}
+				
 			}
+			
+			// ストレージから入稿デザインを取得
+			if ($folder === 'attachfile') {
+				$http = new HTTP(_UPLOAD_ENDPOINT.'api/orders/'.$order_id);
+				$header = [
+					'Authorization: Bearer ' . _UPLOAD_TOKEN,
+				];
+				$res = $http->requestRest('GET', '', $header);
+				if ($res) {
+					$data = json_decode($res, true);
+					foreach ($data['data'] as $val) {
+						$file[] = [
+							'path' => _UPLOAD_ENDPOINT . 'storage/' . $val['filepath'],
+							'name' => $val['filename'],
+						];
+					}
+				}
+			}
+			
 			return $file;
 		}
 
@@ -143,7 +169,12 @@ $des = new Design();
 		
 		public function deleteDesFile($order_id, $name, $folder){
 			$deleteFile = $_SERVER['DOCUMENT_ROOT'].'/system/'.$folder.'/'.$order_id.'/'.$name;
-			$res = unlink($deleteFile);
+			if (file_exists($deleteFile)) {
+				$res = unlink($deleteFile);
+			} else {
+				$res = true;
+			}
+			
 			return $res;
 		}
 		
@@ -200,7 +231,7 @@ $des = new Design();
 				$des = new Design();
 				$res = $des->deleteDesFile($_REQUEST['order_id'], $_REQUEST['file_name'], $_REQUEST['folder']);
 				echo $res;
-				break;	
+				break;
 
 			case 'checkFileName':
 				$des = new Design();

@@ -1122,15 +1122,19 @@ var mypage = {
 				} else {
 					var thead = "<tr><td>順番</td><td>ファイル名</td><td class='last pending'>操作</td></tr>";
 					$('#designImg_table thead').html(thead);
-					var tbody = "";
-					var href = "";
-					var ord = 0;
-					for (var i = 2; i < data.length; i++) {
-						href = "./attachfile/" + orders_id + "/" + data[i];
-						ord = i - 1;
+					var tbody = "",
+						href = "",
+						ord = 0,
+						ary = [],
+						fileName = '';
+					for (var i = 0; i < data.length; i++) {
+//						href = "./attachfile/" + orders_id + "/" + data[i];
+						fileName = data[i]['name'];
+						href = data[i]['path'];
+						ord = i + 1;
 						tbody += "<tr><td>" + ord + "</td>";
-						tbody += "<td>" + data[i] + "</td>";
-						tbody += "<td class='last pending'><input type='button'  value='ダウンロード' id ='downloadImg' name='" + href + "'>   <input type= 'button'  value='削除' id ='deleteImg' name='" + data[i] + "'></td></tr>";
+						tbody += "<td>" + fileName + "</td>";
+						tbody += "<td class='last pending'><input type='button'  value='ダウンロード' id ='downloadImg' name='" + href + "'>   <input type= 'button'  value='削除' id ='deleteImg' name='" + fileName + "'></td></tr>";
 					}
 					$('#designImg_table tbody').html(tbody);
 				}
@@ -1279,9 +1283,9 @@ var mypage = {
 					var tbody = "";
 					var href = "";
 					var ord = 0;
-					for (var i = 2; i < data.length; i++) {
+					for (var i = 0; i < data.length; i++) {
 						href = "./imgfile/" + orders_id + "/" + data[i];
-						ord = i - 1;
+						ord = i + 1;
 						tbody += "<tr><td>" + ord + "</td>";
 						tbody += "<td>" + data[i] + "</td>";
 						tbody += "<td class='last pending'><input type='button'  value='ダウンロード' id ='downloadDesedImg' name='" + href + "'>   <input type= 'button'  value='削除' id ='deleteDesedImg' name='" + data[i] + "'></td></tr>";
