@@ -65,6 +65,10 @@ define('_PASSWORD_SALT', 'Rxjo:akLK(SEs!8E');
 // REST API
 define('_ACCESS_TOKEN', 'dR7cr3cHasucetaYA8Re82xUtHuB3A7a');
 
+// Upload API
+define('_UPLOAD_ENDPOINT', 'https://takahamalifeart.com/uploader/');
+define('_UPLOAD_TOKEN', 'X3J1Z2VjM2EhbHQyLVppYlI3bXV3d3cudGFrYWhhbWE0MjguY29t');
+
 // 休業終始日付、お知らせの取得
 $hol = new Conndb_holiday();
 $holiday_data = $hol->getHolidayinfo();
