@@ -3724,13 +3724,18 @@ var mypage = {
 
 			// 後払い手数料
 			p13 = 0;
-			if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
-				if (mypage.prop.tax == 0) {
-					p13 = 324;
-				} else {
-					p13 = 300;
+			// 2019-03-12 18:00:00 から後払い手数料を廃止
+			var abolitionDate = Date.parse("2019-03-12T18:00:00+09:00");
+			if (Date.now() < abolitionDate) {
+				if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
+					if (mypage.prop.tax == 0) {
+						p13 = 324;
+					} else {
+						p13 = 300;
+					}
 				}
 			}
+			
 			$('#est_paymentfee').text(p13);
 			
 			$('#est_express').text("0");
@@ -3996,13 +4001,18 @@ var mypage = {
 
 					// 後払い手数料
 					p13 = 0;
-					if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
-						if (mypage.prop.tax == 0) {
-							p13 = 324;
-						} else {
-							p13 = 300;
+					// 2019-03-12 18:00:00 から後払い手数料を廃止
+					var abolitionDate = Date.parse("2019-03-12T18:00:00+09:00");
+					if (Date.now() < abolitionDate) {
+						if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
+							if (mypage.prop.tax == 0) {
+								p13 = 324;
+							} else {
+								p13 = 300;
+							}
 						}
 					}
+					
 					$('#est_paymentfee').text(p13);
 					
 					// 初期表示の時はメッセージを出さない
