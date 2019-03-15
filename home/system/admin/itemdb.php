@@ -4,8 +4,11 @@
 	require_once dirname(__FILE__).'/../php_libs/mainmenu_list.php';
 	require_once dirname(__FILE__).'/../php_libs/MYDB.php';
 
-	if(isset($_GET['mode'])) $mode = $_GET['mode'];
-	$mode = 'edit';
+	if(isset($_GET['mode'])) {
+		$mode = $_GET['mode'];
+	} else {
+		$mode = 'edit';
+	}
 	$conn = db_connect();
 	$result = exe_sql($conn, 'select * from category');
 	
@@ -78,7 +81,7 @@
 				$list .='value="'.$site_list_id[$i].'">'.$site_list_name[$i];
 			}
 			$list .= '</td>';
-    }
+		}
 		$list .= '<tr>';
 		
 		// size and price
@@ -208,6 +211,7 @@
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="EUC-JP" />
 	<meta name="robots" content="noindex" />
@@ -224,6 +228,7 @@
 	<script type="text/javascript" src="../js/modalbox/jquery.modalbox-min.js"></script>
 	<script type="text/javascript" src="./js/master.js?ver=<?php echo time();?>"></script>
 </head>
+
 <body class="main_bg" id="page_top">
 	<div id="overlay"></div>
 	<div id="header" class="main_bg">
@@ -232,16 +237,16 @@
 			<?php echo $mainmenu;?>
 		</div>
 	</div>
-	
+
 	<div id="main_wrapper">
-		
+
 		<div class="maincontents">
 			<div class="contents_inner">
-				
+
 				<div class="flexible">
 					<div class="snavi_wrapper">
 						<div><label>適用日：</label><input type="text" value="<?php echo date('Y-m-d');?>" id="apply" class="forDate datepicker" /></div>
-						
+
 						<div id="switchover">
 							<form name="myform" method="post" action="<?php echo dirname($_SERVER['SCRIPT_NAME']).'/../main.php'; ?>" onsubmit="return false">
 								<?php echo $switch; ?>
@@ -249,7 +254,7 @@
 								<input type="hidden" name="pos" value="<?php echo time(); ?>" />
 							</form>
 						</div>
-<?php
+						<?php
 if($mode=='edit'){
 	$html = <<<DOC
 		<p>商品カテゴリー</p>
@@ -392,26 +397,27 @@ DOC;
 
 echo $html;
 ?>
-					
+
+					</div>
+
 				</div>
+			</div>
 
+			<div class="footer">
+				<p>Copyright &copy; 2008-<?php echo date(Y);?> オリジナルＴシャツのタカハマライフアート All rights reserved.</p>
+			</div>
+
+		</div>
+
+		<div id="printposition_wrapper" class="popup_wrapper">
+			<div class="inner">
+				<p class="popup_title">Print Type<img alt="閉じる" src="../img/cross.png" class="close_popup" /></p>
+				<div class="popup_header">
+					<div id="printposition_list"></div>
+				</div>
 			</div>
 		</div>
 
-		<div class="footer">
-			<p>Copyright &copy; 2008-<?php echo date(Y);?> オリジナルＴシャツのタカハマライフアート All rights reserved.</p>
-		</div>
-
-	</div>
-
-	<div id="printposition_wrapper" class="popup_wrapper">
-		<div class="inner">
-			<p class="popup_title">Print Type<img alt="閉じる" src="../img/cross.png" class="close_popup" /></p>
-			<div class="popup_header">
-				<div id="printposition_list"></div>
-			</div>
-		</div>
-	</div>
-	
 </body>
+
 </html>
