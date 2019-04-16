@@ -5,11 +5,9 @@
 *
 */
 
-//require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/config.php';
-//require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
-	require_once dirname(__FILE__).'/config.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
-	require_once dirname(__FILE__).'/http2.php';
+require_once dirname(__FILE__).'/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
+require_once dirname(__FILE__).'/http2.php';
 
 
 class Conndb_holiday extends HTTP2 {
@@ -28,7 +26,6 @@ class Conndb_holiday extends HTTP2 {
 		$data = unserialize($res);
 		return $data;
 	}
-
 
 }
 
