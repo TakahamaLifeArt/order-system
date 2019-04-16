@@ -5,8 +5,9 @@
 	require_once dirname(__FILE__).'/http.php';
 	require_once dirname(__FILE__).'/catalog.php';
 	require_once dirname(__FILE__).'/estimate.php';
-	require_once dirname(__FILE__).'/jd/japaneseDate.php';
 	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/package/holiday/DateJa.php';
+	use package\holiday\DateJa;
 	
 	if(isset($_POST['act'])){
 		switch($_POST['act']){
@@ -494,7 +495,7 @@
 	*/
 	function getWorkday($baseSec, $deliSec){
 		if(!getdate($baseSec) || !getdate($deliSec)) return 0;
-		$jd = new japaneseDate();		
+		$jd = new DateJa();
 		$one_day = 86400;
 		$baseSec += $one_day;
 		$fin = $jd->makeDateArray($baseSec);

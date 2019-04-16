@@ -8,12 +8,13 @@
  *	return {array} day of the holiday
  */
 	require_once dirname(__FILE__).'/config.php';
-	require_once dirname(__FILE__).'/jd/japaneseDate.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/package/holiday/DateJa.php';
+	use package\holiday\DateJa;
 	
 	$res = "";
 	if(isset($_REQUEST['datesec'])){
 		// holiday
-		$jd = new japaneseDate();
+		$jd = new DateJa();
 		$fin = $jd->getHolidayList($_REQUEST['datesec']);
 		$info = array();
 		if(!empty($fin)){
