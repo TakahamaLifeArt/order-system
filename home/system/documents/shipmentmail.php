@@ -4,6 +4,8 @@
 *	注文一覧画面と発送画面の「発送」チェックで自動送信
 */
 	session_cache_limiter('nocache');
+	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/package/holiday/DateJa.php';
+	use package\holiday\DateJa;
 	
 	if(isset($_POST['orders_id'])) {
 
@@ -11,10 +13,9 @@
 			$root_path = "../";
 			require_once dirname(__FILE__).'/'.$root_path.'php_libs/config.php';
 			require_once dirname(__FILE__).'/'.$root_path.'php_libs/orders.php';
-			require_once dirname(__FILE__).'/'.$root_path.'php_libs/jd/japaneseDate.php';
 
 			$DB = new Orders();
-			$jd = new japaneseDate();
+			$jd = new DateJa();
 
 			$orders_id = htmlspecialchars($_POST['orders_id'], ENT_QUOTES);
 			$result = $DB->db('search', 'top', array('id'=>$orders_id));
@@ -50,7 +51,7 @@
 			$date = explode('-',$orders['schedule4']);
 			$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
 		    $fin = $jd->makeDateArray($baseSec);
-		    $weekname = mb_convert_encoding($jd->viewWeekday($fin['Weekday']),'utf-8','euc-jp');
+		    $weekname = $jd->viewWeekday($fin['Weekday']);
 			$deliverydate = $date[1]."月".$date[2]."日（".$weekname."）";
 			
 			// 配送業者

@@ -5,6 +5,9 @@
 */
 	session_cache_limiter('nocache');
 	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/package/holiday/DateJa.php';
+	use package\holiday\DateJa;
+
 	//define('_TAX', 0.05);
 	
 	if(isset($_POST['doctype'], $_POST['data']) ) {
@@ -14,10 +17,8 @@
 			require_once dirname(__FILE__).'/../php_libs/orders.php';
 			require_once dirname(__FILE__).'/../php_libs/catalog.php';
 			require_once dirname(__FILE__).'/../php_libs/estimate.php';
-			require_once dirname(__FILE__).'/../php_libs/jd/japaneseDate.php';
 			require_once dirname(__FILE__).'/../php_libs/phonedata.php';
 			require_once dirname(__FILE__).'/../php_libs/http.php';
-//			require_once dirname(__FILE__).'/../php_libs/member/TLAmember.php';
 
 			/* 2011/4/1 保留
 			define(_ORDER_COMPLETED, "https://takahama428.com/ordercompleted.php");
@@ -25,7 +26,7 @@
 
 			$DB = new Orders();
 			$catalog = new Catalog();
-			$jd = new japaneseDate();
+			$jd = new DateJa();
 			$estimate = new Estimate();
 			
 			$isNotRegistForTLA = $_POST['data'][0];	// TLAメンバー登録の有無　0(default)：登録する　1：登録なし
@@ -155,58 +156,58 @@
 
 			/*
 			$baseSec = mktime(0, 0, 0, date('m'), date('d'), date('Y'));	// 基準日を秒で取得
-		    $addSec = 30 * 86400;											//日数×１日の秒数
-		    $targetSec = $baseSec + $addSec;
-		    $expire = date("Y 年 m 月 d 日", $targetSec);					// 有効期限
-		    */
-		    $date = explode('-',$orders['schedule4']);
-		    if($date[0]!="0000"){
-			    $baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
-			    $fin = $jd->makeDateArray($baseSec);							// 受渡日付情報
-			    $deli = $fin;													// 受渡日の曜日を取得
-			    $deli['Weekname'] = mb_convert_encoding($jd->viewWeekday($fin['Weekday']),'utf-8','euc-jp');
-		    }else{
-		    	$deli['Weekname'] = "-";
-		    }
+			$addSec = 30 * 86400;											//日数×１日の秒数
+			$targetSec = $baseSec + $addSec;
+			$expire = date("Y 年 m 月 d 日", $targetSec);					// 有効期限
+			*/
+			$date = explode('-',$orders['schedule4']);
+			if($date[0]!="0000"){
+				$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+				$fin = $jd->makeDateArray($baseSec);							// 受渡日付情報
+				$deli = $fin;													// 受渡日の曜日を取得
+				$deli['Weekname'] = $jd->viewWeekday($fin['Weekday']);
+			}else{
+				$deli['Weekname'] = "-";
+			}
 
-		    $date	= explode('-',$orders['schedule2']);
-		    if($date[0]!="0000"){
-			    $baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
-			    $fin = $jd->makeDateArray($baseSec);							// 注文〆日付情報
-			    $cutday = $fin;													// 注文〆日の曜日を取得
-			    $cutday['Weekname'] = mb_convert_encoding($jd->viewWeekday($fin['Weekday']),'utf-8','euc-jp');
-		    }else{
-		    	$cutday['Weekname'] = "-";
-		    }
+			$date	= explode('-',$orders['schedule2']);
+			if($date[0]!="0000"){
+				$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+				$fin = $jd->makeDateArray($baseSec);							// 注文〆日付情報
+				$cutday = $fin;													// 注文〆日の曜日を取得
+				$cutday['Weekname'] = $jd->viewWeekday($fin['Weekday']);
+			}else{
+				$cutday['Weekname'] = "-";
+			}
 
-		    $date	= explode('-',$orders['schedule3']);
-		    if($date[0]!="0000"){
-			    $baseSec = mktime(0, 0, 0, $date[1], $date[2]-1, $date[0]);
-			    $fin = $jd->makeDateArray($baseSec);							// 振込期日情報（発送日の前営業日）
-			    if( !(($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-				    $isHoliday = true;
-				    $one_day = -86400;
-				    while($isHoliday){
+			$date	= explode('-',$orders['schedule3']);
+			if($date[0]!="0000"){
+				$baseSec = mktime(0, 0, 0, $date[1], $date[2]-1, $date[0]);
+				$fin = $jd->makeDateArray($baseSec);							// 振込期日情報（発送日の前営業日）
+				if( !(($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
+					$isHoliday = true;
+					$one_day = -86400;
+					while($isHoliday){
 						$baseSec += $one_day;
 						$fin = $jd->makeDateArray($baseSec);
 						if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
 							$isHoliday = false;
 						}
 					}
-			    }
-			    $expire = $fin;													// 振込期日の曜日を取得
-			    $expire['Weekname'] = mb_convert_encoding($jd->viewWeekday($fin['Weekday']),'utf-8','euc-jp');
-		    }else{
-		    	$expire['Weekname'] = "-";
-		    }
+				}
+				$expire = $fin;													// 振込期日の曜日を取得
+				$expire['Weekname'] = $jd->viewWeekday($fin['Weekday']);
+			}else{
+				$expire['Weekname'] = "-";
+			}
 
-		    $customer_name = $orders['customername'];
+			$customer_name = $orders['customername'];
 			$letter_name = $customer_name."　　様";
 			if($orders['ordertype']=='general'){
-		    	if(!empty($orders['company'])){
-			    	$nameis = "■会社名：　".$orders['customername']."　様\n";
-			    	$nameis .= "■ご担当：　".$orders['company']."　様\n";
-			    	$letter_name = $orders['customername']."\n　　".$orders['company']."　　様";
+				if(!empty($orders['company'])){
+					$nameis = "■会社名：　".$orders['customername']."　様\n";
+					$nameis .= "■ご担当：　".$orders['company']."　様\n";
+					$letter_name = $orders['customername']."\n　　".$orders['company']."　　様";
 				}else{
 					$nameis = "■お名前：　".$orders['customername']."　様\n";
 				}
@@ -384,7 +385,7 @@
 			switch($doctype){
 				case 'estimation':
 					$date = explode('-',$orders['schedule4']);
-		    		if($date[0]!="0000"){
+					if($date[0]!="0000"){
 						// 配送にかかる日数
 						/*
 						if($orders['carriage']=='accept'){
@@ -410,7 +411,7 @@
 						$cnt = 3;
 						if($orders['package']=="yes") $cnt = 4;	// 袋詰めありの場合
 						$cut = getDeliveryDay($baseSec, $one_day, $cnt);
-						$cut['Weekname'] = mb_convert_encoding($jd->viewWeekday($cut['Weekday']),'utf-8','euc-jp');
+						$cut['Weekname'] = $jd->viewWeekday($cut['Weekday']);
 						
 						
 						$baseSec = mktime(0, 0, 0, $fin['Month'], $fin['Day'], $fin['Year']);
@@ -726,9 +727,9 @@
 					$doc_title .= "以下の内容で、本日商品を発送いたしました。\n\n";
 					if(!empty($enquiry_number)){
 						$doc_title .= "■商品の配送状況を調べるには\n\n";
-						$doc_title .= "[ 配送業者 ]           ヤマト運輸（クロネコ）\n";
+						$doc_title .= "[ 配送業者 ]		   ヤマト運輸（クロネコ）\n";
 								$doc_title .= "[ お問い合わせ番号 ]   $enquiry_number\n";
-								$doc_title .= "[ 確認用URL ]          http://toi.kuronekoyamato.co.jp/cgi-bin/tneko?init\n\n";
+								$doc_title .= "[ 確認用URL ]		  http://toi.kuronekoyamato.co.jp/cgi-bin/tneko?init\n\n";
 						$doc_title .= "上記お問い合わせ番号をコピーして確認用ページに貼り付けてください。\n";
 						$doc_title .= "（出荷後すぐは、反映されていない場合があります）\n\n";
 					}
@@ -937,7 +938,7 @@
 	*/
 	function getDeliveryDay($baseSec, $one_day, $cnt){
 		global $_from_holiday, $_to_holiday;
-		$jd = new japaneseDate();
+		$jd = new DateJa();
 		$workday=0;
 		while($workday<=$cnt){
 
