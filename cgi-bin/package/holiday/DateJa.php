@@ -4,7 +4,7 @@
  * @package holiday
  * @author <ks.desk@gmail.com>
  *
- * Copyright © 2014 Kyoda Yasushi
+ * Copyright © 2014 Yasushi Kyoda
  *
  * Licensed under the MIT license:
  * http://www.opensource.org/licenses/MIT
@@ -17,48 +17,48 @@ date_default_timezone_set('Asia/Tokyo');
 /**
  * 祝日定数
  */
-define("JD_NO_HOLIDAY", 0);
-define("JD_NEW_YEAR_S_DAY", 1);
-define("JD_COMING_OF_AGE_DAY", 2);
-define("JD_NATIONAL_FOUNDATION_DAY", 3);
-define("JD_THE_SHOWA_EMPEROR_DIED", 4);
-define("JD_VERNAL_EQUINOX_DAY", 5);
-define("JD_DAY_OF_SHOWA", 6);
-define("JD_GREENERY_DAY", 7);
-define("JD_THE_EMPEROR_S_BIRTHDAY", 8);
-define("JD_CROWN_PRINCE_HIROHITO_WEDDING", 9);
-define("JD_CONSTITUTION_DAY", 10);
-define("JD_NATIONAL_HOLIDAY", 11);
-define("JD_CHILDREN_S_DAY", 12);
-define("JD_COMPENSATING_HOLIDAY", 13);
-define("JD_CROWN_PRINCE_NARUHITO_WEDDING", 14);
-define("JD_MARINE_DAY", 15);
-define("JD_AUTUMNAL_EQUINOX_DAY", 16);
-define("JD_RESPECT_FOR_SENIOR_CITIZENS_DAY", 17);
-define("JD_SPORTS_DAY", 18);
-define("JD_CULTURE_DAY", 19);
-define("JD_LABOR_THANKSGIVING_DAY", 20);
-define("JD_REGNAL_DAY", 21);
-define("JD_MOUNTAIN_DAY", 22);
-define("JD_EMPEROR_ENTHRONEMENT_DAY", 23);
-define("JD_NATIONAL_HOLIDAYS", 24);
+define("DJ_NO_HOLIDAY", 0);
+define("DJ_NEW_YEAR_S_DAY", 1);
+define("DJ_COMING_OF_AGE_DAY", 2);
+define("DJ_NATIONAL_FOUNDATION_DAY", 3);
+define("DJ_THE_SHOWA_EMPEROR_DIED", 4);
+define("DJ_VERNAL_EQUINOX_DAY", 5);
+define("DJ_DAY_OF_SHOWA", 6);
+define("DJ_GREENERY_DAY", 7);
+define("DJ_THE_EMPEROR_S_BIRTHDAY", 8);
+define("DJ_CROWN_PRINCE_HIROHITO_WEDDING", 9);
+define("DJ_CONSTITUTION_DAY", 10);
+define("DJ_NATIONAL_HOLIDAY", 11);
+define("DJ_CHILDREN_S_DAY", 12);
+define("DJ_COMPENSATING_HOLIDAY", 13);
+define("DJ_CROWN_PRINCE_NARUHITO_WEDDING", 14);
+define("DJ_MARINE_DAY", 15);
+define("DJ_AUTUMNAL_EQUINOX_DAY", 16);
+define("DJ_RESPECT_FOR_SENIOR_CITIZENS_DAY", 17);
+define("DJ_SPORTS_DAY", 18);
+define("DJ_CULTURE_DAY", 19);
+define("DJ_LABOR_THANKSGIVING_DAY", 20);
+define("DJ_REGNAL_DAY", 21);
+define("DJ_MOUNTAIN_DAY", 22);
+define("DJ_EMPEROR_ENTHRONEMENT_DAY", 23);
+define("DJ_NATIONAL_HOLIDAYS", 24);
 
 /**
  * 特定月定数
  */
-define("JD_VERNAL_EQUINOX_DAY_MONTH", 3);
-define("JD_AUTUMNAL_EQUINOX_DAY_MONTH", 9);
+define("DJ_VERNAL_EQUINOX_DAY_MONTH", 3);
+define("DJ_AUTUMNAL_EQUINOX_DAY_MONTH", 9);
 
 /**
  * 曜日定数
  */
-define("JD_SUNDAY",    0);
-define("JD_MONDAY",    1);
-define("JD_TUESDAY",   2);
-define("JD_WEDNESDAY", 3);
-define("JD_THURSDAY",  4);
-define("JD_FRIDAY",    5);
-define("JD_SATURDAY",  6);
+define("DJ_SUNDAY", 0);
+define("DJ_MONDAY", 1);
+define("DJ_TUESDAY", 2);
+define("DJ_WEDNESDAY", 3);
+define("DJ_THURSDAY", 4);
+define("DJ_FRIDAY", 5);
+define("DJ_SATURDAY", 6);
 
 
 /**
@@ -67,7 +67,7 @@ define("JD_SATURDAY",  6);
 class DateJa
 {
 	private $_holiday_name = array(
-		0 => "", 
+		0 => "",
 		1 => "元旦",
 		2 => "成人の日",
 		3 => "建国記念の日",
@@ -97,9 +97,9 @@ class DateJa
 	private $_month_name = array("", "睦月", "如月", "弥生", "卯月", "皐月", "水無月", "文月", "葉月", "長月", "神無月", "霜月", "師走");
 	private $_six_weekday = array("大安", "赤口", "先勝", "友引", "先負", "仏滅");
 	private $_oriental_zodiac = array("亥", "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌");
-	private $_era_name = array("昭和", "平成");
-	private $_era_calc = array(1925, 1988);
-
+	private $_era_name = array("昭和", "平成", "令和");
+	private $_era_calc = array(1925, 1988, 2018);
+	
 	/**
 	 * コンストラクタ
 	 */
@@ -110,51 +110,53 @@ class DateJa
 	 * 指定月の祝日リストを取得する
 	 *
 	 * @param {int} time_stamp タイムスタンプ
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getHolidayList(int $time_stamp): array
+	public function getHolidayList(int $time_stamp, bool $isRecursion = true): array
 	{
 		switch ($this->getMonth($time_stamp)) {
 			case 1:
-			return $this->getJanuaryHoliday($this->getYear($time_stamp));
+				return $this->getJanuaryHoliday($this->getYear($time_stamp), $isRecursion);
 			case 2:
-			return $this->getFebruaryHoliday($this->getYear($time_stamp));
+				return $this->getFebruaryHoliday($this->getYear($time_stamp), $isRecursion);
 			case 3:
-			return $this->getMarchHoliday($this->getYear($time_stamp));
+				return $this->getMarchHoliday($this->getYear($time_stamp), $isRecursion);
 			case 4:
-			return $this->getAprilHoliday($this->getYear($time_stamp));
+				return $this->getAprilHoliday($this->getYear($time_stamp), $isRecursion);
 			case 5:
-			return $this->getMayHoliday($this->getYear($time_stamp));
+				return $this->getMayHoliday($this->getYear($time_stamp), $isRecursion);
 			case 6:
-			return $this->getJuneHoliday($this->getYear($time_stamp));
+				return $this->getJuneHoliday($this->getYear($time_stamp), $isRecursion);
 			case 7:
-			return $this->getJulyHoliday($this->getYear($time_stamp));
+				return $this->getJulyHoliday($this->getYear($time_stamp), $isRecursion);
 			case 8:
-			return $this->getAugustHoliday($this->getYear($time_stamp));
+				return $this->getAugustHoliday($this->getYear($time_stamp), $isRecursion);
 			case 9:
-			return $this->getSeptemberHoliday($this->getYear($time_stamp));
+				return $this->getSeptemberHoliday($this->getYear($time_stamp), $isRecursion);
 			case 10:
-			return $this->getOctoberHoliday($this->getYear($time_stamp));
+				return $this->getOctoberHoliday($this->getYear($time_stamp), $isRecursion);
 			case 11:
-			return $this->getNovemberHoliday($this->getYear($time_stamp));
+				return $this->getNovemberHoliday($this->getYear($time_stamp), $isRecursion);
 			case 12:
-			return $this->getDecemberHoliday($this->getYear($time_stamp));
+				return $this->getDecemberHoliday($this->getYear($time_stamp), $isRecursion);
 		}
 	}
-	
+
 	/**
-	 * 国民の休日を返す
+	 * 国民の休日を取得
 	 * 前日と翌日が祝日の場合に休日とする
 	 *
-	 * @param {int} $time_stamp 当該月のタイムスタンプ
+	 * @param {int} $time_stamp  当該月のタイムスタンプ
+	 * @param {array} $holiday_list  当該月の休日
 	 * @return {array}
 	 */
-	public function getNationalHoliday(int $time_stamp): array {
+	public function getNationalHoliday(int $time_stamp, array $holiday_list = []): array {
 		try {
 			$one_day = 86400;
 			$yesterday = 0;
 			$res = [];
-			
+
 			/**
 			 * ２進数で昨日と一昨日の祝日フラグを立てる
 			 * 祝日:1, それ以外:0
@@ -168,35 +170,59 @@ class DateJa
 			$month = (int)date("m", $time_stamp);
 			$baseSec = mktime(0, 0, 0, $month, 0, $year);
 
-			// 翌月1日のtimestamp
-			$month++;
-			$targetSec = mktime(0, 0, 0, $month, 1, $year);
-			
+			// 前月末の祝日判定
+			$day = $this->getDay($baseSec);
+			$holiday_hash = $this->getHolidayList($baseSec, false);
+			if (isset($holiday_hash[$day]) && $holiday_hash[$day] != DJ_NO_HOLIDAY && $holiday_hash[$day] != DJ_COMPENSATING_HOLIDAY) {
+				$holidays = 1;
+			}
+
+			// 当該月1日の00:00のtimestamp
+			$baseSec += $one_day;
+			if (empty($holiday_list)) {
+				$holiday_list = $this->getHolidayList($baseSec, false);
+			}
+
+			// 当該月末日の00:00のtimestamp
+			$targetSec = mktime(0, 0, 0, ++$month, 0, $year);
+
 			while ($baseSec <= $targetSec) {
-				$fin = $this->makeDateArray($baseSec);
-				if ($fin['Holiday'] != 0 && $fin['Holiday'] != JD_COMPENSATING_HOLIDAY) {
+				$day = $this->getDay($baseSec);
+				if (isset($holiday_list[$day]) && $holiday_list[$day] != DJ_NO_HOLIDAY && $holiday_list[$day] != DJ_COMPENSATING_HOLIDAY) {
 					$isHoliday = 1;
 					if ($holidays == 2) {
-						// 本日が祝日で且つ一昨日が祝日で昨日が平日(２進数で0b10)
-						$res[$yesterday] = JD_NATIONAL_HOLIDAYS;
+						// 本日と一昨日が祝日で昨日が平日(２進数で0b10)
+						$res[$yesterday] = DJ_NATIONAL_HOLIDAYS;
 					}
 				} else {
 					$isHoliday = 0;
 				}
-				
+
+				// フラグをシフト
 				$holidays = $holidays << 1;
 				$holidays += $isHoliday;
 				$holidays = $holidays & 3;
-				
-				$yesterday = $fin['Day'];
+
+				$yesterday = $day;
 				$baseSec += $one_day;
 			}
+
+			// 翌月1日の祝日判定
+			$holiday_hash = $this->getHolidayList($baseSec, false);
+			if (isset($holiday_hash[1]) && $holiday_hash[1] != DJ_NO_HOLIDAY && $holiday_hash[1] != DJ_COMPENSATING_HOLIDAY) {
+				if ($holidays == 2) {
+					// 本日と一昨日が祝日で昨日が平日(２進数で0b10)
+					$res[$yesterday] = DJ_NATIONAL_HOLIDAYS;
+				}
+			}
+
+			$res += $holiday_list;
 		} catch (Exception $e) {
-			$res = [];
+			$res = $holiday_list;
 		}
 		return $res;
 	}
-	
+
 	/**
 	 * 干支キーを返す
 	 *
@@ -208,7 +234,7 @@ class DateJa
 		$res = ($this->getYear($time_stamp)+9)%12;
 		return $res;
 	}
-	
+
 	/**
 	 * 年号キーを返す
 	 *
@@ -218,11 +244,14 @@ class DateJa
 	public function getEraName(int $time_stamp): int
 	{
 		if (mktime(0, 0, 0, 1 , 7, 1989) >= $time_stamp) {
-			//昭和
+			// 昭和
 			return 0;
-		} else {
-			//平成
+		} else if (mktime(0, 0, 0, 5 , 1, 2019) > $time_stamp) {
+			// 平成
 			return 1;
+		} else {
+			// 令和
+			return 2;
 		}
 	}
 
@@ -240,7 +269,7 @@ class DateJa
 		}
 		return $this->getYear($time_stamp)-$this->_era_calc[$key];
 	}
-	
+
 	/**
 	 * 日本語フォーマットされた休日名を返す
 	 *
@@ -251,7 +280,7 @@ class DateJa
 	{
 		return $this->_holiday_name[$key];
 	}
-	
+
 	/**
 	 * 日本語フォーマットされた曜日名を返す
 	 *
@@ -262,8 +291,8 @@ class DateJa
 	{
 		return $this->_weekday_name[$key];
 	}
-	
-	
+
+
 	/**
 	 * 日本語フォーマットされた旧暦月名を返す
 	 *
@@ -274,8 +303,8 @@ class DateJa
 	{
 		return $this->_month_name[$key];
 	}
-	
-	
+
+
 	/**
 	 * 日本語フォーマットされた六曜名を返す
 	 *
@@ -286,7 +315,7 @@ class DateJa
 	{
 		return array_key_exists($key, $this->_six_weekday) ? $this->_six_weekday[$key] : "";
 	}
-	
+
 	/**
 	 * 日本語フォーマットされた干支を返す
 	 *
@@ -297,7 +326,7 @@ class DateJa
 	{
 		return $this->_oriental_zodiac[$key];
 	}
-	
+
 	/**
 	 * 日本語フォーマットされた年号を返す
 	 *
@@ -308,7 +337,7 @@ class DateJa
 	{
 		return $this->_era_name[$key];
 	}
-	
+
 	/**
 	 * 春分の日を取得
 	 *
@@ -326,9 +355,9 @@ class DateJa
 		} else {
 			return 0;
 		}
-		return mktime(0, 0, 0, JD_VERNAL_EQUINOX_DAY_MONTH, (int)$day, $year);
+		return mktime(0, 0, 0, DJ_VERNAL_EQUINOX_DAY_MONTH, (int)$day, $year);
 	}
-	
+
 	/**
 	 * 秋分の日を取得
 	 *
@@ -346,9 +375,9 @@ class DateJa
 		} else {
 			return 0;
 		}
-		return mktime(0, 0, 0, JD_AUTUMNAL_EQUINOX_DAY_MONTH, (int)$day, $year);
+		return mktime(0, 0, 0, DJ_AUTUMNAL_EQUINOX_DAY_MONTH, (int)$day, $year);
 	}
-	
+
 	/**
 	 * タイムスタンプを展開して、日付の詳細配列を取得する
 	 *
@@ -363,12 +392,12 @@ class DateJa
 			"Day"     => $this->getDay($time_stamp),
 			"Weekday" => $this->getWeekday($time_stamp),
 		);
-		
+
 		$holiday_list = $this->getHolidayList($time_stamp);
-		$res["Holiday"] = isset($holiday_list[$res["Day"]]) ? $holiday_list[$res["Day"]] : JD_NO_HOLIDAY;
+		$res["Holiday"] = isset($holiday_list[$res["Day"]]) ? $holiday_list[$res["Day"]] : DJ_NO_HOLIDAY;
 		return $res;
 	}
-	
+
 	/**
 	 * 七曜を数値化して返します
 	 *
@@ -401,7 +430,7 @@ class DateJa
 	{
 		return (int)date("n", $time_stamp);
 	}
-	
+
 	/**
 	 * 日を数値化して返します
 	 *
@@ -412,135 +441,165 @@ class DateJa
 	{
 		return (int)date("j", $time_stamp);
 	}
-	
+
 	/**
 	 * 祝日判定ロジック一月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getJanuaryHoliday(int $year): array
+	private function getJanuaryHoliday(int $year, bool $isRecursion): array
 	{
-		$res[1] = JD_NEW_YEAR_S_DAY;
+		$res[1] = DJ_NEW_YEAR_S_DAY;
 		//振替休日確認
-		if ($this->getWeekDay(mktime(0, 0, 0, 1, 1, $year)) == JD_SUNDAY) {
-			$res[2] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 1, 1, $year)) == DJ_SUNDAY) {
+			$res[2] = DJ_COMPENSATING_HOLIDAY;
 		}
 		if ($year >= 2000) {
 			//2000年以降は第二月曜日に変更
-			$second_monday = $this->getDayByWeekly($year, 1, JD_MONDAY, 2);
-			$res[$second_monday] = JD_COMING_OF_AGE_DAY;
-			
+			$second_monday = $this->getDayByWeekly($year, 1, DJ_MONDAY, 2);
+			$res[$second_monday] = DJ_COMING_OF_AGE_DAY;
+
 		} else {
-			$res[15] = JD_COMING_OF_AGE_DAY;
+			$res[15] = DJ_COMING_OF_AGE_DAY;
 			//振替休日確認
-			if ($this->getWeekDay(mktime(0, 0, 0, 1, 15, $year)) == JD_SUNDAY) {
-				$res[16] = JD_COMPENSATING_HOLIDAY;
+			if ($this->getWeekDay(mktime(0, 0, 0, 1, 15, $year)) == DJ_SUNDAY) {
+				$res[16] = DJ_COMPENSATING_HOLIDAY;
 			}
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 1, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック二月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getFebruaryHoliday(int $year): array
+	private function getFebruaryHoliday(int $year, bool $isRecursion): array
 	{
-		$res[11] = JD_NATIONAL_FOUNDATION_DAY;
+		$res[11] = DJ_NATIONAL_FOUNDATION_DAY;
 		//振替休日確認
-		if ($this->getWeekDay(mktime(0, 0, 0, 2, 11, $year)) == JD_SUNDAY) {
-			$res[12] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 2, 11, $year)) == DJ_SUNDAY) {
+			$res[12] = DJ_COMPENSATING_HOLIDAY;
 		}
 		if ($year == 1989) {
-			$res[24] = JD_THE_SHOWA_EMPEROR_DIED;
+			$res[24] = DJ_THE_SHOWA_EMPEROR_DIED;
 		}
 		if ($year >= 2020) {
-			$res[23] = JD_THE_EMPEROR_S_BIRTHDAY;
+			$res[23] = DJ_THE_EMPEROR_S_BIRTHDAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 2, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック三月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getMarchHoliday(int $year): array
+	private function getMarchHoliday(int $year, bool $isRecursion): array
 	{
 		$VrenalEquinoxDay = $this->getVrenalEquinoxDay($year);
 		if ($VrenalEquinoxDay==0) return array();
-		
-		$res[$this->getDay($VrenalEquinoxDay)] = JD_VERNAL_EQUINOX_DAY;
+
+		$res[$this->getDay($VrenalEquinoxDay)] = DJ_VERNAL_EQUINOX_DAY;
 		//振替休日確認
-		if ($this->getWeekDay($VrenalEquinoxDay) == JD_SUNDAY) {
-			$res[$this->getDay($VrenalEquinoxDay)+1] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay($VrenalEquinoxDay) == DJ_SUNDAY) {
+			$res[$this->getDay($VrenalEquinoxDay)+1] = DJ_COMPENSATING_HOLIDAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 3, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック四月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getAprilHoliday(int $year): array
+	private function getAprilHoliday(int $year, bool $isRecursion): array
 	{
 		$res = array();
 		if ($year == 1959) {
-			$res[10] = JD_CROWN_PRINCE_HIROHITO_WEDDING;
+			$res[10] = DJ_CROWN_PRINCE_HIROHITO_WEDDING;
 		}
 		if ($year >= 2007) {
-			$res[29] = JD_DAY_OF_SHOWA;
+			$res[29] = DJ_DAY_OF_SHOWA;
 		} else if ($year >= 1989) {
-			$res[29] = JD_GREENERY_DAY;
+			$res[29] = DJ_GREENERY_DAY;
 		} else {
-			$res[29] = JD_THE_EMPEROR_S_BIRTHDAY;
+			$res[29] = DJ_THE_EMPEROR_S_BIRTHDAY;
 		}
 		//振替休日確認
-		if ($this->getWeekDay(mktime(0, 0, 0, 4, 29, $year)) == JD_SUNDAY) {
-			$res[30] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 4, 29, $year)) == DJ_SUNDAY) {
+			$res[30] = DJ_COMPENSATING_HOLIDAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 4, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック五月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getMayHoliday(int $year): array
+	private function getMayHoliday(int $year, bool $isRecursion): array
 	{
-		$res[3] = JD_CONSTITUTION_DAY;
+		$res[3] = DJ_CONSTITUTION_DAY;
 		if ($year >= 2007) {
-			$res[4] = JD_GREENERY_DAY;
+			$res[4] = DJ_GREENERY_DAY;
 		} else if ($year >= 1986) {
 			// 5/4が日曜日の場合はそのまま､月曜日の場合はは『憲法記念日の振替休日』(2006年迄)
-			if ($this->getWeekday(mktime(0, 0, 0, 5, 4, $year)) > JD_MONDAY) {
-				$res[4] = JD_NATIONAL_HOLIDAY;
-			} elseif ($this->getWeekday(mktime(0, 0, 0, 5, 4, $year)) == JD_MONDAY)  {
-				$res[4] = JD_COMPENSATING_HOLIDAY;
+			if ($this->getWeekday(mktime(0, 0, 0, 5, 4, $year)) > DJ_MONDAY) {
+				$res[4] = DJ_NATIONAL_HOLIDAY;
+			} elseif ($this->getWeekday(mktime(0, 0, 0, 5, 4, $year)) == DJ_MONDAY)  {
+				$res[4] = DJ_COMPENSATING_HOLIDAY;
 			}
 		}
-		$res[5] = JD_CHILDREN_S_DAY;
-		if ($this->getWeekDay(mktime(0, 0, 0, 5, 5, $year)) == JD_SUNDAY) {
-			$res[6] = JD_COMPENSATING_HOLIDAY;
+		$res[5] = DJ_CHILDREN_S_DAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 5, 5, $year)) == DJ_SUNDAY) {
+			$res[6] = DJ_COMPENSATING_HOLIDAY;
 		}
 		if ($year >= 2007) {
 			// [5/3,5/4が日曜]なら、振替休日
-			if (($this->getWeekday(mktime(0, 0, 0, 5, 4, $year)) == JD_SUNDAY) || ($this->getWeekday(mktime(0, 0, 0, 5, 3, $year)) == JD_SUNDAY)) {
-				$res[6] = JD_COMPENSATING_HOLIDAY;
+			if (($this->getWeekday(mktime(0, 0, 0, 5, 4, $year)) == DJ_SUNDAY) || ($this->getWeekday(mktime(0, 0, 0, 5, 3, $year)) == DJ_SUNDAY)) {
+				$res[6] = DJ_COMPENSATING_HOLIDAY;
 			}
 		}
 		if ($year == 2019) {
 			// 天皇即位
-			$res[1] = JD_EMPEROR_ENTHRONEMENT_DAY;
+			$res[1] = DJ_EMPEROR_ENTHRONEMENT_DAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 5, 1, $year), $res);
+		}
+
 		return $res;
 	}
 
@@ -548,55 +607,73 @@ class DateJa
 	 * 祝日判定ロジック六月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getJuneHoliday(int $year): array
+	private function getJuneHoliday(int $year, bool $isRecursion): array
 	{
 		$res = array();
 		if ($year == "1993") {
-			$res[9] = JD_CROWN_PRINCE_NARUHITO_WEDDING;
+			$res[9] = DJ_CROWN_PRINCE_NARUHITO_WEDDING;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 6, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック七月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getJulyHoliday(int $year): array
+	private function getJulyHoliday(int $year, bool $isRecursion): array
 	{
 		$res = array();
 		if ($year >= 2003) {
-			$third_monday = $this->getDayByWeekly($year, 7, JD_MONDAY, 3);
-			$res[$third_monday] = JD_MARINE_DAY;
+			$third_monday = $this->getDayByWeekly($year, 7, DJ_MONDAY, 3);
+			$res[$third_monday] = DJ_MARINE_DAY;
 		} else if ($year >= 1996) {
-			$res[20] = JD_MARINE_DAY;
+			$res[20] = DJ_MARINE_DAY;
 			//振替休日確認
-			if ($this->getWeekDay(mktime(0, 0, 0, 7, 20, $year)) == JD_SUNDAY) {
-				$res[21] = JD_COMPENSATING_HOLIDAY;
+			if ($this->getWeekDay(mktime(0, 0, 0, 7, 20, $year)) == DJ_SUNDAY) {
+				$res[21] = DJ_COMPENSATING_HOLIDAY;
 			}
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 7, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック八月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getAugustHoliday(int $year): array
+	private function getAugustHoliday(int $year, bool $isRecursion): array
 	{
 		$res = array();
 		if ($year >= 2016) {
-			$res[11] = JD_MOUNTAIN_DAY;
+			$res[11] = DJ_MOUNTAIN_DAY;
 			//振替休日確認
-			if ($this->getWeekDay(mktime(0, 0, 0, 8, 11, $year)) == JD_SUNDAY) {
-				$res[12] = JD_COMPENSATING_HOLIDAY;
+			if ($this->getWeekDay(mktime(0, 0, 0, 8, 11, $year)) == DJ_SUNDAY) {
+				$res[12] = DJ_COMPENSATING_HOLIDAY;
 			}
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 8, 1, $year), $res);
+		}
+
 		return $res;
 	}
 
@@ -604,114 +681,137 @@ class DateJa
 	 * 祝日判定ロジック九月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getSeptemberHoliday(int $year): array
+	private function getSeptemberHoliday(int $year, bool $isRecursion): array
 	{
 		$autumnEquinoxDay = $this->getAutumnEquinoxDay($year);
 		if ($autumnEquinoxDay==0) return array();
-		
-		$res[$this->getDay($autumnEquinoxDay)] = JD_AUTUMNAL_EQUINOX_DAY;
+
+		$res[$this->getDay($autumnEquinoxDay)] = DJ_AUTUMNAL_EQUINOX_DAY;
 		//振替休日確認
 		if ($this->getWeekDay($autumnEquinoxDay) == 0) {
-			$res[$this->getDay($autumnEquinoxDay)+1] = JD_COMPENSATING_HOLIDAY;
+			$res[$this->getDay($autumnEquinoxDay)+1] = DJ_COMPENSATING_HOLIDAY;
 		}
-		
+
 		if ($year >= 2003) {
-			$third_monday = $this->getDayByWeekly($year, 9, JD_MONDAY, 3);
-			$res[$third_monday] = JD_RESPECT_FOR_SENIOR_CITIZENS_DAY;
-			
+			$third_monday = $this->getDayByWeekly($year, 9, DJ_MONDAY, 3);
+			$res[$third_monday] = DJ_RESPECT_FOR_SENIOR_CITIZENS_DAY;
+
 			//敬老の日と、秋分の日の間の日は休みになる
 			if (($this->getDay($autumnEquinoxDay) - 1) == ($third_monday + 1)) {
-				$res[($this->getDay($autumnEquinoxDay) - 1)] = JD_NATIONAL_HOLIDAY;
+				$res[($this->getDay($autumnEquinoxDay) - 1)] = DJ_NATIONAL_HOLIDAY;
 			}
-			
+
 		} else if ($year >= 1966) {
-			$res[15] = JD_RESPECT_FOR_SENIOR_CITIZENS_DAY;
+			$res[15] = DJ_RESPECT_FOR_SENIOR_CITIZENS_DAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 9, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック十月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getOctoberHoliday(int $year): array
+	private function getOctoberHoliday(int $year, bool $isRecursion): array
 	{
 		$res = array();
 		if ($year >= 2000) {
 			//2000年以降は第二月曜日に変更
-			$second_monday = $this->getDayByWeekly($year, 10, JD_MONDAY, 2);
-			$res[$second_monday] = JD_SPORTS_DAY;
+			$second_monday = $this->getDayByWeekly($year, 10, DJ_MONDAY, 2);
+			$res[$second_monday] = DJ_SPORTS_DAY;
 		} else if ($year >= 1966) {
-			$res[10] = JD_SPORTS_DAY;
+			$res[10] = DJ_SPORTS_DAY;
 			//振替休日確認
-			if ($this->getWeekDay(mktime(0, 0, 0, 10, 10, $year)) == JD_SUNDAY) {
-				$res[11] = JD_COMPENSATING_HOLIDAY;
+			if ($this->getWeekDay(mktime(0, 0, 0, 10, 10, $year)) == DJ_SUNDAY) {
+				$res[11] = DJ_COMPENSATING_HOLIDAY;
 			}
 		}
-		
+
 		if ($year == 2019) {
 			// 即位礼正殿の儀
-			$res[22] = JD_REGNAL_DAY;
+			$res[22] = DJ_REGNAL_DAY;
 		}
-		
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 10, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック十一月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getNovemberHoliday(int $year): array
+	private function getNovemberHoliday(int $year, bool $isRecursion): array
 	{
-		$res[3] = JD_CULTURE_DAY;
+		$res[3] = DJ_CULTURE_DAY;
 		//振替休日確認
-		if ($this->getWeekDay(mktime(0, 0, 0, 11, 3, $year)) == JD_SUNDAY) {
-			$res[4] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 11, 3, $year)) == DJ_SUNDAY) {
+			$res[4] = DJ_COMPENSATING_HOLIDAY;
 		}
-		
+
 		if ($year == 1990) {
-			$res[12] = JD_REGNAL_DAY;
+			$res[12] = DJ_REGNAL_DAY;
 		}
-		
-		$res[23] = JD_LABOR_THANKSGIVING_DAY;
+
+		$res[23] = DJ_LABOR_THANKSGIVING_DAY;
 		//振替休日確認
-		if ($this->getWeekDay(mktime(0, 0, 0, 11, 23, $year)) == JD_SUNDAY) {
-			$res[24] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 11, 23, $year)) == DJ_SUNDAY) {
+			$res[24] = DJ_COMPENSATING_HOLIDAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 11, 1, $year), $res);
+		}
+
 		return $res;
 	}
-	
+
 	/**
 	 * 祝日判定ロジック十二月
 	 *
 	 * @param {int} year 西暦
+	 * @param {bool} isRecursion 国民の休日を判定する再帰呼び出しの有無
 	 * @return {array}
 	 */
-	public function getDecemberHoliday(int $year): array
+	private function getDecemberHoliday(int $year, bool $isRecursion): array
 	{
 		$res = array();
 		if ($year >= 1989 && $year < 2019) {
-			$res[23] = JD_THE_EMPEROR_S_BIRTHDAY;
+			$res[23] = DJ_THE_EMPEROR_S_BIRTHDAY;
 		}
-		if ($this->getWeekDay(mktime(0, 0, 0, 12, 23, $year)) == JD_SUNDAY) {
-			$res[24] = JD_COMPENSATING_HOLIDAY;
+		if ($this->getWeekDay(mktime(0, 0, 0, 12, 23, $year)) == DJ_SUNDAY) {
+			$res[24] = DJ_COMPENSATING_HOLIDAY;
 		}
+
+		if ($isRecursion) {
+			$res = $this->getNationalHoliday(mktime(0, 0, 0, 12, 1, $year), $res);
+		}
+
 		return $res;
 	}
 	
 	/**
-	 * 第○ ■曜日の日付を取得します。
+	 * 指定月の第× ×曜日（e.g. 第３月曜日）の日付を取得します
 	 *
 	 * @param {int} year 年
 	 * @param {int} month 月
 	 * @param {int} weekly 曜日
-	 * @param {int} renb 何週目か
+	 * @param {int} renb 第×か
 	 * @return {int}
 	 */
 	public function getDayByWeekly(int $year, int $month, int $weekly, int $renb = 1): int
@@ -795,13 +895,13 @@ class DateJa
 
 		$day = date("j", $time_stamp);
 		$res = array(
-			"time_stamp" => $time_stamp, 
-			"day"        => $day, 
-			"strday"     => date("d", $time_stamp), 
-			"holiday"    => isset($holiday[$day]) ? $holiday[$day] : JD_NO_HOLIDAY, 
+			"time_stamp" => $time_stamp,
+			"day"        => $day,
+			"strday"     => date("d", $time_stamp),
+			"holiday"    => isset($holiday[$day]) ? $holiday[$day] : DJ_NO_HOLIDAY,
 			"week"       => $this->getWeekday($time_stamp),
-			"month"      => date("m", $time_stamp), 
-			"year"       => date("Y", $time_stamp), 
+			"month"      => date("m", $time_stamp),
+			"year"       => date("Y", $time_stamp),
 		);
 		return $res;
 	}
@@ -811,25 +911,25 @@ class DateJa
 	 *
 	 * @param {int} time_stamp 取得開始日
 	 * @param {int} lim_day 取得日数（マイナスも可）
-	 * @param {bool} is_bypass_holiday 祝日を無視するかどうか (optional)
-	 * @param {array} bypass_week_arr 無視する曜日 (optional)
-	 * @param {array} is_bypass_date 無視する日 (optional)
-	 * @return {array}
+	 * @param {bool} is_closed_holiday 祝日を休業日とする場合はtrue、休まない場合はfalse(optional)
+	 * @param {array} closed_week 休業する曜日定数の配列 (optional)
+	 * @param {array} closed_date 休業する日付（Y-m-d）若しくはタイムスタンプの配列 (optional)
+	 * @return {array} 営業日の配列
 	 */
-	public function getWorkingDay(int $time_stamp, int $lim_day, bool $is_bypass_holiday = true, array $bypass_week_arr = array(), array $is_bypass_date = array() ): array
+	public function getWorkingDay(int $time_stamp, int $lim_day, bool $is_closed_holiday = true, array $closed_week = array(), array $closed_date = array() ): array
 	{
-		if (!empty($bypass_week_arr)) {
-			$bypass_week_arr   = array_flip($bypass_week_arr);
+		if (!empty($closed_week)) {
+			$closed_week = array_flip($closed_week);
 		}
-		if (!empty($is_bypass_date)) {
+		if (!empty($closed_date)) {
 			$gc = array();
-			foreach ($is_bypass_date as $value) {
+			foreach ($closed_date as $value) {
 				if (preg_match("/^[1-9][0-9]*$/", $value)!==1) {
 					$value = strtotime($value);
 				}
 				$gc[mktime(0, 0, 0, (int)date("n", $value), (int)date("j", $value), (int)date("Y", $value))] = 1;
 			}
-			$is_bypass_date = $gc;
+			$closed_date = $gc;
 		}
 
 		$res = array();
@@ -843,9 +943,9 @@ class DateJa
 			$time_stamp = mktime(0, 0, 0, $month, $day + $i, $year);
 			$gc = $this->purseTime($time_stamp);
 			if (
-				(array_key_exists($gc["week"], $bypass_week_arr) == false) && 
-				(array_key_exists($gc["time_stamp"], $is_bypass_date) == false) && 
-				($is_bypass_holiday ? $gc["holiday"] == JD_NO_HOLIDAY : true)
+				(array_key_exists($gc["week"], $closed_week) == false) && 
+				(array_key_exists($gc["time_stamp"], $closed_date) == false) && 
+				($is_closed_holiday ? $gc["holiday"] == DJ_NO_HOLIDAY : true)
 			) {
 				$res[] = $gc;
 				$job += $adjust;
