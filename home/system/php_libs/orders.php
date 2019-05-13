@@ -5515,6 +5515,7 @@ class Orders{
 					break;
 				}
 				
+				$rs = [];
 				$sql = "select orders.id as ordersid, schedule2, customer_id, reception, staffname, maintitle, customername, order_amount, factory,
 				 ordering, toms_order, toms_response, cab_order, cab_response,
 				 coalesce(maker.maker_name, orderitemext.maker) as makername,
