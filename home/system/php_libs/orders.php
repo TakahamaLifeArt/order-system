@@ -3772,7 +3772,7 @@ class Orders{
 					
 					if($info['cab_response']==1){
 						// キャブの発注保留分を済みにする
-						$http = new HTTP('http://takahamalifeart.com/cab/garbage.php');
+						$http = new HTTP('https://takahamalifeart.com/cab/garbage.php');
 						$param = array('orders_id'=>$info['orders_id']);
 						$reply = $http->request('POST', $param);
 						$reply = unserialize($reply);
@@ -5504,7 +5504,7 @@ class Orders{
 				
 				// キャブの発注受付通知結果を取得してデータを更新
 				$flg = false;
-				$http = new HTTP('http://takahamalifeart.com/cab/cab_response.php');
+				$http = new HTTP('https://takahamalifeart.com/cab/cab_response.php');
 				$param = array();
 				$reply = $http->request('POST', $param);
 				$rs = unserialize($reply);
