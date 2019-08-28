@@ -239,20 +239,33 @@ $(function(){
 	// 0から9 . - のみ入力、桁区切りなし、不正値は"0"
 	$('.forReal').live('keypress', function(e){
 		$(this).restrictKey(e, 'price');
-    }).live('focusout', function(e){
-    	mypage.check_Real(this);
+	}).live('focusout', function(e){
+		mypage.check_Real(this);
 	});
 	
 	// 金額　0から9 . - のみ入力、桁区切りあり、フォーカスでカンマなしに変換、不正値は"0"
 	$('.forPrice').live('keypress', function(e){
 		$(this).restrictKey(e, 'price');
 	}).live('focusin', function(){
-    	var c = this.value;
-      	this.value = c.replace(/,/g, '');
-      	var self = this;
-      	$(self).select();
-    }).live('focusout', function(e){
-    	var c = this.value;
+		var c = this.value;
+		this.value = c.replace(/,/g, '');
+		var self = this;
+		$(self).select();
+	}).live('focusout', function(e){
+		var c = this.value;
+		this.value = mypage.addFigure(c);
+	});
+	
+	// 金額　0から9 正の整数のみ入力、桁区切りあり、フォーカスでカンマなしに変換、不正値は"0"
+	$('.forPriceUnsigned').live('keypress', function(e){
+		$(this).restrictKey(e, 'num');
+	}).live('focusin', function(){
+		var c = this.value;
+		this.value = c.replace(/,/g, '');
+		var self = this;
+		$(self).select();
+	}).live('focusout', function(e){
+		var c = this.value;
 		this.value = mypage.addFigure(c);
 	});
 	
@@ -1143,7 +1156,7 @@ $(function(){
 	/********************************
 	*	go to menu
 	*/
-	$('#btn_gotomenu').click( function(){
+	$('#btn_gotomenu, .gotomenu').click( function(){
 		var func = function(){
 			$('#tab_order').click();	// 受注画面タブが開いている状態にする
 			mypage.prop.modified = false;

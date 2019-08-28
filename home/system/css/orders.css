@@ -1926,6 +1926,18 @@ input[type="text"].nostyle, select.nostyle, textarea.nostyle {
 
 
 
+/*		領収書
+===============================================================*/
+#receipt_address,
+#receipt_price,
+#receipt_proviso {
+	margin-bottom: 1rem;
+	padding: .5rem;
+}
+
+
+
+
 /*		進行状況ラジオボタン
 ===============================================================*/
 .phasecheck{

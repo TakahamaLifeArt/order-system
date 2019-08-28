@@ -1070,7 +1070,7 @@
 									</tr>
 									<tr><th>住所１</th>
 										<td>
-											<input type="text" name="addr1" value="" size="100" id="addr1" maxlength="56" class="restrict">
+											<input type="text" name="addr1" value="" size="80" id="addr1" maxlength="56" class="restrict">
 											<div class="pulldown">
 												<div id="address_wrapper1" class="popup_wrapper">
 													<div class="inner">
@@ -1081,9 +1081,9 @@
 											</div>
 										</td>
 									</tr>
-									<tr><th>住所２</th><td><input type="text" name="addr2" value="" size="100" id="addr2" placeholder="マンション・ビル名" maxlength="32" class="restrict" /></td></tr>
-									<tr><th>会社・部門１</th><td><input type="text" name="addr3" value="" size="100" id="addr3" maxlength="50" class="restrict" /></td></tr>
-									<tr><th>会社・部門２</th><td><input type="text" name="addr4" value="" size="100" id="addr4" maxlength="50" class="restrict" /></td></tr>
+									<tr><th>住所２</th><td><input type="text" name="addr2" value="" size="80" id="addr2" placeholder="マンション・ビル名" maxlength="32" class="restrict" /></td></tr>
+									<tr><th>会社・部門１</th><td><input type="text" name="addr3" value="" size="80" id="addr3" maxlength="50" class="restrict" /></td></tr>
+									<tr><th>会社・部門２</th><td><input type="text" name="addr4" value="" size="80" id="addr4" maxlength="50" class="restrict" /></td></tr>
 									<tr><th>備　考</th><td><textarea name="customernote" rows="4" id="customernote"></textarea></td></tr>
 								</tbody>
 							</table>
@@ -1148,7 +1148,7 @@
 									</tr>
 									<tr><th>住所１</th>
 										<td>
-											<input type="text" name="deliaddr1" value="" size="100" id="deliaddr1" maxlength="56" class="restrict" />
+											<input type="text" name="deliaddr1" value="" size="80" id="deliaddr1" maxlength="56" class="restrict" />
 											<div class="pulldown">
 												<div id="address_wrapper2" class="popup_wrapper">
 													<div class="inner">
@@ -1159,9 +1159,9 @@
 											</div>
 										</td>
 									</tr>
-									<tr><th>住所２</th><td><input type="text" name="deliaddr2" value="" size="100" id="deliaddr2" placeholder="マンション・ビル名" maxlength="32" class="restrict" /></td></tr>
-									<tr><th>会社・部門１</th><td><input type="text" name="deliaddr3" value="" size="100" id="deliaddr3" maxlength="50" class="restrict" /></td></tr>
-									<tr><th>会社・部門２</th><td><input type="text" name="deliaddr4" value="" size="100" id="deliaddr4" maxlength="50" class="restrict2" /></td></tr>
+									<tr><th>住所２</th><td><input type="text" name="deliaddr2" value="" size="80" id="deliaddr2" placeholder="マンション・ビル名" maxlength="32" class="restrict" /></td></tr>
+									<tr><th>会社・部門１</th><td><input type="text" name="deliaddr3" value="" size="80" id="deliaddr3" maxlength="50" class="restrict" /></td></tr>
+									<tr><th>会社・部門２</th><td><input type="text" name="deliaddr4" value="" size="80" id="deliaddr4" maxlength="50" class="restrict2" /></td></tr>
 									<tr><th>TEL</th><td><input type="text" name="delitel" value="" size="24" class="forPhone" /></td></tr>
 								</tbody>
 							</table>
@@ -1209,7 +1209,7 @@
 									<tr>
 										<th>住所１</th>
 										<td colspan="3">
-											<input type="text" name="shipaddr1" value="" size="100" id="shipaddr1" maxlength="56" class="restrict" />
+											<input type="text" name="shipaddr1" value="" size="80" id="shipaddr1" maxlength="56" class="restrict" />
 											<div class="pulldown">
 												<div id="address_wrapper3" class="popup_wrapper">
 													<div class="inner">
@@ -1220,9 +1220,9 @@
 											</div>
 										</td>
 									</tr>
-									<tr><th>住所２</th><td colspan="3"><input type="text" name="shipaddr2" value="" size="100" id="shipaddr2" placeholder="マンション・ビル名" maxlength="32" class="restrict" /></td></tr>
-									<tr><th>会社・部門１</th><td colspan="3"><input type="text" name="shipaddr3" value="" size="100" id="shipaddr3" maxlength="50" class="restrict" /></td></tr>
-									<tr><th>会社・部門２</th><td colspan="3"><input type="text" name="shipaddr4" value="" size="100" id="shipaddr4" maxlength="50" class="restrict" /></td></tr>
+									<tr><th>住所２</th><td colspan="3"><input type="text" name="shipaddr2" value="" size="80" id="shipaddr2" placeholder="マンション・ビル名" maxlength="32" class="restrict" /></td></tr>
+									<tr><th>会社・部門１</th><td colspan="3"><input type="text" name="shipaddr3" value="" size="80" id="shipaddr3" maxlength="50" class="restrict" /></td></tr>
+									<tr><th>会社・部門２</th><td colspan="3"><input type="text" name="shipaddr4" value="" size="80" id="shipaddr4" maxlength="50" class="restrict" /></td></tr>
 									<tr>
 										<th>TEL</th><td><input type="text" name="shiptel" value="" size="20" class="forPhone" /></td>
 										<th>FAX</th><td><input type="text" name="shipfax" value="" size="20" class="forPhone" /></td>
@@ -1322,7 +1322,7 @@
 					</div>
 				</div>
 
-				<div class="phase_box freeform" id="page_border">
+				<div class="phase_box freeform">
 					<h2 class="ordertitle">●コメント</h2>
 					<div class="inner">
 						<p class="scrolltop"><a href="#order_wrapper">ページトップへ</a></p>
@@ -1341,9 +1341,24 @@
 					</div>
 				</div>
 
-			<!--
-				<div id="confirm_button"></div>
-			 -->
+				<div class="phase_box freeform" id="page_border">
+					<h2 class="ordertitle">●領収書</h2>
+					<div class="inner">
+						<p class="scrolltop"><a href="#order_wrapper">ページトップへ</a></p>
+						<div>
+							<label for="receipt_address">宛名</label>
+							<p><input type="text" id="receipt_address" value="" size="64" placeholder="領収書の宛名"></p>
+						</div>
+						<div>
+							<label for="receipt_price">金額</label>
+							<p><input type="text" id="receipt_price" class="forPriceUnsigned" value="0" placeholder="領収書の金額"> 円</p>
+						</div>
+						<div>
+							<label for="receipt_proviso">但し書</label>
+							<p><input type="text" id="receipt_proviso" value="" size="64" placeholder="領収書の但し書"></p>
+						</div>
+					</div>
+				</div>
 
 			</div>
 

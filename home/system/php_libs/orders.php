@@ -498,14 +498,14 @@ class Orders{
 					lastmodified, estimated, order_amount, paymentdate, exchink_count, exchthread_count, deliver, deliverytime, manuscriptdate, purpose, 
 					purpose_text, job, designcharge, repeater, reuse, free_discount, free_printfee, completionimage, contact_number, additionalname, 
 					additionalfee, extradiscountname, extradiscount, shipfrom_id, package_yes, package_no, package_nopack, pack_yes_volume, pack_nopack_volume, boxnumber, 
-					factory, destcount, repeatdesign, allrepeat, staffdiscount, imega)
+					factory, destcount, repeatdesign, allrepeat, staffdiscount, imega, receipt_address, receipt_price, receipt_proviso)
 								VALUES(%d,'%s',%d,'%s','%s','%s','%s','%s',%d,'%s',
 								'%s',%d,%d,'%s','%s','%s','%s',%d,'%s','%s',
 								%d,'%s','%s','%s','%s','%s',%d,%d,%d,'%s',
 								'%s',%d,%d,'%s',%d,%d,%d,%d,'%s','%s',
 								'%s','%s',%d,%d,%d,%d,%d,%d,'%s','%s',
 								%d,'%s',%d,%d,%d,%d,%d,%d,%d,%d,
-								%d,%d,%d,%d,%d,%d)",
+								%d,%d,%d,%d,%d,%d,'%s',%d,'%s')",
 								$info3["reception"],
 								$info3["ordertype"],
 								$info3["applyto"],
@@ -571,7 +571,10 @@ class Orders{
 								$info3["repeatdesign"],
 								$info3["allrepeat"],
 								$info3["staffdiscount"],
-								$info3["imega"]
+								$info3["imega"],
+								$info3["receipt_address"] ?? '',
+								$info3["receipt_price"] ?? 0,
+								$info3["receipt_proviso"] ?? ''
 								);
 
 				if(exe_sql($conn, $sql)){
@@ -1838,7 +1841,7 @@ class Orders{
 							purpose='%s',purpose_text='%s',job='%s',designcharge=%d,repeater=%d,reuse=%d,free_discount=%d,free_printfee=%d,
 							completionimage=%d, contact_number='%s', additionalname='%s', additionalfee=%d, extradiscountname='%s', extradiscount=%d, shipfrom_id=%d,
 							package_yes=%d,package_no=%d,package_nopack=%d,pack_yes_volume=%d,pack_nopack_volume=%d,boxnumber=%d,factory=%d,destcount=%d,repeatdesign=%d,allrepeat=%d, staffdiscount=%d,
-							imega=%d
+							imega=%d, receipt_address='%s', receipt_price=%d, receipt_proviso='%s'
 							 WHERE id=%d",
 						   	$data3["reception"],
 					 	   	$data3["ordertype"],
@@ -1905,6 +1908,9 @@ class Orders{
 							$data3["allrepeat"],
 							$data3["staffdiscount"],
 							$data3["imega"],
+							$data3["receipt_address"] ?? '',
+							$data3["receipt_price"] ?? 0,
+							$data3["receipt_proviso"] ?? '',
 							$data3["id"]);
 				$rs = exe_sql($conn, $sql);
 				if(!$rs){

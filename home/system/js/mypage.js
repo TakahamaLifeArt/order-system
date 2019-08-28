@@ -38,8 +38,9 @@ var mypage = {
 		'img_path': 'https://takahamalifeart.com/weblib/img/'
 	},
 	order_info: {
-		id: ['order_id', 'reception', 'destination', 'order_comment', 'paymentdate', 'exchink_count', 'exchthread_count', 'deliverytime', 'manuscriptdate', 'invoicenote', 'billnote',
-				'contact_number', 'additionalname', 'extradiscountname', 'boxnumber', 'handover', 'factory', 'destcount'
+		id: ['order_id', 'reception', 'destination', 'order_comment', 'paymentdate', 'exchink_count', 'exchthread_count', 'deliverytime',
+			 'manuscriptdate', 'invoicenote', 'billnote','contact_number', 'additionalname', 'extradiscountname', 'boxnumber', 'handover',
+			 'factory', 'destcount', 'receipt_address', 'receipt_price', 'receipt_proviso'
 			],
 		name: ['ordertype', 'schedule1', 'schedule2', 'schedule3', 'schedule4', 'arrival', 'carriage', 'check_amount', 'noprint', 'design',
 				'manuscript', 'discount1', 'discount2', 'reduction', 'reductionname', 'freeshipping', 'payment', 'phase', 'budget', 'deliver', 'purpose', 'designcharge', 'job',
@@ -4516,7 +4517,11 @@ var mypage = {
 
 				for (i = 1; i < mypage.order_info.id.length; i++) {
 					field3[i] = mypage.order_info.id[i];
-					data3[i] = $('#' + mypage.order_info.id[i]).val();
+					if (mypage.order_info.id[i] !== 'receipt_price') {
+						data3[i] = $('#' + mypage.order_info.id[i]).val();
+					} else {
+						data3[i] = $('#' + mypage.order_info.id[i]).val().replace(/,/g, '');
+					}
 				}
 
 				for (i = mypage.order_info.id.length, t = 0; t < mypage.order_info.name.length; i++, t++) {
@@ -8021,11 +8026,16 @@ var mypage = {
 			$('#order_id').text(order_id);
 			for (i = 1; i < mypage.order_info.id.length; i++) {
 				if ((mypage.order_info.id[i]).match(/paymentdate|manuscriptdate/)) {
-					if ((info[mypage.order_info.id[i]]).match(/^0000-/)) $('#' + mypage.order_info.id[i]).val('');
-					else $('#' + mypage.order_info.id[i]).val((info[mypage.order_info.id[i]]));
+					if ((info[mypage.order_info.id[i]]).match(/^0000-/)) {
+						$('#' + mypage.order_info.id[i]).val('');
+					} else {
+						$('#' + mypage.order_info.id[i]).val((info[mypage.order_info.id[i]]));
+					}
 				} else if (mypage.order_info.id[i] == 'handover') {
 					var element_data = info[mypage.order_info.id[i]].slice(0, -3);
 					$('#' + mypage.order_info.id[i]).val(element_data);
+				} else if (mypage.order_info.id[i] == 'receipt_price') {
+					$('#' + mypage.order_info.id[i]).val(mypage.addFigure(info[mypage.order_info.id[i]]));
 				} else {
 					$('#' + mypage.order_info.id[i]).val(info[mypage.order_info.id[i]]);
 				}
