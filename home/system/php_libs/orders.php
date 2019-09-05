@@ -6675,8 +6675,8 @@ class Orders{
 				} elseif ($data['fin_5']==3) {
 					// CSV出力の集計用
 					$sql .= ' and fin_5=1';		// 終了テェック済み
-					$start = $data['start'] ?: date('Y-m-01');
-					$end = $data['end'] ?: date('Y-m-d');
+					$start = $data['start'] ?: date('Y-m-01');	// default:月初
+					$end = $data['end'] ?: date('Y-m-t');		// default:月末
 					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 
@@ -7010,8 +7010,8 @@ class Orders{
 				} elseif ($data['fin_3']==3) {
 					// CSV出力の集計用
 					$sql .= ' and fin_3=1';		// 終了テェック済み
-					$start = $data['start'] ?: date('Y-m-01');
-					$end = $data['end'] ?: date('Y-m-d');
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
 					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 					
@@ -7091,8 +7091,8 @@ class Orders{
 				} elseif ($data['fin_3']==3) {
 					// CSV出力の集計用
 					$sql .= ' and fin_3=1';		// 終了テェック済み
-					$start = $data['start'] ?: date('Y-m-01');
-					$end = $data['end'] ?: date('Y-m-d');
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
 					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
@@ -7172,8 +7172,8 @@ class Orders{
 				} elseif ($data['fin_4']==3) {
 					// CSV出力の集計用
 					$sql .= ' and fin_4=1';		// 終了テェック済み
-					$start = $data['start'] ?: date('Y-m-01');
-					$end = $data['end'] ?: date('Y-m-d');
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
 					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
@@ -7260,8 +7260,8 @@ class Orders{
 				} elseif ($data['fin_4']==3) {
 					// CSV出力の集計用
 					$sql .= ' and fin_4=1';		// 終了テェック済み
-					$start = $data['start'] ?: date('Y-m-01');
-					$end = $data['end'] ?: date('Y-m-d');
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
 					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				

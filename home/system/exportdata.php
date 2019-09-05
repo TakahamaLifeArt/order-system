@@ -47,7 +47,7 @@
 								<table>
 									<tbody>
 										<tr>
-											<th>検索対象期間</th>
+											<th>発送日</th>
 											<td>
 												<input type="text" value="" name="term_from" size="10" class="forDate datepicker" /> &#65374;<input type="text" value="" name="term_to" size="10" class="forDate datepicker" />
 												<input type="button" value="日付クリア" title="cleardate" id="cleardate" />
