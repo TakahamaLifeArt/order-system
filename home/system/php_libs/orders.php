@@ -7093,7 +7093,7 @@ class Orders{
 					$sql .= ' and fin_3=1';		// 終了テェック済み
 					$start = $data['start'] ?: date('Y-m-01');
 					$end = $data['end'] ?: date('Y-m-d');
-					$sql .= ' and dateoftrans >= "'.$start.'" and dateoftrans <= "'.$end.'"';
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id, printstatus.printtype_key order by schedule3, orders.id';
@@ -7262,7 +7262,7 @@ class Orders{
 					$sql .= ' and fin_4=1';		// 終了テェック済み
 					$start = $data['start'] ?: date('Y-m-01');
 					$end = $data['end'] ?: date('Y-m-d');
-					$sql .= ' and dateofpress >= "'.$start.'" and dateofpress <= "'.$end.'"';
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id,printstatus.printtype_key,item,areaid order by schedule3, orders.id, printstatus.printtype_key, areaid';
