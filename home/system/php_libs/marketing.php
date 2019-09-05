@@ -240,7 +240,7 @@ class Marketing Extends MYDB2 {
 			foreach ($silkList as $v) {
 				$rs[] = [
 					'部門' => 'シルク',
-					'日付' => $v['dateofsilk'],
+					'発送日' => $v['schedule3'],
 					'工場' => $factoryName[$v['factory']],
 					'担当' => $v['staffname'] ?: '未定',
 					'仕事量' => $v['capacity'] + $v['adjworktime'],
@@ -257,7 +257,7 @@ class Marketing Extends MYDB2 {
 			foreach ($transkList as $v) {
 				$rs[] = [
 					'部門' => '転写',
-					'日付' => $v['dateoftrans'],
+					'発送日' => $v['schedule3'],
 					'工場' => $factoryName[$v['factory']],
 					'担当' => $v['staffname'] ?: '未定',
 					'仕事量' => $v['wt'] + $v['adjtime'],
@@ -274,7 +274,7 @@ class Marketing Extends MYDB2 {
 			foreach ($pressList as $v) {
 				$rs[] = [
 					'部門' => 'プレス',
-					'日付' => $v['dateofpress'],
+					'発送日' => $v['schedule3'],
 					'工場' => $factoryName[$v['factory']],
 					'担当' => $v['staffname'] ?: '未定',
 					'仕事量' => $v['wt'] + $v['adjtime'],
