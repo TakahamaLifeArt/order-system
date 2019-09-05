@@ -350,9 +350,29 @@
 				case 'customerlist':
 					$dat=Marketing::getCustomerList($_REQUEST['start'], $_REQUEST['end'], $_REQUEST['id']);
 					break;
+					
+				case 'worktimelist':
+					$marketing = new Marketing($orders);
+					$dat=$marketing->getWorktimeList($_REQUEST['start'], $_REQUEST['end']);
+					break;
 			}
 			
-			if($_REQUEST['csv']=='customerlist'){
+			if ($_REQUEST['csv']=='worktimelist') {
+				// 仕事量データ
+				$fieldName = [];
+				$filename = $_REQUEST['csv'] . '_' . date('Y-m-d') . ".csv";
+				$filepath = "../data/".$filename;
+				$fp = fopen($filepath, 'wb');
+				if($fp==false) echo 'Error: file open';
+				$lbl = array();
+				foreach($dat[0] as $key=>$val){
+					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
+				}
+				fputcsv($fp, $lbl);
+				foreach($dat as $line){
+					fputcsv($fp, $line);
+				}
+			} elseif ($_REQUEST['csv']=='customerlist') {
 				// 顧客データ
 				$fieldName = array(
 					'customer_num'=>'顧客ID', 

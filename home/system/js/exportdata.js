@@ -15,7 +15,7 @@
 		/********************************
 		*	export data
 		*/
-		$('#orderlist, #printlist, #orderitemlist, #orderitemlist_additional').click(function(){
+		$('#orderlist, #printlist, #orderitemlist, #orderitemlist_additional, #worktimelist').click(function(){
 			var start = document.forms.searchtop_form.term_from.value;
 			var end = document.forms.searchtop_form.term_to.value;
 			var id = document.forms.searchtop_form.id.value;
@@ -25,14 +25,20 @@
 				alert('受付日を指定してください');
 				return;
 			}
-			$('#result_searchtop').html('<p class="alert">Export ... <img src="./img/pbar-ani.gif" style="width:150px; height:22px;"></p>');
-			$('#result_wrapper').show();
+
+			$('#result_searchtop').show();
 			$.ajax({ url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text',
 				data:{'act':'export', 'csv':csv[0], 'mode':mode, 'start':start, 'end':end, 'id':id}, async:false, 
 				success:function(r){
-					var filename = mode? csv[0]+'-'+mode+'.csv': csv[0]+'.csv';
-					mypage.handleDownload(r, filename);
-					$('#result_wrapper').hide().children('#result_searchtop').html("");
+					if (r.length < 2) {
+						alert('該当するデータはありませんでした');
+					} else {
+						var filename = mode? csv[0]+'-'+mode+'.csv': csv[0]+'.csv';
+						mypage.handleDownload(r, filename);
+					}
+				},
+				complete:function(XMLHttpRequest, textStatus){
+					$('#result_searchtop').hide();
 				}
 			});
 		});
@@ -105,7 +111,7 @@
 	});
 
 	var mypage = {
-		prop: {	
+		prop: {
 			'holidayInfo':{}
 		},
 		handleDownload: function(content, filename) {

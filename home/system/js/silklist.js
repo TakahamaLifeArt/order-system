@@ -14,7 +14,7 @@ Array.prototype.asort = function(key) {
 
 $(function(){
 	jQuery.extend({
-		prop: {	
+		prop: {
 			'modified':false,			// 修正フラグ　true:修正あり
 			'update_id':{},				// 作業予定の更新をおこなう行番号をキーにした受注No.のハッシュ
 			'holidayInfo':{}
@@ -46,6 +46,14 @@ $(function(){
 				var proc = $(my).closest('td').prev('td').prev('td').find('select').val();
 				field.push('state_5');
 				data.push(proc);
+				
+				// 終了チェックの場合、作業予定日にチェックした日を指定
+				if (args) {
+					var dt = new Date(),
+						dateOfSilk = dt.getFullYear() + "-" + ("00" + (dt.getMonth() + 1)).slice(-2) + "-" + ("00" + dt.getDate()).slice(-2);
+					field.push('dateofsilk');
+					data.push(dateOfSilk);
+				}
 			}
 			
 			/* 2013-11-21 作業予定者を別テーブルに移行

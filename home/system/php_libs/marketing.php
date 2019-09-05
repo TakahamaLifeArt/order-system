@@ -1,19 +1,25 @@
 <?php
-/*
-*	マーケティング　クラス
-*	charset UTF-8
-*	log:	2015-03-18 created
-*			2016-11-01 CSV ダウンロード用データ集計を実装
-*/
+/**
+ * マーケティング　クラス
+ * charset UTF-8
+ * log : 2015-03-18 created
+ *		 2016-11-01 CSVダウンロード用のデータ集計を実装
+ *		 2019-09-02 仕事量（シルク、転写、プレス）のデータ集計
+ */
 require_once dirname(__FILE__).'/MYDB2.php';
 class Marketing Extends MYDB2 {
 
-	public function __construct(){
+	private $orders = null;
+    
+	public function __construct($orders = null){
 		parent::__construct();
+		
+		$this->orders = $orders;
 	}
 	
 	
-	private static function validDate($args, $defDate='2011-06-05'){
+	private static function validDate($args, $defDate='2011-06-05')
+	{
 		if(empty($args)){
 			return $defDate;
 		}else{
@@ -28,15 +34,16 @@ class Marketing Extends MYDB2 {
 	}
 	
 	
-	/*
-	*	受注データ、CSV出力用
-	*	@start	受注入力登録日による検索開始日
-	*	@end	受注入力登録日による検索終了日
-	*	@id		受注No.
-	*
-	*	reutrn	[受注情報]
-	*/
-	public static function getOrderList($start=null, $end=null, $id=null) {
+	/**
+	 * 受注データ集計、CSV出力用
+	 * @param string $start 受注入力登録日による検索開始日
+	 * @param string $end 受注入力登録日による検索終了日
+	 * @param int $id 受注No.
+	 *
+	 * @reutrn [受注情報]
+	 */
+	public static function getOrderList($start=null, $end=null, $id=null)
+	{
 		try{
 			$sql = "select orders.id as ordersid, staffname, ordertype, progressname, maintitle, pack_yes_volume, pack_nopack_volume, order_amount, ";
 			$sql .= " carriage, boxnumber, factory, schedule1, schedule2, schedule3, schedule4, noprint, exchink_count, manuscript, ";
@@ -88,15 +95,16 @@ class Marketing Extends MYDB2 {
 	
 	
 	
-	/*
-	*	プリントデータ、CSV出力用
-	*	@start	受注入力登録日による検索開始日
-	*	@end	受注入力登録日による検索終了日
-	*	@id		受注No.
-	*
-	*	reutrn	[プリント情報]
-	*/
-	public static function getPrintList($start=null, $end=null, $id=null) {
+	/**
+	 * プリントデータ集計、CSV出力用
+	 * @param string start 受注入力登録日による検索開始日
+	 * @param string end 受注入力登録日による検索終了日
+	 * @param int id 受注No.
+	 *
+	 * @reutrn [プリント情報]
+	 */
+	public static function getPrintList($start=null, $end=null, $id=null)
+	{
 		try{
 			$sql = "select orders.id as ordersid, ink_count, print_type, print_option, jumbo_plate, design_type, selective_name from (((orders ";
 			$sql .= "inner join acceptstatus on orders.id=acceptstatus.orders_id) ";
@@ -133,16 +141,17 @@ class Marketing Extends MYDB2 {
 	
 	
 	
-	/*
-	*	注文商品データ
-	*	@start	受注入力登録日による検索開始日
-	*	@end	受注入力登録日による検索終了日
-	*	@id		受注No.
-	*	@mode	NULL(default) or otherwise
-	*
-	*	reutrn	[注文商品情報]
-	*/
-	public static function getOrderItemList($start=null, $end=null, $id=null, $mode=null) {
+	/**
+	 * 注文商品データ集計、CSV出力用
+	 * @param string start	受注入力登録日による検索開始日
+	 * @param string end 受注入力登録日による検索終了日
+	 * @param int id 受注No.
+	 * @param mode NULL(default) or otherwise
+	 *
+	 * @reutrn[注文商品情報]
+	 */
+	public static function getOrderItemList($start=null, $end=null, $id=null, $mode=null)
+	{
 		try{
 			if(empty($mode)){
 				$sql = "select orders.id as ordersid, coalesce(case orderitemext.item_id 
@@ -179,7 +188,7 @@ class Marketing Extends MYDB2 {
 				$sql .= " and orders.id=?";
 			}
 			$sql .= " and created between ? and ?";
-			$sql .= " order by orders.id ";	
+			$sql .= " order by orders.id ";
 			$conn = self::db_connect();
 			$stmt = $conn->prepare($sql);
 			$start = self::validDate($start);
@@ -203,6 +212,175 @@ class Marketing Extends MYDB2 {
 	
 	
 	
+	/**
+	 * 仕事量（シルク、転写、プレス）のデータ集計、CSV出力用
+	 * @param string start 作業終了チェック日による検索開始日
+	 * @param string end 作業終了チェック日による検索終了日
+	 *
+	 * @reutrn [プリント情報]
+	 */
+	public function getWorktimeList($start=null, $end=null)
+	{
+		try {
+			$rs = [];
+			$factoryName = [
+				0 => '-',
+				1 => '１工場',
+				2 => '２工場',
+				9 => '１-２工場',
+			];
+			
+			// シルク
+			$data = [
+				'fin_5' => 3,
+				'start' => $start,
+				'end' => $end,
+			];
+			$silkList = $this->orders->db('search', 'silklist', $data);
+			foreach ($silkList as $v) {
+				$rs[] = [
+					'部門' => 'シルク',
+					'日付' => $v['dateofsilk'],
+					'工場' => $factoryName[$v['factory']],
+					'担当' => $v['staffname'] ?: '未定',
+					'仕事量' => $v['capacity'] + $v['adjworktime'],
+				];
+			}
+			
+			// 転写
+			$data = [
+				'fin_3' => 3,
+				'start' => $start,
+				'end' => $end,
+			];
+			$transList = $this->orders->db('search', 'translist', $data);
+			foreach ($transkList as $v) {
+				$rs[] = [
+					'部門' => '転写',
+					'日付' => $v['dateoftrans'],
+					'工場' => $factoryName[$v['factory']],
+					'担当' => $v['staffname'] ?: '未定',
+					'仕事量' => $v['wt'] + $v['adjtime'],
+				];
+			}
+			
+			// プレス
+			$data = [
+				'fin_4' => 3,
+				'start' => $start,
+				'end' => $end,
+			];
+			$pressList = $this->orders->db('search', 'presslist', $data);
+			foreach ($pressList as $v) {
+				$rs[] = [
+					'部門' => 'プレス',
+					'日付' => $v['dateofpress'],
+					'工場' => $factoryName[$v['factory']],
+					'担当' => $v['staffname'] ?: '未定',
+					'仕事量' => $v['wt'] + $v['adjtime'],
+				];
+			}
+		} catch (Exception $e) {
+			$rs = [];
+		}
+		
+		return $rs;
+	}
+	
+	
+	/**
+	 * 割引データ
+	 * @param id 受注No.
+	 *
+	 * @reutrn [割引情報]
+	 */
+	public static function getDiscountInfo($id)
+	{
+		try{
+			$sql = "select discount_name from discount where orders_id=? and discount_state=1";
+			$conn = self::db_connect();
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param("i", $id);
+			$stmt->execute();
+			$stmt->store_result();
+			$rs = self::fetchAll($stmt);
+
+		}catch(Exception $e){
+			$rs = "";
+		}
+
+		$stmt->close();
+		$conn->close();
+		return $rs;
+	}
+	
+	
+	
+	/**
+	 * 注文商品データ
+	 * @param id 受注No.
+	 * @param ordertype general(default) or industry
+	 *
+	 * @reutrn [注文商品情報]
+	 */
+	public static function getOrderItem($id, $ordertype="general")
+	{
+		try{
+			$sql = "select coalesce(case orderitemext.item_id 
+				 when 100000 then '持込' 
+				 when 99999 then '転写シート' 
+				 when 0 then 'その他' 
+				 else null end, category_name) as catname, ";
+			$sql .= " case when item_code is null then '' else item_code end as item_code, ";
+			$sql .= " coalesce(item.item_name, orderitemext.item_name) as item_name, ";
+			$sql .= " coalesce(size.size_name, orderitemext.size_name) as size_name, ";
+			$sql .= " color_code, coalesce(itemcolor.color_name, orderitemext.item_color) as color_name, ";
+			$sql .= " coalesce(maker.maker_name, orderitemext.maker) as maker_name,";
+			$sql .= " amount, ";
+			$sql .= " coalesce(orderitemext.price, orderitem.item_cost) as item_cost";
+			$sql .= " from ((((((orderitem";
+			$sql .= " left join orderitemext on orderitem.id=orderitemext.orderitem_id)";
+			$sql .= " left join size on orderitem.size_id=size.id)";
+			$sql .= " left join catalog on orderitem.master_id=catalog.id)";
+			$sql .= " left join category on catalog.category_id=category.id)";
+			$sql .= " left join item on catalog.item_id=item.id)";
+			$sql .= " left join maker on item.maker_id=maker.id)";
+			$sql .= " left join itemcolor on catalog.color_id=itemcolor.id";
+			$sql .= " where orderitem.orders_id=?";
+			$conn = self::db_connect();
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param("i", $id);
+			$stmt->execute();
+			$stmt->store_result();
+			$rs_items = self::fetchAll($stmt);
+
+			$rs_aditional = array();
+			if($ordertype!="general"){
+				$sql = "select addsummary, addamount, addcost, addprice from additionalestimate where orders_id=?";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("i", $id);
+				$stmt->execute();
+				$stmt->store_result();
+				$rec = self::fetchAll($stmt);
+				$rs_aditional = $rec;
+			}
+
+			$rs = array("orderitem"=>$rs_items, "additional"=>$rs_aditional);
+		}catch(Exception $e){
+			$rs = array("orderitem"=>array(), "additional"=>array());
+		}
+
+		$stmt->close();
+		$conn->close();
+		return $rs;
+	}
+	
+	
+	
+	
+/*=========== Pending ========================================*/
+	
+	
 	/*
 	*	ユーザー情報（未使用）
 	*	@start	注文確定日による検索開始日
@@ -211,7 +389,8 @@ class Marketing Extends MYDB2 {
 	*
 	*	reutrn	[ユーザー情報]
 	*/
-	public static function getCustomerList($start=null, $end=null, $id=null) {
+	public static function getCustomerList($start=null, $end=null, $id=null)
+	{
 		try{
 			$sql = "select (case when customer.cstprefix='k' then concat('K', lpad(customer.number,6,'0')) else concat('G', lpad(customer.number,4,'0')) end) as customer_num,";
 			$sql .= " customername, customerruby, company as dept, companyruby as deptruby,";
@@ -305,7 +484,8 @@ class Marketing Extends MYDB2 {
 	*
 	*	reutrn	[販売情報]
 	*/
-	public static function getSalesList($start=null, $end=null, $id=null) {
+	public static function getSalesList($start=null, $end=null, $id=null)
+	{
 		try{
 			$sql = "select orders.id as ordersid, staffname, ordertype, maintitle, pack_yes_volume, pack_nopack_volume, order_amount, ";
 			$sql .= " carriage, boxnumber, factory, schedule1, schedule2, schedule3, schedule4, noprint, exchink_count, manuscript, ";
@@ -392,97 +572,13 @@ class Marketing Extends MYDB2 {
 	
 	
 	/*
-	*	割引データ
-	*	@id		受注No.
-	*
-	*	reutrn	[割引情報]
-	*/
-	public static function getDiscountInfo($id) {
-		try{
-			$sql = "select discount_name from discount where orders_id=? and discount_state=1";
-			$conn = self::db_connect();
-			$stmt = $conn->prepare($sql);
-			$stmt->bind_param("i", $id);
-			$stmt->execute();
-			$stmt->store_result();
-			$rs = self::fetchAll($stmt);
-			
-		}catch(Exception $e){
-			$rs = "";
-		}
-		
-		$stmt->close();
-		$conn->close();
-		return $rs;
-	}
-	
-	
-	/*
-	*	注文商品データ
-	*	@id			受注No.
-	*	@ordertype	general(default) or industry
-	*
-	*	reutrn	[注文商品情報]
-	*/
-	public static function getOrderItem($id, $ordertype="general") {
-		try{
-			$sql = "select coalesce(case orderitemext.item_id 
-				 when 100000 then '持込' 
-				 when 99999 then '転写シート' 
-				 when 0 then 'その他' 
-				 else null end, category_name) as catname, ";
-			$sql .= " case when item_code is null then '' else item_code end as item_code, ";
-			$sql .= " coalesce(item.item_name, orderitemext.item_name) as item_name, ";
-			$sql .= " coalesce(size.size_name, orderitemext.size_name) as size_name, ";
-			$sql .= " color_code, coalesce(itemcolor.color_name, orderitemext.item_color) as color_name, ";
-			$sql .= " coalesce(maker.maker_name, orderitemext.maker) as maker_name,";
-			$sql .= " amount, ";
-			$sql .= " coalesce(orderitemext.price, orderitem.item_cost) as item_cost";
-			$sql .= " from ((((((orderitem";
-			$sql .= " left join orderitemext on orderitem.id=orderitemext.orderitem_id)";
-			$sql .= " left join size on orderitem.size_id=size.id)";
-			$sql .= " left join catalog on orderitem.master_id=catalog.id)";
-			$sql .= " left join category on catalog.category_id=category.id)";
-			$sql .= " left join item on catalog.item_id=item.id)";
-			$sql .= " left join maker on item.maker_id=maker.id)";
-			$sql .= " left join itemcolor on catalog.color_id=itemcolor.id";
-			$sql .= " where orderitem.orders_id=?";
-			$conn = self::db_connect();
-			$stmt = $conn->prepare($sql);
-			$stmt->bind_param("i", $id);
-			$stmt->execute();
-			$stmt->store_result();
-			$rs_items = self::fetchAll($stmt);
-			
-			$rs_aditional = array();
-			if($ordertype!="general"){
-				$sql = "select addsummary, addamount, addcost, addprice from additionalestimate where orders_id=?";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("i", $id);
-				$stmt->execute();
-				$stmt->store_result();
-				$rec = self::fetchAll($stmt);
-				$rs_aditional = $rec;
-			}
-			
-			$rs = array("orderitem"=>$rs_items, "additional"=>$rs_aditional);
-		}catch(Exception $e){
-			$rs = array("orderitem"=>array(), "additional"=>array());
-		}
-		
-		$stmt->close();
-		$conn->close();
-		return $rs;
-	}
-	
-	
-	/*
 	*	プリントデータ（未使用）
 	*	@id		受注No.
 	*
 	*	reutrn	[プリント情報]
 	*/
-	public static function getPrintInfo($id) {
+	public static function getPrintInfo($id)
+	{
 		try{
 			$sql = "select orderprint.id as orderprintid, printposition_id, printposition.item_type as printpositino_type";
 			$sql .= " from orderprint left join printposition on orderprint.printposition_id=printposition.id";
@@ -544,7 +640,8 @@ class Marketing Extends MYDB2 {
 	*
 	*	reutrn	[売上台帳へのインポートデータ]
 	*/
-	public static function getSalesLedger($start=null, $end=null, $id=null) {
+	public static function getSalesLedger($start=null, $end=null, $id=null)
+	{
 		try{
 			$sql = "select orders.id as ordersId, schedule3, customer_id, ordertype, order_amount, ";
 			$sql .= " productfee, printfee, silkprintfee, colorprintfee, digitprintfee, inkjetprintfee, cuttingprintfee, ";
@@ -686,11 +783,12 @@ class Marketing Extends MYDB2 {
 	
 	/*
 	*	販売管理データ用のハッシュを生成（未使用）
-	*	@data	
+	*	@data
 	*
 	*	reutrn	[]
 	*/
-	private static function getHash($data) {
+	private static function getHash($data)
+	{
 		try{
 			$tmp = array();
 			$tmp[] = "1";	// 1.削除マーク（1:通常伝票）

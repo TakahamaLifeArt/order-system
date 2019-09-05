@@ -6605,23 +6605,15 @@ class Orders{
 					$isDry[$rec['tag_itemid']] = true;
 				}
 				
-				// スタッフデータを取得
-				$result = exe_sql($conn, 'select * from staff');
-				while($rec = mysqli_fetch_assoc($result)){
-					$staffdata[$rec['id']] = $rec['staffname'];
-				}
-				
 				// 全てのプリント方法を対象に抽出
+				$start = $data['term_from'] ?: date('Y-m-01');
 				$sql = 'select * from (orders inner join printstatus on orders.id=printstatus.orders_id) inner join acceptstatus on orders.id=acceptstatus.orders_id
-					 where created>"2011-06-05" and progress_id=4';
+					 where created>"2011-06-05" and progress_id=4 and schedule3 >= "'. $start .'"';
+				if(!empty($data['term_to'])){
+					$sql .= ' and schedule3 <= "'. $data['term_to'] .'"';
+				}
 				if(!empty($data['id'])){
 					$sql .= ' and orders.id = '.$data['id'];
-				}
-				if(!empty($data['term_from'])){
-					$sql .= ' and schedule3 >= "'.$data['term_from'].'"';
-				}
-				if(!empty($data['term_to'])){
-					$sql .= ' and schedule3 <= "'.$data['term_to'].'"';
 				}
 				$result = exe_sql($conn, $sql);
 				while($rec = mysqli_fetch_assoc($result)){
@@ -6670,25 +6662,24 @@ class Orders{
 				if(!empty($data['term_to'])){
 					$sql .= ' and schedule3 <= "'.$data['term_to'].'"';
 				}
-				/*
-				if(!empty($data['schedule_from'])){
-					$sql .= ' and dateofsilk >= "'.$data['schedule_from'].'"';
-				}
-				if(!empty($data['schedule_to'])){
-					$sql .= ' and dateofsilk <= "'.$data['schedule_to'].'"';
-				}
-				*/
 				if(!empty($data['factory'])){
 					$sql .= ' and orders.factory = '.$data['factory'];
 				}
 				if(!empty($data['state_5'])){
 					$sql .= ' and state_5 = '.$data['state_5'];
 				}
-				if($data['fin_5']==1){
+				if ($data['fin_5']==1) {
 					$sql .= ' and fin_5=0';
-				}else if($data['fin_5']==2){
-					$sql .= ' and fin_5=1 and shipped=1';
+				} elseif($data['fin_5']==2) {
+					$sql .= ' and fin_5=1 and shipped=1';	// 終了チェック済みで未発送
+				} elseif ($data['fin_5']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_5=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');
+					$end = $data['end'] ?: date('Y-m-d');
+					$sql .= ' and dateofsilk >= "'.$start.'" and dateofsilk <= "'.$end.'"';
 				}
+
 				/* 仕事量のグラフ用データ抽出
 				if(!empty($data['sipping'])){
 					$sql .= ' and fin_5=0 and shipped=1';
@@ -7016,7 +7007,14 @@ class Orders{
 					$sql .= ' and fin_3=0';
 				}else if($data['fin_3']==2){
 					$sql .= ' and fin_3=1 and shipped=1';
+				} elseif ($data['fin_3']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_3=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');
+					$end = $data['end'] ?: date('Y-m-d');
+					$sql .= ' and dateoftrans >= "'.$start.'" and dateoftrans <= "'.$end.'"';
 				}
+					
 				$sql .= ' group by orders.id, areaid order by orders.id, orderitem.id';
 				$result = exe_sql($conn, $sql);
 				
@@ -7060,8 +7058,9 @@ class Orders{
 				$sql = 'select orders.id as id, schedule2, schedule3, company, customername, maintitle, factory, ordertype, bundle, 
 					dateoftrans, state_3, fin_3, state_2, note_trans, edge, cleaner, adjtime_trans as adjtime, 
 					coalesce( sum(sheets), 0) as sheet, printtype_key, state_prepress,
-					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express
-					 from (((((((orders 
+					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express,
+					staffname 
+					 from ((((((((orders 
 					 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
 					 inner join printstatus on orders.id=printstatus.orders_id) 
 					 inner join progressstatus on orders.id=progressstatus.orders_id) 
@@ -7069,7 +7068,8 @@ class Orders{
 					 inner join customer on orders.customer_id=customer.id) 
 					 inner join product on orders.id=product.orders_id) 
 					 inner join printtype on printstatus.printtype_key=print_key) 
-					 left join cutpattern on product.id=cutpattern.product_id
+					 left join cutpattern on product.id=cutpattern.product_id)
+					 left join staff on state_3=staff.id 
 					 where created>"2011-06-05" and progress_id=4 and noprint=0 
 					 and product.printtype=printtype.printtypeid';
 				if(!empty($data['id'])){
@@ -7088,6 +7088,12 @@ class Orders{
 					$sql .= ' and fin_3=0';
 				}else if($data['fin_3']==2){
 					$sql .= ' and fin_3=1 and shipped=1';
+				} elseif ($data['fin_3']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_3=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');
+					$end = $data['end'] ?: date('Y-m-d');
+					$sql .= ' and dateoftrans >= "'.$start.'" and dateoftrans <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id, printstatus.printtype_key order by schedule3, orders.id';
@@ -7163,6 +7169,12 @@ class Orders{
 					$sql .= ' and fin_4=0';
 				}else if($data['fin_4']==2){
 					$sql .= ' and fin_4=1 and shipped=1';
+				} elseif ($data['fin_4']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_4=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');
+					$end = $data['end'] ?: date('Y-m-d');
+					$sql .= ' and dateofpress >= "'.$start.'" and dateofpress <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id, areaid order by orders.id, printstatus.printtype_key, orderitem.id';
@@ -7210,7 +7222,8 @@ class Orders{
 					package_yes, package_no, package_nopack, areaid, 
 					sum(orderitem.amount) as volume, printtype_key, adjtime_press as adjtime, 
 					coalesce(category.category_name,orderitemext.item_name) as item,
-					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express
+					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express,
+					staffname 
 					 from ((((((((((orders 
 					 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
 					 inner join printstatus on orders.id=printstatus.orders_id) 
@@ -7222,7 +7235,8 @@ class Orders{
 					 inner join orderselectivearea on areaid=orderarea_id) 
 					 inner join orderitem on orderprint.id=print_id) 
 					 left join orderitemext on orderitem.id=orderitem_id) 
-					 left join category on orderprint.category_id=category.id  
+					 left join category on orderprint.category_id=category.id 
+					 left join staff on state_4=staff.id 
 					 where created>"2011-06-05" and progress_id=4 and noprint=0 
 					 and printstatus.printtype_key=orderarea.print_type
 					 and selectiveid is not null';
@@ -7243,6 +7257,12 @@ class Orders{
 					$sql .= ' and fin_4=0';
 				}else if($data['fin_4']==2){
 					$sql .= ' and fin_4=1 and shipped=1';
+				} elseif ($data['fin_4']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_4=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');
+					$end = $data['end'] ?: date('Y-m-d');
+					$sql .= ' and dateofpress >= "'.$start.'" and dateofpress <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id,printstatus.printtype_key,item,areaid order by schedule3, orders.id, printstatus.printtype_key, areaid';
