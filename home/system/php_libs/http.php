@@ -20,6 +20,9 @@ class HTTP {
 		}
 
 		$ch = curl_init($url);
+		if ($ch === false) {
+			return 'HTTP error: curl init.';
+		}
 
 		if ($method == 'POST') {
 			curl_setopt($ch,CURLOPT_POST,1);
@@ -28,7 +31,10 @@ class HTTP {
 			curl_setopt($ch,CURLOPT_PUT,1);
 		}
 
-		curl_setopt($ch, CURLOPT_HEADER,false); //header情報も一緒に欲しい場合はtrue
+		// SSLクライアント証明書の検証を行わない（デフォルトはtrueで検証する）
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
+		curl_setopt($ch, CURLOPT_HEADER, false); //header情報も一緒に欲しい場合はtrue
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		//		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 500);
 		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 60000);
@@ -38,12 +44,20 @@ class HTTP {
 		}
 
 		$res = curl_exec($ch);
+		if ($res === false) {
+			$error = curl_error($ch);
+			curl_close($ch);
+			return 'HTTP error: curl exec.' . $error;
+		}
+		
 		//ステータスをチェック
 		$respons = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if(preg_match("/^(400|401|403|404|405|500)$/",$respons)){
+			curl_close($ch);
 			return 'HTTP error: '.$respons;
 		}
 
+		curl_close($ch);
 		return $res;
 	}
 	

@@ -383,10 +383,6 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				// 臨時の告知文を挿入
 				$doc_title .= _EXTRA_NOTICE;
 
-				//					if($doctype=="estimation" && time()<mktime(0,0,0,10,1,2015)){
-				//						$doc_title .= "なお、価格改定のためお見積りの有効期限を2015/9/30注文確定分までとさせていただきます。\n\n";
-				//					}
-
 				if(!is_null($add_msg)){
 					$doc_title .= $add_msg."\n";
 					$doc_title .= "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
@@ -759,7 +755,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				'mail_subject'=>$mail_subject,
 				'mail_contents'=>$mail_contents,
 				'sendto'=>$adr,
-				'reply'=>1
+				'reply'=>0
 			);
 			$res = $http->request('POST', $param);
 			$res = unserialize($res);
