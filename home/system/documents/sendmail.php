@@ -755,7 +755,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				'mail_subject'=>$mail_subject,
 				'mail_contents'=>$mail_contents,
 				'sendto'=>$adr,
-				'reply'=>0
+				'reply'=>true,
 			);
 			$res = $http->request('POST', $param);
 			$res = unserialize($res);
