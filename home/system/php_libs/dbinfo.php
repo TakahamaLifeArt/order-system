@@ -767,7 +767,8 @@
 				$res .= '<div class="pp_image">';
 				
 				$imgfile = file_get_contents(_DOC_ROOT.'txt/t-shirts/normal-tshirts/front.txt');
-				$res .= preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				$imgfile = preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				$res .= preg_replace('/^\xEF\xBB\xBF/', '', $imgfile);
 				
 				$res .= '</div>';
 				
@@ -832,12 +833,11 @@
 				$res .= '<div class="pp_box">';
 				
 				$res .= '<div class="position_name_wrapper"><div class="position_name current"><span>fixed</span></div></div>';
-				// $res .= '<div class="position_reset">reset</div>';
-				//$res .= '<div class="repeat_check_wrap"><label>リピ版<input type="checkbox" name="repeat_check" class="repeat_check"></label></div>';
 				$res .= '<div class="pp_image">';
 				
 				$imgfile = file_get_contents(_DOC_ROOT.'txt/misc/others/fixed.txt');
-				$res .= preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				$imgfile = preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				$res .= preg_replace('/^\xEF\xBB\xBF/', '', $imgfile);
 				
 				$res .= '</div>';
 				
@@ -907,14 +907,14 @@
 				}
 				
 				$res .= '</div>';
-				// $res .= '<div class="position_reset">reset</div>';
 				if($_POST['ordertype']!='industry'){
 					$res .= '<div class="repeat_check_wrap"><label>リピ版<input type="checkbox" name="repeat_check" class="repeat_check"></label></div>';
 				}
 				$res .= '<div class="pp_image">';
 				
 				$imgfile = file_get_contents($files[$isFirstIndex]['filename']);
-				$res .= preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				$imgfile = preg_replace('/\.\/img\//', _IMG_PSS, $imgfile);
+				$res .= preg_replace('/^\xEF\xBB\xBF/', '', $imgfile);
 				
 				$res .= '</div>';
 				
@@ -1140,6 +1140,7 @@
 					if($val['area_name']!='free' && !empty($val['areaid'])){
 						$ppImg = file_get_contents(_DOC_ROOT.$val['area_path']);
 						$ppImg = preg_replace('/\.\/img\//', _IMG_PSS, $ppImg);
+						$ppImg = preg_replace('/^\xEF\xBB\xBF/', '', $ppImg);
 						$pos = $orders->db('search', 'orderposition', array('orderarea_id'=>$val['areaid']));
 						if(!empty($pos)){
 							/*
