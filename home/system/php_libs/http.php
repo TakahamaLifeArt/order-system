@@ -87,7 +87,8 @@ class HTTP {
 				CURLOPT_TIMEOUT => 60,
 				CURLOPT_CUSTOMREQUEST => $method,
 				CURLOPT_POSTFIELDS => $param,
-				CURLOPT_HTTPHEADER => $header
+				CURLOPT_HTTPHEADER => $header,
+				CURLOPT_SSL_VERIFYPEER => false
 			)
 		);
 
