@@ -5,7 +5,7 @@
  */
 $(function(){
 	'use strict';
-	const API_URL = '//takahamalifeart.com/v3/';
+	const API_URL = 'https://takahamalifeart.com/v3/';
 	const ACCESS_TOKEN = 'cuJ5yaqUqufruSPasePRazasUwrevawU';
 	$.extend({
 		api: function (args, method, callback) {
