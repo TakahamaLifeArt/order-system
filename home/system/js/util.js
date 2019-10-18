@@ -67,13 +67,7 @@ $(function(){
 
 		$("#min").css({"-moz-transform" : mrotate, "-webkit-transform" : mrotate});
 	}, 1000 );
-	
-
-	/********************************
-	*	table sorter for order items
-	*/
-	// $("#orderlist").tablesorter( { headers:{ 0:{sorter:false}, 1:{sorter:false}, 9:{sorter:false}, 10:{sorter:false} } } );
-	
+		
 	
 	/********************************
 	*	text fields in form
@@ -94,7 +88,7 @@ $(function(){
 	/********************************
 	*	number fields(HTML5)
 	*/
-     $('input[type="number"]').live('focusout', function(){
+	 $('input[type="number"]').live('focusout', function(){
 		var max = $(this).attr('max');
 		if(max!="" && ($(this).val()-0)>max) $(this).val(max);
 	});
@@ -110,64 +104,64 @@ $(function(){
 			switch(mode){
 			case 'num':
 				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && (code < 48 || code > 57)) // 0-9
-			    	e.preventDefault();
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& (code < 48 || code > 57)) // 0-9
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursor(my);
-		    	break;
+				if(code == 13 || code == 3) $(this).moveCursor(my);
+				break;
 			case 'price':
 				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && code != 45				// -
-			        && code != 46				// . Delete
-			        && (code < 48 || code > 57)) // 0-9
-			    	e.preventDefault();
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& code != 45				// -
+					&& code != 46				// . Delete
+					&& (code < 48 || code > 57)) // 0-9
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursor(my);
-		    	break;
-		    case 'date':
+				if(code == 13 || code == 3) $(this).moveCursor(my);
+				break;
+			case 'date':
 				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && code != 45				// -
-			        && (code < 47 || code > 57)) // 0-9 /
-			    	e.preventDefault();
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& code != 45				// -
+					&& (code < 47 || code > 57)) // 0-9 /
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursor(my);
-		    	break;
+				if(code == 13 || code == 3) $(this).moveCursor(my);
+				break;
 			case 'cost':	// 業者テーブルの商品単価
 				if (   !e.ctrlKey 				// Ctrl+?
-			        && !e.altKey 				// Alt+?
-			        && code != 0 				// ?
-			        && code != 8 				// BACKSPACE
-			        && code != 9 				// TAB
-			        && code != 13 				// Enter
-			        && code != 37 && code != 39 // ←→
-			        && code != 45				// -
-			        && code != 46				// . Delete
-			        && (code < 48 || code > 57)) // 0-9
-			    	e.preventDefault();
+					&& !e.altKey 				// Alt+?
+					&& code != 0 				// ?
+					&& code != 8 				// BACKSPACE
+					&& code != 9 				// TAB
+					&& code != 13 				// Enter
+					&& code != 37 && code != 39 // ←→
+					&& code != 45				// -
+					&& code != 46				// . Delete
+					&& (code < 48 || code > 57)) // 0-9
+					e.preventDefault();
 
-			    if(code == 13 || code == 3) $(this).moveCursorExt(my).change();
-		    	break;
-		    }
+				if(code == 13 || code == 3) $(this).moveCursorExt(my).change();
+				break;
+			}
 
-		    return this;
+			return this;
 		},
 		moveCursor: function(my){
 			if(!my.form){
@@ -177,22 +171,22 @@ $(function(){
 			var first = -1;		// form内の最初のtext（readonlyは除く）のインデックス
 			var isMove = false;	// カーソル移動が出来たかどうかのチェック
 			var elem = my.form.elements;
-		    for(var i=0; i<elem.length; i++){
-		    	if( first==-1 && elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ) first = i;
-		    	if( elem[i]==my ){
-	    			while(i<elem.length-1){
-	    				i++;
-		    			if( elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ){
-		    				elem[i].focus();
-		    				isMove = true;
-		    				break;
-		    			}
-		    		}
-		    		if( !isMove && first!=-1 ) elem[first].focus();
-		    		break;
-		    	}
-		    }
-		    return this;
+			for(var i=0; i<elem.length; i++){
+				if( first==-1 && elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ) first = i;
+				if( elem[i]==my ){
+					while(i<elem.length-1){
+						i++;
+						if( elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ){
+							elem[i].focus();
+							isMove = true;
+							break;
+						}
+					}
+					if( !isMove && first!=-1 ) elem[first].focus();
+					break;
+				}
+			}
+			return this;
 		},
 		moveCursorExt: function(my){
 		/*
@@ -200,24 +194,24 @@ $(function(){
 		*/
 			var isMove = false;	// カーソル移動が出来たかどうかのチェック
 			var elem = my.form.elements;
-		    for(var i=0; i<elem.length; i++){
-		    	if( elem[i]==my ){
-	    			while(i<elem.length-1){
-	    				i++;
-	    				if($(elem[i]).closest('tr').is('.estimate')){
-	    				// tr.estimate 内のテキストフィールドのみ対象
-		    				if( elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ){
-			    				elem[i].focus();
-			    				isMove = true;
-			    				break;
-			    			}
-			    		}
-		    		}
-		    		if( !isMove ) $('#estimation_toolbar .add_row').click();
-		    		break;
-		    	}
-		    }
-		    return this;
+			for(var i=0; i<elem.length; i++){
+				if( elem[i]==my ){
+					while(i<elem.length-1){
+						i++;
+						if($(elem[i]).closest('tr').is('.estimate')){
+						// tr.estimate 内のテキストフィールドのみ対象
+							if( elem[i].type=="text" && !$(elem[i]).attr('readonly') && elem[i].style.display!='none' ){
+								elem[i].focus();
+								isMove = true;
+								break;
+							}
+						}
+					}
+					if( !isMove ) $('#estimation_toolbar .add_row').click();
+					break;
+				}
+			}
+			return this;
 		}
 	});
 
@@ -278,41 +272,41 @@ $(function(){
 		$(this).restrictKey(e, 'cost');
 	}).live('focusin', function(){
    		var c = this.value;
-      	this.value = c.replace(/,/g, '');
-      	var self = this;
-      	$(self).select();
-    }).live('focusout', function(e){
-    	var c = this.value;
+	  	this.value = c.replace(/,/g, '');
+	  	var self = this;
+	  	$(self).select();
+	}).live('focusout', function(e){
+		var c = this.value;
 		this.value = mypage.addFigure(c);
 	});
 
 	// 日付　0から9 / - のみ入力し、不正値は""
 	$('.forDate').live('keypress',function(e){
 		$(this).restrictKey(e,'date');
-    }).live('focusout', function(e){
-    	mypage.dateCheck(e, this);
-    });
+	}).live('focusout', function(e){
+		mypage.dateCheck(e, this);
+	});
 
 	// zipcode mask
 	$('.forZip').keypress( function(e) {
 		$(this).restrictKey(e,'num');
-    }).live('focusin', function(){
-    	mypage.restrict_num(8, this);
-    }).live('focusout', function(e){
-    	this.maxLength = 8;
-    	this.value = mypage.zip_mask(this.value);
-    });
+	}).live('focusin', function(){
+		mypage.restrict_num(8, this);
+	}).live('focusout', function(e){
+		this.maxLength = 8;
+		this.value = mypage.zip_mask(this.value);
+	});
 
 	// tel and fax mask
 	$('.forPhone').keypress( function(e) {
 		$(this).restrictKey(e,'num');
-    }).live('focusin', function(){
-    	mypage.restrict_num(13, this);
-    }).live('focusout', function(e){
-    	var res = mypage.phone_mask(this.value);
-    	this.maxLength = res.l;
-    	this.value = res.c;
-    });
+	}).live('focusin', function(){
+		mypage.restrict_num(13, this);
+	}).live('focusout', function(e){
+		var res = mypage.phone_mask(this.value);
+		this.maxLength = res.l;
+		this.value = res.c;
+	});
 
 	/* フォームの文字数制限
 	*	文字数は半角でmaxlengthの数
@@ -473,19 +467,12 @@ $(function(){
 			$('#express_message').html("");
 			if(mypage.prop.schedule_date==""){
 				var dt = new Date();
-			    mypage.prop.schedule_date = dt.getFullYear() + "-" + ("00"+(dt.getMonth() + 1)).slice(-2) + "-" + ("00"+dt.getDate()).slice(-2);
+				mypage.prop.schedule_date = dt.getFullYear() + "-" + ("00"+(dt.getMonth() + 1)).slice(-2) + "-" + ("00"+dt.getDate()).slice(-2);
 			}
 			var base = Date.parse(mypage.prop.schedule_date.replace(/-/g,'/'))/1000;
 			var pack = "no";
 			var amount = $('#pack_yes_volume').val();
 			if(amount>=10) pack = "yes";
-			/*
-			var amount = $('#est_amount').text().replace(/,/g, '') - 0;
-			var check_amount = amount>0? amount: $('#check_amount').val().replace(/,/g, '') - 0;
-			if($('input[value="yes"]', '#package_wrap').is(':checked') && check_amount >= 10){
-				pack = "yes";
-			}
-			*/
 			$.post('./php_libs/deliveryDate.php', {'act':'ms','base':base,'package':pack},
 				function(r){
 					var pre_date2 = $('#schedule_date2').val();
@@ -520,13 +507,6 @@ $(function(){
 			var pack = "no";
 			var amount = $('#pack_yes_volume').val();
 			if(amount>=10) pack = "yes";
-			/*
-			var amount = $('#est_amount').text().replace(/,/g, '') - 0;
-			var check_amount = amount>0? amount: $('#check_amount').val().replace(/,/g, '') - 0;
-			if($('input[value="yes"]', '#package_wrap').is(':checked') && check_amount >= 10){
-				pack = "yes";
-			}
-			*/
 			$.post('./php_libs/deliveryDate.php', {'act':'ms','base':base,'package':pack},
 				function(r){
 					var date1 = Date.parse($('#schedule_date1').val().replace(/-/g,'/'))/1000;
@@ -559,7 +539,7 @@ $(function(){
 			$('#express_message').html("");
 			var dt = new Date();
 			if(mypage.prop.schedule_date==""){
-			    mypage.prop.schedule_date = dt.getFullYear() + "-" + ("00"+(dt.getMonth() + 1)).slice(-2) + "-" + ("00"+dt.getDate()).slice(-2);
+				mypage.prop.schedule_date = dt.getFullYear() + "-" + ("00"+(dt.getMonth() + 1)).slice(-2) + "-" + ("00"+dt.getDate()).slice(-2);
 			}
 			var dest = $('#destination').val();
 			var deli = $('#schedule_selector input[name="carriage"]:checked').val();
@@ -567,13 +547,6 @@ $(function(){
 			var pack = "no";
 			var amount = $('#pack_yes_volume').val();
 			if(amount>=10) pack = "yes";
-			/*
-			var amount = $('#est_amount').text().replace(/,/g, '') - 0;
-			var check_amount = amount>0? amount: $('#check_amount').val().replace(/,/g, '') - 0;
-			if($('input[value="yes"]', '#package_wrap').is(':checked') && check_amount >= 10){
-				pack = "yes";
-			}
-			*/
 			var addDay = 0;
 			if(deli!='accept' && deli!='other'){
 				if( (dest==1 || dest>=40) && (deli=='normal' || deli=='time') ){
@@ -608,21 +581,21 @@ $(function(){
 			mypage.prop.modified = true;
 		},
 		deserial: function(args){
-               var lines = args.split($.delimiter.rec);
-               var info = [];      // レコードごとの配列
-               var data = [];      // 項目ごとにデータを分ける
-               var key = [];       // フィールド名とデータに分ける
-               for(var i=0; i<lines.length; i++){
-                   data = lines[i].split($.delimiter.fld);
-                   var tmp = [];
-                   for(var j=1; j<data.length; j++){
-                       key = data[j].split($.delimiter.dat);
-                       tmp[key[0]] = key[1];
-                   }
-                   info[i] = tmp;
-               }
-               return info;
-           },
+			var lines = args.split($.delimiter.rec);
+			var info = []; // レコードごとの配列
+			var data = []; // 項目ごとにデータを分ける
+			var key = []; // フィールド名とデータに分ける
+			for(var i=0; i<lines.length; i++){
+				data = lines[i].split($.delimiter.fld);
+				var tmp = [];
+				for(var j=1; j<data.length; j++){
+					key = data[j].split($.delimiter.dat);
+					tmp[key[0]] = key[1];
+				}
+				info[i] = tmp;
+			}
+			return info;
+		},
 		update_log: function(){
 			var orders_id = $('#order_id').text()-0;
 			$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'json', async:true, 
@@ -1179,10 +1152,8 @@ $(function(){
 				if($.resConf.data=='yes'){
 					var res = false;
 					if(!$('#tab_order').hasClass('headertabs')){
-//alert('mypage.save order');
 						res = mypage.save('order', false);
 					}else if(!$('#tab_direction').hasClass('headertabs')){
-//alert('mypage.save direction');
 						res = mypage.save('direction');
 					}
 					if(!res){
@@ -1198,17 +1169,6 @@ $(function(){
 						// 新規問い合わせ件数をカウント
 						mypage.save('firstcontact');
 					}
-					
-					/*	2014-09-09 変更を破棄するため
-					if(($('#order_id').text()-0)!=0){
-						// 登録済みの受注でお客様情報の必須項目が未入力の場合にメニューへの遷移を中止する
-						var f = document.forms.customer_form;
-						if( f.customername.value=="" || (f.tel.value=="" && f.mobile.value=="" && f.email.value=="") ){
-							alert("顧客名と連絡先（TEL・E-Mailのいずれか）は必須項目です・");
-							return;
-						}
-					}
-					*/
 				}else{
 					return;
 				}
@@ -1219,8 +1179,6 @@ $(function(){
 			func();
 		}
 	});
-	
-	
 	
 	
 	/********************************
@@ -1352,11 +1310,6 @@ $(function(){
 						
 						// 進捗ナビバーを注文確定にする
 						mypage.setAcceptnavi(4);
-						/*
-						$('#accept_navi li').removeClass('actlist').children('p').removeClass('act bef');
-						$('#accept_navi li:eq(3)').addClass('actlist').children('p').addClass('act');
-						$('#accept_navi li:eq(2)').children('p').addClass('bef');
-						*/
 						
 						// アラートをクリア
 						$("#alert_comment, #alert_require").fadeOut();
@@ -1419,10 +1372,6 @@ $(function(){
 						
 						// 進捗ナビバーを問い合わせ中にする
 						mypage.setAcceptnavi(0);
-						/*
-						$('#accept_navi li').removeClass('actlist').children('p').removeClass('act bef');
-						$('#accept_navi li:eq(0)').addClass('actlist').children('p').addClass('act');
-						*/
 						
 						// アラートをクリア
 						$("#alert_comment, #alert_require").fadeOut();
@@ -1497,7 +1446,6 @@ $(function(){
 	
 	$('#acceptstatus_navi li').click( function(){
 		var idx = $(this).index();
-//alert(idx);
 		switch(idx){
 			case 0:	break;		// 全て
 			case 1:	idx = 90;	// web注文
@@ -1541,7 +1489,6 @@ $(function(){
 		});
 		str = str.replace(/[KＫｋ]/g, 'k');
 		str = str.replace(/[GＧｇ]/g, 'g');
-		/* /^[gk]{1}([1-9]{1}\d*)?$/ 0サプレスの場合 */
 		if(!str.match(/^[gk]{1}\d*$/)){
 			$(this).val('');
 		}else{
@@ -2149,9 +2096,9 @@ $(function(){
 					alert('Error: p1266\n'+r);
 					return;
 				}
-                   var i = 0;
+				   var i = 0;
 				var info = $.deserial(r);
-                   
+				   
 				// ログの一覧テーブルを生成
 				var tbl = '';
 				if(info.length>0){
@@ -2231,10 +2178,6 @@ $(function(){
 
 
 	/* ログの修正更新 */
-	/**
-	*	var dt = new Date();
-	*	var cstlog_date = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + " " + dt.getHours()+':'+('00'+dt.getMinutes()).slice(-2)+':'+('00'+dt.getSeconds()).slice(-2);
-	**/
 	$('#modify_log').click( function(){
 		var orders_id = $('#order_id').text()-0;
 		if( $('#log_staff').val()=="" ){
@@ -2758,20 +2701,6 @@ $(function(){
 	});
 	
 	/********************************
-	*	注文リストのソート
-	*	未使用
-	$('#sort_orderlist').click( function(){
-		var mode = 'size';	//$(this).prev('select').val();
-		var isPrint = $('#noprint:checked').length==1? 0: 1;
-		$.post('./php_libs/dbinfo.php', {'act':'orderlist', 'sort':mode, 'ordertype':mypage.prop.ordertype, 'isprint':isPrint, 'curdate':mypage.prop.firmorderdate}, function(r){
-			if(r=="") return;
-			var data = r.split('|');
-			$('#orderlist tbody').html(data[0]);
-		});
-	});
-	*/
-	
-	/********************************
 	*	プリントの有無
 	*/	
 	$('#noprint').change(function(){
@@ -2850,15 +2779,8 @@ $(function(){
 			}
 		},
 		clearExchinkLine: function(my){
-			
-			return;
-			
 			// 2011-12-30 廃止
-			my.children('.exch_vol').val('0');
-			my.children('input[type="text"]').attr('readonly', true).val('');
-			my.children('img.palette').attr({'src':'./img/circle.png', 'alt':''});
-			my.children('img.plus').css({'opacity':'0.5'});
-			my.removeAttr('id');
+			return;
 		}
 	});
 	
@@ -2891,7 +2813,6 @@ $(function(){
 	});
 
 	$('.pp_ink img.palette, .exch_ink img.palette', '#pp_wrapper').live('click', function(){
-		// if(mypage.prop.firmorder) return;	// 2015-04-01 確定注文は変更可にする
 		if($(this).parent().children('.pos_name').val()!=""){
 			var print_type = $(this).closest('.pp_box').find('.print_type').val();
 			if (print_type=='silk') {
@@ -2905,7 +2826,6 @@ $(function(){
 	});
 
 	$('.pp_ink .cross', '#pp_wrapper').live('click', function(){
-		// if(mypage.prop.firmorder) return;	// 2015-04-01 確定注文は変更可にする
 		$(this).prev().attr('readonly', true).val('');
 		$(this).prevAll('img').attr({'src':'./img/circle.png', 'alt':''});
 		$(this).parent('p').removeAttr('id');
@@ -2915,29 +2835,8 @@ $(function(){
 	});
 	
 	$('.toggle_exchink').live('click', function(){
-		
-		return;
-		
 		// 2011-12-30 廃止
-		var w = '0px';
-		var ppInfo = $(this).closest('.pp_ink').prev('.pp_info');
-		var exchink = $(this).closest('.pp_ink').next('.exch_ink');
-		var exch_count = exchink.children('.gall').children('p').children('span').find('input[type="text"]').filter( function(){
-			return ($(this).val().trim()!='' && $(this).siblings('.exch_vol').val()!='0')? 1: 0;
-		}).length;
-		if(exch_count>0){
-			w = '100px';
-		}
-		var val = $(this).val();
-		if(val.match(/たたむ/)){
-			exchink.animate({width:w},{duration:150,queue:false});
-			ppInfo.animate({width:'210px'},{duration:150,queue:false});
-			$(this).val('色替え⇒');
-		}else{
-			ppInfo.animate({width:'0px', 'overflow-x':'scroll'},{duration:150,queue:false});
-			exchink.animate({width:'310px'},{duration:150,queue:false});
-			$(this).val('色替えをたたむ');
-		}
+		return;
 	});
 
 	$('.exch_ink .cross', '#pp_wrapper').live('click', function(){
@@ -2990,7 +2889,6 @@ $(function(){
 
 	/* add print positin */
 	$('.add_print_position', '#pp_wrapper').live("click", function(){
-		// var my = $(this).parent().parent().parent();
 		var my = $(this).closest('.pp_box');
 		my.before('<div class="pp_box" style="display:none;">'+my.html()+'</div>');
 		if($(this).parent().siblings().length==0){
@@ -3036,7 +2934,7 @@ $(function(){
 		var ppInfo = $(this).parent().siblings('.pp_info');
 		var ppName = $(this).parent().siblings('.position_name_wrapper').find('span').text();
 		var curr_src = $(this).attr('src');
-           var src = '';
+		   var src = '';
 
 		if(curr_src.match(/_on.png$/)){
 			src = curr_src.replace(/_on.png$/, '.png');
@@ -3082,30 +2980,6 @@ $(function(){
 		mypage.prop.modified = true;
 	});
 
-	/* reset print position
-	$('.position_reset', '#pp_wrapper').live('click', function(){
-		if(mypage.prop.firmorder) return;	// 確定注文は変更不可
-		$(this).next().children('img:gt(0)').each(function(){
-			var src = $(this).attr('src');
-			if(src.match(/_on.png$/)){
-				src = src.replace(/_on.png$/, '.png');
-				$(this).attr({'src':src});
-			}
-		});
-		var ppInfo = $(this).siblings('.pp_info');
-		ppInfo.find('.ink_count').val('0').attr('max',10);
-		ppInfo.find('.note').hide();
-		var ppInk = $(this).siblings('.pp_ink');
-		ppInk.children('p').children('.pos_name').each( function(){
-			$(this).attr('alt','').next('img').attr({'src':'./img/circle.png'}).siblings('input').attr('readonly', true).val('');
-		});
-		if(mypage.prop.ordertype=='general'){
-			mypage.calcPrintFee();
-		}
-		mypage.prop.modified = true;
-	});
-	*/
-
 
 	/* show list */
 	$('.show_list', '#pp_wrapper').live('click', function(){
@@ -3123,7 +2997,7 @@ $(function(){
 		});
 	});
 
-	
+
 	/* change print position */
 	$('.position_name_wrapper .position_name:not(.current)', '#pp_wrapper').live('click', function(){
 		if(mypage.prop.firmorder) return;	// 確定注文は変更不可
@@ -3160,24 +3034,9 @@ $(function(){
 		});
 		mypage.prop.modified = true;
 	});
-	
-	
-    /* toggle pp_box */
-	/*
-    $('.pp_toggle_button', '#pp_wrapper').live('click', function(){
-   		var src = $(this).attr('src');
-   		if(src.indexOf('uparrow')>-1){
-   			src = src.replace(/uparrow/, 'downarrow');
-   		}else{
-   			src = src.replace(/downarrow/, 'uparrow');
-   		}
-   		$(this).parent().next().slideToggle('slow');
-   		$(this).attr({'src':src});
-   	});
-	*/
 
 
-    /********************************
+	/********************************
 	*	printfee calculator
 	*/
 	$('#show_calculator').click( function(){
@@ -3189,17 +3048,6 @@ $(function(){
 		$('#calc_amount').focus();
 	});
 
-	/* 2011-11-29 廃止
-	$('.icon_calculator', '#pp_wrapper').live('click', function(){
-		mypage.screenOverlay(true);
-		var offsetY = $(document).scrollTop()+200;
-		var w = $('#print_calculator').width()/2;
-		if($('#print_calculator:hidden').length>0) $('#calc_amount').val($('#total_amount').val());
-		$('#print_calculator').css({'top':offsetY+'px', 'marginLeft':'-'+w+'px'}).fadeIn();
-		$('#calc_amount').focus();
-	});
-	*/
-   
 	$('#calc_printfee').click( function(){
 		$('table:eq(0) tbody tr', '#print_calculator').each( function(index){
  				$(this).find('.calc_price').children('span').text('0');
@@ -3280,16 +3128,16 @@ $(function(){
 	/********************************
 	*	原稿（イメ画・入稿方法）
 	*/
-    $(':radio[name="completionimage"], :radio[name="manuscript"]', '#designtype_table').change( function(){
-    	if($(this).val()=="0"){
-    		$(this).parent().parent().addClass("pending");
-    	}else{
-    		$(this).parent().parent().next().removeClass("pending");
-    	}
-    });
+	$(':radio[name="completionimage"], :radio[name="manuscript"]', '#designtype_table').change( function(){
+		if($(this).val()=="0"){
+			$(this).parent().parent().addClass("pending");
+		}else{
+			$(this).parent().parent().next().removeClass("pending");
+		}
+	});
 
 
-    /* design fee field */
+	/* design fee field */
 	$('#designcharge').blur( function(){
 		mypage.calcPrintFee();
 	});
@@ -3532,19 +3380,6 @@ $(function(){
 		$('#customer_id').text("000000000");
 		$('#rank').text('');
 		mypage.displayFor('addnew');
-		
-		/* 2013-11-02 保存済み受注の顧客データの削除処理を廃止
-		var id = $('#order_id').text()-0;
-		$.post('./php_libs/ordersinfo.php', {'act':'update','mode':'customer', 'field1[]':['cancel','id'], 'data1[]':[true,id]}, function(r){
-			if($('#update_customer:visible').length>0){
-				$('#customer_form').css({'z-index':0, 'position':'static', 'left':0});
-				mypage.screenOverlay(false);
-			}
-			document.forms.customer_form.reset();
-			$('#customer_id').text('0');
-			mypage.displayFor('addnew');
-		});
-		*/
 	});
 
 
@@ -3580,13 +3415,6 @@ $(function(){
 		var cust = document.forms.customer_form;
 		var chkField = ["organization","deliaddr0","deliaddr1","deliaddr2","deliaddr3","deliaddr4"];
 		var chkData = [];
-		/*
-		if(cust.company.value!=''){
-			chkData.push(cust.company.value);
-		}else{
-			chkData.push(cust.customername.value);
-		}
-		*/
 		chkData.push(cust.customername.value);
 		chkData.push(cust.addr0.value);
 		chkData.push(cust.addr1.value);
@@ -3639,13 +3467,6 @@ $(function(){
 			deli.organization.value = cust.customername.value;
 			deli.delivery_id.value = "";
 			mypage.inputControl(deli, true);
-			/*
-			if(cust.company.value!=''){
-				deli.organization.value = cust.company.value;
-			}else{
-				deli.organization.value = cust.customername.value;
-			}
-			*/
 		}
 		mypage.prop.modified = true;
 	});
@@ -3766,8 +3587,8 @@ $(function(){
 	/********************************
 	*	check options　一般のみ
 	*/
-   
-   /* 割引、送料無料 */
+
+	/* 割引、送料無料 */
 	$('#freeshipping').change( function(){
 		mypage.calcPrintFee();
 	});
@@ -3889,94 +3710,6 @@ $(function(){
 	});
 
 
-
-/***************************************************************************************************************************
-*
-*	confirmation page module
-*
-****************************************************************************************************************************/
-
-	/********************************
-	*	order confirmation and update list
-	*/
-
-	/* 2011-10-19 確認タブの廃止
-	$('input[name="confirm"]', '#confirm_list').change(function(){
-		if($(this).val()=="yes"){
-			var orders_id = $('#order_id').text()-0;
-			var dt = new Date();
-		    var orderdate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
-		    if( !mypage.confirm() ){
-		    	alert('必須項目の登録を確認して下さい。');
-		    	$('input[name="confirm"]', '#confirm_list').val(['no']);
-		    	return;
-		    }
-		    orderdate = prompt("注文を確定させます宜しいですか。\nよろしければ確定日を指定して下さい。",orderdate);
-			if(!orderdate){
-				$('input[name="confirm"]', '#confirm_list').val(['no']);
-				return;
-			}else{
-				var val = orderdate.trim().replace(/[０-９]/g, function(m){
-		    				var a = "０１２３４５６７８９";
-			    			var r = a.indexOf(m);
-			    			return r==-1? m: r;
-			    		});
-				val = val.replace(/\//g,'-');
-	 			var date = new Date();
-				var res = new Array();
-				var yy, mm, dd;
-				if(val.match(/^(\d{4})-([01]?\d{1})-([0123]?\d{1})$/)){
-					res = val.split('-');
-					yy = res[0]-0;
-					mm = res[1]-0;
-					dd = res[2]-0;
-				}else if(val.match(/^([01]?\d{1})-([0123]?\d{1})$/)){
-					res = val.split('-');
-					yy = date.getFullYear();
-					mm = res[0]-0;
-					dd = res[1]-0;
-				}
-				date = new Date(yy, mm-1, dd);
-				if(yy==date.getFullYear() && mm-1==date.getMonth() && dd==date.getDate()){
-					mm = (""+mm).length==1? "0"+mm: mm;
-					dd = (""+dd).length==1? "0"+dd: dd;
-					orderdate = yy+'-'+mm+'-'+dd;
-				}else{
-					orderdate = "";
-				}
-			}
-			if(orderdate==""){
-				alert('日付を確認して下さい。');
-				$('input[name="confirm"]', '#confirm_list').val(['no']);
-				return;
-			}
-
-			// 受注確定処理、製作指示書の登録まで
-			$.ajax({ url: './php_libs/ordersinfo.php', type: 'POST',
-				data: {'act':'update','mode':'acceptstatus',
-				'field1[]':['orders_id','confirmhash','acceptingorder','repeat','ordertype'],
-				'data1[]':[orders_id, "", orderdate, mypage.prop.repeat, mypage.prop.ordertype]}, async: false,
- 				success: function(r){
- 					if(!r.match(/^\d+?$/)){
- 						alert('Error: p2358\n'+r);
- 						$('input[name="confirm"]', '#confirm_list').val(['no']);
- 					}else{
- 						$('input[name="phase"], label', '#phase_wrapper').hide();
-						$('#order_completed').show();
- 					}
- 				}
- 			});
-		}
-	});
-	*/
-
-	/********************************
-	*	back to order
-	*/
-	// $('#back_order_button').click( function(){ $('#tab_order').click(); } );
-
-
-
 /***************************************************************************************************************************
 *
 *	direction page module
@@ -4049,18 +3782,10 @@ $(function(){
 			}
 			
 			var order_id = $('#order_id').text()-0;
-			
-			//$('#printform').remove();
-	           //$('#printform_wrapper').html('<iframe id="printform" name="printform"></iframe>');
-			
 			var url = './documents/acceptingorderform.php?orderid='+order_id+'&printkey='+$('#direction_selector select').val()+'&mixture='+mixture;
 			
 			window.open(url, 'printform');
 			$('#printform').load(function(){window.frames['printform'].print();});
-			
-		   
-			//$('#printform').load(function(){window.frames['printform'].print();return false;});
-			//window.open(url);
 		};
 		
 		if(mypage.prop.modified){
@@ -4130,7 +3855,6 @@ $(function(){
 		toolbox +='						<input type="button" value="見積書" alt="print_estimation" />';
 		toolbox +='						<input type="button" value="請求書" alt="print_bill"'+isFirmorder+' />';
 		toolbox +='						<input type="button" value="納品書" alt="print_delivery"'+isFirmorder+' />';
-		//toolbox +='						<input type="button" value="入荷票" alt="print_stock"'+isFirmorder+' />';
 		toolbox +='					</div>';
 		toolbox +='					<div>';
 		toolbox +='						<p><label><input type="checkbox" value="1" class="bundle">同梱注文を合算（請求・納品書）</label></p>';
@@ -4169,12 +3893,15 @@ $(function(){
 		toolbox +='					</div>';
 		toolbox +='					<div>';
 		toolbox +='						<p>注文確定</p>';
+		
+		// debug mode
+		toolbox +='<p style="margin: .5rem 0;"><label><input type="checkbox" name="debug_tool" id="debug_tool" value="1" />Debug mode</label></p>';
+		
 		toolbox +='						<p><input type="button" value="注文・振込" alt="mail_orderbank"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・代引" alt="mail_ordercod"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・現金" alt="mail_ordercash"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・カード" alt="mail_ordercredit"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・コンビニ" alt="mail_orderconbi"'+isFirmorder+' /></p>';
-//		toolbox += '					<p><label><input type="checkbox" value="1" id="notRegistForTLA">TLAメンバーに登録しない</label></p>';
 		toolbox +='					</div>';
 		toolbox +='				</div>';
 		toolbox +='			</div>';
@@ -4289,71 +4016,48 @@ $(function(){
 				alert("お見積がありません。");
 				break;
 			}
-			
-			//$('#printform').remove();
-			//$('#printform_wrapper').html('<iframe id="printform" name="printform"></iframe>');
 			url = './documents/estimatesheet.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
 			window.open(url,'printform');
 			$('#printform').load(function(){window.frames['printform'].print();});
-			
-			//window.open(url);
+
 			break;
 			
 		case 'print_bill':			// 請求書
-		$.ajax({url: './php_libs/ordersinfo.php', type: 'POST', async: false,
-			data: {'act':'update','mode':'progressstatus','field1[]':['orders_id','bill_state'],'data1[]':[orders_id,2]},
+			$.ajax({url: './php_libs/ordersinfo.php', type: 'POST', async: false,
+				data: {'act':'update','mode':'progressstatus','field1[]':['orders_id','bill_state'],'data1[]':[orders_id,2]},
 				success: function(r){
 					if(!r.match(/^\d+?$/)) alert('Error: p4164\n'+r);
-					
-					$('.closeModalBox', '#modalBox').click();
-					
-              		//$('#printform').remove();
-	                //$('#printform_wrapper').html('<iframe id="printform" name="printform"></iframe>');
-	                
-	                if(bundle){
-	                	url = './documents/bill_bundle.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
-	                }else{
-	                	url = './documents/bill.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
-	                }
-	                window.open(url,'printform');
-	                $('#printform').load(function(){window.frames['printform'].print();});
-	                
-	                //window.open(url);
+					$('.closeModalBox', '#modalBox').click();					
+					if(bundle){
+						url = './documents/bill_bundle.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
+					}else{
+						url = './documents/bill.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
+					}
+					window.open(url,'printform');
+					$('#printform').load(function(){window.frames['printform'].print();});
 				}
 			});
 			break;
 			
 		case 'print_delivery':		// 納品書
 			$('.closeModalBox', '#modalBox').click();
-			
-				//$('#printform').remove();
-				//$('#printform_wrapper').html('<iframe id="printform" name="printform"></iframe>');
-				
-				if(bundle){
-					url = './documents/invoice_bundle.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
-				}else{
-					url = './documents/invoice.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
-				}
-				window.open(url,'printform');
-				$('#printform').load(function(){window.frames['printform'].print();});
-				
-				//window.open(url);
+			if(bundle){
+				url = './documents/invoice_bundle.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
+			}else{
+				url = './documents/invoice.php?orderid='+orders_id+'&param='+encodeURIComponent(discount_name)+alt_addr+sender_addr;
+			}
+			window.open(url,'printform');
+			$('#printform').load(function(){window.frames['printform'].print();});
 				
 			break;
 			
 		case 'print_stock':		// 入荷票
 			doctype = myname.split('_')[1];
 			$('.closeModalBox', '#modalBox').click();
-			
-               //$('#printform').remove();
-               //$('#printform_wrapper').html('<iframe id="printform" name="printform"></iframe>');
-               
-               url = './documents/checkarrival.php?sheet_type=label&id='+orders_id;
-               window.open(url,'printform');
-               $('#printform').load(function(){window.frames['printform'].print();});
-               
-               //window.open(url);
-               
+			url = './documents/checkarrival.php?sheet_type=label&id='+orders_id;
+			window.open(url,'printform');
+			$('#printform').load(function(){window.frames['printform'].print();});
+
 			break;
 
 		case 'print_direction':		// 製作指示書
@@ -4386,9 +4090,6 @@ $(function(){
 			//$(document).scrollTop(0);
 			var act = myname.split('_')[1];
 			var isRegistForTLA = 0;
-//			if($('#notRegistForTLA').is(':checked')){
-//				isRegistForTLA = 1;	// TLAメンバー登録なし
-//			}
 			parm = new Array(isRegistForTLA, orders_id, discount_name);
 			mypage.sendmail(act, parm);
 			break;
@@ -4411,7 +4112,6 @@ $(function(){
 				}
 			}
 
-
 			var act = myname.split('_')[1];
 			parm = new Array(orders_id, discount_name);
 
@@ -4419,165 +4119,10 @@ $(function(){
 
 			mypage.sendmail(act, parm);
 			break;
-
-		case 'mail_shipped':		// 発送しました
-			/*
-			var enquiry_num = prompt('お問合せ番号',"");
-			if(enquiry_num===null){	// cancel
-				alert('発送通知メールの送信を中止します。');
-				$('.closeModalBox', '#modalBox').click();
-				return;
-			}
-
-			enquiry_num = enquiry_num.trim();
-			parm = new Array(orders_id, discount_name, enquiry_num);
-			
-			$('.closeModalBox', '#modalBox').click();
-			mypage.sendmail('shipped', orders_id);
-			*/
-			break;
-
-		case 'toms_edi':			// トムス発注書
-		/*
-		*	2011/04/28 現在　機能保留
-		
-			$.ajax({url: './php_libs/dbinfo.php', type: 'POST', async: false,
-				data: {'act':'itemsByToms','orders_id':orders_id}, success: function(r){
-					r = r.trim();
-					if(!r.match(/^\d/)){
-						alert('Error: p2742\n'+r);
-						return;
-					}
-					var data = r.split('|');
-					if(data[0]==0){
-						alert('受注番号 '+orders_id+' にトムスの商品はありません。');
-					}else{
-						var msg = "トムスの発注書をダウンロードします。\nよろしいですか？";
-						if(data[1]==""){
-							msg = "発注担当者が指定されていません。\n\n" + msg;
-						}else{
-							msg = "【発注担当："+data[1]+"】\n\n" + msg;
-						}
-						if(confirm(msg)){
-							location.href = './php_libs/toms_ediform.php?orders_id='+orders_id;
-						}
-				    }
-				}
-			});
-
-			$('.closeModalBox', '#modalBox').click();
-			*/
-		   
-			break;
-
-		}
-
-	});
-	
-   
-	/********************************
-	*	print confirm page
-	* 
-	*	2011-10-19 確認タブの廃止
-	*
-	$('#confirm_footer form img').click(function(){
-		var act = $(this).attr('alt');
-		if(act=="orderconfirm"){
-			var tmp = "";
-			var html = '<h1>タカハマライフアート　受注管理システム</h1>';
-			html += '<p>受注担当：'+$('#reception option:selected').text()+'</p>';
-			var created = $('#created').text().replace(/(\/)|(-)/g,'');
-			var orders_id = $('#order_id').text();
-			var mydir = created + orders_id;
-			var pinfoid = 0;
-
-			$('#confirm_wrapper .maincontents .phase_box:lt(10)').each(function(index){
-				if(index==0){		// メッセージを除く
-					html += '<div class="phase_box"><div class="inner">'+$('.confirmtitle').next().html()+'</div></div>';
-				}else if(index==3){		// プリント位置
-					html += '<div class="phase_box">';
-					html += '	<div class="inner">';
-					html += '		<table class="confirm_table" style="border-collapse: collapse;">';
-					html += '			<thead>';
-					html += '				<tr>';
-					html += '					<th colspan="4">プリント位置</th>';
-					html += '				</tr>';
-					html += '			</thead>';
-					html += '			<tbody id="confirm_printposition">';
-
-					$('#confirm_printposition > tr').each(function(){
-						if($(this).hasClass('body')){
-							pinfoid++;
-							var imagefile = [];
-							var top = [];
-							var left = [];
-							var width = [];
-							$(this).children('td:first').find('img').each(function(){
-								if($(this).css('display')!="none"){
-									imagefile.push($(this).attr('src').slice(2));
-									tmp = $(this).css('top');
-									if(tmp!="auto"){
-										top.push(tmp.substr(0, tmp.length-2));
-									}else{
-										top.push('0');
-									}
-
-									tmp = $(this).css('left');
-									if(tmp!="auto"){
-										left.push((tmp.substr(0, tmp.length-2)-0)-5);
-									}else{
-										left.push('0');
-									}
-
-									width.push($(this).attr('width'));
-								}
-							});
-
-							var compo_path;		// 合成されたプリント位置画像へのパス
-							$.ajax({ url: './php_libs/compo.php', type: 'POST', dataType: 'text',
-								data: {'mydir':mydir,'pinfoid':pinfoid+'conf','imagefile[]':imagefile,'top[]':top,'left[]':left,'width[]':width}, async: false
-								,success: function(r){ compo_path = r; }
-							});
-
-							html += '<tr class="body"><td style="text-align:center;border:1px solid #333"><img src="..'+compo_path+'" width="70" /></td>';
-							html += '<td style="border:1px solid #333">'+$(this).children('td:eq(1)').html()+'</td>';
-							html += '<td style="border:1px solid #333">'+$(this).children('td:eq(2)').html()+'</td>';
-
-						}else if(!$(this).hasClass('separate')){
-							html += '<tr class="'+$(this).attr('class')+'">'+$(this).html()+'</tr>';
-						}
-					});
-					html += '</tbody></table></div></div>';
-
-				}else if(index==4){		// インク色替え
-					html += '<div class="phase_box">'+$(this).html().replace(/<span(.*?)\/span>/i,'')+'</div>';
-
-				}else if(index==9){		// コメント
-					html += '<div class="phase_box"><div class="inner">';
-					html += '<table class="confirm_table"><thead><tr><th class="last">コメント</th></tr></thead>';
-					html += '<tbody><tr><td class="last">'+$('#conf_comment').val().replace(/\r\n|\n/g,'<br />')+'</td></tr></tbody></table></div></div>';
-
-				}else{
-					html += '<div class="phase_box">'+$(this).html()+'</div>';
-				}
-			});
-
-			var f = $(this).parent().get(0);
-			f.doctype.value = act;
-			f.orderid.value = orders_id-0;
-			f.param.value = html;
-			f.page_format.value = 'A4';
-			f.page_fontsize.value = 8;
-			f.mode.value = "";
-			f.submit();
-
 		}
 	});
 	
-	*/
 	
-	
-
 /***************************************************************************************************************************
 *
 *	initialization
@@ -4670,42 +4215,16 @@ $(function(){
 	/********************************
 	*	ボタンスタイル
 	*/
-	// $( "#estimation_toolbar .add_row, #orderlist tfoot tr.estimate .delete_row" ).button();
-	//$('#tool_inner input[type="button"]').button();
 	$('#free_discount, #free_printfee').button();
 
 	// unload
 	window.addEventListener('beforeunload', function(event) {
-    	if(mypage.prop.modified && !$('body').is('.main_bg')) {
+		if(mypage.prop.modified && !$('body').is('.main_bg')) {
 			return event.returnValue = '保存されていないデータがあります。編集内容が破棄されますがよろしいですか？';
-			/*
-    		if(confirm('変更内容を保存しますか？')){
-    			var res = true;
-				if(!$('#tab_order').hasClass('headertabs')){
-					res = mypage.save('order', false);
-				}else if(!$('#tab_direction').hasClass('headertabs')){
-					res = mypage.save('direction');
-				}
-				if(!res){
-					event = event || window.event;
-					return event.returnValue = '保存処理でエラーが発生しました。';
-				}
-			}else{
-				if(($('#order_id').text()-0)==0 && $(':radio[name="firstcontact"]:checked').val()=="yes"){
-					if($('#reception').val()==""){
-						alert('受注担当者を指定して下さい。');
-						event = event || window.event;
-						return event.returnValue = '受注担当者を指定して下さい。';
-					}
-					// 新規問い合わせ件数をカウント
-					mypage.save('firstcontact');
-				}
-			}
-			*/
-      	}
-    }, false);
+		}
+	}, false);
 
-    // load
+   	// load
 	$(window).one('load', function(){
 		sessionStorage.clear();
 		var dt = new Date();
@@ -4718,7 +4237,6 @@ $(function(){
 			mypage.main('btn',_ID);
 		}else{
 			document.forms.searchtop_form.id.focus();
-			//mypage.main('btn', $('input[title="search"]'));
 		}
 	});
 
@@ -4732,13 +4250,13 @@ $(function(){
 		}
 
 		/*	RFC2822 addr_spec 準拠パターン							*/
-		/*	atom       = {[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+};		*/
-		/*    dot_atom   = {$atom(?:\.$atom)*};						*/
-		/*    quoted     = {"(?:\\[^\r\n]|[^\\"])*"};				*/
-		/*    local      = {(?:$dot_atom|$quoted)};					*/
-		/*    domain_lit = {\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\]};	*/
-		/*    domain     = {(?:$dot_atom|$domain_lit)};				*/
-		/*    addr_spec  = {$local\@$domain};						*/
+		/*	atom	   = {[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+};		*/
+		/*	dot_atom   = {$atom(?:\.$atom)*};						*/
+		/*	quoted	 = {"(?:\\[^\r\n]|[^\\"])*"};				*/
+		/*	local	  = {(?:$dot_atom|$quoted)};					*/
+		/*	domain_lit = {\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\]};	*/
+		/*	domain	 = {(?:$dot_atom|$domain_lit)};				*/
+		/*	addr_spec  = {$local\@$domain};						*/
 		$.post('./php_libs/checkDNS.php', {'email': email}, function(r){
 			if(r){
 				if( email.match(/^(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:"(?:\\[^\r\n]|[^\\"])*")))\@(?:(?:(?:(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+)(?:\.(?:[a-zA-Z0-9_!#\$\%&'*+/=?\^`{}~|\-]+))*)|(?:\[(?:\\\S|[\x21-\x5a\x5e-\x7e])*\])))$/)){
@@ -4751,13 +4269,4 @@ $(function(){
 			}
 		});
 	});
-
-	
-	/********************************
-	*	dhtmlx ComboBox
-	*
-	dhtmlx.skin = "dhx_skyblue";
-	$.dhx.Combo = new dhtmlXCombo("mesh", "alfa", 90);
-	$.dhx.Combo.addOption([["120", 120], ["80", 80], ["80-120", "80-120"], ["その他", "その他"]]);
-	*/
 });

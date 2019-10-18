@@ -989,7 +989,6 @@ var mypage = {
 				success: function (data) {
 					var togglebody = '<div class="pp_toggle_body">' + data + '</div>';
 					var html = '<div class="pp_toggler" id="pp_toggler_' + category_id + '">';
-					// html +=	'<img class="pp_toggle_button" alt="toggle" src="./img/uparrow.png" width="20" />';
 					html += '<div class="rightside">';
 					if (mypage.prop.ordertype == 'general') {
 						html += '&nbsp;小計&nbsp;<input type="text" value="0" size="8" readonly="readonly" class="sub_price" />';
@@ -1084,7 +1083,6 @@ var mypage = {
 						ary = [],
 						fileName = '';
 					for (var i = 0; i < data.length; i++) {
-//						href = "./attachfile/" + orders_id + "/" + data[i];
 						fileName = data[i]['name'];
 						href = data[i]['path'];
 						ord = i + 1;
@@ -1101,7 +1099,6 @@ var mypage = {
 						$('#uploadImg_table').find("#wait_img").hide();
 						$('#designImg_table tbody').html(tbody);
 						$('#uploadImg_table').find("#attach_des").val("");
-						//					window.clearInterval(mypage.prop.intervalID);
 						if (mypage.prop.show_design_time > 300) {
 							alert('原稿ファイルアップロードタイムアウト');
 							mypage.prop.show_design_time = 0;
@@ -1188,7 +1185,6 @@ var mypage = {
 						mypage.prop.attach_file_number = $('#designImg_table tbody').find('tr').length;
 						mypage.prop.show_design_time = 0;
 						$('#uploadImg_table form').submit();
-						//mypage.prop.intervalID = window.setInterval(mypage.showDesignImg, 1000);
 						window.setTimeout(mypage.showDesignImg, 1000);
 					}
 				}
@@ -1254,7 +1250,6 @@ var mypage = {
 						$('#uploadDesedImg_table').find("#wait_img").hide();
 						$('#designedImg_table tbody').html(tbody);
 						$('#uploadDesedImg_table').find("#attach_img").val("");
-						//					window.clearInterval(mypage.prop.intervalID);
 						if (mypage.prop.show_design_time > 300) {
 							alert('イメージ画像ファイルアップロードタイムアウト');
 							mypage.prop.show_design_time = 0;
@@ -1341,7 +1336,6 @@ var mypage = {
 						mypage.prop.attach_file_number = $('#designedImg_table tbody').find('tr').length;
 						mypage.prop.show_design_time = 0;
 						$('#uploadDesedImg_table form').submit();
-						//mypage.prop.intervalID = window.setInterval(mypage.showDesignImg, 1000);
 						window.setTimeout(mypage.showDesignedImg, 1000);
 					}
 				}
@@ -2381,9 +2375,9 @@ var mypage = {
 			 *	2:版代とデザイン代を引く
 			 *	99:版代とデザイン代を引く（既に同じ版でプリントされている場合）
 			 *	repeat 版　デザイン　10進数
-			 *	0      1     1        3
-			 *	1      0     0        0
-			 *	2      0     0        0
+			 *	0    1    1    3
+			 *	1    0    0    0
+			 *	2    0    0    0
 			 */
 			var repeatType = [3, 0, 0]; // 添え字にrepeat種類IDを入れる 
 			var repeatID = [1, 99, 0]; // ビット演算の結果でrepeat種類IDを再設定
@@ -2988,7 +2982,6 @@ var mypage = {
 		 */
 		var orders_id = $('#order_id').text() - 0;
 		var amount = 0;
-		//		var toggler = '';
 		var est_printfee = 0;
 		var est_silk_printfee = 0;
 		var est_color_printfee = 0;
@@ -6388,23 +6381,10 @@ var mypage = {
 		var delitime = ['', '(am)', '(12:00-14:00)', '(14:00-16:00)', '(16:00-18:00)', '(18:00-20:00)', '(19:00-21:00)'];
 		$('#numberofbox').text(directions[0]['boxnumber']);
 		$('#envelope').val(directions[0]['envelope']);
-		//$('#ret_note').val(directions[0]['ret_note']);
 		$('#ship_note').val(directions[0]['ship_note']);
-		/*
-		var yy = directions[0]['schedule3'].slice(0,4);
-		var mmdd = directions[0]['schedule3'].slice(5);
-		$('#shipping_year').text(yy);
-		*/
 		$('#shipping_date').text(directions[0]['schedule3']);
 		$('#delivery_date').text(directions[0]['schedule4']);
 		$('#delivery_time').text(delitime[directions[0]['deliverytime']]);
-		//$('#designrepeat').val(directions[0]['designrepeat']);
-		/* 2012-03-04 廃止
-		$('#product_note').val(directions[0]['product_note']);
-		*/
-		/* 2012-01-15 廃止
-			$('#office_note').val(directions[0]['office_note']);
-		*/
 		$('#workshop_note').val(directions[0]['workshop_note']);
 		$('#platescount').val(directions[0]['platescount']);
 		$('#arrive').text(directions[0]['arrival']);
@@ -6699,7 +6679,7 @@ var mypage = {
 		/**
 		 *	メール送信
 		 *	@act		メールの種類
-		 *	@data[1]	TLAメンバー登録の有無　0(default)：登録する　1：登録なし
+		 *	@data[0]	TLAメンバー登録の有無　0(default)：登録する　1：登録なし
 		 *	@data[1]	受注番号
 		 *	@data[2]	割引種類
 		 *	@data[3]	送信時のみ追加メッセージ
@@ -6752,8 +6732,11 @@ var mypage = {
 				}
 			}
 
+			// debug mode
+			var $prefix = $('#debug_tool:checked').length > 0 ? 't_' : '';
+			
 			$.ajax({
-				url: './documents/sendmail.php',
+				url: './documents/'+$prefix+'sendmail.php',
 				type: 'POST',
 				dataType: 'json',
 				async: false,
@@ -7014,7 +6997,6 @@ var mypage = {
 
 			//	for industry
 			// 商品テーブルとプリント位置画像の生成
-			// data:{'act':'orderlistext', 'orders_id':info['orders_id'], 'curdate':mypage.prop.firmorderdate, 'state':mypage.prop.firmorder}, 
 			var list = {
 				'act': 'orderlistext',
 				'curdate': mypage.prop.firmorderdate,
@@ -7419,8 +7401,6 @@ var mypage = {
 	main: function (func) {
 		var btn = function (my) {
 			var myTitle = typeof (my) == 'string' ? my : my.attr('title');
-			// var LEN = 10;  											// 一度に表示するレコード数、未使用
-			//var start_row = $('.pos_pagenavi').text().split('-')[0]-0;	// 表示開始レコード、デフォルトは0
 			var result_len = $('#result_count').text() - 0; // 検索結果の件数
 			switch (myTitle) {
 				case 'order': // 新規注文
@@ -7743,7 +7723,7 @@ var mypage = {
 				}
 
 				// 注文が確定していて且つ発送日が今月1日より前のデータの更新を不可にするフラグを設定する
-                // 2019-08-07 廃止
+				// 2019-08-07 廃止
 //				var dt = new Date();
 //				var d = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/1";
 //				var cuttime = Date.parse(d);
