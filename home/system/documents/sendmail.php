@@ -140,40 +140,64 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 			}
 		}
 
-		$date = explode('-',$orders['schedule4']);
-		if($date[0]!="0000"){
-			$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+		$delivery_date = explode('-',$orders['schedule4']);
+		if($delivery_date[0]!="0000"){
+			$baseSec = mktime(0, 0, 0, $delivery_date[1], $delivery_date[2], $delivery_date[0]);
 			$deli = $jd->makeDateArray($baseSec);							// 受渡日付情報
 		}else{
 			$deli['Weekname'] = "-";
 		}
 
-		$date = explode('-',$orders['schedule2']);
-		if($date[0]!="0000"){
-			$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+		$order_confirm = explode('-',$orders['schedule2']);
+		if($order_confirm[0]!="0000"){
+			$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
 			$cutday = $jd->makeDateArray($baseSec);							// 注文〆日付情報
 		}else{
 			$cutday['Weekname'] = "-";
 		}
 
-		$date = explode('-',$orders['schedule3']);
-		if($date[0]!="0000"){
-			$baseSec = mktime(0, 0, 0, $date[1], $date[2]-1, $date[0]);
-			$fin = $jd->makeDateArray($baseSec);							// 振込期日情報（発送日の前営業日）
-			if( !(($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-				$isHoliday = true;
-				$one_day = -86400;
-				while($isHoliday){
+		// 発送日
+		$ship_date = explode('-',$orders['schedule3']);
+		
+		// お支払い期日を計算
+		$time_limit = '';
+		$expire['Weekname'] = "-";
+		if($order_confirm[0]!="0000" && $ship_date[0]!="0000"){
+			$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
+			$shipSec = mktime(0, 0, 0, $ship_date[1], $ship_date[2], $ship_date[0]);
+			if ($baseSec === $shipSec) {
+				// 当日発送：注文確定日中
+				$expire = $jd->makeDateArray($baseSec);
+				$time_limit = '14:00まで';
+			} else if ($baseSec < $shipSec) {
+				// 発送日までの営業日数を取得
+				$workday = 0;
+				$one_day = 86400;
+				$fin = $jd->makeDateArray($baseSec);
+				while($baseSec < $shipSec){
 					$baseSec += $one_day;
 					$fin = $jd->makeDateArray($baseSec);
-					if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-						$isHoliday = false;
+					if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0)
+					   && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) )
+					{
+						$workday++;
+					}
+					
+					if ($workday === 1) {
+						$expire = $fin;	// 注文確定日の翌営業日の日付情報
 					}
 				}
+				
+				if ($workday === 1) {
+					// 翌日発送：注文確定日の14:00
+					$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
+					$expire = $jd->makeDateArray($baseSec);
+					$time_limit = '本日中';
+				} else {
+					// 翌営業日の午前中
+					$time_limit = '午前中まで';
+				}
 			}
-			$expire = $fin;													// 振込期日の曜日を取得
-		}else{
-			$expire['Weekname'] = "-";
 		}
 
 		$customer_name = $orders['customername'];
@@ -504,7 +528,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 
 				if($doctype=='orderbank'){
 					$doc_title .= "ご入金確認後の発送となりますので、";
-					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
+					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）".$time_limit."に\n";
 					$doc_title .= "下記弊社指定口座にお振込みをお願いいたします。\n\n";
 					$doc_title .= "---------------　≪お振込み先≫　---------------\n\n";
 					$doc_title .= "お振込先：　三菱ＵＦＪ銀行\n";
@@ -518,7 +542,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					$doc_title .= "※お振込み手数料はお客様のご負担とさせて頂いております。\n\n";
 				}else if($doctype=='ordercredit'){
 					$doc_title .= "ご入金確認後の発送となりますので、";
-					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
+					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）".$time_limit."に\n";
 					$doc_title .= "下記の手順に従ってカード決済手続きをお願いいたします。\n\n";
 					$doc_title .= "---------------　≪カード決済手順≫　---------------\n\n";
 					if($orders['reg_site'] == 6) {
@@ -537,7 +561,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					$doc_title .= "------------------------------------------------\n\n";
 				}else if($doctype=='orderconbi'){
 					$doc_title .= "ご入金確認後の発送となりますので、";
-					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
+					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）".$time_limit."に\n";
 					$doc_title .= "下記の手順に従ってコンビニ決済手続きをお願いいたします。\n\n";
 					$doc_title .= "---------------　≪コンビニ決済手順≫　---------------\n\n";
 					if($orders['reg_site'] == 6) {

@@ -61,33 +61,6 @@
 	}catch(Exception $e){
 		$staff_selector = '<option value="">----</option>';
 	}
-	/*
-	try{
-		$result = exe_sql($conn, 'SELECT * FROM category');
-		$category_selector = '<option value="" selected="selected">----</option>';
-		if($result){
-			while($rec = mysqli_fetch_array($result)){
-				$category_selector .= '<option value="'.$rec['category_key'].'">'.mb_convert_encoding($rec['category_name'],'euc-jp','utf-8').'</option>';
-			}
-		}
-	}catch(Exception $e){
-		$category_selector = '<option value="">----</option>';
-	}
-
-	try{
-		$result = exe_sql($conn, 'SELECT * FROM acceptprog');
-		$progress_selector = '<option value="" selected="selected">----</option>';
-		if($result){
-			while($rec = mysqli_fetch_array($result)){
-				$progress_selector .= '<option value="'.$rec['aproid'].'">'.mb_convert_encoding($rec['progressname'],'euc-jp','utf-8').'</option>';
-				$status_selector .= '<option value="'.$rec['aproid'].'">'.mb_convert_encoding($rec['progressname'],'euc-jp','utf-8').'</option>';
-			}
-		}
-	}catch(Exception $e){
-		$progress_selector = '<option value="">----</option>';
-		$status_selector = '<option value="">----</option>';
-	}
-	*/
 	mysqli_close($conn);
 
 	$selector = '<select name="cyclebilling">';
@@ -111,12 +84,6 @@
 	$selector .= '<option value="1">当方</option><option value="2" selected="selected">先方</option></select>';
 	$selectors['charge'] = array('def'=>2,'src'=>$selector);
 
-	/* 2014-05-01 外税表示へ変更により廃止
-	$selector = '<select name="consumptiontax">';
-	$selector .= '<option value="0">非課税</option><option value="1" selected="selected">内税</option><option value="2">外税</option></select>';
-	$selectors['tax'] = array('def'=>1,'src'=>$selector);
-	*/
-	
 	// 引取時間
 	$handover = '<option value="0">---</option>';
 	for($h=9; $h<19; $h++){
@@ -196,11 +163,6 @@
 						echo '<a href="./main.php?pos=428&'.$query_string.'" id="goback"><img alt="" src="./img/arrow_left.png"></a>';
 					}
 				?>
-				<!--
-				<input type="image" src="./img/btn_gomenu.png" class="gotomenu" />
-				<img alt="toolbutton" src="./img/btn_tool.png" height="25" class="toolbutton" />
-				<img alt="firmorder" src="./img/btn_firmorder1.png" height="25" class="firm_order" />
-				-->
 				<span id="btn_gotomenu" class="btn_sub">メニューに戻る</span>
 				
 				<span id="btn_tool" class="btn_sub">ツール</span>
@@ -596,7 +558,6 @@
 						<form name="size_amount_form" action="" onsubmit="return false;">
 							<div id="size_table"></div>
 						</form>
-						
 					</div>
 				</div>
 
@@ -604,16 +565,7 @@
 					<div class="inner">
 						<form name="orderlist" action="" onsubmit="return false;">
 							<table id="orderlist" class="tablesorter">
-								<caption>
-									注文リスト
-									<!--
-									<select>
-										<option value="size" selected="selected">サイズ</option>
-										<option value="color">カラー</option>
-									</select>
-									<input type="button" value="ソート" id="sort_orderlist">
-									-->
-								</caption>
+								<caption>注文リスト</caption>
 								<thead>
 									<tr>
 										<th class="first tip"></th>
@@ -1122,13 +1074,6 @@
 											<th>お届先</th>
 											<td><input type="text" name="organization" value="" size="64" maxlength="32" class="restrict" /></td>
 										</tr>
-										<!--
-										<tr>
-											<th>担当者</th><td><input type="text" name="agent" value="" size="20" /></td>
-											<th>クラス</th><td><input type="text" name="team" value="" size="20" /></td>
-											<th>先生</th><td><input type="text" name="teacher" value="" size="20" /></td>
-										</tr>
-										-->
 									</tbody>
 								</table>
 							</fieldset>
@@ -1273,7 +1218,7 @@
 											<label><input type="radio" name="purpose" value="飲食店用" />飲食店用</label>
 											<label><input type="radio" name="purpose" value="医療、介護、福祉用" />医療、介護、福祉用</label>
 											<label><input type="radio" name="purpose" value="公務員用" />公務員用</label>
-											<br>											
+											<br>
 											<label><input type="radio" name="purpose" value="サークル・部活" />サークル・部活</label>
 											<label><input type="radio" name="purpose" value="その他ユニフォーム" />その他</label>
 											<input type="text" value="" class="purpose_text other_2" />
@@ -1416,21 +1361,6 @@
 		</div>
 
 		<div id="order_footer" class="footer">
-			<div class="button_centerarea">
-			<!--
-				<form action="./documents/" target="_brank" method="post" name="estimatedoc_form" onsubmit="return false">
-					<input type="hidden" name="doctype" value="" />
-					<input type="hidden" name="orderid" value="" />
-					<input type="hidden" name="page_format" value="A4" />
-					<input type="hidden" name="page_fontsize" value="8" />
-					<input type="hidden" name="param" value="" />
-					<input type="hidden" name="mode" value="" />
-
-					<img alt="estimation_mail" src="./img/btn_estimation_mail.png" height="40" />
-					<img alt="estimation_print" src="./img/btn_estimation_print.png" height="40" />
-				</form>
-			-->
-			</div>
 			<div class="clearfix">
 				<img alt="saveall" src="./img/btn_save.png" height="25" class="saveall" />
 				<input type="image" src="./img/btn_gomenu.png" class="gotomenu" />
@@ -1772,11 +1702,6 @@
 
 		</div>
 
-<!--
-		<div id="main_footer" class="footer">
-			<p>Copyright &copy; 2008-<?php echo date('Y');?> オリジナルＴシャツのタカハマライフアート All rights reserved.</p>
-		</div>
--->
 	</div>
 
 
@@ -1975,51 +1900,6 @@
 			</div>
 		</div>
 	</div>
-
-<!-- 2012-08-30 ポップアップの仕様変更
-	<div id="toolbox">
-		<div id="tool_inner">
-
-			<h2>TOOL BOX</h2>
-
-			<div class="clearfix">
-				<div class="leftside">
-					<h3>印刷<span>Print</span></h3>
-					<div>
-						<input type="button" value="見積書" alt="print_estimation" />
-						<input type="button" value="請求書" alt="print_bill" />
-						<input type="button" value="納品書" alt="print_delivery" />
-					</div>
-					<div>
-						<input type="button" value="トムス発注書" disabled="disabled" alt="toms_edi" />
-					</div>
-
-				</div>
-
-				<div class="rightside">
-					<h3>メール<span>E-mail</span></h3>
-					<div>
-						<input type="button" value="お見積" alt="mail_estimation" />
-					</div>
-					<div>
-						<p>注文確定</p>
-						<p><input type="button" value="注文・振込" alt="mail_orderbank" /></p>
-						<p><input type="button" value="注文・代引" alt="mail_ordercod" /></p>
-						<p><input type="button" value="注文・現金" alt="mail_ordercash" /></p>
-					</div>
-				</div>
-			</div>
-			
-			<div>
-				<p><label><input type="checkbox" value="1" name="cancelshipmail" onchange="mypage.sendmailcheck(this);" /> 発送メールの中止</label></p>
-				<p><label><input type="checkbox" value="1" name="canceljobmail" onchange="mypage.sendmailcheck(this);" /> 製作開始メールの中止</label></p>
-				<p><label><input type="checkbox" value="1" name="cancelarrivalmail" onchange="mypage.sendmailcheck(this);" /> 商品の到着確認メールの中止</label></p>
-			</div>
-			
-			<input class="closeModalBox" type="hidden" name="customCloseButton" value="" />
-		</div>
-	</div
--->
 
 	<div id="message_wrapper" style="display:none;"></div>
 

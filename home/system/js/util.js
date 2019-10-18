@@ -3893,10 +3893,6 @@ $(function(){
 		toolbox +='					</div>';
 		toolbox +='					<div>';
 		toolbox +='						<p>注文確定</p>';
-		
-		// debug mode
-		toolbox +='<p style="margin: .5rem 0;"><label><input type="checkbox" name="debug_tool" id="debug_tool" value="1" />Debug mode</label></p>';
-		
 		toolbox +='						<p><input type="button" value="注文・振込" alt="mail_orderbank"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・代引" alt="mail_ordercod"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・現金" alt="mail_ordercash"'+isFirmorder+' /></p>';

@@ -6732,11 +6732,8 @@ var mypage = {
 				}
 			}
 
-			// debug mode
-			var $prefix = $('#debug_tool:checked').length > 0 ? 't_' : '';
-			
 			$.ajax({
-				url: './documents/'+$prefix+'sendmail.php',
+				url: './documents/sendmail.php',
 				type: 'POST',
 				dataType: 'json',
 				async: false,
