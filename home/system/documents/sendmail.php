@@ -4,6 +4,7 @@
 	charset UTF-8
 */
 session_cache_limiter('nocache');
+require_once dirname(__FILE__).'/../php_libs/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/package/DateJa/vendor/autoload.php';
 use Alesteq\DateJa\DateJa;
@@ -165,6 +166,8 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 		if($order_confirm[0]!="0000" && $ship_date[0]!="0000"){
 			$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
 			$shipSec = mktime(0, 0, 0, $ship_date[1], $ship_date[2], $ship_date[0]);
+			$start_holiday = strtotime(_FROM_HOLIDAY) ?: 0;
+			$end_holiday = strtotime(_TO_HOLIDAY) ?: 0;
 			if ($baseSec === $shipSec) {
 				// 当日発送：注文確定日中
 				$expire = $jd->makeDateArray($baseSec);
@@ -173,18 +176,14 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				// 発送日までの営業日数を取得
 				$workday = 0;
 				$one_day = 86400;
-				$fin = $jd->makeDateArray($baseSec);
 				while($baseSec < $shipSec){
 					$baseSec += $one_day;
 					$fin = $jd->makeDateArray($baseSec);
-					if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0)
-					   && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) )
+					if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$start_holiday || $end_holiday<$baseSec) )
 					{
-						$workday++;
-					}
-					
-					if ($workday === 1) {
-						$expire = $fin;	// 注文確定日の翌営業日の日付情報
+						if (++$workday === 1) {
+							$nextWorkDay = $baseSec;	// 注文確定日の翌営業日
+						}
 					}
 				}
 				
@@ -195,6 +194,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					$time_limit = '本日中';
 				} else {
 					// 翌営業日の午前中
+					$expire = $jd->makeDateArray($nextWorkDay);
 					$time_limit = '午前中まで';
 				}
 			}
@@ -830,31 +830,4 @@ if(isset($_POST['json'])){
 	header("Content-Type: text/javascript; charset=utf-8");
 }
 echo $reply;
-
-
-
-/*
-*	作業に要する営業日数をカウントして発送日を返す
-*
-*	@baseSec	起算日（UNIXタイムスタンプの秒数）
-*	@one_day	一日の秒数（86400）
-*	@cnt		営業日として数える日数（通常は当日含めて３営業日）
-*
-*	return		休みではない日を返す（japaneseDataオブジェクト）
-*/
-function getDeliveryDay($baseSec, $one_day, $cnt){
-	global $_from_holiday, $_to_holiday;
-	$jd = new DateJa();
-	$workday=0;
-	while($workday<=$cnt){
-
-		$fin = $jd->makeDateArray($baseSec);
-		if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-			$workday++;
-		}
-		$baseSec += $one_day;
-	}
-
-	return $fin;
-}
 ?>
