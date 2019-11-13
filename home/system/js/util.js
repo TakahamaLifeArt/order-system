@@ -3897,7 +3897,7 @@ $(function(){
 		toolbox +='						<p><input type="button" value="注文・代引" alt="mail_ordercod"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・現金" alt="mail_ordercash"'+isFirmorder+' /></p>';
 		toolbox +='						<p><input type="button" value="注文・カード" alt="mail_ordercredit"'+isFirmorder+' /></p>';
-		toolbox +='						<p><input type="button" value="注文・コンビニ" alt="mail_orderconbi"'+isFirmorder+' /></p>';
+		toolbox +='						<p><input type="button" value="注文・後払い" alt="mail_orderconbi"'+isFirmorder+' /></p>';
 		toolbox +='					</div>';
 		toolbox +='				</div>';
 		toolbox +='			</div>';
