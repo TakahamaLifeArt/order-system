@@ -51,13 +51,15 @@ class Marketing Extends MYDB2 {
 			$sql .= " additionalname, payment, ";
 			$sql .= " (case when coalesce(expressfee,0)=0 then 0 else round(expressfee/(productfee+printfee+exchinkfee+packfee+discountfee+designfee),1)+1 end) as express, ";
 			$sql .= " carriage, deliverytime, purpose, purpose_text, orders.job as job, repeatdesign, ";
-			$sql .= " productfee, printfee, silkprintfee, colorprintfee, digitprintfee, inkjetprintfee, cuttingprintfee, ";
+			$sql .= " outsource, business, ";
+			$sql .= " productfee, printfee, silkprintfee, colorprintfee, digitprintfee, inkjetprintfee, cuttingprintfee, embroideryprintfee, ";
 			$sql .= " discountfee, reductionfee, exchinkfee, estimatedetails.additionalfee as additionalfee, packfee, expressfee, carriagefee, designfee, codfee, creditfee, salestax, basefee, ";
 			$sql .= " estimated, ";
 			$sql .= " (case when customer.cstprefix='k' then concat('K', lpad(customer.number,6,'0')) else concat('G', lpad(customer.number,4,'0')) end) as customer_num, "; 
 			$sql .= " customername, customerruby, company as dept, companyruby as deptruby, ";
 			$sql .= " zipcode, addr0, addr1, addr2, addr3, addr4, ";
 			$sql .= " tel as tel1, mobile as tel2, email as email1, mobmail as email2, fax";
+			
 			$sql .= " from (((((orders ";
 			$sql .= " inner join acceptstatus on orders.id=acceptstatus.orders_id) ";
 			$sql .= " inner join acceptprog on progress_id=aproid) ";

@@ -44,7 +44,7 @@ var mypage = {
 			],
 		name: ['ordertype', 'schedule1', 'schedule2', 'schedule3', 'schedule4', 'arrival', 'carriage', 'check_amount', 'noprint', 'design',
 				'manuscript', 'discount1', 'discount2', 'reduction', 'reductionname', 'freeshipping', 'payment', 'phase', 'budget', 'deliver', 'purpose', 'designcharge', 'job',
-				'free_printfee', 'free_discount', 'additionalfee', 'extradiscount', 'rakuhan', 'completionimage', 'staffdiscount', 'imega'
+			   'free_printfee', 'free_discount', 'additionalfee', 'extradiscount', 'rakuhan', 'completionimage', 'staffdiscount', 'imega', 'outsource', 'business'
 			]
 	},
 	init: function () {

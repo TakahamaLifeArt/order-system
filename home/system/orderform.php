@@ -170,6 +170,16 @@
 				<span id="btn_cancelorder" class="btn_sub">確定解除</span>
 <!--				<span id="btn_imageup" class="btn_sub">イメージ画像アップ</span>-->
 				<span id="btn_completionimage" class="btn_sub">イメ画確定</span>
+
+				<label id="check_outsource">
+					<input type="checkbox" value="1" name="outsource">
+					外注
+				</label>
+				<label id="check_business">
+					<input type="checkbox" value="1" name="business">
+					営業
+				</label>
+
 				<p><a href="#order_wrapper">トップ</a><a href="#print_position">プリント位置</a><a href="#order_option">その他料金</a><a href="#order_customer">お客様情報</a><a href="#page_border">フッター</a></p>
 			</div>
 			<div class="tab_contents clearfix">
