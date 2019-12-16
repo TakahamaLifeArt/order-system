@@ -7,23 +7,23 @@ Description  : takahama system print position images stylesheet
 Version      : 0.1
 Log		     :
 2010-01-20 created
-2013-04-20 boxerpants, mascot-tshirts, pocket-tshirts ¤òÄÉ²Ã
-2013-05-30 army-work-cap, active-dry-cap, chino-pants, fraise-tshirts, henry-neck-tshirts, button-down-shirt-long, button-down-shirt-short, polyester-pants ¤òÄÉ²Ã
-2013-06-07 ¥×¥ê¥ó¥È¤Ê¤·¤Î¥À¥ß¡¼ÍÑ¤Ëblank¤ò»ØÄê
-2014-10-12 ¥¹¥¦¥§¥Ã¥È¤Ë¥×¥ê¥ó¥È°ÌÃÖ¤ÎÄÉ²Ã
-2016-11-17 ¥¨¥×¥í¥ó¤Î³¨·¿¤òÄÉ²Ã apron_pocket_left, apron_pocket_right, apron_suso
-2017-11-13 ³¨·¿ÄÉ²Ã¤ËÈ¼¤¦¹¹¿·
-2017-12-27 ¥×¥ê¥ó¥È²Õ½êÄÉ²Ã¤ËÈ¼¤¦¹¹¿·
+2013-04-20 boxerpants, mascot-tshirts, pocket-tshirts ï¿½ï¿½ï¿½É²ï¿½
+2013-05-30 army-work-cap, active-dry-cap, chino-pants, fraise-tshirts, henry-neck-tshirts, button-down-shirt-long, button-down-shirt-short, polyester-pants ï¿½ï¿½ï¿½É²ï¿½
+2013-06-07 ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½ï¿½Î¥ï¿½ï¿½ß¡ï¿½ï¿½Ñ¤ï¿½blankï¿½ï¿½ï¿½ï¿½ï¿½
+2014-10-12 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥È¤Ë¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½ï¿½É²ï¿½
+2016-11-17 ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½ apron_pocket_left, apron_pocket_right, apron_suso
+2017-11-13 ï¿½ï¿½ï¿½ï¿½ï¿½É²Ã¤ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+2017-12-27 ï¿½×¥ï¿½ï¿½È²Õ½ï¿½ï¿½É²Ã¤ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 -------------------------------------------------------------- */
 
 
 
 
-/*		¥×¥ê¥ó¥È°ÌÃÖ²èÁü
+/*		ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö²ï¿½ï¿½ï¿½
 ===============================================================*/
 
-/* ¥×¥ê¥ó¥È¤Ê¤· */
+/* ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½ */
 .blank {
 	display: none;
 	position: absolute;
@@ -32,7 +32,7 @@ Log		     :
 }
 
 
-/* Á° */
+/* ï¿½ï¿½ */
 .mae_hood{
 	position: absolute;
 	top: 18px;
@@ -547,7 +547,7 @@ Log		     :
 
 
 
-/* ÏÆ */
+/* ï¿½ï¿½ */
 .sode_left{
 	position: absolute;
 	top: 50px;
@@ -812,26 +812,26 @@ Log		     :
 	cursor: pointer;
 }
 
-.hat_side_left{
+.hat_side_right{
 	position: absolute;
 	top: 70px;
 	left: 120px;
 	cursor: pointer;
 }
-.hat_side_right{
+.hat_side_left{
 	position: absolute;
 	top: 70px;
 	left: 38px;
 	cursor: pointer;
 }
 
-.knit_side_left{
+.knit_side_right{
 	position: absolute;
 	top: 109px;
 	left: 106px;
 	cursor: pointer;
 }
-.knit_side_right{
+.knit_side_left{
 	position: absolute;
 	top: 109px;
 	left: 23px;
@@ -879,7 +879,7 @@ Log		     :
 
 
 
-/* ¸å */
+/* ï¿½ï¿½ */
 .usiro{
 	position: absolute;
 	top: 40px;
