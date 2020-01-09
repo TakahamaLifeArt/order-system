@@ -7229,6 +7229,7 @@ class Orders{
 					package_yes, package_no, package_nopack, areaid, 
 					sum(orderitem.amount) as volume, printtype_key, adjtime_press as adjtime, 
 					coalesce(category.category_name,orderitemext.item_name) as item,
+					concat(coalesce(category.category_name,orderitemext.item_name), printposition_id) as item_posid,
 					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express,
 					staffname 
 					 from ((((((((((orders 
@@ -7293,7 +7294,7 @@ class Orders{
 						$rs1[$i]['vol_item'] = $rec['volume'];
 						$rs1[$i]['shot'] = 0;
 					}else{
-						if($rs1[$i]['item']==$rec['item']){
+						if($rs1[$i]['item_posid']==$rec['item_posid']){
 							$rs1[$i]['area'] += 1;
 							$rs1[$i]['area_item'] += 1;
 						}else{
@@ -7304,7 +7305,7 @@ class Orders{
 							$rs1[$i]['area'] += 1;
 							
 							
-							if( !preg_match('/'.$rec['item'].'/',$rs1[$i]['item']) ){
+							if( !preg_match('/'.$rec['item_posid'].'/',$rs1[$i]['item_posid']) ){
 								$rs1[$i]['item'] .= ', '.$rec['item'];
 								$rs1[$i]['volume'] += $rec['volume'];
 							}
