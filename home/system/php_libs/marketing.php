@@ -70,7 +70,7 @@ class Marketing Extends MYDB2 {
 			if($id){
 				$sql .= " and orders.id=?";
 			}
-			$sql .= " and created between ? and ?";
+			$sql .= " and schedule3 between ? and ?";
 			$sql .= " order by schedule3, orders.id";
 			
 			$start = self::validDate($start);
@@ -117,7 +117,7 @@ class Marketing Extends MYDB2 {
 			if($id){
 				$sql .= " and orders.id=?";
 			}
-			$sql .= " and created between ? and ?";
+			$sql .= " and schedule3 between ? and ?";
 			$sql .= " order by schedule3, orders.id";
 			$conn = self::db_connect();
 			$stmt = $conn->prepare($sql);
@@ -189,7 +189,7 @@ class Marketing Extends MYDB2 {
 			if($id){
 				$sql .= " and orders.id=?";
 			}
-			$sql .= " and created between ? and ?";
+			$sql .= " and schedule3 between ? and ?";
 			$sql .= " order by orders.id ";
 			$conn = self::db_connect();
 			$stmt = $conn->prepare($sql);
