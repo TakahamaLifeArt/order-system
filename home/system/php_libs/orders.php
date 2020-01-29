@@ -7502,6 +7502,7 @@ class Orders{
 					dateofinkjet, dateofartwork, state_6, fin_6, fin_1, note_inkjet, package_yes, package_no, package_nopack, areaid, print_option, 
 					sum(orderitem.amount) as volume,
 					coalesce(category.category_name,orderitemext.item_name) as item,
+					concat(coalesce(category.category_name,orderitemext.item_name), printposition_id) as item_posid,
 					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express 
 					 from ((((((((((orders 
 					 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
@@ -7516,7 +7517,7 @@ class Orders{
 					 left join orderitemext on orderitem.id=orderitem_id) 
 					 left join category on orderprint.category_id=category.id  
 					 where created>"2011-06-05" and progress_id=4 and noprint=0 
-					 and orderarea.print_type="inkjet" 
+					 and orderarea.print_type="inkjet" and printstatus.printtype_key="inkjet" 
 					 and selectiveid is not null';
 					 
 				if(!empty($data['id'])){
@@ -7558,6 +7559,9 @@ class Orders{
 					}else{
 						if($rs[$i]['item']==$rec['item']){
 							$rs[$i]['area'] += 1;
+							if ($rs[$i]['item_posid'] !== $rec['item_posid']) {
+								$rs[$i]['volume'] += $rec['volume'];
+							}
 						}else{
 							$curarea = $rec['areaid'];
 							$i++;
