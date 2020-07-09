@@ -60,7 +60,7 @@
 	<script type="text/javascript" src="./js/ui/jquery.ui.datepicker.js"></script>
 	<script type="text/javascript" src="./js/ui/i18n/jquery.ui.datepicker-ja.js"></script>
 	<script type="text/javascript" src="./js/lib/common.js"></script>
-	<script type="text/javascript" src="./js/ordering.js"></script>
+	<script type="text/javascript" src="./js/ordering.js?q=<?php echo time();?>"></script>
 	<script type="text/javascript">
 		var _my_level = "<?php echo $mylevel; ?>";
 		var _scroll = "<?php echo $scroll; ?>";
@@ -121,6 +121,7 @@
 					<p class="btn_area">
 						<input type="button" value="検索" id="search" />
 						<input type="button" value="reset" id="reset" />
+						<input type="button" value="ダウンロード" id="export" />
 					</p>
 					
 				</fieldset>

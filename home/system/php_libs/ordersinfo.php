@@ -1,6 +1,6 @@
 <?php
 /**
-	タカハマライフアート
+*	タカハマライフアート
 *	受注データベース
 *	charset UTF-8
 */
@@ -346,17 +346,21 @@
 				case 'orderitemlist':
 					$dat=Marketing::getOrderItemList($_REQUEST['start'], $_REQUEST['end'], $_REQUEST['id'], $_REQUEST['mode']);
 					break;
-					
+
 				case 'customerlist':
 					$dat=Marketing::getCustomerList($_REQUEST['start'], $_REQUEST['end'], $_REQUEST['id']);
 					break;
-					
+
 				case 'worktimelist':
 					$marketing = new Marketing($orders);
 					$dat=$marketing->getWorktimeList($_REQUEST['start'], $_REQUEST['end']);
 					break;
+
+				case 'orderinglist':
+					$dat = Marketing::getOrderingList($_REQUEST['factory']);
+					break;
 			}
-			
+
 			if ($_REQUEST['csv']=='worktimelist') {
 				// 仕事量データ
 				$fieldName = [];
@@ -409,7 +413,7 @@
 				foreach($dat as $line){
 					fputcsv($fp, $line);
 				}
-			}else if($_REQUEST['csv']=='orderitemlist'){
+			} else if($_REQUEST['csv']=='orderitemlist'){
 				// 注文商品データ
 				$fieldName = array(
 					'ordersid'=>'受注No.', 
@@ -437,6 +441,37 @@
 				if($fp==false) echo 'Error: file open';
 				$lbl = array();
 				foreach($dat[0] as $key=>$val){
+					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
+				}
+				//mb_convert_variables('SJIS', 'UTF-8', $lbl);
+				fputcsv($fp, $lbl);
+				foreach($dat as $line){
+					//mb_convert_variables('SJIS', 'UTF-8', $line);
+					fputcsv($fp, $line);
+				}
+			} else if($_REQUEST['csv']=='orderinglist'){
+				// トムス未発注データ
+				if (empty($dat)) {
+					$result = mb_convert_encoding($result, 'euc-jp', 'utf-8');
+					echo $result;
+				}
+
+				$fieldName = array(
+					'item_code'=>'品番',
+					'color_code'=>'カラーコード',
+					'size_code'=>'サイズコード',
+					'quantity'=>'数量',
+					'opp'=>'opp',
+					'remarks'=>'備考（納品書・出荷案内書の行）',
+					'order_number'=>'お客様注文No.',
+				);
+				$filename = $_REQUEST['csv'];
+				$filename .= ".csv";
+				$filepath = "../data/".$filename;
+				$fp = fopen($filepath, 'wb');
+				if ($fp == false) echo 'Error: file open';
+				$lbl = array();
+				foreach ($dat[0] as $key=>$val) {
 					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
 				}
 				//mb_convert_variables('SJIS', 'UTF-8', $lbl);
@@ -566,13 +601,11 @@
 					fputcsv($fp, $line);
 				}
 			}
-			
+
 			fclose($fp);
-	//		header('Access-Control-Allow-Origin: *');
 			header("Content-Type: application/octet-stream");
 			header("Content-Disposition: attachment; filename=$filename");
 			readfile($filepath);
-			//unlink($filepath);
 		}
 	}
 	$result = mb_convert_encoding($result, 'euc-jp', 'utf-8');

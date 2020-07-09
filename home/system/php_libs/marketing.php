@@ -376,10 +376,121 @@ class Marketing Extends MYDB2 {
 		$conn->close();
 		return $rs;
 	}
-	
-	
-	
-	
+
+	/**
+	 * トムス未発注データ集計、CSV出力用
+	 * @param int $factory 工場
+	 * @reutrn[注文商品情報]
+	 */
+	public static function getOrderingList($factory)
+	{
+		try{
+			$conn = self::db_connect();
+
+			// トムスのマスター
+			$tomsMaster = [];
+			$sqlToms = "select * from tomsmaster";
+
+			if ($result = $conn->query($sqlToms)) {
+				while ($row = $result->fetch_assoc()) {
+					$itemCode = sprintf("%03d", $row['toms_item_code']);
+					$sizeName = $row['toms_size_name'];
+					$colorcode = $row['toms_color_code'];
+					$key = $itemCode . '--' . $sizeName . '--' . $colorcode;
+
+					// 正規化した「アイテムコード、サイズ名、カラーコード」をキーにしたハッシュ
+					$tomsMaster[$key]['item_code'] = $row['toms_item_code'];
+					$tomsMaster[$key]['color_code'] = $row['toms_color_code'];
+					$tomsMaster[$key]['size_code'] = $row['toms_size_code'];
+					$tomsMaster[$key]['size_name'] = $row['toms_size_name'];
+				}
+
+				$result->close();
+			} else {
+				throw new Exception();
+			}
+
+			// トムスの未発注データ
+			$rs = [];
+			$tmp = [];
+			$sql = "select orders.id as ordersid, schedule2, staffname, customer_id, customername, color_code, amount, pack_yes_volume,
+			 coalesce(case orderitemext.item_id
+			 when 100000 then '持込'
+			 when 99999 then '転写シート'
+			 when 0 then 'その他'
+			 else null end, category_name) as catname,
+			 case when item_code is null then '' else item_code end as item_code,
+			 coalesce(size.size_name, orderitemext.size_name) as sizename
+			 from (((((((((((orders
+			 inner join customer on customer_id=customer.id)
+			 inner join orderitem on orders.id=orderitem.orders_id)
+			 inner join staff on orders.reception=staff.id)
+			 left join orderitemext on orderitem.id=orderitem_id)
+			 left join size on orderitem.size_id=size.id)
+			 left join catalog on orderitem.master_id=catalog.id)
+			 left join category on catalog.category_id=category.id)
+			 left join item on catalog.item_id=item.id)
+			 left join maker on item.maker_id=maker.id)
+			 left join itemcolor on catalog.color_id=itemcolor.id)
+			 inner join acceptstatus on orders.id=acceptstatus.orders_id)
+			 inner join progressstatus on orders.id=progressstatus.orders_id
+			 where created>'2011-06-05' and progress_id=4 and shipped=1
+			 and catalogapply<=schedule2 and catalogdate>schedule2 and itemapply<=schedule2 and itemdate>schedule2
+			 and maker.id=1 and ordering=0
+			 and orders.factory = ?
+			 order by schedule2, customer.id";
+
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param("i", $factory);
+			$stmt->execute();
+			$stmt->store_result();
+			$tmp = self::fetchAll($stmt);
+
+			$sizeIds = array(
+				'70'=>1,'80'=>2,'90'=>3,'100'=>4,'110'=>5,'120'=>6,'130'=>7,'140'=>8,'150'=>9,'160'=>10,
+				'JS'=>11,'JM'=>12,'JL'=>13,'WS'=>14,'WM'=>15,'WL'=>16,'GS'=>17,'GM'=>18,'GL'=>19,
+				'XS'=>20,'S'=>21,'M'=>22,'L'=>23,'XL'=>24,'XXL'=>25,'3L'=>26,'4L'=>27,'5L'=>28,'6L'=>29,'7L'=>30,'8L'=>31);
+
+			$len = count($tmp);
+			if (empty($tmp)) {
+				throw new Exception();
+			}
+
+			for($i = 0; $i < $len; $i++){
+				$a[$i] = $tmp[$i]['schedule_2'];
+				$b[$i] = $tmp[$i]['customer_id'];
+				$c[$i] = $tmp[$i]['ordersid'];
+				$d[$i] = $tmp[$i]['catname'];
+				$e[$i] = $tmp[$i]['item_code'];
+				$f[$i] = $tmp[$i]['color_code'];
+				$g[$i] = $sizeIds[$tmp[$i]['sizename']];
+			}
+			array_multisort($a,$b,$c,$d,$e,$f,$g, $tmp);
+
+			for($i = 0; $i < $len; $i++){
+				$key = explode('-', $tmp[$i]['item_code'])[0] . '--' . $tmp[$i]['sizename'] . '--' . $tmp[$i]['color_code'];
+
+				$rs[$i]['item_code'] = $tomsMaster[$key]['item_code'];
+				$rs[$i]['color_code'] = $tmp[$i]['color_code'];
+				$rs[$i]['size_code'] = $tomsMaster[$key]['size_code'];
+				$rs[$i]['quantity'] = $tmp[$i]['amount'];
+				$rs[$i]['opp'] = $tmp[$i]['pack_yes_volume'] ?: '';
+				$rs[$i]['remarks'] = $tmp[$i]['staffname'] . '、' .  $tmp[$i]['ordersid'] . '、' . $tmp[$i]['customername'];
+				$rs[$i]['order_number'] = '';
+			}
+		}catch(Exception $e){
+			$rs = array();
+		}
+
+		if ($stmt) $stmt->close();
+		$conn->close();
+
+		return $rs;
+	}
+
+
+
+
 /*=========== Pending ========================================*/
 	
 	
