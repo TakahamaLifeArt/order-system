@@ -11,8 +11,8 @@ $(function(){
 		prop: {},
 		handleDownload: function(content, filename) {
 			var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-			var blob = new Blob([ bom, content ], { "type" : "text/csv" });
-			// var blob = new Blob([ content ], { "type" : "text/csv" });
+			// var blob = new Blob([ bom, content ], { "type" : "text/csv" });
+			var blob = new Blob([ content ], { "type" : "text/csv" });
 
 			if (window.navigator.msSaveBlob) { 
 				window.navigator.msSaveBlob(blob, filename); 
@@ -172,8 +172,8 @@ $(function(){
 			self.attr('href', href);
 		},
 		export: function(factory, date) {
-			$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:false,
-				data:{'act':'export', 'mode':'', 'csv':'orderinglist', 'factory':factory},
+			$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:true,
+				data:{'act':'export', 'mode':'', 'csv':'orderinglist', 'charset':'sjis-win', 'factory':factory},
 				success: function(r){
 					if (r.length < 2) {
 						alert('工場' + factory + ' に該当するデータはありませんでした');

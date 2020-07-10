@@ -457,27 +457,35 @@
 				}
 
 				$fieldName = array(
-					'item_code'=>'品番',
-					'color_code'=>'カラーコード',
-					'size_code'=>'サイズコード',
-					'quantity'=>'数量',
-					'opp'=>'opp',
-					'remarks'=>'備考（納品書・出荷案内書の行）',
-					'order_number'=>'お客様注文No.',
+					'item_code' => '品番',
+					'color_code' => 'カラーコード',
+					'size_code' => 'サイズコード',
+					'quantity' => '数量',
+					'opp' => 'opp',
+					'remarks' => '備考（納品書・出荷案内書の行）',
+					'order_number' => 'お客様注文No.'
 				);
 				$filename = $_REQUEST['csv'];
 				$filename .= ".csv";
 				$filepath = "../data/".$filename;
 				$fp = fopen($filepath, 'wb');
 				if ($fp == false) echo 'Error: file open';
+
+				// 項目
 				$lbl = array();
 				foreach ($dat[0] as $key=>$val) {
 					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
 				}
-				//mb_convert_variables('SJIS', 'UTF-8', $lbl);
+				if (isset($_REQUEST['charset'])) {
+					mb_convert_variables($_REQUEST['charset'], 'ASCII,UTF-8,SJIS-win', $lbl);
+				}
 				fputcsv($fp, $lbl);
+
+				// データ
 				foreach($dat as $line){
-					//mb_convert_variables('SJIS', 'UTF-8', $line);
+                    if (isset($_REQUEST['charset'])) {
+                        mb_convert_variables($_REQUEST['charset'], 'ASCII,UTF-8,SJIS-win', $line);
+                    }
 					fputcsv($fp, $line);
 				}
 			}else{
