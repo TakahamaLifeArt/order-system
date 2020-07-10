@@ -483,9 +483,9 @@
 
 				// データ
 				foreach($dat as $line){
-                    if (isset($_REQUEST['charset'])) {
-                        mb_convert_variables($_REQUEST['charset'], 'ASCII,UTF-8,SJIS-win', $line);
-                    }
+					if (isset($_REQUEST['charset'])) {
+						mb_convert_variables($_REQUEST['charset'], 'ASCII,UTF-8,SJIS-win', $line);
+					}
 					fputcsv($fp, $line);
 				}
 			}else{
@@ -611,7 +611,11 @@
 			}
 
 			fclose($fp);
-			header("Content-Type: application/octet-stream");
+            if (isset($_REQUEST['charset'])) {
+                header("Content-Type: application/octet-stream; charset=Shift_JIS");
+            } else {
+				header("Content-Type: application/octet-stream");
+			}
 			header("Content-Disposition: attachment; filename=$filename");
 			readfile($filepath);
 		}
