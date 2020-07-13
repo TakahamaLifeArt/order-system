@@ -356,8 +356,8 @@
 					$dat=$marketing->getWorktimeList($_REQUEST['start'], $_REQUEST['end']);
 					break;
 
-				case 'orderinglist':
-					$dat = Marketing::getOrderingList($_REQUEST['factory']);
+				case 'tomscsvorderlist':
+					$dat=Marketing::getCsvOrderForm($_REQUEST['factory']);
 					break;
 			}
 
@@ -449,44 +449,48 @@
 					//mb_convert_variables('SJIS', 'UTF-8', $line);
 					fputcsv($fp, $line);
 				}
-			} else if($_REQUEST['csv']=='orderinglist'){
-				// トムス未発注データ
-				if (empty($dat)) {
-					$result = mb_convert_encoding($result, 'euc-jp', 'utf-8');
-					echo $result;
+			} else if ($_REQUEST['csv']=='tomscsvorderlist') {
+				// ディレクトリ生成
+				$path = "../data";
+				if (!file_exists($path)) {
+					mkdir($path, 0707);
 				}
+				chmod($path, 0707);	// umaskが指定されている場合に対応
 
-				$fieldName = array(
-					'item_code' => '品番',
-					'color_code' => 'カラーコード',
-					'size_code' => 'サイズコード',
-					'quantity' => '数量',
-					'opp' => 'opp',
-					'remarks' => '備考（納品書・出荷案内書の行）',
-					'order_number' => 'お客様注文No.'
-				);
-				$filename = $_REQUEST['csv'];
-				$filename .= ".csv";
-				$filepath = "../data/".$filename;
-				$fp = fopen($filepath, 'wb');
-				if ($fp == false) echo 'Error: file open';
+				if ($dat) {
+					// フィルタの登録
+					stream_filter_register('crlf', 'crlf_filter');
 
-				// 項目
-				$lbl = array();
-				foreach ($dat[0] as $key=>$val) {
-					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
-				}
-				if (isset($_REQUEST['charset'])) {
-					mb_convert_variables($_REQUEST['charset'], 'ASCII,UTF-8,SJIS-win', $lbl);
-				}
-				fputcsv($fp, $lbl);
+					// 工場
+					$factories = [
+						'1', '2', '9',
+					];
+					foreach ($factories as $factory) {
+						$filename = "orderinglist-{$factory}.csv";
+						$filepath = $path."/".$filename;
 
-				// データ
-				foreach($dat as $line){
-					if (isset($_REQUEST['charset'])) {
-						mb_convert_variables($_REQUEST['charset'], 'ASCII,UTF-8,SJIS-win', $line);
+						// 既存ファイル削除
+						unlink($filepath);
+
+						if (!array_key_exists($factory, $dat)) {
+							continue;
+						}
+
+						if ($fp = fopen($filepath, 'w')) {
+							// 出力ファイルへフィルタをアタァッチ
+							stream_filter_append($fp, 'crlf');
+
+							$len = count($dat[$factory]);
+							for ($i = 0; $i < $len; $i++) {
+								mb_convert_variables('SJIS', 'UTF-8', $dat[$factory][$i]);
+								fputcsv($fp, $dat[$factory][$i]);
+							}
+							fclose($fp);
+						}
 					}
-					fputcsv($fp, $line);
+					echo 1;
+				} else {
+					echo $dat;
 				}
 			}else{
 				// 受注データ、プリントデータ
@@ -611,11 +615,7 @@
 			}
 
 			fclose($fp);
-            if (isset($_REQUEST['charset'])) {
-                header("Content-Type: application/octet-stream; charset=Shift_JIS");
-            } else {
-				header("Content-Type: application/octet-stream");
-			}
+			header("Content-Type: application/octet-stream");
 			header("Content-Disposition: attachment; filename=$filename");
 			readfile($filepath);
 		}

@@ -10,15 +10,15 @@ $(function(){
 	jQuery.extend({
 		prop: {},
 		handleDownload: function(content, filename) {
-			var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+			// var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
 			// var blob = new Blob([ bom, content ], { "type" : "text/csv" });
-			var blob = new Blob([ content ], { "type" : "text/csv" });
+			const blob = new Blob([ content ], { "type" : "text/csv" });
 
-			if (window.navigator.msSaveBlob) { 
-				window.navigator.msSaveBlob(blob, filename); 
+			if (window.navigator.msSaveBlob) {
+				window.navigator.msSaveBlob(blob, filename);
 
 				// msSaveOrOpenBlobの場合はファイルを保存せずに開ける
-				window.navigator.msSaveOrOpenBlob(blob, filename); 
+				window.navigator.msSaveOrOpenBlob(blob, filename);
 			} else {
 				var a = document.createElement("a");
 				a.href = URL.createObjectURL(blob);
@@ -26,6 +26,12 @@ $(function(){
 				a.download = filename;
 				a.click();
 			}
+		},
+		isObject: function(val) {
+			if( val !== null && typeof(val) === 'object' && val.constructor === Object ) {
+				return true;
+			}
+			return false;
 		},
 		checkstatus: function(my,orders_id,isEDI){
 		/*
@@ -171,15 +177,15 @@ $(function(){
 			var href = self.attr('href')+'&scroll='+$('#result_searchtop').scrollTop();
 			self.attr('href', href);
 		},
-		export: function(factory, date) {
-			$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:true,
-				data:{'act':'export', 'mode':'', 'csv':'orderinglist', 'charset':'sjis-win', 'factory':factory},
+		export: function(date) {
+			$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:false,
+				data:{'act':'export','mode':'', 'csv':'tomscsvorderlist'},
 				success: function(r){
-					if (r.length < 2) {
-						alert('工場' + factory + ' に該当するデータはありませんでした');
+					if (!r) {
+						alert('未発注データが見つかりませんでした');
 					} else {
-						var filename = `toms-order-1_${date}.csv`;
-						$.handleDownload(r, filename);
+						const resource = 'http://original-sweat.com/system/php_libs/export.php';
+						window.location.href = `${resource}?d=${date}`;
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -428,8 +434,7 @@ $(function(){
 				("0"+today.getMinutes()).slice(-2)
 			].join('');
 
-		$.export('1', strDate);
-		$.export('2', strDate);
+		$.export(strDate);
 	});
 
 	/* init */

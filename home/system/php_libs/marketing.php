@@ -10,14 +10,13 @@ require_once dirname(__FILE__).'/MYDB2.php';
 class Marketing Extends MYDB2 {
 
 	private $orders = null;
-    
+
 	public function __construct($orders = null){
 		parent::__construct();
-		
+
 		$this->orders = $orders;
 	}
-	
-	
+
 	private static function validDate($args, $defDate='2011-06-05')
 	{
 		if(empty($args)){
@@ -32,8 +31,7 @@ class Marketing Extends MYDB2 {
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * 受注データ集計、CSV出力用
 	 * @param string $start 受注入力登録日による検索開始日
@@ -94,9 +92,7 @@ class Marketing Extends MYDB2 {
 		$conn->close();
 		return $rs;
 	}
-	
-	
-	
+
 	/**
 	 * プリントデータ集計、CSV出力用
 	 * @param string start 受注入力登録日による検索開始日
@@ -140,9 +136,7 @@ class Marketing Extends MYDB2 {
 		$conn->close();
 		return $rs;
 	}
-	
-	
-	
+
 	/**
 	 * 注文商品データ集計、CSV出力用
 	 * @param string start	受注入力登録日による検索開始日
@@ -211,9 +205,7 @@ class Marketing Extends MYDB2 {
 		$conn->close();
 		return $rs;
 	}
-	
-	
-	
+
 	/**
 	 * 仕事量（シルク、転写、プレス）のデータ集計、CSV出力用
 	 * @param string start 作業終了チェック日による検索開始日
@@ -288,8 +280,7 @@ class Marketing Extends MYDB2 {
 		
 		return $rs;
 	}
-	
-	
+
 	/**
 	 * 割引データ
 	 * @param id 受注No.
@@ -315,9 +306,7 @@ class Marketing Extends MYDB2 {
 		$conn->close();
 		return $rs;
 	}
-	
-	
-	
+
 	/**
 	 * 注文商品データ
 	 * @param id 受注No.
@@ -378,6 +367,7 @@ class Marketing Extends MYDB2 {
 	}
 
 	/**
+	 * === 未使用 ===
 	 * トムス未発注データ集計、CSV出力用
 	 * @param int $factory 工場
 	 * @reutrn[注文商品情報]
@@ -488,6 +478,105 @@ class Marketing Extends MYDB2 {
 		return $rs;
 	}
 
+	/**
+	 * トムス未発注データCSV出力用
+	 * @param int $factory
+	 * @return int|string
+	 */
+	public static function getCsvOrderForm($factory)
+	{
+		try {
+			$reply = '';
+			$record = [];
+			$conn = parent::db_connect();
+
+			// 発注データ
+			$sql = "select orders.id as ordersid, schedule2, staffname, customer_id, customername, amount, pack_yes_volume, category_name,
+				tomsmaster.*
+				from ((((((((((orders
+				inner join customer on customer_id = customer.id)
+				inner join orderitem on orders.id = orderitem.orders_id)
+				inner join staff on orders.reception = staff.id)
+				inner join catalog on orderitem.master_id = catalog.id)
+				inner join category on catalog.category_id = category.id)
+				inner join item on catalog.item_id = item.id)
+				inner join maker on item.maker_id = maker.id)
+				inner join acceptstatus on orders.id = acceptstatus.orders_id)
+				inner join progressstatus on orders.id = progressstatus.orders_id)
+				inner join itemstock on stock_master_id = catalog.id)
+				inner join tomsmaster on tomsmaster.jan_code = itemstock.jan_code
+				where created > '2011-06-05' and progress_id = 4 and shipped = 1
+				and catalogapply <= schedule2 and catalogdate > schedule2 and itemapply <= schedule2 and itemdate > schedule2
+				and orderitem.size_id = stock_size_id and maker.id=1 and ordering=0
+				and orders.factory = ?
+				order by schedule2, customer.id, orders.id, category_name, item.id, toms_color_code, toms_size_code;";
+			$stmt_order = $conn->prepare($sql);
+
+			// 項目
+			$fieldName = array(
+				'品番',
+				'カラーコード',
+				'サイズコード',
+				'数量',
+				'OPP袋同送数',
+				'備考（納品書・出荷案内書の行）',
+				'お客様注文Ｎｏ．'
+			);
+
+			// 工場
+			$factories = [
+				'1', '2', '9',
+			];
+
+			foreach ($factories as $factory) {
+				$stmt_order->bind_param("i", $factory);
+				$stmt_order->execute();
+				$stmt_order->store_result();
+				$rec = parent::fetchAll($stmt_order);
+
+				$record[$factory][] = $fieldName;
+				$len = count($rec);
+
+				for ($i = 0; $i < $len; $i++) {
+					$row_id++;
+					$orderId = mb_convert_kana($rec[$i]['ordersid'], 'N', 'utf-8');				// 全角数字に変換
+					// $orderId = mb_convert_encoding($orderId, 'sjis', 'utf-8');					// shift_jisに変換
+					$customerName = mb_convert_kana($rec[$i]['customername'], 'ASHcV', 'utf-8');// 全角ひらがな英数字に変換
+					$customerName = mb_substr($customerName, 0, 16, 'utf-8');					// マルチバイトの切り出し
+					// $customerName = mb_convert_encoding($customerName, 'sjis', 'utf-8');		// shift_jisに変換
+					$staffName = mb_convert_kana($rec[$i]['staffname'], 'ASHcV', 'utf-8');		// 全角ひらがな英数字に変換
+					$staffName = mb_substr($staffName, 0, 16, 'utf-8');							// マルチバイトの切り出し
+					// $staffName = mb_convert_encoding($staffName, 'sjis', 'utf-8');				// shift_jisに変換
+					$pack = empty($rec[0]['pack_yes_volume']) ?: '';							// OPP袋の枚数、無い場合は空文字
+					$comma = '、';
+					// $comma = mb_convert_encoding('、', 'sjis', 'utf-8');						// shift_jisに変換
+					$remarks = $staffName . $comma .  $orderId . $comma . $customerName;
+
+					$rs = [];
+					$rs[] = $rec[$i]['toms_item_code'];		//  1.品番
+					$rs[] = $rec[$i]['toms_color_code'];	//  2.カラーコード
+					$rs[] = $rec[$i]['toms_size_code'];		//  3.サイズコード
+					$rs[] = $rec[$i]['amount'];				//  4.数量
+					$rs[] = $pack;							//  5.OPP袋同送数
+					$rs[] = $remarks;						//  6.備考（納品書・出荷案内書の行）
+					$rs[] = "";								//  7.お客様注文No.（記載不要）
+
+					$record[$factory][] = $rs;
+				}
+
+				if ($len > 0) {
+					$reply[$factory] = $record[$factory];
+				}
+			}
+		} catch (Exception $e) {
+			$reply = '';
+		}
+
+		$stmt_order->close();
+		$conn->close();
+
+		return $reply;
+	}
 
 
 
