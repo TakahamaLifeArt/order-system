@@ -14,64 +14,68 @@
 		array('filename'=>'translist', 'title'=>'転写紙'),
 		array('filename'=>'presslist', 'title'=>'プレス'),
 		array('filename'=>'inkjetlist', 'title'=>'インクジェット'),
-//		array('filename'=>'shippinglist', 'title'=>'発送'),
 	);
-	
+
 	for($i=0; $i<count($panes); $i++){
 		$menu[] = '<li><a href="'._SERVER_ROOT.'main.php?req='.$panes[$i]['filename'].'&amp;pos='.time().'">'.$panes[$i]['title'].'</a></li>';
 		$curr[] = '<li><span>'.$panes[$i]['title'].'</span></li>';
 	}
-	
 
-//データ出力メニュウ
+	//データ出力メニュー
 	$menu[] = '<li><span class="pull"> データ出力 </span><ul>
 		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=sagawa&amp;pos='.time().'">佐川急便</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=customercsvlist&amp;pos='.time().'">宛名作成</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
 
-//発送
+	//発送
 	$pull['shippinglist'] = '<li><span> データ出力 </span><ul>
 		<li><span class="pull">発送</span></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=sagawa&amp;pos='.time().'">佐川急便</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=customercsvlist&amp;pos='.time().'">宛名作成</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
-
-//ヤマト　発送
 	$pull['b2_yamato'] = '<li><span> データ出力 </span><ul>
 		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
 		<li><span class="pull">ヤマト　帳票</span></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=sagawa&amp;pos='.time().'">佐川急便</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=customercsvlist&amp;pos='.time().'">宛名作成</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
-
-
-//宛名作成
+	$pull['clientcsvlist'] = '<li><span> データ出力 </span><ul>
+		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
+		<li><span class="pull">佐川急便</span></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=customercsvlist&amp;pos='.time().'">宛名作成</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
+		</ul></li>';
 	$pull['customercsvlist'] = '<li><span> データ出力 </span><ul>
 		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=sagawa&amp;pos='.time().'">佐川急便</a></li>
 		<li><span class="pull">宛名作成</span></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
-//売上伝票
 	$pull['earningscsvlist'] = '<li><span> データ出力 </span><ul>
 		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=sagawa&amp;pos='.time().'">佐川急便</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=customercsvlist&amp;pos='.time().'">宛名作成</a></li>
 		<li><span class="pull">売上伝票</span></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
-
-//得意先台帳
 	$pull['clientcsvlist'] = '<li><span> データ出力 </span><ul>
 		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
+		<li><a href="'._SERVER_ROOT.'main.php?req=sagawa&amp;pos='.time().'">佐川急便</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=customercsvlist&amp;pos='.time().'">宛名作成</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><span class="pull">得意先台帳</span></li>
@@ -108,8 +112,7 @@
 		<li><a href="'._SERVER_ROOT.'main.php?req=requestlist&amp;pos='.time().'">資料請求</a></li>
 		<li><span class="pull">メール履歴</span></li>
 		</ul></li>';
-	
-	
+
 	// 販売管理メニュー
 	$menu2[] = '<li><span class="pull"> 　会　　計　 </span><ul>';
 	$menu2[] = '<li><a href="'._SERVER_ROOT.'main.php?req=customerledger&amp;pos='.time().'">得意先元帳</a></li>
@@ -129,8 +132,7 @@
 	$curr2[] = '<li><span> 　売上管理　 </span><ul>';
 	$curr2[] = '';
 	$curr2[] = '<li><span>仕入先一覧</span></li>';
-	
-	
+
 	// 販売管理へのアクセス権限別のメニュー
 	switch($authenticatedUser){
 		case "1":
@@ -244,9 +246,9 @@
 				<li><span class="pull">アイテムレビュー</span></li>
 				</ul></li>';
 	}
-	
+
 	$filename = basename($_SERVER['SCRIPT_FILENAME'], '.php');
-	
+
 	// ゲスト用メニューバー
 	if($authenticatedUser==9){
 		if($filename!='userreview' && $filename!='itemreview') header("Location: "._SERVER_ROOT."?req=1");
@@ -256,8 +258,7 @@
 		$mainmenu .= '<li><a href="'._SERVER_ROOT.'main.php?req=website-itemreview&amp;pos='.time().'">アイテムレビュー</a></li>';
 		$mainmenu .= '</ol>';
 	}
-	
-	
+
 	// 受注管理メニューバーの生成
 	if($authenticatedUser<9){
 		if($filename=='itemdb' || $filename=='userreview' || $filename=='itemreview'|| $filename=='exportdata'|| $filename=='notice'){
@@ -301,7 +302,7 @@
 			}
 		}
 	}
-	
+
 	// 販売管理メニューバー生成
 	if(empty($mainmenu)){
 		switch($_SERVER['SCRIPT_FILENAME']){
