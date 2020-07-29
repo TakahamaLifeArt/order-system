@@ -330,7 +330,7 @@ p.scrolltop a {
 
 
 /*----- numeric field -----*/
-.forNum, .forBlank, .forPrice {
+.forNum, .forBlank, .forPrice, .forPriceUnsigned {
 	text-align: right;
 	ime-mode: inactive;
 }
@@ -344,7 +344,7 @@ p.scrolltop a {
 
 
 /*----- IME mode -----*/
-forPhone, forZip,
+forPhone, .forPriceUnsigned, forZip,
 .phone, .zip,
 .imeoff {
 	ime-mode: inactive;

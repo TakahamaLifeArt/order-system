@@ -4,10 +4,11 @@
 	charset UTF-8
 */
 session_cache_limiter('nocache');
+require_once dirname(__FILE__).'/../php_libs/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/JSON.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/../cgi-bin/package/DateJa/vendor/autoload.php';
 use Alesteq\DateJa\DateJa;
-	
+
 if(isset($_POST['doctype'], $_POST['data']) ) {
 
 	try{
@@ -101,7 +102,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				if($orders['package_no']==1){
 					$option_info .= "■袋詰め代：　　0 円\n";
 				}else{
-				// 旧タイプに対応
+					// 旧タイプに対応
 					if($orders['package']=='nopack'){
 						$option_info .= "■袋代：　　　　".number_format($orders['packfee'])." 円\n";
 					}else{
@@ -126,7 +127,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 			//$option_info .= "■特別送料：　".number_format($orders['extracarryfee'])." 円\n";
 			$option_info .= "■代引手数料：".number_format($orders['codfee'])." 円\n";
 			$option_info .= "■後払い手数料：".number_format($orders['paymentfee'])." 円\n";
-//				$option_info .= "■コンビニ手数料：".number_format($orders['conbifee'])." 円\n";
+			//				$option_info .= "■コンビニ手数料：".number_format($orders['conbifee'])." 円\n";
 			$option_info .= "■諸経費計：　".number_format($optionfee_2)." 円\n";
 			$option_info .= "■----------------------------------------\n\n";
 		}else{
@@ -140,40 +141,63 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 			}
 		}
 
-		$date = explode('-',$orders['schedule4']);
-		if($date[0]!="0000"){
-			$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+		$delivery_date = explode('-',$orders['schedule4']);
+		if($delivery_date[0]!="0000"){
+			$baseSec = mktime(0, 0, 0, $delivery_date[1], $delivery_date[2], $delivery_date[0]);
 			$deli = $jd->makeDateArray($baseSec);							// 受渡日付情報
 		}else{
 			$deli['Weekname'] = "-";
 		}
 
-		$date = explode('-',$orders['schedule2']);
-		if($date[0]!="0000"){
-			$baseSec = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+		$order_confirm = explode('-',$orders['schedule2']);
+		if($order_confirm[0]!="0000"){
+			$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
 			$cutday = $jd->makeDateArray($baseSec);							// 注文〆日付情報
 		}else{
 			$cutday['Weekname'] = "-";
 		}
 
-		$date = explode('-',$orders['schedule3']);
-		if($date[0]!="0000"){
-			$baseSec = mktime(0, 0, 0, $date[1], $date[2]-1, $date[0]);
-			$fin = $jd->makeDateArray($baseSec);							// 振込期日情報（発送日の前営業日）
-			if( !(($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-				$isHoliday = true;
-				$one_day = -86400;
-				while($isHoliday){
+		// 発送日
+		$ship_date = explode('-',$orders['schedule3']);
+		
+		// お支払い期日を計算
+		$time_limit = '';
+		$expire['Weekname'] = "-";
+		if($order_confirm[0]!="0000" && $ship_date[0]!="0000"){
+			$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
+			$shipSec = mktime(0, 0, 0, $ship_date[1], $ship_date[2], $ship_date[0]);
+			$start_holiday = strtotime(_FROM_HOLIDAY) ?: 0;
+			$end_holiday = strtotime(_TO_HOLIDAY) ?: 0;
+			if ($baseSec === $shipSec) {
+				// 当日発送：注文確定日中
+				$expire = $jd->makeDateArray($baseSec);
+				$time_limit = '14:00まで';
+			} else if ($baseSec < $shipSec) {
+				// 発送日までの営業日数を取得
+				$workday = 0;
+				$one_day = 86400;
+				while($baseSec < $shipSec){
 					$baseSec += $one_day;
 					$fin = $jd->makeDateArray($baseSec);
-					if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-						$isHoliday = false;
+					if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$start_holiday || $end_holiday<$baseSec) )
+					{
+						if (++$workday === 1) {
+							$nextWorkDay = $baseSec;	// 注文確定日の翌営業日
+						}
 					}
 				}
+				
+				if ($workday === 1) {
+					// 翌日発送：注文確定日の14:00
+					$baseSec = mktime(0, 0, 0, $order_confirm[1], $order_confirm[2], $order_confirm[0]);
+					$expire = $jd->makeDateArray($baseSec);
+					$time_limit = '本日中';
+				} else {
+					// 翌営業日の午前中
+					$expire = $jd->makeDateArray($nextWorkDay);
+					$time_limit = '午前中まで';
+				}
 			}
-			$expire = $fin;													// 振込期日の曜日を取得
-		}else{
-			$expire['Weekname'] = "-";
 		}
 
 		$customer_name = $orders['customername'];
@@ -383,10 +407,6 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				// 臨時の告知文を挿入
 				$doc_title .= _EXTRA_NOTICE;
 
-//					if($doctype=="estimation" && time()<mktime(0,0,0,10,1,2015)){
-//						$doc_title .= "なお、価格改定のためお見積りの有効期限を2015/9/30注文確定分までとさせていただきます。\n\n";
-//					}
-
 				if(!is_null($add_msg)){
 					$doc_title .= $add_msg."\n";
 					$doc_title .= "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
@@ -395,6 +415,16 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					$doc_title .= "\n";
 				}
 
+				$doc_title .= "\n＜お支払い期日の変更のお知らせ＞\n";
+				$doc_title .= "2019年10月21日（月）のご注文確定分より、下記にご変更させていただきます。\n\n";
+				$doc_title .= "銀行振込　：ご注文確定日の翌営業日午前中まで\n";
+				$doc_title .= "カード決済：ご注文確定日の翌営業日午前中まで\n\n";				
+				$doc_title .= "※ただし、当日特急プラン、翌日プランの場合はご注文確定後すぐのご入金・ご決済をお願い致します。\n\n";
+
+				$doc_title .= "\n＜領収書の発行につきまして＞\n";
+				$doc_title .= "マイページにて領収書の発行が可能です。\n";
+				$doc_title .= "注文履歴ページより、お客様のご入金の確認が取れた後、ダウンロードできます。\n\n";
+				
 				$doc_title .= "\n＜納品書の発行につきまして＞\n";
 				$doc_title .= "弊社ではエコアクションとして、ペーパーレスを実施いたします。\n";
 				$doc_title .= "これまで商品に同封しておりました納品書は、\n";
@@ -428,7 +458,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				}
 
 				// 送信前にTLAメンバーの登録を行う必要はない 2017/03/13
-/*
+				/*
 				if($orders['ordertype']=='general' && !empty($_POST['parm'])){
 					$tla = new TLAmember();
 					$regist_data = array(
@@ -498,7 +528,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 
 				if($doctype=='orderbank'){
 					$doc_title .= "ご入金確認後の発送となりますので、";
-					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
+					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）".$time_limit."に\n";
 					$doc_title .= "下記弊社指定口座にお振込みをお願いいたします。\n\n";
 					$doc_title .= "---------------　≪お振込み先≫　---------------\n\n";
 					$doc_title .= "お振込先：　三菱ＵＦＪ銀行\n";
@@ -512,7 +542,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					$doc_title .= "※お振込み手数料はお客様のご負担とさせて頂いております。\n\n";
 				}else if($doctype=='ordercredit'){
 					$doc_title .= "ご入金確認後の発送となりますので、";
-					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
+					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）".$time_limit."に\n";
 					$doc_title .= "下記の手順に従ってカード決済手続きをお願いいたします。\n\n";
 					$doc_title .= "---------------　≪カード決済手順≫　---------------\n\n";
 					if($orders['reg_site'] == 6) {
@@ -531,7 +561,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					$doc_title .= "------------------------------------------------\n\n";
 				}else if($doctype=='orderconbi'){
 					$doc_title .= "ご入金確認後の発送となりますので、";
-					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）午前中までに\n";
+					$doc_title .= $expire['Month']."月".$expire['Day']."日（".$expire['Weekname']."）".$time_limit."に\n";
 					$doc_title .= "下記の手順に従ってコンビニ決済手続きをお願いいたします。\n\n";
 					$doc_title .= "---------------　≪コンビニ決済手順≫　---------------\n\n";
 					if($orders['reg_site'] == 6) {
@@ -558,6 +588,15 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				}
 				if ($isNotRegistForTLA==0) {
 					// TLAメンバー登録しない場合は記載しない
+					$doc_title .= "\n＜商品確認のお願い＞\n";
+					$doc_title .= "この度はタカハマライフアートをご利用いただきまして誠にありがとうございました。\n";
+					$doc_title .= "万が一、商品やプリントに不備があったり、サイズや枚数が発注と異なっている場合、恐れ入りますが、到着後7日以内にご連絡くださいませ。\n";
+					$doc_title .= "何卒、宜しくお願い申し上げます。\n\n";
+
+					$doc_title .= "\n＜領収書の発行につきまして＞\n";
+					$doc_title .= "マイページにて領収書の発行が可能です。\n";
+					$doc_title .= "注文履歴ページより、お客様のご入金の確認が取れた後、ダウンロードできます。\n\n";
+
 					$doc_title .= "\n＜納品書の発行につきまして＞\n";
 					$doc_title .= "弊社ではエコアクションとして、ペーパーレスを実施いたします。\n";
 					$doc_title .= "これまで商品に同封しておりました納品書は、\n";
@@ -611,7 +650,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				break;
 
 			case 'shipped':
-			/*
+				/*
 				$item_title = "\n【　ご注文内容　】\n\n";
 				$enquiry_number = htmlspecialchars($_POST['data'][2], ENT_QUOTES);
 				$total = "　お支払金額：　　".number_format($totalprice)." 円（税込）1枚当り ".number_format($perone)." 円\n";
@@ -651,51 +690,51 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 			$mail_contents .= "[ 消費税 ]　　".number_format($tax)." 円\n";
 		}
 		if(!empty($orders['creditfee'])){
-				$mail_contents .= "[ カード決済システム利用料 ]　".number_format($orders['creditfee'])." 円\n";
-			}
+			$mail_contents .= "[ カード決済システム利用料 ]　".number_format($orders['creditfee'])." 円\n";
+		}
 		$mail_contents .= "[ 合　　計 ]　".number_format($totalprice)." 円\n";
 		$mail_contents .= "■----------------------------------------\n\n";
 		$mail_contents .= "\n========================================\n";
 		$mail_contents .= $total."\n";
 		$mail_contents .= "========================================\n\n";
 		switch($doctype){
-		case 'estimation':
-			if($orders['ordertype']=='general'){
-				$mail_contents .= "◆下記は注意点になります。必ずご覧ください\n\n";
-				$mail_contents .= "※イメージ画像の作成は、";
-				$mail_contents .= "通常納期に加えて２営業日の期間が必要となります。\n";
-				$mail_contents .= "　ご注文締切日は、イメージ画像をご確認後、あらためての設定となり、\n";
-				$mail_contents .= "　お伝えしている締切日が変更となる場合がありますので、ご承知おきください。\n";
-				$mail_contents .= "※お支払いがお振込みの場合、振り込み手数料はお客様のご負担となります。\n";
-				$mail_contents .= "※代金引換の場合は、手数料800円（税抜）のご負担となります。\n\n";
-			}
+			case 'estimation':
+				if($orders['ordertype']=='general'){
+					$mail_contents .= "◆下記は注意点になります。必ずご覧ください\n\n";
+					$mail_contents .= "※イメージ画像の作成は、";
+					$mail_contents .= "通常納期に加えて２営業日の期間が必要となります。\n";
+					$mail_contents .= "　ご注文締切日は、イメージ画像をご確認後、あらためての設定となり、\n";
+					$mail_contents .= "　お伝えしている締切日が変更となる場合がありますので、ご承知おきください。\n";
+					$mail_contents .= "※お支払いがお振込みの場合、振り込み手数料はお客様のご負担となります。\n";
+					$mail_contents .= "※代金引換の場合は、手数料800円（税抜）のご負担となります。\n\n";
+				}
 
-			break;
+				break;
 
-		case 'orderbank':
-		case 'ordercod':
-		case 'orderconbi':
-		case 'ordercredit':
-			$mail_contents .= "┏━━━━━━━┓\n";
-			$mail_contents .= "◆　　ご注意\n";
-			$mail_contents .= "┗━━━━━━━┛\n";
-			$mail_contents .= "・このメールをもって本発注となります。ご注文のキャンセルは出来ませのでご了承ください。\n";
-			$mail_contents .= "・枚数の変更（追加やサイズ変更、数枚のキャンセル）は受付でません。\n";
-			if($doctype=='ordercod'){
-				$mail_contents .= "・代金引換の方は納品予定日に現金のご用意をお願いいたします。\n";
-			}
-			$mail_contents .= "\n";
-			break;
-		case 'ordercash':
-			$mail_contents .= "┏━━━━━━━┓\n";
-			$mail_contents .= "◆　　ご注意\n";
-			$mail_contents .= "┗━━━━━━━┛\n";
-			$mail_contents .= "・このメールをもって本発注となります。ご注文のキャンセルは出来ませのでご了承ください。\n";
-			$mail_contents .= "・枚数の変更（追加やサイズ変更、数枚のキャンセル）は受付できません。\n";
-			$mail_contents .= "・ご来社で現金払いのお客様は、お釣りのないようにご用意くださいますようご協力をお願いいたします。\n\n";
-			$mail_contents .= "◆納品方法：　ご来社引き取り\n";
-			$mail_contents .= "◆お支払い方法：　現金払い\n\n";
-			break;
+			case 'orderbank':
+			case 'ordercod':
+			case 'orderconbi':
+			case 'ordercredit':
+				$mail_contents .= "┏━━━━━━━┓\n";
+				$mail_contents .= "◆　　ご注意\n";
+				$mail_contents .= "┗━━━━━━━┛\n";
+				$mail_contents .= "・このメールをもって本発注となります。ご注文のキャンセルは出来ませのでご了承ください。\n";
+				$mail_contents .= "・枚数の変更（追加やサイズ変更、数枚のキャンセル）は受付でません。\n";
+				if($doctype=='ordercod'){
+					$mail_contents .= "・代金引換の方は納品予定日に現金のご用意をお願いいたします。\n";
+				}
+				$mail_contents .= "\n";
+				break;
+			case 'ordercash':
+				$mail_contents .= "┏━━━━━━━┓\n";
+				$mail_contents .= "◆　　ご注意\n";
+				$mail_contents .= "┗━━━━━━━┛\n";
+				$mail_contents .= "・このメールをもって本発注となります。ご注文のキャンセルは出来ませのでご了承ください。\n";
+				$mail_contents .= "・枚数の変更（追加やサイズ変更、数枚のキャンセル）は受付できません。\n";
+				$mail_contents .= "・ご来社で現金払いのお客様は、お釣りのないようにご用意くださいますようご協力をお願いいたします。\n\n";
+				$mail_contents .= "◆納品方法：　ご来社引き取り\n";
+				$mail_contents .= "◆お支払い方法：　現金払い\n\n";
+				break;
 		}
 		$mail_contents .= $customer_info;
 
@@ -741,7 +780,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 				'mail_subject'=>$mail_subject,
 				'mail_contents'=>$mail_contents,
 				'sendto'=>$adr,
-				'reply'=>1
+				'reply'=>true,
 			);
 			$res = $http->request('POST', $param);
 			$res = unserialize($res);
@@ -769,7 +808,7 @@ if(isset($_POST['doctype'], $_POST['data']) ) {
 					'cst_name'=>$orders['customername'],
 					'sendmaildate'=>date('Y-m-d H:i:s'),
 					'staff_id'=>$orders['reception']
-					);
+				);
 				$result = $DB->db('insert', 'mailhistory', $args);
 				if(!preg_match('/^\d/',$result)) exit('ERROR: insert to the Mailhistory table. '.$result);
 
@@ -791,31 +830,4 @@ if(isset($_POST['json'])){
 	header("Content-Type: text/javascript; charset=utf-8");
 }
 echo $reply;
-
-
-
-/*
-*	作業に要する営業日数をカウントして発送日を返す
-*
-*	@baseSec	起算日（UNIXタイムスタンプの秒数）
-*	@one_day	一日の秒数（86400）
-*	@cnt		営業日として数える日数（通常は当日含めて３営業日）
-*
-*	return		休みではない日を返す（japaneseDataオブジェクト）
-*/
-function getDeliveryDay($baseSec, $one_day, $cnt){
-	global $_from_holiday, $_to_holiday;
-	$jd = new DateJa();
-	$workday=0;
-	while($workday<=$cnt){
-
-		$fin = $jd->makeDateArray($baseSec);
-		if( (($fin['Weekday']>0 && $fin['Weekday']<6) && $fin['Holiday']==0) && ($baseSec<$_from_holiday || $_to_holiday<$baseSec) ){
-			$workday++;
-		}
-		$baseSec += $one_day;
-	}
-
-	return $fin;
-}
 ?>

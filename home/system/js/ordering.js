@@ -1,28 +1,54 @@
 /*
-*	タカハマライフアート
-*	発注
-*	charset euc-jp
+* タカハマライフアート
+* 発注
+* charset euc-jp
+* log
+* 2020-07-09 トムスの未発注データをCSV形式でエクスポート
 */
 
 $(function(){
 	jQuery.extend({
 		prop: {},
-	    checkstatus: function(my,orders_id,isEDI){
-	    /*
-	    *	@my				this
-	    *	@orders_id		受注No.
-	    *	@isEDI			EDI発注の有無　0:なし　1:全てトムス　2:全てキャブ　3:トムスとキャブ
-	    */
-	    	if(orders_id==""){
-	    		alert('注文の受付が完了していません。');
-	    		return;
-	    	}
-	    	
-	    	var staff = $('#order_staff').val();
-	    	if(staff==0){
-	    		alert('発注担当を指定してください。');
-	    		return;
-	    	}
+		handleDownload: function(content, filename) {
+			// var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+			// var blob = new Blob([ bom, content ], { "type" : "text/csv" });
+			const blob = new Blob([ content ], { "type" : "text/csv" });
+
+			if (window.navigator.msSaveBlob) {
+				window.navigator.msSaveBlob(blob, filename);
+
+				// msSaveOrOpenBlobの場合はファイルを保存せずに開ける
+				window.navigator.msSaveOrOpenBlob(blob, filename);
+			} else {
+				var a = document.createElement("a");
+				a.href = URL.createObjectURL(blob);
+				a.target = '_blank';
+				a.download = filename;
+				a.click();
+			}
+		},
+		isObject: function(val) {
+			if( val !== null && typeof(val) === 'object' && val.constructor === Object ) {
+				return true;
+			}
+			return false;
+		},
+		checkstatus: function(my,orders_id,isEDI){
+		/*
+		*	@my				this
+		*	@orders_id		受注No.
+		*	@isEDI			EDI発注の有無　0:なし　1:全てトムス　2:全てキャブ　3:トムスとキャブ
+		*/
+			if(orders_id==""){
+				alert('注文の受付が完了していません。');
+				return;
+			}
+			
+			var staff = $('#order_staff').val();
+			if(staff==0){
+				alert('発注担当を指定してください。');
+				return;
+			}
 			
 			var field = ['orders_id', 'ordering'];
 			var data = [orders_id, staff];
@@ -144,12 +170,28 @@ $(function(){
 				}
  			});
  			
-	    },
-	    setQuery: function(my){
+		},
+		setQuery: function(my){
 		/* 受注入力画面のへのアンカーにスクロール状態を追加 */
 			var self = $(my);
 			var href = self.attr('href')+'&scroll='+$('#result_searchtop').scrollTop();
 			self.attr('href', href);
+		},
+		export: function(date) {
+			$.ajax({url:'./php_libs/ordersinfo.php', type:'POST', dataType:'text', async:false,
+				data:{'act':'export','mode':'', 'csv':'tomscsvorderlist'},
+				success: function(r){
+					if (!r) {
+						alert('未発注データが見つかりませんでした');
+					} else {
+						const resource = 'http://original-sweat.com/system/php_libs/export.php';
+						window.location.href = `${resource}?d=${date}`;
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("XMLHttpRequest : " + XMLHttpRequest.status + "\ntextStatus : " + textStatus);
+				}
+			});
 		},
 		search: function(func){
 			var params = '&filename=ordering&state_0=0';	// 受注画面へ遷移する際に渡すクエリストリング
@@ -367,19 +409,34 @@ $(function(){
 			}
 		}
 	});
-	
+
 	/* 検索開始 */
 	$('#search').click( function(){
 		$.search();
 	});
-	
+
 	/* リセット */
 	$('#reset').click( function(){
 		document.forms.searchtop_form.reset();
 		$('#result_count').text('0');
 		$('#result_searchtop').html('');
 	});
-	
+
+	/* CSV ダウンロード */
+	$('#export').click( function() {
+		var today = new Date(),
+			month = today.getMonth() + 1,
+			strDate = [
+				today.getFullYear(),
+				("0"+month).slice(-2),
+				("0"+today.getDate()).slice(-2),
+				("0"+today.getHours()).slice(-2),
+				("0"+today.getMinutes()).slice(-2)
+			].join('');
+
+		$.export(strDate);
+	});
+
 	/* init */
 	$(window).one('load', function(){
 		$.search();

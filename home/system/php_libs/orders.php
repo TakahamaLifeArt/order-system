@@ -498,14 +498,14 @@ class Orders{
 					lastmodified, estimated, order_amount, paymentdate, exchink_count, exchthread_count, deliver, deliverytime, manuscriptdate, purpose, 
 					purpose_text, job, designcharge, repeater, reuse, free_discount, free_printfee, completionimage, contact_number, additionalname, 
 					additionalfee, extradiscountname, extradiscount, shipfrom_id, package_yes, package_no, package_nopack, pack_yes_volume, pack_nopack_volume, boxnumber, 
-					factory, destcount, repeatdesign, allrepeat, staffdiscount, imega)
+					factory, destcount, repeatdesign, allrepeat, staffdiscount, imega, receipt_address, receipt_price, receipt_proviso, outsource, business)
 								VALUES(%d,'%s',%d,'%s','%s','%s','%s','%s',%d,'%s',
 								'%s',%d,%d,'%s','%s','%s','%s',%d,'%s','%s',
 								%d,'%s','%s','%s','%s','%s',%d,%d,%d,'%s',
 								'%s',%d,%d,'%s',%d,%d,%d,%d,'%s','%s',
 								'%s','%s',%d,%d,%d,%d,%d,%d,'%s','%s',
 								%d,'%s',%d,%d,%d,%d,%d,%d,%d,%d,
-								%d,%d,%d,%d,%d,%d)",
+								%d,%d,%d,%d,%d,%d,'%s',%d,'%s',%d,%d)",
 								$info3["reception"],
 								$info3["ordertype"],
 								$info3["applyto"],
@@ -571,7 +571,12 @@ class Orders{
 								$info3["repeatdesign"],
 								$info3["allrepeat"],
 								$info3["staffdiscount"],
-								$info3["imega"]
+								$info3["imega"],
+								$info3["receipt_address"] ?? '',
+								$info3["receipt_price"] ?? 0,
+								$info3["receipt_proviso"] ?? '',
+								$info3["outsource"],
+								$info3["business"]
 								);
 
 				if(exe_sql($conn, $sql)){
@@ -1838,7 +1843,10 @@ class Orders{
 							purpose='%s',purpose_text='%s',job='%s',designcharge=%d,repeater=%d,reuse=%d,free_discount=%d,free_printfee=%d,
 							completionimage=%d, contact_number='%s', additionalname='%s', additionalfee=%d, extradiscountname='%s', extradiscount=%d, shipfrom_id=%d,
 							package_yes=%d,package_no=%d,package_nopack=%d,pack_yes_volume=%d,pack_nopack_volume=%d,boxnumber=%d,factory=%d,destcount=%d,repeatdesign=%d,allrepeat=%d, staffdiscount=%d,
-							imega=%d
+							imega=%d, receipt_address='%s', receipt_price=%d, receipt_proviso='%s',
+							
+							outsource=%d, business=%d
+							
 							 WHERE id=%d",
 						   	$data3["reception"],
 					 	   	$data3["ordertype"],
@@ -1905,6 +1913,11 @@ class Orders{
 							$data3["allrepeat"],
 							$data3["staffdiscount"],
 							$data3["imega"],
+							$data3["receipt_address"] ?? '',
+							$data3["receipt_price"] ?? 0,
+							$data3["receipt_proviso"] ?? '',
+							$data3["outsource"],
+							$data3["business"],
 							$data3["id"]);
 				$rs = exe_sql($conn, $sql);
 				if(!$rs){
@@ -3772,7 +3785,7 @@ class Orders{
 					
 					if($info['cab_response']==1){
 						// キャブの発注保留分を済みにする
-						$http = new HTTP('http://takahamalifeart.com/cab/garbage.php');
+						$http = new HTTP('https://takahamalifeart.com/cab/garbage.php');
 						$param = array('orders_id'=>$info['orders_id']);
 						$reply = $http->request('POST', $param);
 						$reply = unserialize($reply);
@@ -5504,7 +5517,7 @@ class Orders{
 				
 				// キャブの発注受付通知結果を取得してデータを更新
 				$flg = false;
-				$http = new HTTP('http://takahamalifeart.com/cab/cab_response.php');
+				$http = new HTTP('https://takahamalifeart.com/cab/cab_response.php');
 				$param = array();
 				$reply = $http->request('POST', $param);
 				$rs = unserialize($reply);
@@ -6599,23 +6612,15 @@ class Orders{
 					$isDry[$rec['tag_itemid']] = true;
 				}
 				
-				// スタッフデータを取得
-				$result = exe_sql($conn, 'select * from staff');
-				while($rec = mysqli_fetch_assoc($result)){
-					$staffdata[$rec['id']] = $rec['staffname'];
-				}
-				
 				// 全てのプリント方法を対象に抽出
+				$start = $data['term_from'] ?: date('Y-m-01');
 				$sql = 'select * from (orders inner join printstatus on orders.id=printstatus.orders_id) inner join acceptstatus on orders.id=acceptstatus.orders_id
-					 where created>"2011-06-05" and progress_id=4';
+					 where created>"2011-06-05" and progress_id=4 and schedule3 >= "'. $start .'"';
+				if(!empty($data['term_to'])){
+					$sql .= ' and schedule3 <= "'. $data['term_to'] .'"';
+				}
 				if(!empty($data['id'])){
 					$sql .= ' and orders.id = '.$data['id'];
-				}
-				if(!empty($data['term_from'])){
-					$sql .= ' and schedule3 >= "'.$data['term_from'].'"';
-				}
-				if(!empty($data['term_to'])){
-					$sql .= ' and schedule3 <= "'.$data['term_to'].'"';
 				}
 				$result = exe_sql($conn, $sql);
 				while($rec = mysqli_fetch_assoc($result)){
@@ -6664,25 +6669,24 @@ class Orders{
 				if(!empty($data['term_to'])){
 					$sql .= ' and schedule3 <= "'.$data['term_to'].'"';
 				}
-				/*
-				if(!empty($data['schedule_from'])){
-					$sql .= ' and dateofsilk >= "'.$data['schedule_from'].'"';
-				}
-				if(!empty($data['schedule_to'])){
-					$sql .= ' and dateofsilk <= "'.$data['schedule_to'].'"';
-				}
-				*/
 				if(!empty($data['factory'])){
 					$sql .= ' and orders.factory = '.$data['factory'];
 				}
 				if(!empty($data['state_5'])){
 					$sql .= ' and state_5 = '.$data['state_5'];
 				}
-				if($data['fin_5']==1){
+				if ($data['fin_5']==1) {
 					$sql .= ' and fin_5=0';
-				}else if($data['fin_5']==2){
-					$sql .= ' and fin_5=1 and shipped=1';
+				} elseif($data['fin_5']==2) {
+					$sql .= ' and fin_5=1 and shipped=1';	// 終了チェック済みで未発送
+				} elseif ($data['fin_5']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_5=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');	// default:月初
+					$end = $data['end'] ?: date('Y-m-t');		// default:月末
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
+
 				/* 仕事量のグラフ用データ抽出
 				if(!empty($data['sipping'])){
 					$sql .= ' and fin_5=0 and shipped=1';
@@ -7010,7 +7014,14 @@ class Orders{
 					$sql .= ' and fin_3=0';
 				}else if($data['fin_3']==2){
 					$sql .= ' and fin_3=1 and shipped=1';
+				} elseif ($data['fin_3']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_3=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
+					
 				$sql .= ' group by orders.id, areaid order by orders.id, orderitem.id';
 				$result = exe_sql($conn, $sql);
 				
@@ -7054,8 +7065,9 @@ class Orders{
 				$sql = 'select orders.id as id, schedule2, schedule3, company, customername, maintitle, factory, ordertype, bundle, 
 					dateoftrans, state_3, fin_3, state_2, note_trans, edge, cleaner, adjtime_trans as adjtime, 
 					coalesce( sum(sheets), 0) as sheet, printtype_key, state_prepress,
-					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express
-					 from (((((((orders 
+					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express,
+					staffname 
+					 from ((((((((orders 
 					 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
 					 inner join printstatus on orders.id=printstatus.orders_id) 
 					 inner join progressstatus on orders.id=progressstatus.orders_id) 
@@ -7063,7 +7075,8 @@ class Orders{
 					 inner join customer on orders.customer_id=customer.id) 
 					 inner join product on orders.id=product.orders_id) 
 					 inner join printtype on printstatus.printtype_key=print_key) 
-					 left join cutpattern on product.id=cutpattern.product_id
+					 left join cutpattern on product.id=cutpattern.product_id)
+					 left join staff on state_3=staff.id 
 					 where created>"2011-06-05" and progress_id=4 and noprint=0 
 					 and product.printtype=printtype.printtypeid';
 				if(!empty($data['id'])){
@@ -7082,6 +7095,12 @@ class Orders{
 					$sql .= ' and fin_3=0';
 				}else if($data['fin_3']==2){
 					$sql .= ' and fin_3=1 and shipped=1';
+				} elseif ($data['fin_3']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_3=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id, printstatus.printtype_key order by schedule3, orders.id';
@@ -7157,6 +7176,12 @@ class Orders{
 					$sql .= ' and fin_4=0';
 				}else if($data['fin_4']==2){
 					$sql .= ' and fin_4=1 and shipped=1';
+				} elseif ($data['fin_4']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_4=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id, areaid order by orders.id, printstatus.printtype_key, orderitem.id';
@@ -7204,7 +7229,9 @@ class Orders{
 					package_yes, package_no, package_nopack, areaid, 
 					sum(orderitem.amount) as volume, printtype_key, adjtime_press as adjtime, 
 					coalesce(category.category_name,orderitemext.item_name) as item,
-					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express
+					concat(coalesce(category.category_name,orderitemext.item_name), printposition_id) as item_posid,
+					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express,
+					staffname 
 					 from ((((((((((orders 
 					 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
 					 inner join printstatus on orders.id=printstatus.orders_id) 
@@ -7216,7 +7243,8 @@ class Orders{
 					 inner join orderselectivearea on areaid=orderarea_id) 
 					 inner join orderitem on orderprint.id=print_id) 
 					 left join orderitemext on orderitem.id=orderitem_id) 
-					 left join category on orderprint.category_id=category.id  
+					 left join category on orderprint.category_id=category.id 
+					 left join staff on state_4=staff.id 
 					 where created>"2011-06-05" and progress_id=4 and noprint=0 
 					 and printstatus.printtype_key=orderarea.print_type
 					 and selectiveid is not null';
@@ -7237,6 +7265,12 @@ class Orders{
 					$sql .= ' and fin_4=0';
 				}else if($data['fin_4']==2){
 					$sql .= ' and fin_4=1 and shipped=1';
+				} elseif ($data['fin_4']==3) {
+					// CSV出力の集計用
+					$sql .= ' and fin_4=1';		// 終了テェック済み
+					$start = $data['start'] ?: date('Y-m-01');		// default: 月初
+					$end = $data['end'] ?: date('Y-m-t');			// default: 月末
+					$sql .= ' and schedule3 >= "'.$start.'" and schedule3 <= "'.$end.'"';
 				}
 				
 				$sql .= ' group by orders.id,printstatus.printtype_key,item,areaid order by schedule3, orders.id, printstatus.printtype_key, areaid';
@@ -7260,7 +7294,7 @@ class Orders{
 						$rs1[$i]['vol_item'] = $rec['volume'];
 						$rs1[$i]['shot'] = 0;
 					}else{
-						if($rs1[$i]['item']==$rec['item']){
+						if($rs1[$i]['item_posid']==$rec['item_posid']){
 							$rs1[$i]['area'] += 1;
 							$rs1[$i]['area_item'] += 1;
 						}else{
@@ -7271,7 +7305,7 @@ class Orders{
 							$rs1[$i]['area'] += 1;
 							
 							
-							if( !preg_match('/'.$rec['item'].'/',$rs1[$i]['item']) ){
+							if( !preg_match('/'.$rec['item_posid'].'/',$rs1[$i]['item_posid']) ){
 								$rs1[$i]['item'] .= ', '.$rec['item'];
 								$rs1[$i]['volume'] += $rec['volume'];
 							}
@@ -7468,6 +7502,7 @@ class Orders{
 					dateofinkjet, dateofartwork, state_6, fin_6, fin_1, note_inkjet, package_yes, package_no, package_nopack, areaid, print_option, 
 					sum(orderitem.amount) as volume,
 					coalesce(category.category_name,orderitemext.item_name) as item,
+					concat(coalesce(category.category_name,orderitemext.item_name), printposition_id) as item_posid,
 					repeater, reuse, repeatdesign, allrepeat, completionimage, coalesce(expressfee,"0") as express 
 					 from ((((((((((orders 
 					 inner join acceptstatus on orders.id=acceptstatus.orders_id) 
@@ -7482,7 +7517,7 @@ class Orders{
 					 left join orderitemext on orderitem.id=orderitem_id) 
 					 left join category on orderprint.category_id=category.id  
 					 where created>"2011-06-05" and progress_id=4 and noprint=0 
-					 and orderarea.print_type="inkjet" 
+					 and orderarea.print_type="inkjet" and printstatus.printtype_key="inkjet" 
 					 and selectiveid is not null';
 					 
 				if(!empty($data['id'])){
@@ -7524,6 +7559,9 @@ class Orders{
 					}else{
 						if($rs[$i]['item']==$rec['item']){
 							$rs[$i]['area'] += 1;
+							if ($rs[$i]['item_posid'] !== $rec['item_posid']) {
+								$rs[$i]['volume'] += $rec['volume'];
+							}
 						}else{
 							$curarea = $rec['areaid'];
 							$i++;

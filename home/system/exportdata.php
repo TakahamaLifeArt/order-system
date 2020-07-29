@@ -47,7 +47,7 @@
 								<table>
 									<tbody>
 										<tr>
-											<th>受付日</th>
+											<th>発送日</th>
 											<td>
 												<input type="text" value="" name="term_from" size="10" class="forDate datepicker" /> &#65374;<input type="text" value="" name="term_to" size="10" class="forDate datepicker" />
 												<input type="button" value="日付クリア" title="cleardate" id="cleardate" />
@@ -67,28 +67,14 @@
 						<input type="button" value="プリントデータ" id="printlist">
 						<input type="button" value="注文商品データ" id="orderitemlist">
 						<input type="button" value="業者注文データ" id="orderitemlist_additional">
-						<?php 
-						if($mylevel=='administrator'){
-//							echo '<input type="button" value="顧客データ" id="customerlist">';
-						}
-						?>
+						<input type="button" value="仕事量データ" id="worktimelist">
 						<input type="button" value="reset" id="reset">
 					</p>
 				</fieldset>
-				<div id="result_wrapper">
-				<!--
-					<p class="submenu">
-						<span class="btn_pagenavi" title="searchform">&lt;&lt; 検索フォームヘ</span>
-					</p>
-					<div class="pagenavi">
-						<p style="position: absolute;">検索結果<span id="result_count">0</span>件</p>
-						<span class="btn_pagenavi" title="first">最初ヘ &lt;&lt;&lt;</span>&nbsp;<span class="btn_pagenavi" title="previous">前ヘ &lt;&lt;</span><span class="pos_pagenavi"></span><span class="btn_pagenavi" title="next">&gt;&gt; 次へ</span>&nbsp;<span class="btn_pagenavi" title="last">&gt;&gt;&gt; 最後へ</span>
-					</div>
-					-->
-					<div id="result_searchtop">
-						<p class="alert">Export ... <img src="./img/pbar-ani.gif" style="width:150px; height:22px;"></p>
-					</div>
+				<div id="result_searchtop" style="display:none;">
+					<p class="alert">Export ... <img src="./img/pbar-ani.gif" style="width:150px; height:22px;"></p>
 				</div>
+				<div id="result_wrapper"></div>
 			</div>
 		</div>
 

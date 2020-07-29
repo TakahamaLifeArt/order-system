@@ -1,6 +1,6 @@
 <?php
 /**
-	タカハマライフアート
+*	タカハマライフアート
 *	受注データベース
 *	charset UTF-8
 */
@@ -346,13 +346,37 @@
 				case 'orderitemlist':
 					$dat=Marketing::getOrderItemList($_REQUEST['start'], $_REQUEST['end'], $_REQUEST['id'], $_REQUEST['mode']);
 					break;
-					
+
 				case 'customerlist':
 					$dat=Marketing::getCustomerList($_REQUEST['start'], $_REQUEST['end'], $_REQUEST['id']);
 					break;
+
+				case 'worktimelist':
+					$marketing = new Marketing($orders);
+					$dat=$marketing->getWorktimeList($_REQUEST['start'], $_REQUEST['end']);
+					break;
+
+				case 'tomscsvorderlist':
+					$dat=Marketing::getCsvOrderForm($_REQUEST['factory']);
+					break;
 			}
-			
-			if($_REQUEST['csv']=='customerlist'){
+
+			if ($_REQUEST['csv']=='worktimelist') {
+				// 仕事量データ
+				$fieldName = [];
+				$filename = $_REQUEST['csv'] . '_' . date('Y-m-d') . ".csv";
+				$filepath = "../data/".$filename;
+				$fp = fopen($filepath, 'wb');
+				if($fp==false) echo 'Error: file open';
+				$lbl = array();
+				foreach($dat[0] as $key=>$val){
+					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
+				}
+				fputcsv($fp, $lbl);
+				foreach($dat as $line){
+					fputcsv($fp, $line);
+				}
+			} elseif ($_REQUEST['csv']=='customerlist') {
 				// 顧客データ
 				$fieldName = array(
 					'customer_num'=>'顧客ID', 
@@ -389,7 +413,7 @@
 				foreach($dat as $line){
 					fputcsv($fp, $line);
 				}
-			}else if($_REQUEST['csv']=='orderitemlist'){
+			} else if($_REQUEST['csv']=='orderitemlist'){
 				// 注文商品データ
 				$fieldName = array(
 					'ordersid'=>'受注No.', 
@@ -424,6 +448,49 @@
 				foreach($dat as $line){
 					//mb_convert_variables('SJIS', 'UTF-8', $line);
 					fputcsv($fp, $line);
+				}
+			} else if ($_REQUEST['csv']=='tomscsvorderlist') {
+				// ディレクトリ生成
+				$path = "../data";
+				if (!file_exists($path)) {
+					mkdir($path, 0707);
+				}
+				chmod($path, 0707);	// umaskが指定されている場合に対応
+
+				if ($dat) {
+					// フィルタの登録
+					stream_filter_register('crlf', 'crlf_filter');
+
+					// 工場
+					$factories = [
+						'1', '2', '9',
+					];
+					foreach ($factories as $factory) {
+						$filename = "orderinglist-{$factory}.csv";
+						$filepath = $path."/".$filename;
+
+						// 既存ファイル削除
+						unlink($filepath);
+
+						if (!array_key_exists($factory, $dat)) {
+							continue;
+						}
+
+						if ($fp = fopen($filepath, 'w')) {
+							// 出力ファイルへフィルタをアタァッチ
+							stream_filter_append($fp, 'crlf');
+
+							$len = count($dat[$factory]);
+							for ($i = 0; $i < $len; $i++) {
+								mb_convert_variables('SJIS', 'UTF-8', $dat[$factory][$i]);
+								fputcsv($fp, $dat[$factory][$i]);
+							}
+							fclose($fp);
+						}
+					}
+					echo 1;
+				} else {
+					echo $dat;
 				}
 			}else{
 				// 受注データ、プリントデータ
@@ -479,6 +546,8 @@
 					'purpose_text'=>'その他用途', 
 					'job'=>'職業', 
 					'repeatdesign'=>'リピートチェック', 
+					'outsource' => '外注',
+					'business' => '営業',
 					'productfee'=>'商品代', 
 					'printfee'=>'プリント代', 
 					'silkprintfee'=>'シルク', 
@@ -486,6 +555,7 @@
 					'digitprintfee'=>'デジタル写真', 
 					'inkjetprintfee'=>'インクジェット', 
 					'cuttingprintfee'=>'カッティング', 
+					'embroideryprintfee' => '刺繍',
 					'discountfee'=>'割引金額', 
 					'reductionfee'=>'値引き金額', 
 					'exchinkfee'=>'インク色替え代', 
@@ -543,13 +613,11 @@
 					fputcsv($fp, $line);
 				}
 			}
-			
+
 			fclose($fp);
-	//		header('Access-Control-Allow-Origin: *');
 			header("Content-Type: application/octet-stream");
 			header("Content-Disposition: attachment; filename=$filename");
 			readfile($filepath);
-			//unlink($filepath);
 		}
 	}
 	$result = mb_convert_encoding($result, 'euc-jp', 'utf-8');
