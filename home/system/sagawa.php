@@ -42,7 +42,7 @@
     <script type="text/javascript" src="./js/ui/i18n/jquery.ui.datepicker-ja.js"></script>
     <script type="text/javascript" src="./js/modalbox/jquery.modalbox-min.js"></script>
     <script type="text/javascript" src="./js/lib/common.js"></script>
-    <script type="text/javascript" src="./js/b2_yamato.js"></script>
+    <script type="text/javascript" src="./js/sagawa.js"></script>
 </head>
 
 <body class="main_bg" id="page_top">
