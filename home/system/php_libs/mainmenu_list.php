@@ -30,8 +30,6 @@
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
-
-	//発送
 	$pull['shippinglist'] = '<li><span> データ出力 </span><ul>
 		<li><span class="pull">発送</span></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
@@ -48,7 +46,7 @@
 		<li><a href="'._SERVER_ROOT.'main.php?req=earningscsvlist&amp;pos='.time().'">売上伝票</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=clientcsvlist&amp;pos='.time().'">得意先台帳</a></li>
 		</ul></li>';
-	$pull['clientcsvlist'] = '<li><span> データ出力 </span><ul>
+	$pull['sagawa'] = '<li><span> データ出力 </span><ul>
 		<li><a href="'._SERVER_ROOT.'main.php?req=shippinglist&amp;pos='.time().'">発送</a></li>
 		<li><a href="'._SERVER_ROOT.'main.php?req=b2_yamato&amp;pos='.time().'">ヤマト　帳票</a></li>
 		<li><span class="pull">佐川急便</span></li>
@@ -276,7 +274,7 @@
 			$mainmenu .= $pull[$filename];
 			$mainmenu .= $menu[++$m];
 			$mainmenu .= '</ol>';
-		}else if($filename=='shippinglist'|| $filename=='b2_yamato' || $filename=='customercsvlist' || $filename=='earningscsvlist' || $filename=='itemcsvlist' || $filename=='clientcsvlist' ){
+		}else if($filename=='shippinglist' || $filename=='b2_yamato' || $filename=='sagawa' || $filename=='customercsvlist' || $filename=='earningscsvlist' || $filename=='itemcsvlist' || $filename=='clientcsvlist' ){
 			$mainmenu = '<ol class="mainmenu">';
 			for($m=0; $m<count($menu)-3; $m++){
 				$mainmenu .= $menu[$m];
