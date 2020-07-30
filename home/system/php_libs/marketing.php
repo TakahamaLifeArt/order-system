@@ -547,7 +547,7 @@ class Marketing Extends MYDB2 {
 					$staffName = mb_convert_kana($rec[$i]['staffname'], 'ASHcV', 'utf-8');		// 全角ひらがな英数字に変換
 					$staffName = mb_substr($staffName, 0, 16, 'utf-8');							// マルチバイトの切り出し
 					// $staffName = mb_convert_encoding($staffName, 'sjis', 'utf-8');				// shift_jisに変換
-					$pack = empty($rec[0]['pack_yes_volume']) ?: '';							// OPP袋の枚数、無い場合は空文字
+					$pack = empty($rec[0]['pack_yes_volume']) ? '' : $rec[0]['pack_yes_volume'];// OPP袋の枚数、無い場合は空文字
 					$comma = '、';
 					// $comma = mb_convert_encoding('、', 'sjis', 'utf-8');						// shift_jisに変換
 					$remarks = $staffName . $comma .  $orderId . $comma . $customerName;
