@@ -121,7 +121,7 @@
 					<p class="btn_area">
 						<input type="button" value="検索" id="search" />
 						<input type="button" value="reset" id="reset" />
-						<input type="button" value="ダウンロード" id="export" />
+						<input type="button" value="トムスCSVエクスポート" id="export" />
 					</p>
 					
 				</fieldset>
