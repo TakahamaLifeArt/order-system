@@ -7,11 +7,13 @@
  *		 2019-09-02 仕事量（シルク、転写、プレス）のデータ集計
  */
 require_once dirname(__FILE__).'/MYDB2.php';
+
 class Marketing Extends MYDB2 {
 
 	private $orders = null;
 
-	public function __construct($orders = null){
+	public function __construct($orders = null)
+	{
 		parent::__construct();
 
 		$this->orders = $orders;
@@ -19,14 +21,14 @@ class Marketing Extends MYDB2 {
 
 	private static function validDate($args, $defDate='2011-06-05')
 	{
-		if(empty($args)){
+		if (empty($args)) {
 			return $defDate;
-		}else{
+		} else {
 			$args = str_replace("/", "-", $args);
 			$d = explode('-', $args);
-			if(checkdate($d[1], $d[2], $d[0])==false){
+			if (checkdate($d[1], $d[2], $d[0]) === false) {
 				return $defDate;
-			}else{
+			} else {
 				return $args;
 			}
 		}
