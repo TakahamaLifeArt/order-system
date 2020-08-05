@@ -1,11 +1,11 @@
 <?php
-/**
- * HTTP Request
- * charset utf-8
- */
 
  namespace php_libs;
 
+ /**
+  * HTTP Request
+  * charset utf-8
+  */
 class HTTP2
 {
     private $url;
@@ -13,7 +13,7 @@ class HTTP2
     /**
      * construct
      *
-     * @param string $args
+     * @param string  $args
      */
     public function __construct(String $args)
     {
@@ -23,8 +23,8 @@ class HTTP2
     /**
      * リクエスト
      *
-     * @param string $method
-     * @param array $params
+     * @param string  $method
+     * @param array  $params
      */
     public function request(string $method, array $params = array())
     {
@@ -59,8 +59,8 @@ class HTTP2
     /**
      * リクエスト
      *
-     * @param string $method
-     * @param array $params
+     * @param string  $method
+     * @param array  $params
      * @return string|bool
      */
     public function request2(string $method, array $params = array())
