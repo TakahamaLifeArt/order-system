@@ -8,6 +8,9 @@
   */
 class HTTP2
 {
+    /**
+     * @var string
+     */
     private $url;
 
     /**
@@ -41,7 +44,6 @@ class HTTP2
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         }
 
-        //curl_setopt($ch, CURLOPT_HEADER,true); //header情報も一緒に欲しい場合
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         //curl_setopt($ch, CURLOPT_TIMEOUT, 2);
