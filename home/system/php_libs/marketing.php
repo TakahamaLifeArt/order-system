@@ -21,7 +21,7 @@ class Marketing Extends MYDB2 {
 
 	private static function validDate($args, $defDate='2011-06-05')
 	{
-		if(empty($args)){
+		if (empty($args)) {
 			return $defDate;
 		}else{
 			$args = str_replace("/", "-", $args);
