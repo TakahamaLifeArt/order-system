@@ -23,7 +23,7 @@ class Marketing Extends MYDB2 {
 	{
 		if (empty($args)) {
 			return $defDate;
-		}else{
+		} else {
 			$args = str_replace("/", "-", $args);
 			$d = explode('-', $args);
 			if(checkdate($d[1], $d[2], $d[0])==false){
