@@ -1,19 +1,21 @@
-name: php-cs-fixer
+name: phpcs
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [develop]
 
 jobs:
-   php-cs-fixer:
-       runs-on: ubuntu-latest
-       steps:
-           - uses: actions/checkout@master
-           - name: Prepare
-             run: |
-                 wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
-                 chmod a+x php-cs-fixer
-           - name: php-cs-fixer
-             run: php php-cs-fixer fix ./home/system --dry-run
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+      - name: Install PHP_CodeSniffer
+        run: |
+          curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+          php phpcs.phar --version
+      - name: Check code style
+        run: |
+          phpcs --report=code --standard=PSR2 ./home/system/php_libs/marketing.php
+      
