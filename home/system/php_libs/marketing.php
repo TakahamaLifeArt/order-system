@@ -7,11 +7,13 @@
  *		 2019-09-02 仕事量（シルク、転写、プレス）のデータ集計
  */
 require_once dirname(__FILE__).'/MYDB2.php';
+
 class Marketing Extends MYDB2 {
 
 	private $orders = null;
 
-	public function __construct($orders = null){
+	public function __construct($orders = null)
+	{
 		parent::__construct();
 
 		$this->orders = $orders;
