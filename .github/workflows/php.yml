@@ -9,9 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Prepare
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+      - name: Install PHP_CodeSniffer
         run: |
-          wget https://cs.symfony.com/download/php-cs-fixer-v2.phar -O php-cs-fixer
-          chmod a+x php-cs-fixer
-      - name: php-cs-fixer
-        run: php php-cs-fixer fix ./home/system/ordering.php --dry-run --diff
+          curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+          php phpcs.phar --version
+      - uses: tinovyatkin/action-php-codesniffer@v1
+        with:
+          files: "**.php"
+          phpcs_path: php phpcs.phar
+          standard: PSR2  # phpcs.xml
