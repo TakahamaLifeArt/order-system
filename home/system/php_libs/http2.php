@@ -10,12 +10,23 @@ class HTTP2
 {
     private $url;
 
-    public function __construct($args)
+    /**
+     * construct
+     *
+     * @param string $args
+     */
+    public function __construct(String $args)
     {
         $this->url = $args;
     }
 
-    public function request($method, $params = array())
+    /**
+     * リクエスト
+     *
+     * @param string $method
+     * @param array $params
+     */
+    public function request(string $method, array $params = array())
     {
         $url = $this->url;
         $data = http_build_query($params);
@@ -45,7 +56,14 @@ class HTTP2
         return $res;
     }
 
-    public function request2($method, $params = array())
+    /**
+     * リクエスト
+     *
+     * @param string $method
+     * @param array $params
+     * @return string|bool
+     */
+    public function request2(string $method, array $params = array())
     {
         $url = $this->url;
         $data = http_build_query($params);
