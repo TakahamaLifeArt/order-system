@@ -1,11 +1,11 @@
-name: php-cs-fixer
+name: phpcs
 
 on:
   pull_request:
     branches: [develop]
 
 jobs:
-  php-cs-fixer:
+  phpcs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
