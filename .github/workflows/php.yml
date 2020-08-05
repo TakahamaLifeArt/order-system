@@ -15,8 +15,7 @@ jobs:
         run: |
           curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
           php phpcs.phar --version
-      - uses: tinovyatkin/action-php-codesniffer@v1
-        with:
-          files: "**.php"
-          phpcs_path: php phpcs.phar
-          standard: PSR2  # phpcs.xml
+      - name: Check code style
+        run: |
+          phpcs --report=code --standard=PSR2 ./home/system/php_libs/marketing.php
+      
