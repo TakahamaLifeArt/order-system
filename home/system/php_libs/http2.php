@@ -19,13 +19,13 @@ class HTTP2
     public function request($method, $params = array()){
         $url = $this->url;
         $data = http_build_query($params);
-        if($method == 'GET') {
+        if ($method == 'GET') {
             $url = ($data != '')?$url.'?'.$data:$url;
         }
 
         $ch = curl_init($url);
 
-        if($method == 'POST'){
+        if ($method == 'POST') {
             curl_setopt($ch,CURLOPT_POST,1);
             curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
         }
@@ -38,7 +38,7 @@ class HTTP2
 
         //ステータスをチェック
         $respons = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if(preg_match("/^(404|403|500)$/",$respons)){
+        if (preg_match("/^(404|403|500)$/",$respons)) {
             return false;
         }
 
