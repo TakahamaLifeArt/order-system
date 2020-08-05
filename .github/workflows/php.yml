@@ -18,7 +18,7 @@ jobs:
       - name: Check code style
       - uses: tinovyatkin/action-php-codesniffer@v1
         with:
-          files: "**.php" # you may customize glob as needed
+          files: "**.php"
           phpcs_path: php phpcs.phar
-          standard: phpcs.xml
+          standard: ruleset.xml
       
