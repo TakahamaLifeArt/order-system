@@ -7661,6 +7661,7 @@ class Orders{
 				break;
 				
 			case 'b2_yamato':
+			case 'sagawa':
 				/*****************************
 				*	発送確認画面の一覧
 				*	発送予定一覧の印刷
@@ -7685,23 +7686,21 @@ class Orders{
 				if(!empty($data['term_to'])){
 					$sql .= ' and schedule3 <= "'.$data['term_to'].'"';
 				}
-				//if(!empty($data['carriage'])){
-				//	$sql .= ' and carriage = "'.$data['carriage'].'"';
-				//}
 
-				// 運送業社： ヤマト運輸
-				$sql .= ' and deliver = 2';
-				
+				// 運送業社
+				if (isset($data['carrier'])) {
+					// 佐川急便
+					$sql .= ' and deliver = ' . $data['carrier'];
+				} else {
+					// ヤマト運輸
+					$sql .= ' and deliver = 2';
+				}
+
 				// 発送準備：発送可
 				if($data['readytoship']!=""){
 					$sql .= ' and readytoship = "'.$data['readytoship'].'"';
 				}
-				//$sql .= ' and readytoship = "1"';
-				
-				// 発送準備：未発送
-				//if(!empty($data['shipped'])){
-				//	$sql .= ' and shipped = '.$data['shipped'];
-				//}
+
 				$sql .= ' and shipped = 1';
 
 				// 入金
@@ -7724,16 +7723,11 @@ class Orders{
 					$sql .= ' and orders.b2print = '.$data['b2print'];
 				}
 
-				//同梱 不要
-				//if(!empty($data['pack'])){
-				//	$sql .= ' and package_yes = 1';
-				//}
-
 				//工場
 				if(!empty($data['factory'])){
 					$sql .= ' and orders.factory = '.$data['factory'];
 				}
-				
+
 				$sql .= ' order by schedule3, customer.id, bundle desc, carriage';
 				$result = exe_sql($conn, $sql);
 				$r=-1;
@@ -7775,7 +7769,7 @@ class Orders{
 						}
 					}
 				}
-				
+
 				$flg = false;
 				break;
 

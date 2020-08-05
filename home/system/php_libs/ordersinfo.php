@@ -253,7 +253,8 @@
 				case 'reuse':			// リピート版注文の情報
 				case 'cart':			// 注文リストのセッション情報
 				case 'shippinglist':	// 発送確認画面
-				case 'b2_yamato':	// b2 ヤマト発送確認画面
+				case 'b2_yamato':		// b2 ヤマト発送確認画面
+				case 'sagawa':			// 佐川急便の発送確認画面
 				case "enquete1":		// アンケート集計
 				case "requestmail":		// 資料請求メール情報
 				case "cutpattern":		// 面付け

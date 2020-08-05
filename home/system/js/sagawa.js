@@ -1,24 +1,18 @@
-/*
-*	タカハマライフアート
-*	佐川急便CSV
-*	charset euc-jp
-*/
+/**
+ * タカハマライフアート
+ * 佐川急便CSV
+ * charset euc-jp
+ * log 2020-07-30: created
+ */
 
 $(function () {
-
-    /***************************************************************************************************************************
-    *
-    *	main page module
-    *
-    ****************************************************************************************************************************/
-
     $('input[type="button"], .btn_pagenavi, p[class^="attach_"], .act', '#main_wrapper').live('click', function () {
         mypage.main('btn', $(this));
     });
 
-    /********************************
-    *	clear
-    */
+    /**
+     * clear
+     */
     $('#cleardate').click(function () {
         var dt = new Date();
         var d = dt.getFullYear() + "-" + ("00" + (dt.getMonth() + 1)).slice(-2) + "-" + ("00" + dt.getDate()).slice(-2);
@@ -26,9 +20,9 @@ $(function () {
         document.forms.searchtop_form.term_to.value = "";
     });
 
-    /********************************
-    *	datepicker
-    */
+    /**
+     * datepicker
+     */
     $('.datepicker', '#searchtop_form').datepicker({
         beforeShowDay: function (date) {
             var weeks = date.getDay();
@@ -64,143 +58,31 @@ $(function () {
         }
     });
 
-    /********************************
-    *	initialization
-    */
+    /**
+     * initialization
+     */
     $(window).one('load', function () {
-        if (document.forms.searchtop_form.term_from.value == "") {
-            var dt = new Date();
-            var d = dt.getFullYear() + "-" + ("00" + (dt.getMonth() + 1)).slice(-2) + "-" + ("00" + dt.getDate()).slice(-2);
-            document.forms.searchtop_form.term_from.value = d;
-        }
+        var dt = new Date();
+        var d = dt.getFullYear() + "-" + ("00" + (dt.getMonth() + 1)).slice(-2) + "-" + ("00" + dt.getDate()).slice(-2);
+        document.forms.searchtop_form.term_from.value = d;
     });
-
 });
 
 var mypage = {
     prop: {
         'holidayInfo': {},
-        'searchdata': [],
+        'searchData': [],
         'params': '',
-        'orderidlist': ''
-    },
-    checkb2print: function (my, order_id) {
-		/*	b2printを更新
-		 *	@my				checkbox
-		 *	@orders_id		受注No.
-		 */
-        var args = "";						// 更新値
-        var isSend = $(my).val();			// 0: メール送信をキャンセル　1: メール送信　2: 問合せ番号なしで送信中止
-        var isSendMail = false				// 発送しましたメールの送信の有無（default: 送信なし）
-
-        mypage.screenOverlay(true);
-
-        if ($(my).attr('checked')) {
-            args = 2;
-        } else {
-            args = 1;
-        }
-
-        $.ajax({
-            url: './php_libs/ordersinfo.php', type: 'POST',
-            data: { 'act': 'update', 'mode': 'b2print', 'order_id': order_id, 'b2print': args }, async: false,
-            success: function (r) {
-                if (!r.match(/^\d+?$/)) {
-                    alert('Error: p132\n' + r);
-                    mypage.screenOverlay(false);
-                    return;
-                }
-                $.each(mypage.prop.searchdata, function (index, val) {
-                    if (val['orders_id'] != order_id) return true;	// continue
-                    val['b2print'] = args;
-                    return false;
-                });
-                mypage.screenOverlay(false);
-            }
-        });
-    },
-    checkstatus: function (my, orders_id, bundle) {
-		/*	発送済チェックと発送しましたメールの送信
-		 *	@my				checkbox
-		 *	@orders_id		受注No.
-		 */
-        if (orders_id == "") {
-            alert('注文の受付が完了していません。');
-            return;
-        }
-        var args = "";						// 更新値
-        var isSend = $(my).val();			// 0: メール送信をキャンセル　1: メール送信　2: 問合せ番号なしで送信中止
-        var isSendMail = false				// 発送しましたメールの送信の有無（default: 送信なし）
-
-        mypage.screenOverlay(true);
-
-        // 発送済みチェックとメール送信
-        if ($(my).attr('checked')) {
-            args = 2;	// 発送済にする
-            if (isSend == 1) {
-                if (!confirm("「発送しましたメール」を送信します。\nよろしいですか？")) {
-                    mypage.screenOverlay(false);
-                } else {
-                    isSendMail = true;
-                }
-            } else if (isSend == 2) {
-                $(my).attr('checked', false);
-                $.msgbox('お問合せ番号を入力してください。');
-                return;
-            }
-        } else {
-            args = 1;	// 未発送
-        }
-
-        var field = ['orders_id', 'shipped', 'bundle'];
-        var data = [orders_id, args, bundle];
-        $.ajax({
-            url: './php_libs/ordersinfo.php', type: 'POST',
-            data: { 'act': 'update', 'mode': 'progressstatus', 'field1[]': field, 'data1[]': data }, async: false,
-            success: function (r) {
-                if (!r.match(/^\d+?$/)) {
-                    alert('Error: p132\n' + r);
-                    mypage.screenOverlay(false);
-                    return;
-                }
-                if (isSendMail) {
-                    $.ajax({
-                        url: './documents/shipmentmail.php', type: 'POST',
-                        data: { 'orders_id': orders_id }, async: false,
-                        success: function (r) {
-                            alert(r);
-                        }
-                    });
-                }
-                mypage.screenOverlay(false);
-            }
-        });
-    },
-    screenOverlay: function (mode) {
-        var body_w = $(document).width();
-        var body_h = $(document).height();
-        if (mode) {
-            $('#overlay').css({
-                'width': body_w + 'px',
-                'height': body_h + 'px',
-                'opacity': 0.5
-            }).show();
-            if (arguments.length > 1) {
-                $('#loadingbar').css({ 'top': body_h / 2 + 'px', 'left': body_w / 2 - 150 + 'px' }).show();
-            }
-        } else {
-            if ($('#loadingbar:visible').length > 0) $('#loadingbar').hide();
-            $('#overlay').css({ 'width': '0px', 'height': '0px' }).hide("1000");
-        }
+        'orderList': ''
     },
     setQuery: function (my) {
-        /* 受注入力画面のへのアンカーにスクロール状態を追加 */
+        // 受注入力画面のへのアンカーにスクロール状態を追加
         var self = $(my);
         var href = self.attr('href') + '&scroll=' + self.closest('div').scrollTop();
         self.attr('href', href);
     },
     strPackmode: function (args) {
-        /* 袋詰の状態を示す文字列を返す */
+        // 袋詰の状態を示す文字列を返す
         var res = [];
         if (args['package_no'] == 1) {
             res = '-';
@@ -212,6 +94,7 @@ var mypage = {
         return res;
     },
     strDeliverytime: function (args) {
+        // 配達指定時間帯
         var deliverytime_str = "";
         switch (args) {
             case '0': deliverytime_str = "---";
@@ -234,6 +117,7 @@ var mypage = {
         return deliverytime_str;
     },
     strPayment: function (args) {
+        // 支払い方法
         var payment_str = "";
         switch (args) {
             case 'wiretransfer': payment_str = "振込";
@@ -257,6 +141,7 @@ var mypage = {
         return payment_str;
     },
     strBundle: function (args) {
+        // 同梱の有無
         var bundle_str = "";
         switch (args) {
             case '0': bundle_str = "なし";
@@ -324,15 +209,20 @@ var mypage = {
             }
         }
 
+        // 検索
         var search = function () {
             if (document.forms.searchtop_form.term_from.value == "") {
                 alert('発送日を指定してください');
                 return;
             }
-            var params = '&filename=b2_yamato';	// 受注画面への遷移の際に渡すクエリストリング
-            var field = [];
-            var data = [];
+
+            var params = '&filename=sagawa';	// 受注画面への遷移の際に渡すクエリストリング
             var elem = document.forms.searchtop_form.elements;
+
+            // 佐川急便を指定
+            var field = ['carrier'];
+            var data = [1];
+
             for (var j = 0; j < elem.length; j++) {
                 if (elem[j].type == "text" || elem[j].type == "select-one") {
                     field.push(elem[j].name);
@@ -345,7 +235,7 @@ var mypage = {
                 }
             }
             mypage.prop.params = params;
-            mypage.prop.searchdata = [];
+            mypage.prop.searchData = [];
             $('#result_count').text('0');
             $('.pos_pagenavi').text('');
             $('#result_searchtop').html('<p class="alert">検索中 ... <img src="./img/pbar-ani.gif" style="width:150px; height:22px;"></p>');
@@ -356,7 +246,7 @@ var mypage = {
                         if (r.length == 0) {
                             $('#result_searchtop').html('<p class="alert">該当するデータが見つかりませんでした</p>');
                         } else {
-                            mypage.prop.searchdata = r;
+                            mypage.prop.searchData = r;
                             if (r.length > LEN) {
                                 $('.btn_pagenavi[title="last"], .btn_pagenavi[title="next"]').css('visibility', 'visible');
                             }
@@ -364,16 +254,17 @@ var mypage = {
                         }
                     } else {
                         $('#result_searchtop').html('');
-                        alert('Error: p272\n' + r);
+                        alert('Error: 369\n' + r);
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#result_searchtop').html('');
-                    alert('Error: p1213\n' + textStatus + '\n' + errorThrown);
+                    alert('Error: 374\n' + textStatus + '\n' + errorThrown);
                 }
             });
         }
 
+        // 検索結果一覧を表示
         var showList = function () {
             var lines = [];			// 検索結果のレコードを代入する
             var pack = { 'yes': '〇', 'no': '-', 'nopack': '袋のみ' };	// 袋詰
@@ -390,23 +281,30 @@ var mypage = {
             var html = '';
             var list = '';
             var head = '';
-            var result_len = mypage.prop.searchdata.length;
-            mypage.prop.orderidlist = '';
+            var curdate = '';
+            var result_len = mypage.prop.searchData.length;
+            mypage.prop.orderList = '';
             for (i = 0; i < result_len; i++) {
                 if (i > 0) {
-                    mypage.prop.orderidlist += ',';
+                    mypage.prop.orderList += ',';
                 }
-                mypage.prop.orderidlist += mypage.prop.searchdata[i]['orders_id'];
+                mypage.prop.orderList += mypage.prop.searchData[i]['orders_id'];
             }
             if (result_len > 0) {
-                lines = mypage.prop.searchdata;
+                lines = mypage.prop.searchData;
+                curdate = lines[0]['schedule3'];
                 $('#result_count').text(result_len);
-                if (start_row + LEN <= result_len) result_len = start_row + LEN;
+
+                if (start_row + LEN <= result_len) {
+                    result_len = start_row + LEN;
+                }
+
                 $('.pos_pagenavi').text(start_row + 1 + '-' + result_len);
-                head = '<table><thead><tr><th>受注No.</th><th>工場</th><th>発送日</th><th>配達時間</th><th>発送準備</th><th>袋詰</th><th>送り状種類</th><th>個口</th>';
-                head += '<th>顧客名</th><th>お届け先名</th><th>住所</th><th>商品種類</th><th>入金方法</th><th>同梱</th><th>発送方法</th><th>B2送り状印刷</th></tr>';
+
+                head = '<table><thead><tr><th>受注No.</th><th>工場</th><th>発送日</th><th>配達時間</th><th>発送準備</th><th>袋詰</th><th>個口</th>';
+                head += '<th>顧客名</th><th>お届け先名</th><th>住所</th><th>商品種類</th><th>入金方法</th><th>同梱</th><th>発送方法</th></tr>';
                 head += '</thead>';
-                var curdate = lines[0]['schedule3'];
+
                 list = "<tbody>";
                 for (var i = start_row; i < result_len; i++) {
                     list += '<tr';
@@ -424,22 +322,7 @@ var mypage = {
                     list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">' + mypage.strDeliverytime(lines[i]['deliverytime']) + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">' + ready[lines[i]['readytoship']] + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">' + mypage.strPackmode(lines[i]) + '</td>';
-                    list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">';
-                    list += '<select name="invoiceKind[]" class="invoiceKind">';
-                    if (lines[i]['payment'] == "cod") {
-                        list += '<option value="0">発払い</option>';
-                        list += '<option value="2" selected="selected">コレクト</option>';
-                    } else {
-                        list += '<option value="0" selected="selected">発払い</option>';
-                        list += '<option value="2">コレクト</option>';
-                    }
-                    list += '<option value="3">ＤＭ便</option>';
-                    list += '<option value="7">ネコポス</option>';
-                    list += '<option value="8">宅急便コンパクト</option>';
-                    list += '<option value="9">宅急便コンパクトコレクト</option>';
-                    list += '</select></td>';
-                    list += '<td style="border-bottom: 1px solid #d8d8d8">';
-                    list += '<input type="number" name="printCount[]" class="printCount" value="' + lines[i]['boxnumber'] + '"/></td>';
+                    list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">' + lines[i]['boxnumber'] + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8">' + lines[i]['customername'] + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8">' + lines[i]['organization'] + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8">' + lines[i]['deliaddr0'] + lines[i]['deliaddr1'] + lines[i]['deliaddr2'] + '</td>';
@@ -447,13 +330,6 @@ var mypage = {
                     list += '<td style="border-bottom: 1px solid #d8d8d8">' + mypage.strPayment(lines[i]['payment']) + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">' + mypage.strBundle(lines[i]['bundle']) + '</td>';
                     list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">' + carry[lines[i]['carriage']] + '</td>';
-                    list += '<td style="border-bottom: 1px solid #d8d8d8" class="centering">';
-                    list += '<label><input type="checkbox" name="b2printchk[]" class="b2printchk" value="' + lines[i]['orders_id'] + '" onchange="mypage.checkb2print(this,' + lines[i]['orders_id'] + ')" ';
-                    var isB2print = lines[i]['b2print'];
-                    if (lines[i]['b2print'] == 2) {
-                        list += ' checked="checked"';
-                    }
-                    list += '/></td>';
                     list += '</tr>';
 
                     bundled = lines[i]['schedule3'] + '_' + lines[i]['customer_id'] + '_' + lines[i]['delivery_id'];
@@ -474,24 +350,22 @@ var mypage = {
             }
         }
 
-        /*
-        *	B2（ヤマト運輸送り状）用のCSVダウンロード
-        */
-        var outputlist = function () {
+        /**
+         * CSVダウンロード
+         */
+        var exportCsv = function () {
             var idx = 0;
             var param = [];
             var bChecked = false;
             var elem = document.forms.searchtop_form.elements;
+
             for (var j = 0; j < elem.length; j++) {
                 if (elem[j].type == "text" || elem[j].type == "select-one") {
                     param[idx++] = elem[j].name + '=' + (elem[j].value).trim();
                 }
             }
-            elem = document.forms.searchresult_form.elements;
-            var outputid = "";
 
-            $.each(mypage.prop.searchdata, function (index, val) {
-                if (val['b2print'] == 1) return true;	// continue
+            $.each(mypage.prop.searchData, function (index, val) {
                 if (val['payment'] == "cod") {
                     param[idx++] = 'invoiceKind[]=2';
                 } else {
@@ -499,20 +373,18 @@ var mypage = {
                 }
                 param[idx++] = 'printCount[]=' + val['boxnumber'];
                 param[idx++] = 'b2printchk[]=' + (val['orders_id']).trim() + '_checked';
-                if (outputid != "") {
-                    outputid += ",";
-                }
-                outputid += (val['orders_id']).trim();
+                param[idx++] = 'order_ids[]=' + (val['orders_id']).trim();
+
                 bChecked = true;
             });
 
-            param[idx++] = 'orderidlist=' + outputid;
             if (bChecked == false) {
-                alert('B2送り状対象を選択してください。');
+                alert('CSVファイルの対象データが見つかりませんでした。');
                 return;
             }
-            location.href = './php_libs/b2_yamato.php?' + param.join('&');
 
+            // ダウンロード開始
+            location.href = './php_libs/sagawa.php?' + param.join('&');
         }
 
         switch (func) {
@@ -527,26 +399,8 @@ var mypage = {
                     $('#result_searchtop').html('');
                     $('#result_wrapper').hide();
                     $('fieldset', '#main_wrapper').show();
-                } else if (title == 'printout') {
-                    var idx = 0;
-                    var param = [];
-                    var elem = document.forms.searchtop_form.elements;
-                    for (var j = 0; j < elem.length; j++) {
-                        if (elem[j].type == "text" || elem[j].type == "select-one") {
-                            param[idx++] = elem[j].name + '=' + (elem[j].value).trim();
-                        }
-                    }
-                    elem = document.forms.searchresult_form.elements;
-                    for (var j = 0; j < elem.length; j++) {
-                        if (elem[j].type == "text" || elem[j].type == "select-one" || elem[j].type == "number") {
-                            param[idx++] = elem[j].name + '=' + (elem[j].value).trim();
-                        }
-                    }
-                    var url = './documents/b2_yamato.php?mode=print&' + param.join('&');
-                    window.open(url, 'printform');
-                    $('#printform').load(function () { window.frames['printform'].print(); });
-                } else if (title == 'b2csv') {
-                    outputlist();
+                } else if (title == 'csv') {
+                    exportCsv();
                 } else {
                     btn(arguments[1]);
                 }
