@@ -17,5 +17,5 @@ jobs:
           php phpcs.phar --version
       - name: Check code style
         run: |
-          php phpcs --report=code --standard=PSR2 ./home/system/php_libs/marketing.php
+          php ./bin/phpcs --report=code --standard=PSR2 ./home/system/php_libs/marketing.php
       
