@@ -19,5 +19,5 @@ jobs:
         with:
           files: "**.php"
           phpcs_path: php phpcs.phar
-          standard: PSR2
+          standard: phpcs.xml
       
