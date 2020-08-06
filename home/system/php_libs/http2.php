@@ -31,7 +31,7 @@ class HTTP2
         $url = $this->url;
         $data = http_build_query($params);
         if ($method == 'GET') {
-            $url = ($data != '')?$url.'?'.$data:$url;
+            $url = ($data != '') ? $url.'?'.$data : $url;
         }
 
         $ch = curl_init($url);
