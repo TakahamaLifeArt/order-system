@@ -1,7 +1,4 @@
 <?php
-
- namespace php_libs;
-
  /**
   * HTTP Request
   * charset utf-8
@@ -18,7 +15,7 @@ class HTTP2
      *
      * @param string  $args
      */
-    public function __construct(String $args)
+    public function __construct($args)
     {
         $this->url = $args;
     }
@@ -26,10 +23,10 @@ class HTTP2
     /**
      * リクエスト
      *
-     * @param string  $method
-     * @param array  $params
+     * @param string $method
+     * @param array $params
      */
-    public function request(string $method, array $params = array())
+    public function request($method, $params = array())
     {
         $url = $this->url;
         $data = http_build_query($params);
@@ -61,11 +58,11 @@ class HTTP2
     /**
      * リクエスト
      *
-     * @param string  $method
-     * @param array  $params
+     * @param string $method
+     * @param array $params
      * @return string|bool
      */
-    public function request2(string $method, array $params = array())
+    public function request2($method, $params = array())
     {
         $url = $this->url;
         $data = http_build_query($params);
