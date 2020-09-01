@@ -362,14 +362,249 @@
 		 *	注文リストのテーブルを生成
 		 *		一般の初期表示
 		 *		一般・業者の商品の追加と商品テーブルの更新
+		 * log: 2020-08-31 POStデータをJSONに変更
+		 */
+			$res = '';
+			$data = json_decode($_POST['data'], true);
+
+			// sessionStorageのデータをアイテムごとに変換
+			$order_amount = 0;
+			$keynames = array('maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2');
+			$keynameLen = count($keynames);
+			$masterLen = count($data['master_id']);
+			$ls = array();
+			for($i = 0; $i < $masterLen; $i++){
+				for($a = 0; $a < $keynameLen; $a++){
+					$ls[$i][$keynames[$a]] = $data[$keynames[$a]][$i];
+				}
+				// 注文合計枚数
+				if($ls[$i]['choice']==1) $order_amount += $ls[$i]['amount'];
+			}
+			
+			$plateis = '<option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option>';
+			$tot_amount = 0;
+			$tot_cost = 0;
+			$existNotBring = 0;	// 1:1つでも持込以外がある、0:全て持込
+			$isVolumeSales = 0; // 1:量販価格適用、0:通常価格のみ
+			if(!empty($ls)){
+				$catalog = new Catalog();
+				$len = count($ls);
+
+				for($i = 0; $i < $len; $i++){
+					$val = $ls[$i];
+					$info = array();
+
+					if( preg_match('/^mst/',$val['master_id']) ){
+						$prm = explode('_',$val['master_id']);		// ['mst', category_id, item_name, item_color]
+						$info['item_name'] = $prm[2];
+						$info['size_name'] = $val['size_name'];
+						$info['item_color'] = $prm[3];
+						$info['amount'] = intval($val['amount'], 10);
+						$info['stock_number'] = $val['stock_number'];
+						$info['maker'] = $val['maker'];
+						
+						$choice = '';
+						$opacity = '';
+						if($_POST['ordertype']=='general'){
+							$choice = '<input type="checkbox" class="choice" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')"';
+							if(empty($val['choice'])){
+								$opacity = ' style="opacity:0.3"';
+							}else{
+								$choice .= ' checked="checked"';
+								$tot_amount += $info['amount'];
+								$tot_cost += intval($val['cost'], 10)*$info['amount'];
+							}
+							$choice .= ' />';
+						}
+						$category_id = $prm[1];
+						if($prm[1]==99){	// 業者の転写シート
+							$item_id = '99999';
+							$ppID = '99';
+							$category_name = '転写シート';
+							$tot_amount += $info['amount'];
+							$res .= '<tr><td class="tip"><span class="itemid">'.$item_id.'</span><span class="positionid">'.$ppID.'</span><span class="ratioid">0</span><span class="masterid">'.$val['master_id'].'</span><span class="group1">0</span><span class="group2">0</span></td>';
+						}else{				// 持込またはその他
+							$item_id = $prm[1].'_'.$info['item_name'];
+							$ppID = $prm[1].'_'.$info['item_name'];
+							if($prm[1]==100){
+								$category_name = '持込';
+							}else{
+								$category_name = 'その他';
+							}
+							if($_POST['ordertype']=='industry') $tot_amount += $info['amount'];
+							$res .= '<tr'.$opacity.'><td class="tip"><span class="itemid">'.$item_id.'</span><span class="positionid">'.$ppID.'</span><span class="ratioid">0</span><span class="masterid">'.$val['master_id'].'</span><span class="group1">0</span><span class="group2">0</span></td>';
+						}
+						if($category_name!='持込') $existNotBring = 1;	// 持込以外
+						$res .= '<td>'.$choice.'</td>';
+						$res .=	'<td class="id_'.$category_id.'_">'.$category_name.'</td>';
+						$res .=	'<td class="item_selector">'.$info['item_name'].'</td>';
+						$res .=	'<td class="itemsize_name centering">';
+						if($prm[1]==99){
+							$res .= $val['size_id'].'</td>';
+						}else{
+							$res .= '<input type="text" value="'.$val['size_id'].'" onchange="mypage.changeItemsize(\''.$val['master_id'].'\',\''.$val['size_id'].'\',\'\',this)" class="extsize" /></td>';
+						}
+						$res .=	'<td class="itemcolor_name centering">';
+						if($prm[1]==99){
+							$res .= $info['item_color'].'</td>';
+						}else{
+							$res .= '<input type="text" value="'.$info['item_color'].'" onchange="mypage.changeItemcolor(\''.$val['master_id'].'\',\''.$val['size_id'].'\',this)" class="extcolor" /></td>';
+						}
+						$res .=	'<td class="centering"><input type="text" value="'.$info['amount'].'" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" class="listamount forReal" /></td>';
+						$res .=	'<td class="centering"><input type="text" value="'.number_format($val['cost']).'" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" class="itemcost forPrice" /></td>';
+						$subtotal=$val['cost']*$info['amount'];
+						$res .= '<td class="subtotal">'.number_format($subtotal).'</td>';
+						$res .=	'<td class="centering">';
+						$res .= '<select class="plateis" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')">';
+						$res .= preg_replace('/value="'.$val['plateis'].'"/', 'value="'.$val['plateis'].'" selected="selected"', $plateis);
+						$res .= '</select></td>';
+						$res .= '<td class="stock_status">-</td>';
+						$res .=	'<td class="none"><input type="button" value="削除" onclick="mypage.removeitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" /></td>';
+						$res .=	'<td class="tip"><span>'.$info['stock_number'].'</span><span>'.$info['maker'].'</span></td></tr>';
+
+					}else{
+						$existNotBring = 1;	// 持込以外
+						if($_POST['state']=="true"){
+							$state = 1;	// 確定注文
+							$itemstock = null;	// 在庫数は非表示扱い
+						}else{
+							$state = '';
+							// 在庫数を取得
+							$itemstock = $catalog->getItemStock($val['master_id'], $val['size_id']);
+						}
+						$info = Catalog::getCatalog($state, $val['master_id'], $_POST['curdate']);
+						if(empty($info)) continue;
+						
+						$info['stock_number'] = $info['item_code'].'_'.$info['color_code'];
+						if( ($info['color_name']=='ホワイト' && $info['item_id']!=112) || ($info['color_name']=='ナチュラル' && ($info['item_id']==112 || $info['item_id']==212)) ) $isWhite=1;
+						else $isWhite=0;
+						if(isset($_POST['isprint'])) $isPrint = $_POST['isprint'];
+						else $isPrint = 1;
+						
+						if($_POST['ordertype']=='general' && $_POST['state']!="true"){
+							// アイテム毎の枚数にかかわらず、注文合計枚数によって量販価格を適用する
+							if($order_amount<150){
+								$sales_volume = $val['amount'];
+							}else if($order_amount<300){
+								$sales_volume = 150;
+								$isVolumeSales = 1;
+							}else{
+								$sales_volume = 300;
+								$isVolumeSales = 1;
+							} 
+							// 一般の未確定注文の表示、商品追加、注文確定日付の変更
+							$info['cost'] = intval($catalog->getItemPrice($info['item_id'], $val['size_id'], $isPrint, $isWhite, $_POST['curdate'], $_POST['ordertype'], $sales_volume), 10);
+						}else{
+							$info['cost'] = intval($val['cost'], 10);	// 業者の商品追加、または一般の確定注文の表示
+							if($_POST['ordertype']=='general' && $info['amount']>149){
+								$isVolumeSales = 1;
+							}
+						}
+						$info['amount'] = intval($val['amount'], 10);
+						
+						if($_POST['state']=="true"){
+							$list = $val['item_name'];
+						}else{
+							$fields = $catalog->getTableList('item', $info['category_id'], 0, $_POST['curdate']);
+							$list = '<select onchange="mypage.changeitem(this, '.$val['size_id'].','.$val['master_id'].')">';
+							for($t=0; $t<count($fields); $t++){
+								$list .= '<option value="'.$fields[$t]['item_id'].'">'.$fields[$t]['item_name'].'</option>';
+							}
+							$list .= '</select>';
+							$list = preg_replace('/value="'.$info['item_id'].'"/', 'value="'.$info['item_id'].'" selected="selected"', $list);
+						}
+						if($val['size_id']==0){
+							$info['size_name'] = '未定';
+							$bgPendingSize = "style='background:#fdf6f6;color:#c33;'";
+						}else{
+							$info['size_name'] = $catalog->getSizename($val['size_id']);
+							$bgPendingSize = "";
+						}
+						if(empty($info['color_name'])){
+							$color_name = '未定';
+							$bgPendingColor = "style='background:#fdf6f6;color:#c33;'";
+						}else{
+							$color_name = $info['color_name'];
+							$bgPendingColor = "";
+						}
+
+						$choice = '';
+						$opacity = '';
+						if($_POST['ordertype']=='general'){
+							$choice = '<input type="checkbox" class="choice" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')"';
+							if(empty($val['choice'])){
+								$opacity = ' style="opacity:0.3"';
+							}else{
+								$choice .= ' checked="checked"';
+								$tot_amount += $info['amount'];
+								$tot_cost += $info['cost']*$info['amount'];
+							}
+							$choice .= ' />';
+						}else{
+							$tot_amount += $info['amount'];
+							$tot_cost += $info['cost']*$info['amount'];
+						}
+
+						$res .= '<tr'.$opacity.'><td class="tip"><span class="itemid">'.$info['item_id'].'</span>';
+						$res .= '<span class="positionid">'.$info['printposition_id'].'</span><span class="ratioid">'.$info['printratio_id'].'</span>';
+						$res .= '<span class="masterid">'.$val['master_id'].'</span><span class="group1">'.$info['item_group1_id'].'</span><span class="group2">'.$info['item_group2_id'].'</span></td>';
+						$res .= '<td>'.$choice.'</td>';
+						$res .=	'<td class="id_'.$info['category_id'].'_'.$info['category_key'].'">'.$info['category_name'].'</td>';
+						$res .=	'<td class="item_selector">'.$list.'</td>';
+						$res .=	'<td class="itemsize_name" '.$bgPendingSize.'><img id="size_'.$val['size_id'].'" alt="'.$val['master_id'].'_'.$info['color_code'].'" src="./img/reload.png" width="16" class="change_size" />'.$info['size_name'].'</td>';
+						$res .=	'<td class="itemcolor_name" '.$bgPendingColor.'><img id="sizeOfColor'.$i.'_'.$val['size_id'].'" alt="'.$val['master_id'].'" src="./img/circle.png" width="16" class="change_itemcolor" />'.$color_name.'</td>';
+						$res .=	'<td class="centering"><input type="text" value="'.$info['amount'].'" onchange="mypage.updateitem(this, '.$val['size_id'].','.$val['master_id'].')" class="listamount forReal" /></td>';
+						if($_POST['ordertype']=='general'){
+							$res .=	'<td class="itemcost toright">'.number_format($info['cost']).'</td>';
+						}else{
+							$res .=	'<td class="centering"><input type="text" value="'.number_format($info['cost']).'" onchange="mypage.updateitem(this, '.$val['size_id'].','.$val['master_id'].')" class="itemcost forPrice" /></td>';
+						}
+						$subtotal=$info['cost']*$info['amount'];
+						$res .= '<td class="subtotal">'.number_format($subtotal).'</td>';
+						$res .=	'<td class="centering">';
+						$res .= '<select class="plateis" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')">';
+						$res .= preg_replace('/value="'.$val['plateis'].'"/', 'value="'.$val['plateis'].'" selected="selected"', $plateis);
+						$res .= '</select></td>';
+						if(is_null($itemstock)){
+							$itemstock = '-';
+						}else if(empty($itemstock)){
+							$itemstock = '×';
+						}else if($itemstock>999){
+							$itemstock = '〇';
+						}
+						$res .= '<td class="stock_status">'.$itemstock.'</td>';
+						$res .=	'<td class="none"><input type="button" value="削除" onclick="mypage.removeitem(this, '.$val['size_id'].','.$val['master_id'].')" /></td>';
+						$res .=	'<td class="tip"><span>'.$info['stock_number'].'</span><span>'.$info['maker_name'].'</span></td></tr>';
+					}
+				}
+				//$res .= '|'.$tot_amount.'|'.$tot_cost;
+				
+				$result = array($res,$tot_amount,$tot_cost,$existNotBring,$isVolumeSales);
+				$json = new Services_JSON();
+				$res = $json->encode($result);
+			}else{
+				$json = new Services_JSON();
+				$res = $json->encode(array());
+			}
+			header("Content-Type: text/javascript; charset=utf-8");
+			break;
+		
+		case 'orderlist_old':
+		/*
+		 *	注文リストのテーブルを生成
+		 *		一般の初期表示
+		 *		一般・業者の商品の追加と商品テーブルの更新
 		 *
 		 */
 			$res = '';
 			// sessionStorageのデータをアイテムごとに変換
 			$order_amount = 0;
 			$keynames = array('maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2');
-			for($i=0; $i<count($_POST['master_id']); $i++){
-				for($a=0; $a<count($keynames); $a++){
+			$keynameLen = count($keynames);
+			$masterLen = count($_POST['master_id']);
+			$ls = array();
+			for($i = 0; $i < $masterLen; $i++){
+				for($a = 0; $a < $keynameLen; $a++){
 					$ls[$i][$keynames[$a]] = $_POST[$keynames[$a]][$i];
 				}
 				// 注文合計枚数
@@ -383,10 +618,12 @@
 			$isVolumeSales = 0; // 1:量販価格適用、0:通常価格のみ
 			if(!empty($ls)){
 				$catalog = new Catalog();
-				
-				for($i=0; $i<count($ls); $i++){
+				$len = count($ls);
+
+				for($i = 0; $i < $len; $i++){
 					$val = $ls[$i];
 					$info = array();
+
 					if( preg_match('/^mst/',$val['master_id']) ){
 						$prm = explode('_',$val['master_id']);		// ['mst', category_id, item_name, item_color]
 						$info['item_name'] = $prm[2];
