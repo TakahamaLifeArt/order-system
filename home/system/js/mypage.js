@@ -5,6 +5,7 @@
  */
 var mypage = {
 	prop: {
+		'env': 'prd',	// モードの切替 (prd:本番, dev:開発)
 		'modified': false, // 修正フラグ　true: 修正あり
 		'isCheckbill': false, // 更新可否　　true: 月末で発送データを締めて更新不可にする
 		'schedule_date': "", // スケジュールのカレントの日付を一時保持
@@ -939,11 +940,10 @@ var mypage = {
 			'act': 'orderlist',
 			'ordertype': mypage.prop.ordertype,
 			'isprint': isPrint,
-			'curdate': mypage.prop.firmorderdate
+			'curdate': mypage.prop.firmorderdate,
+			'data' : JSON.stringify(store)
 		};
-		for (var key in store) {
-			list[key] = store[key];
-		}
+
 		// 注文リストの書換
 		var isPrint = $('#noprint').is(':checked') ? 0 : 1;
 		$.ajax({
@@ -1502,16 +1502,15 @@ var mypage = {
 		}
 
 		var isPrint = $('#noprint:checked').length == 1 ? 0 : 1;
+		var store = mypage.getStorage();
 		var list = {
 			'act': 'orderlist',
 			'ordertype': mypage.prop.ordertype,
 			'isprint': isPrint,
-			'curdate': mypage.prop.firmorderdate
+			'curdate': mypage.prop.firmorderdate,
+			'data' : JSON.stringify(store)
 		};
-		var store = mypage.getStorage();
-		for (var key in store) {
-			list[key] = store[key];
-		}
+
 		$.ajax({
 			url: './php_libs/dbinfo.php',
 			type: 'POST',
@@ -1570,16 +1569,15 @@ var mypage = {
 
 
 		var isPrint = $('#noprint').is(':checked') ? 0 : 1;
+		var store = mypage.getStorage();
 		var list = {
 			'act': 'orderlist',
 			'ordertype': mypage.prop.ordertype,
 			'isprint': isPrint,
-			'curdate': mypage.prop.firmorderdate
+			'curdate': mypage.prop.firmorderdate,
+			'data' : JSON.stringify(store)
 		};
-		var store = mypage.getStorage();
-		for (var key in store) {
-			list[key] = store[key];
-		}
+
 		$.ajax({
 			url: './php_libs/dbinfo.php',
 			type: 'POST',
@@ -1612,7 +1610,7 @@ var mypage = {
 		var item_id = $(my).parent().siblings(':first').children('.itemid').text();
 		var ppID = $(my).parent().siblings(':first').children('.positionid').text();
 		var category_id = $(my).parent().siblings(':eq(2)').attr('class').split('_')[1];
-		var category_name = $(my).parent().siblings(':eq(2)').text();
+		// var category_name = $(my).parent().siblings(':eq(2)').text();
 		var tmp = item_id.replace(/ /g, '\\ ');
 		tmp = tmp.replace(/　/g, '\\　');
 
@@ -1625,16 +1623,15 @@ var mypage = {
 			mypage.setEstimation(['', 0, 0, 1], false);
 		} else {
 			var isPrint = $('#noprint').is(':checked') ? 0 : 1;
+			var store = mypage.getStorage();
 			var list = {
 				'act': 'orderlist',
 				'ordertype': mypage.prop.ordertype,
 				'isprint': isPrint,
-				'curdate': mypage.prop.firmorderdate
+				'curdate': mypage.prop.firmorderdate,
+				'data' : JSON.stringify(store)
 			};
-			var store = mypage.getStorage();
-			for (var key in store) {
-				list[key] = store[key];
-			}
+
 			$.ajax({
 				url: './php_libs/dbinfo.php',
 				type: 'POST',
@@ -1729,16 +1726,15 @@ var mypage = {
 
 		if (cls == 'listamount' || cls == 'choice') {
 			var isPrint = $('#noprint').is(':checked') ? 0 : 1;
+			var store = mypage.getStorage();
 			var list = {
 				'act': 'orderlist',
 				'ordertype': mypage.prop.ordertype,
 				'isprint': isPrint,
-				'curdate': mypage.prop.firmorderdate
+				'curdate': mypage.prop.firmorderdate,
+				'data' : JSON.stringify(store)
 			};
-			var store = mypage.getStorage();
-			for (var key in store) {
-				list[key] = store[key];
-			}
+
 			$.ajax({
 				url: './php_libs/dbinfo.php',
 				type: 'POST',
@@ -1839,16 +1835,15 @@ var mypage = {
 					});
 
 					var isPrint = $('#noprint:checked').length == 1 ? 0 : 1;
+					var store = mypage.getStorage();
 					var list = {
 						'act': 'orderlist',
 						'ordertype': mypage.prop.ordertype,
 						'isprint': isPrint,
-						'curdate': mypage.prop.firmorderdate
+						'curdate': mypage.prop.firmorderdate,
+						'data' : JSON.stringify(store)
 					};
-					var store = mypage.getStorage();
-					for (var key in store) {
-						list[key] = store[key];
-					}
+
 					$.ajax({
 						url: './php_libs/dbinfo.php',
 						type: 'POST',
@@ -6841,16 +6836,16 @@ var mypage = {
 		var sess = sessionStorage;
 		if (mypage.prop.ordertype == 'general') {
 			var isPrint = info['noprint'] == 1 ? 0 : 1;
+			var store = mypage.getStorage();
 			var list = {
 				'act': 'orderlist',
 				'ordertype': 'general',
 				'isprint': isPrint,
 				'curdate': mypage.prop.firmorderdate,
-				'state': mypage.prop.firmorder
+				'state': mypage.prop.firmorder,
+				'data' : JSON.stringify(store)
 			};
-			for (var key in sess) {
-				list[key] = JSON.parse(sess.getItem(key));
-			}
+
 			$.ajax({
 				url: './php_libs/dbinfo.php',
 				type: 'POST',
@@ -7721,13 +7716,13 @@ var mypage = {
 
 				// 注文が確定していて且つ発送日が今月1日より前のデータの更新を不可にするフラグを設定する
 				// 2019-08-07 廃止
-//				var dt = new Date();
-//				var d = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/1";
-//				var cuttime = Date.parse(d);
-//				var shippingtime = Date.parse(info['schedule3'].replace(/-/g, "/") + " 00:00:00");
-//				if (shippingtime < cuttime && mypage.prop.shipped == 2) {
-//					mypage.prop.isCheckbill = true;
-//				}
+				// var dt = new Date();
+				// var d = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/1";
+				// var cuttime = Date.parse(d);
+				// var shippingtime = Date.parse(info['schedule3'].replace(/-/g, "/") + " 00:00:00");
+				// if (shippingtime < cuttime && mypage.prop.shipped == 2) {
+				// 	mypage.prop.isCheckbill = true;
+				// }
 
 			} else {
 				mypage.prop.firmorder = false;

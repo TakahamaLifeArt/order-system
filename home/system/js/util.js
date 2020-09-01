@@ -2710,11 +2710,15 @@ $(function(){
 		var code = $('#itemcolor_code').val();
 		mypage.changeColorcode(id, code);
 		var isPrint = $('#noprint:checked').length==1? 0: 1;
-		var list = {'act':'orderlist', 'ordertype':mypage.prop.ordertype, 'isprint':isPrint, 'curdate':mypage.prop.firmorderdate};
 		var store = mypage.getStorage();
-		for(var key in store){
-			list[key] = store[key];
-		}
+		var list = {
+			'act': 'orderlist',
+			'ordertype': mypage.prop.ordertype,
+			'isprint': isPrint,
+			'curdate': mypage.prop.firmorderdate,
+			'data' : JSON.stringify(store)
+		};
+
 		$.ajax({url:'./php_libs/dbinfo.php', type:'POST', dataType:'json', async:false, data:list, 
 			success:function(r){
 				if(r instanceof Array){
@@ -4229,6 +4233,15 @@ $(function(){
 		dt.setDate(dt.getDate()-10);
 		document.forms.searchtop_form.lm_from.value = dt.getFullYear() + "-" + ("00"+(dt.getMonth() + 1)).slice(-2) + "-" + ("00"+dt.getDate()).slice(-2);
 		
+		// クエリストリングで開発モードを指定できる様にする
+		qs = $.queryString.parse();
+		mypage.prop.env = qs['env'] || 'prd';
+		if (mypage.prop.env === 'dev') {
+			alert('開発モードです');
+		} else if (mypage.prop.env !== 'prd') {
+			alert("不正なモード[" + mypage.prop.env + "]が指定されています。");
+		}
+
 		if(_ID!=""){
 			mypage.main('btn',_ID);
 		}else{
@@ -4264,5 +4277,53 @@ $(function(){
 				alert('@マークより後を確認してください。');
 			}
 		});
+	});
+
+	/**
+	 * クエリストリングの処理
+	 * queryString.parse		連想配列に変換
+	 * queryString.stringify	連想配列をクエリストリングに変換
+	 */
+	$.extend({
+		queryString : {
+			parse: function(text, sep, eq, isDecode) {
+			/**
+			 * @param {string} text クエリストリング、未指定は現在のクエリストリング
+			 * @param {string} sep {@code &} それ以外も可
+			 * @param {string} eq {@code =} それ以外も可
+			 * @param {bool} isDecode URIエンコードの有無
+			 * @return {object}
+			 */
+				var decode = (isDecode) ? decodeURIComponent : function(a) { return a; };
+			 	text = text || location.search.substr(1);
+				sep = sep || '&';
+				eq = eq || '=';
+
+				if (!text) return {};
+
+				return text.split(sep).reduce(function(obj, v) {
+					var pair = v.split(eq);
+					
+					obj[pair[0]] = decode(pair[1]);
+					return obj;
+				}, {});
+			},
+			stringify: function(value, sep, eq, isEncode) {
+			/**
+			 * @param {array} value 連想配列
+			 * @param {string} sep {@code &} それ以外も可
+			 * @param {string} eq {@code =} それ以外も可
+			 * @param {bool} isDecode URIエンコードの有無
+			 * @return {string} query string
+			 */
+				var encode = (isEncode) ? encodeURIComponent : function(a) { return a; };
+				sep = sep || '&';
+				eq = eq || '=';
+				
+				return Object.keys(value).map(function(key) {
+					return key + eq + encode(value[key]);
+				}).join(sep);
+			}
+		}
 	});
 });
