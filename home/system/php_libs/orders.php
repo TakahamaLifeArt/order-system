@@ -2658,19 +2658,19 @@ class Orders{
 				}
 				
 				// 注文が確定しているかを確認
-// 2018-06-04 入金チェックの仕様変更に伴い廃止
-//				$sql = sprintf("SELECT * FROM acceptstatus WHERE orders_id=%d", $orders_id);
-//				$result = exe_sql($conn, $sql);
-//				if(!$result){
-//					mysqli_query($conn, 'ROLLBACK');
-//					return null;
-//				}
-//				$res = mysqli_fetch_assoc($result);
-//				if($res['progress_id']==4){
-//					$isFixed = true;
-//				}else{
-//					$isFixed = false;
-//				}
+		// 2018-06-04 入金チェックの仕様変更に伴い廃止
+		//				$sql = sprintf("SELECT * FROM acceptstatus WHERE orders_id=%d", $orders_id);
+		//				$result = exe_sql($conn, $sql);
+		//				if(!$result){
+		//					mysqli_query($conn, 'ROLLBACK');
+		//					return null;
+		//				}
+		//				$res = mysqli_fetch_assoc($result);
+		//				if($res['progress_id']==4){
+		//					$isFixed = true;
+		//				}else{
+		//					$isFixed = false;
+		//				}
 				
 				$sql = sprintf("SELECT * FROM progressstatus WHERE orders_id=%d", $orders_id);
 				$result = exe_sql($conn, $sql);
@@ -2695,10 +2695,10 @@ class Orders{
 					$deposit=2;	// 入金済み
 				}
 				
-// 2018-06-04 入金チェックの仕様変更
-//				else if(! $isFixed){
-//					$deposit=1;	// 未入金
-//				}
+		// 2018-06-04 入金チェックの仕様変更
+		//				else if(! $isFixed){
+		//					$deposit=1;	// 未入金
+		//				}
 				
 				$sql = sprintf("update progressstatus set readytoship=%d, deposit=%d, rakuhan=%d where orders_id=%d", 
 						$readytoship, $deposit, $data3['rakuhan'], $orders_id);
@@ -3580,8 +3580,8 @@ class Orders{
 						$sql = sprintf("update printstatus set state_1=%d, state_2=%d, fin_1=%d, fin_2=%d where prnstatusid=%d",
 									   $s1,$s2,$f1,$f2,$res['prnstatusid']);
 					}else{
-//						$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
-//						$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
+		//						$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
+		//						$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
 						$sql = sprintf("update printstatus set state_1=%d, state_2=%d where prnstatusid=%d",
 									   $s1,$s2,$res['prnstatusid']);
 					}
@@ -3666,8 +3666,8 @@ class Orders{
 							$sql = sprintf("update printstatus set state_1=%d, state_2=%d, fin_1=%d, fin_2=%d where prnstatusid=%d",
 										   $s1,$s2,$f1,$f2,$res['prnstatusid']);
 						}else{
-//							$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
-//							$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
+		//							$f1 = $res['state_1']!=$s1? 0: $res['fin_1'];
+		//							$f2 = $res['state_2']!=$s2? 0: $res['fin_2'];
 							$sql = sprintf("update printstatus set state_1=%d, state_2=%d where prnstatusid=%d",
 										   $s1,$s2,$res['prnstatusid']);
 						}
@@ -5708,8 +5708,8 @@ class Orders{
 						 LEFT JOIN estimatedetails on orders.id=estimatedetails.orders_id)
 						 LEFT JOIN printstatus ON orders.id=printstatus.orders_id)
 						 LEFT JOIN acceptstatus ON orders.id=acceptstatus.orders_id';
-				$sql .= ' WHERE orders.id in ('.$data['id'].')';
-				$sql .= ' order by orders.id';
+				$sql .= ' WHERE orders.id in (' . implode(',', $data['id']) . ')';
+				$sql .= ' order by schedule3, customer.id, orders.id';
 				
 				$result = exe_sql($conn, $sql);
 				$tmp = array();
@@ -5729,7 +5729,7 @@ class Orders{
 						$rs[$i]['mixture'] = '';
 					}
 				}
-				
+
 				$flg = false;
 				break;
 				
@@ -7661,6 +7661,7 @@ class Orders{
 				break;
 				
 			case 'b2_yamato':
+			case 'sagawa':
 				/*****************************
 				*	発送確認画面の一覧
 				*	発送予定一覧の印刷
@@ -7685,23 +7686,21 @@ class Orders{
 				if(!empty($data['term_to'])){
 					$sql .= ' and schedule3 <= "'.$data['term_to'].'"';
 				}
-				//if(!empty($data['carriage'])){
-				//	$sql .= ' and carriage = "'.$data['carriage'].'"';
-				//}
 
-				// 運送業社： ヤマト運輸
-				$sql .= ' and deliver = 2';
-				
+				// 運送業社
+				if (isset($data['carrier'])) {
+					// 佐川急便
+					$sql .= ' and deliver = ' . $data['carrier'];
+				} else {
+					// ヤマト運輸
+					$sql .= ' and deliver = 2';
+				}
+
 				// 発送準備：発送可
 				if($data['readytoship']!=""){
 					$sql .= ' and readytoship = "'.$data['readytoship'].'"';
 				}
-				//$sql .= ' and readytoship = "1"';
-				
-				// 発送準備：未発送
-				//if(!empty($data['shipped'])){
-				//	$sql .= ' and shipped = '.$data['shipped'];
-				//}
+
 				$sql .= ' and shipped = 1';
 
 				// 入金
@@ -7724,16 +7723,11 @@ class Orders{
 					$sql .= ' and orders.b2print = '.$data['b2print'];
 				}
 
-				//同梱 不要
-				//if(!empty($data['pack'])){
-				//	$sql .= ' and package_yes = 1';
-				//}
-
 				//工場
 				if(!empty($data['factory'])){
 					$sql .= ' and orders.factory = '.$data['factory'];
 				}
-				
+
 				$sql .= ' order by schedule3, customer.id, bundle desc, carriage';
 				$result = exe_sql($conn, $sql);
 				$r=-1;
@@ -7775,7 +7769,7 @@ class Orders{
 						}
 					}
 				}
-				
+
 				$flg = false;
 				break;
 
@@ -8042,9 +8036,9 @@ class Orders{
 				break;
 				
 			case 'reuse':
-			/*
-			*	当該受注No.からのリピート版の確定注文を取得し初回割適用の判別に使用
-			*/
+				/*
+				*	当該受注No.からのリピート版の確定注文を取得し初回割適用の判別に使用
+				*/
 				$sql = sprintf('SELECT * FROM orders inner join acceptstatus on orders.id=orders_id WHERE progress_id=4 and (repeater=%d || (orders.id=%d && reuse!=0))', $data['id'], $data['id']);
 				//$sql = sprintf('SELECT * FROM orders inner join acceptstatus on orders.id=orders_id WHERE progress_id=4 and repeater=%d', $data['id']);
 				break;
@@ -8331,7 +8325,7 @@ class Orders{
 					$sql .= $flg? ' and': ' WHERE';
 					$sql .= ' reg_site = '.$data['reg_site'];
 					//登録サイトは検索条件とするが、全件検索をサポートしないようにflgをtrueに更新しない
-//					$flg = true;
+				//					$flg = true;
 				}
 
 
@@ -8470,9 +8464,9 @@ class Orders{
 				$flg = false;
 				break;
 			case 'orderitem':
-			/*
-			*	mypage.jp, acceptingorderform.php(受注票印刷)
-			*/
+				/*
+				*	mypage.jp, acceptingorderform.php(受注票印刷)
+				*/
 				$sql = 'SELECT *, orderitem.id as orderitemid,
 				coalesce(catalog.item_id, orderitemext.item_id) as item_id,
 				coalesce(item.item_name, orderitemext.item_name) as item_name,
@@ -8519,12 +8513,12 @@ class Orders{
 				
 				break;
 			case 'numberOfBox':
-			/*
-			*	1箱あたりの最大枚数
-			*	mypage.js で使用
-			*	$data1	{schedule2,package}
-			*	$data2	[{アイテムID,サイズID,枚数},{}, ...]
-			*/
+				/*
+				*	1箱あたりの最大枚数
+				*	mypage.js で使用
+				*	$data1	{schedule2,package}
+				*	$data2	[{アイテムID,サイズID,枚数},{}, ...]
+				*/
 				list($data1, $data2) = $data;
 				if(empty($data1['curdate'])){
 					$data1['curdate'] = date('Y-m-d');
@@ -10300,10 +10294,10 @@ class Orders{
 				break;
 				
 			case 'handover':
-			/*
-			*	引渡し確認メール送信の確認、一般のみ
-			*	return		1:送信可、　0:送信不可
-			*/
+				/*
+				*	引渡し確認メール送信の確認、一般のみ
+				*	return		1:送信可、　0:送信不可
+				*/
 				$rs = 0;
 				$param = array( 'orders_id'=>$data['orders_id'],
 								'subject'=>4,
@@ -10342,9 +10336,9 @@ class Orders{
 				break;
 				
 			case 'userreview':
-			/*
-			*	ユーザーレビュー（428HP）
-			*/
+				/*
+				*	ユーザーレビュー（428HP）
+				*/
 				$sql = 'select * from userreview';
 				if(!empty($data['urid'])){
 					$query[] = 'urid='.$data['urid'];
@@ -10411,10 +10405,10 @@ class Orders{
 				break;
 				
 			case 'itemreview':
-			/*
-			*	アイテムレビュー（428HP）
-			*	検索日時点の取扱商品のみを対象
-			*/
+				/*
+				*	アイテムレビュー（428HP）
+				*	検索日時点の取扱商品のみを対象
+				*/
 				$today = date('Y-m-d');
 				$query = array();
 				$sql = 'select *, itemreview.item_name as item_name, ';
@@ -10462,9 +10456,9 @@ class Orders{
 				break;
 				
 			case 'bundlelist':
-			/*
-			*	同梱可能リスト
-			*/
+				/*
+				*	同梱可能リスト
+				*/
 				if(empty($data['orders_id'])) return;
 				
 				$sql = sprintf('select id, schedule3, customer_id, delivery_id from orders where id=%d', $data['orders_id']);
@@ -10485,9 +10479,9 @@ class Orders{
 				break;
 				
 			case 'bundlecount':
-			/*
-			*	同梱する注文データの配列または空配列
-			*/
+				/*
+				*	同梱する注文データの配列または空配列
+				*/
 				$sql = sprintf('select id, schedule3, customer_id, delivery_id from orders where bundle=1 and id=%d', $data['orders_id']);
 				$r = exe_sql($conn, $sql);
 				if(mysqli_num_rows($r)>0){
