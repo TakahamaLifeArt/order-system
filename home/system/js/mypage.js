@@ -1,41 +1,42 @@
+
 /*
- *	ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥Þ¥é¥¤ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½
+ *	¥¿¥«¥Ï¥Þ¥é¥¤¥Õ¥¢¡¼¥È
  *	my page
  *	charset euc-jp
  */
 var mypage = {
 	prop: {
-		'env': 'prd',	// ï¿½â¡¼ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½ (prd:ï¿½ï¿½ï¿½ï¿½, dev:ï¿½ï¿½È¯)
-		'modified': false, // ï¿½ï¿½ï¿½ï¿½ï¿½Õ¥é¥°ï¿½ï¿½true: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'isCheckbill': false, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½true: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½ï¿½Ô²Ä¤Ë¤ï¿½ï¿½ï¿½
-		'schedule_date': "", // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½Ý»ï¿½
-		'curr_inkcolor': {}, // ï¿½ï¿½ï¿½ó¥¯¥ï¿½ï¿½é¡¼ï¿½Ñ¥ï¿½Ã¥È¤ï¿½ï¿½ï¿½ï¿½ò¤µ¤ï¿½Æ¤ï¿½ï¿½ë¥ªï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'curr_ppImage': {}, // ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'holidayInfo': {}, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'ordertype': "general", // ï¿½ï¿½ï¿½Ï¥â¡¼ï¿½ï¿½:ï¿½ï¿½ï¿½Ì¤ï¿½ï¿½È¼ï¿½
-		'applyto': "0", // ï¿½×»ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ë¡¡0:default, 1:self-design
-		'repeat': "0", // ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½(Æ±ï¿½ï¿½ï¿½Ç¤ï¿½È¤ï¿½)ï¿½ï¿½ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½:ï¿½Ç¸ï¿½ï¿½Î¼ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:0(default)
-		'reuse': "0", // ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç»ï¿½ï¿½Ñ»ï¿½ï¿½Î³ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½1:ï¿½ï¿½ï¿½ï¿½, 2:2ï¿½ï¿½ï¿½Ü°Ê¹ß¡ï¿½
-		'isRepeat': false, // ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ÎºÝ¤Ë¥ï¿½Ô¡ï¿½ï¿½È³ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½ë¤«ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½true:Å¬ï¿½ï¿½, false:Å¬ï¿½Ñ¤ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½
-		'isRepeatFirst': false, // ï¿½ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½ë¤«ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½true:Å¬ï¿½ï¿½, false:Å¬ï¿½Ñ¤ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½
-		'isRepeatCheck': false, // ï¿½ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½1ï¿½Ä¤Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ë¤«ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½true:ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½Í­, false:ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½Ìµï¿½ï¿½
-		'shipped': 1, // È¯ï¿½ï¿½ï¿½Ñ¤ß¤Î¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½1:Ì¤È¯ï¿½ï¿½ï¿½ï¿½2:È¯ï¿½ï¿½ï¿½Ñ¤ß¡ï¿½
-		'firmorder': false, // ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½Í­Ìµï¿½ï¿½0:Ì¤ï¿½ï¿½ï¿½ï¿½, 1:ï¿½ï¿½ï¿½ï¿½ï¿½
-		'firmorderdate': "", // ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0000-00-00ï¿½Ë¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'acceptingdate': "", // È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0000-00-00ï¿½ï¿½
-		'created': "", // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0000-00-00ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½Ã´ï¿½ï¿½ï¿½Ô¥ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¤Î¾ï¿½ï¿½È¤ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Ò¤ï¿½ï¿½Æ¤ï¿½ï¿½ë¥¹ï¿½ï¿½ï¿½Ã¥Õ¤È¤ï¿½ï¿½ë¤¿ï¿½ï¿½
-		'calcbasis': 0, // Ç¼ï¿½ï¿½ï¿½×»ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1:ï¿½ï¿½ï¿½Æ¤Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 2:ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½ï¿½
-		'boundary': {}, // ï¿½ï¿½ï¿½Ú¤ï¿½Ê¸ï¿½ï¿½ï¿½Ê¿ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½Î¾ÜºÙ¥Ü¥ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½Î¶ï¿½ï¿½Ú¤ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½
-		'itemdata': [], // ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Î¹Ô¤Ë¤ï¿½ï¿½ë¥¢ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½[category_id, category_name, ppID]
-		'customer_list': [], // ï¿½ÜµÒ¾ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'delivery_list': [], // Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'shipfrom_list': [], // È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'tax': 0, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'credit_rate': 0.05, // ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2018-01-29ï¿½ï¿½ï¿½ï¿½Ñ»ß¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½Å¬ï¿½ï¿½
+		'env': 'prd',	// ¥â¡¼¥É¤ÎÀÚÂØ (prd:ËÜÈÖ, dev:³«È¯)
+		'modified': false, // ½¤Àµ¥Õ¥é¥°¡¡true: ½¤Àµ¤¢¤ê
+		'isCheckbill': false, // ¹¹¿·²ÄÈÝ¡¡¡¡true: ·îËö¤ÇÈ¯Á÷¥Ç¡¼¥¿¤òÄù¤á¤Æ¹¹¿·ÉÔ²Ä¤Ë¤¹¤ë
+		'schedule_date': "", // ¥¹¥±¥¸¥å¡¼¥ë¤Î¥«¥ì¥ó¥È¤ÎÆüÉÕ¤ò°ì»þÊÝ»ý
+		'curr_inkcolor': {}, // ¥¤¥ó¥¯¥«¥é¡¼¥Ñ¥ì¥Ã¥È¤ÎÁªÂò¤µ¤ì¤Æ¤¤¤ë¥ª¥Ö¥¸¥§¥¯¥È
+		'curr_ppImage': {}, // ¥×¥ê¥ó¥È°ÌÃÖ²èÁü¤òÉ½¼¨¤¹¤ëÍ×ÁÇ
+		'holidayInfo': {}, // ¥«¥ì¥ó¥À¡¼¤Î½Ëº×Æü¾ðÊó
+		'ordertype': "general", // ÆþÎÏ¥â¡¼¥É:°ìÈÌ¤«¶È¼Ô
+		'applyto': "0", // ·×»»ÊýË¡¤òÊÑ¤¨¤ë¡¡0:default, 1:self-design
+		'repeat': "0", // ¥ê¥Ô¡¼¥È(Æ±¤¸ÈÇ¤ò»È¤¦)¤«¤É¤¦¤«¡¡¥ê¥Ô¡¼¥È:ÈÇ¸µ¤Î¼õÃíID¡¢¿·µ¬:0(default)
+		'reuse': "0", // ¥ê¥Ô¡¼¥ÈÈÇ»ÈÍÑ»þ¤Î³ä°ú¤Î¼ïÎà¡Ê1:½é²ó³ä, 2:2²óÌÜ°Ê¹ß¡Ë
+		'isRepeat': false, // ¥ê¥Ý¡¼¥ÈÃíÊ¸¤ÎºÝ¤Ë¥ê¥Ô¡¼¥È³ä¤òÅ¬ÍÑ¤¹¤ë¤«¤É¤¦¤«¡Êtrue:Å¬ÍÑ, false:Å¬ÍÑ¤·¤Ê¤¤¡Ë
+		'isRepeatFirst': false, // ½é²ó³ä¤òÅ¬ÍÑ¤¹¤ë¤«¤É¤¦¤«¡Êtrue:Å¬ÍÑ, false:Å¬ÍÑ¤·¤Ê¤¤¡Ë
+		'isRepeatCheck': false, // ¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬1¤Ä¤Ç¤â¥Á¥§¥Ã¥¯¤µ¤ì¤Æ¤¤¤ë¤«¤É¤¦¤«¡Êtrue:¥Á¥§¥Ã¥¯Í­, false:¥Á¥§¥Ã¥¯Ìµ¡Ë
+		'shipped': 1, // È¯Á÷ºÑ¤ß¤Î¥Á¥§¥Ã¥¯¡Ê1:Ì¤È¯Á÷¡¢2:È¯Á÷ºÑ¤ß¡Ë
+		'firmorder': false, // ÃíÊ¸³ÎÄê¤ÎÍ­Ìµ¡Ê0:Ì¤³ÎÄê, 1:³ÎÄê¡Ë
+		'firmorderdate': "", // ÃíÊ¸³ÎÄêÆü¡Ê0000-00-00¡Ë¥¹¥±¥¸¥å¡¼¥ëÍó¤ÎÃíÊ¸³ÎÄê¤ÎÆüÉÕ
+		'acceptingdate': "", // È¯Á÷ÆüÆü¡Ê0000-00-00¡Ë
+		'created': "", // ¼õÉÕÆü¡Ê0000-00-00¡Ë¼õÃíÆþÎÏ¤ÎÃ´Åö¼Ô¥»¥ì¥¯¥¿¡¼¾ðÊóÃê½Ð¤Î¾ò·ï¤È¤·¤Æ¼õÉÕÆü¤ËºßÀÒ¤·¤Æ¤¤¤ë¥¹¥¿¥Ã¥Õ¤È¤¹¤ë¤¿¤á
+		'calcbasis': 0, // Ç¼´ü·×»»¤Î´ð½àÆü¡¡1:Æþ¹Æ¤Þ¤¿¤ÏÃíÊ¸³ÎÄêÆü, 2:¤ªÆÏ¤±Æü
+		'boundary': {}, // ¶èÀÚ¤êÊ¸»ú¡Ê¿ÊÄ½°ìÍ÷¤Î¾ÜºÙ¥Ü¥¿¥ó¤ÇÅÏ¤¹¥Ç¡¼¥¿¤Î¶èÀÚ¤êÊ¸»ú¡Ë
+		'itemdata': [], // ÃíÊ¸¥ê¥¹¥È¤ÎÊÔ½¸Ãæ¤Î¹Ô¤Ë¤¢¤ë¥¢¥¤¥Æ¥à¾ðÊó[category_id, category_name, ppID]
+		'customer_list': [], // ¸ÜµÒ¾ðÊó¤Î¸¡º÷·ë²Ì
+		'delivery_list': [], // Ç¼ÉÊÀè¾ðÊó¤Î¸¡º÷·ë²Ì
+		'shipfrom_list': [], // È¯Á÷¸µ¾ðÊó¤Î¸¡º÷·ë²Ì
+		'tax': 0, // ¾ÃÈñÀÇ
+		'credit_rate': 0.05, // ¥«¡¼¥É·èºÑ¼ê¿ôÎÁ - ÃíÊ¸³ÎÄêÆü¤¬2018-01-29¤è¤êÇÑ»ß¡¢¤½¤ì°ÊÁ°¤ÎÃíÊ¸³ÎÄê¤Ë¤ÏÅ¬ÍÑ
 		'intervalID': 0,
-		'attach_file_number': 0, // ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'show_design_time': 0, // ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½
-		'spec_v2': "2017/5/25", // ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½Å¬ï¿½ï¿½ï¿½ï¿½
+		'attach_file_number': 0, // ¥Õ¥¡¥¤¥ë¿ô
+		'show_design_time': 0, // ¥Õ¥¡¥¤¥ëÉ½¼¨²ó¿ô
+		'spec_v2': "2017/5/25", // ¥×¥ê¥ó¥ÈÂå·×»»¤Î»ÅÍÍÊÑ¹¹Å¬ÍÑÆü
 		'img_path': 'https://takahamalifeart.com/weblib/img/'
 	},
 	order_info: {
@@ -100,7 +101,7 @@ var mypage = {
 
 	setTAX: function (args) {
 		/*
-		 *	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	¾ÃÈñÀÇÎ¨¤òÀßÄê
 		 */
 		$.ajax({
 			url: './php_libs/dbinfo.php',
@@ -147,7 +148,7 @@ var mypage = {
 	},
 	hide_uploader: function () {
 		if (!arguments[0]) {
-			alert('ï¿½ï¿½ï¿½Ã¥×¥ï¿½ï¿½ï¿½ï¿½É¤Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½');
+			alert('¥¢¥Ã¥×¥í¡¼¥É¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£');
 			wrapper.children('.freeimage').hide();
 			return;
 		}
@@ -169,14 +170,14 @@ var mypage = {
 	},
 	addFigure: function (arg) {
 		/*
-		 *	ï¿½ï¿½Û¤Î·ï¿½ï¿½ï¿½Ú¤ï¿½
-		 *	@arg		ï¿½Ð¾Ý¤ï¿½ï¿½ï¿½
+		 *	¶â³Û¤Î·å¶èÀÚ¤ê
+		 *	@arg		ÂÐ¾Ý¤ÎÃÍ
 		 *
-		 *	@return		ï¿½ï¿½ï¿½ï¿½Ú¤ê¤·ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½
+		 *	@return		·å¶èÀÚ¤ê¤·¤¿Ê¸»úÎó
 		 */
 		var str = String(arg);
-		str = str.replace(/[ï¿½ï¿½-ï¿½ï¿½]/g, function (m) {
-			var a = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		str = str.replace(/[£°-£¹]/g, function (m) {
+			var a = "£°£±£²£³£´£µ£¶£·£¸£¹";
 			var r = a.indexOf(m);
 			return r == -1 ? m : r;
 		});
@@ -191,14 +192,14 @@ var mypage = {
 	},
 	check_NaN: function (my) {
 		/*
-		 *	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¤ï¿½ï¿½ï¿½
+		 *	¼«Á³¿ô¤«¤É¤¦¤«
 		 *	@my			Object
 		 *
-		 *	@return		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½Î¤È¤ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Í¤È¤ï¿½ï¿½Æ»ï¿½ï¿½ï¿½
+		 *	@return		¼«Á³¿ô¤Ç¤Ê¤¤¾ì¹ç¤Ë0¤òÊÖ¤¹¡¢ÂèÆó°ú¿ô¤¬¤¢¤ì¤Ð¡¢¼«Á³¿ô°Ê³°¤Î¤È¤­¤ÎÊÖ¤êÃÍ¤È¤·¤Æ»ÈÍÑ
 		 */
 		var err = arguments.length > 1 ? arguments[1] : 0;
-		var str = my.value.trim().replace(/[ï¿½ï¿½-ï¿½ï¿½]/g, function (m) {
-			var a = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		var str = my.value.trim().replace(/[£°-£¹]/g, function (m) {
+			var a = "£°£±£²£³£´£µ£¶£·£¸£¹";
 			var r = a.indexOf(m);
 			return r == -1 ? m : r;
 		});
@@ -207,13 +208,13 @@ var mypage = {
 	},
 	check_Real: function (my) {
 		/*
-		 *	ï¿½Â¿ï¿½ï¿½ï¿½ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	¼Â¿ô¤«¤É¤¦¤«¡ÊÀ°¿ô¡¢¾®¿ôÅÀ¡Ë
 		 *	@my		Object
 		 *
-		 *	@return		ï¿½ï¿½ï¿½ï¿½ï¿½Í¤ï¿½0
+		 *	@return		ÉÔÀµÃÍ¤Ï0
 		 */
-		var str = my.value.trim().replace(/[ï¿½ï¿½-ï¿½ï¿½]/g, function (m) {
-			var a = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		var str = my.value.trim().replace(/[£°-£¹]/g, function (m) {
+			var a = "£°£±£²£³£´£µ£¶£·£¸£¹";
 			var r = a.indexOf(m);
 			return r == -1 ? m : r;
 		});
@@ -222,7 +223,7 @@ var mypage = {
 	},
 	restrict_num: function (n, my) {
 		/*
-		 *	ï¿½ï¿½ï¿½Í¤ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	¿ôÃÍ¤ÎÆþÎÏ·å¿ô¤òÀ©¸Â
 		 */
 		var c = my.value;
 		c = c.replace(/[^\d]/g, '');
@@ -233,7 +234,7 @@ var mypage = {
 	},
 	check_zipcode: function (zipcode) {
 		/*
-		 *	Í¹ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+		 *	Í¹ÊØÈÖ¹æ¤ÎÂÅÅöÀ­¥Á¥§¥Ã¥¯
 		 */
 		if (!zipcode) return false;
 		if (!zipcode.match(/^[0-9]{3}[-]?[0-9]{0,4}$/)) return false;
@@ -242,10 +243,10 @@ var mypage = {
 	},
 	zip_mask: function (args) {
 		/*
-		 *	Í¹ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½"-"ï¿½Ç¶ï¿½ï¿½Ú¤ï¿½
+		 *	Í¹ÊØÈÖ¹æ¤ò"-"¤Ç¶èÀÚ¤ë
 		 */
-		var c = args.replace(/[ï¿½ï¿½-ï¿½ï¿½]/g, function (m) {
-			var a = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		var c = args.replace(/[£°-£¹]/g, function (m) {
+			var a = "£°£±£²£³£´£µ£¶£·£¸£¹";
 			var r = a.indexOf(m);
 			return r == -1 ? m : r;
 		});
@@ -256,11 +257,11 @@ var mypage = {
 	},
 	phone_mask: function (args) {
 		/*
-		 *	ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½"-"ï¿½Ç¶ï¿½ï¿½Ú¤ï¿½
+		 *	ÅÅÏÃÈÖ¹æ¤ò"-"¤Ç¶èÀÚ¤ë
 		 */
 		var l = 12;
-		var c = args.replace(/[ï¿½ï¿½-ï¿½ï¿½]/g, function (m) {
-			var a = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		var c = args.replace(/[£°-£¹]/g, function (m) {
+			var a = "£°£±£²£³£´£µ£¶£·£¸£¹";
 			var r = a.indexOf(m);
 			return r == -1 ? m : r;
 		});
@@ -287,7 +288,7 @@ var mypage = {
 		};
 	},
 	/*
-	 *	Í¹ï¿½ï¿½ï¿½Ö¹ï¿½Î»Ô³ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½È½ï¿½ï¿½
+	 *	Í¹ÊØÈÖ¹æ¤Î»Ô³°¶ÉÈÖ¤òÈ½Äê
 	 */
 	check_phone_separate: function (c, count) {
 		var tel1 = c.substr(0, count);
@@ -321,7 +322,7 @@ var mypage = {
 	},
 	countDate: function (dd, addDays) {
 		/*
-		 *	ï¿½ï¿½ï¿½Õ¤Î·×»ï¿½
+		 *	ÆüÉÕ¤Î·×»»
 		 */
 		dd = dd.replace(/-/g, "/");
 		var baseSec = Date.parse(dd);
@@ -333,7 +334,7 @@ var mypage = {
 	},
 	compareDate: function (d1) {
 		/*
-		 *	ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½
+		 *	ÆüÉÕ¤ÎÈæ³Ó
 		 */
 		d1 = d1.replace(/-/g, "/");
 		var startSec = Date.parse(d1);
@@ -349,7 +350,7 @@ var mypage = {
 	},
 	dateCheck: function (e, my) {
 		/*
-		 *	ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+		 *	ÆüÉÕ¤ÎÂÅÅöÀ­¥Á¥§¥Ã¥¯
 		 */
 		var val = my.value;
 		var date = new Date();
@@ -379,7 +380,7 @@ var mypage = {
 	},
 	setItemInfo: function (val) {
 		/*
-		 *	ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½È¼ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½
+		 *	¾¦ÉÊ¤ÎÊÑ¹¹¤ËÈ¼¤¦É½¼¨½ñ´¹
 		 */
 		var data = val.split(',');
 		$('#itemcolor_name').val(data[0]);
@@ -394,7 +395,7 @@ var mypage = {
 	},
 	setEstimation: function (data, modified) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½È¶ï¿½Û¤ï¿½É½ï¿½ï¿½ï¿½ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¹¹¿·¤ËÈ¼¤¦¾¦ÉÊ¤ÎËç¿ô¤È¶â³Û¤ÎÉ½¼¨½ñ´¹
 		 */
 		var price = mypage.addFigure(data[2]);
 		if (data[0] != null) $('#orderlist tbody').html(data[0]);
@@ -403,12 +404,12 @@ var mypage = {
 		$('#total_cost').val(price);
 		$('#est_price').html(price);
 
-		if (data[1] > 0 && data[3] != 1) { // ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ï¡ï¿½Ì¤È¯ï¿½ï¿½ï¿½×¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½
+		if (data[1] > 0 && data[3] != 1) { // Á´¤Æ»ý¹þ¤Î¾ì¹ç¤Ï¡ÖÌ¤È¯Ãí¡×¤òÉ½¼¨¤·¤Ê¤¤
 			$('#order_stock').hide();
 		} else {
-			mypage.setMaxnumberOfPack(); // ï¿½ÞµÍ¤ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½Í¤ï¿½ï¿½ï¿½ï¿½ï¿½ò¹¹¿ï¿½
+			mypage.setMaxnumberOfPack(); // ÂÞµÍ¤ÎÂÐ±þËç¿ô¤ÎºÇÂçÃÍ¤ÎÀßÄê¤ò¹¹¿·
 
-			// ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½È¢ï¿½ï¿½ï¿½ï¿½×»ï¿½
+			// ½é´üÉ½¼¨°Ê³°¤Î¹¹¿·¤ÏÈ¢¿ô¤ò·×»»
 			if (arguments.length == 2) {
 				mypage.getNumberOfBox();
 			}
@@ -421,7 +422,7 @@ var mypage = {
 	},
 	getNumberOfBox: function () {
 		/*
-		 *	È¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	È¢¿ô¤ò¼èÆÀ
 		 */
 		var field1 = ['curdate', 'package'];
 		var data1 = [mypage.prop.firmorderdate, 'no'];
@@ -432,7 +433,7 @@ var mypage = {
 		$('#orderlist tbody tr').each(function () {
 			if (!$(this).find('.choice').is(':checked') && mypage.prop.ordertype == 'general') return true;
 			var itemid = $(this).children('td:first').children('.itemid').text();
-			if (itemid.indexOf('_') > -1 || itemid == 99999) return true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½È¤Ï½ï¿½ï¿½ï¿½
+			if (itemid.indexOf('_') > -1 || itemid == 99999) return true; // »ý¹þ¡¢¤½¤ÎÂ¾¡¢Å¾¼Ì¥·¡¼¥È¤Ï½ü³°
 			tmp[0] = itemid;
 			tmp[1] = $(this).find('.itemsize_name').children('img').attr('id').split('_')[1];
 			tmp[2] = $(this).find('.listamount').val();
@@ -462,7 +463,7 @@ var mypage = {
 	},
 	setMaxnumberOfPack: function () {
 		/*
-		 *	ï¿½ÞµÍ¤ï¿½ï¿½Þ¤Î¤ß¤ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½Î¾ï¿½Â»ï¿½ï¿½ï¿½
+		 *	ÂÞµÍ¤ÈÂÞ¤Î¤ß¤ÎÂÐ±þËç¿ô¤Î¾å¸Â»ØÄê
 		 */
 		var max_volume = $('#total_amount').val() - 0;
 		var chk = $('input[name="package"]:checked', '#package_wrap').length;
@@ -481,11 +482,11 @@ var mypage = {
 	},
 	multisorter: function (args) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î¥Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤Î¥Þ¥ë¥Á¥½¡¼¥È
 		 *		maker, item_name, color_code, size_name
-		 *		ï¿½ï¿½color_code: ï¿½ï¿½è°·ï¿½ï¿½ï¿½Ê¤Ï¥ï¿½ï¿½é¡¼Ì¾
+		 *		¢¨color_code: Èó¼è°·¾¦ÉÊ¤Ï¥«¥é¡¼Ì¾
 		 *
-		 *	@args	sessionStorage ï¿½ï¿½ì¥³ï¿½ï¿½ï¿½É¤ï¿½ï¿½È¤Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	@args	sessionStorage ¤ò¥ì¥³¡¼¥É¤´¤È¤Ë¤·¤¿ÇÛÎó
 		 */
 		var size_hash = {
 			'70': 1,
@@ -537,32 +538,32 @@ var mypage = {
 	},
 	sessKey: {
 		/*
-		 *	sessionStorageï¿½Î¥ï¿½ï¿½ï¿½
+		 *	sessionStorage¤Î¥­¡¼
 		 *	
-		 *	maker:		ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½Ì¾
-		 *	master_id:	ï¿½è°·ï¿½ï¿½ï¿½Ê°Ê³ï¿½ï¿½Ï¡ï¿½mst_ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ID_ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ì¾_ï¿½ï¿½ï¿½é¡¼Ì¾
-		 *	item_name:	ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ì¾
-		 *	size_id:	ï¿½è°·ï¿½ï¿½ï¿½Ê°Ê³ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾
-		 *	color_code: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½è°·ï¿½ï¿½ï¿½Ê°Ê³ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½é¡¼Ì¾
-		 *	size_name:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	amount:		ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½
-		 *	cost:		Ã±ï¿½ï¿½
-		 *	stock_number:ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	group1:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
-		 *	group2:		Æ±ï¿½ï¿½Ê¬ï¿½ï¿½IDï¿½Ê¥ï¿½ï¿½ë¥¯ï¿½Î¤ï¿½ï¿½Ð±ï¿½ï¿½ï¿½
+		 *	maker:		¥á¡¼¥«¡¼Ì¾
+		 *	master_id:	¼è°·¾¦ÉÊ°Ê³°¤Ï¡¢mst_¥«¥Æ¥´¥êID_¥¢¥¤¥Æ¥àÌ¾_¥«¥é¡¼Ì¾
+		 *	item_name:	¥¢¥¤¥Æ¥àÌ¾
+		 *	size_id:	¼è°·¾¦ÉÊ°Ê³°¤Ï¡¢¥µ¥¤¥ºÌ¾
+		 *	color_code: ¥½¡¼¥ÈÍÑ¡¡¼è°·¾¦ÉÊ°Ê³°¤Ï¡¢¥«¥é¡¼Ì¾
+		 *	size_name:	¥½¡¼¥ÈÍÑ
+		 *	amount:		ÃíÊ¸Ëç¿ô
+		 *	cost:		Ã±²Á
+		 *	stock_number:ÉÊÈÖ_¥«¥é¡¼¥³¡¼¥É
+		 *	group1:		Ëç¿ô¥ì¥ó¥¸ID
+		 *	group2:		Æ±ÈÇÊ¬ÎàID¡Ê¥·¥ë¥¯¤Î¤ßÂÐ±þ¡Ë
 		 */
 		name: ['maker', 'master_id', 'item_name', 'color_code', 'size_id', 'size_name', 'amount', 'cost', 'choice', 'stock_number', 'group1', 'group2']
 	},
 	checkStorage: function (id, size, newID, newName, mode) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½Ï¥ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½sessionStorageï¿½Î¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤Î¥µ¥¤¥º¤Þ¤¿¤Ï¥«¥é¡¼¤ÎÊÑ¹¹¡¢sessionStorage¤Î¥Ç¡¼¥¿½ÅÊ£¤ò³ÎÇ§¤·¹¹¿·
 		 *  	@id			master id
 		 *  	@size		size id
-		 *  	@newID		ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ID
-		 *	@newName	ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ï¿½
-		 *  	@mode		master:ï¿½ï¿½ï¿½é¡¼ï¿½Ñ¹ï¿½,ï¿½ï¿½size:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
+		 *  	@newID		ÊÑ¹¹¤¹¤ëID
+		 *	@newName	ÊÑ¹¹¤¹¤ëÂ°À­ÃÍ
+		 *  	@mode		master:¥«¥é¡¼ÊÑ¹¹,¡¢size:¥µ¥¤¥ºÊÑ¹¹
 		 *
-		 *	return		false:ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ê¡¡true:ï¿½ï¿½Ê£ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»
+		 *	return		false:½ÅÊ£¤¢¤ê¡¡true:½ÅÊ£¤Ê¤·¹¹¿·´°Î»
 		 */
 		var sess = sessionStorage;
 		var store = mypage.getStorage();
@@ -571,7 +572,7 @@ var mypage = {
 		var isExist = false;
 		var changeID = null;
 		if (mode == 'master') {
-			// ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½Ñ¹ï¿½
+			// ¥«¥é¡¼¤ÎÊÑ¹¹
 			for (var i = 0; i < lenRec; i++) {
 				if (store['size_id'][i] == size) {
 					if (store['master_id'][i] == newID) isExist = true;
@@ -581,18 +582,18 @@ var mypage = {
 			if (!isExist && changeID != null) {
 				store['master_id'][changeID] = newID;
 				if (newName instanceof Array) {
-					// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ì¾ï¿½ï¿½ï¿½Ñ¹ï¿½
-					store['color_code'][changeID] = newName[0]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½É¤Þ¤ï¿½ï¿½Ï¥ï¿½ï¿½é¡¼Ì¾
+					// ¥¢¥¤¥Æ¥àÌ¾¤ÎÊÑ¹¹
+					store['color_code'][changeID] = newName[0]; // ¥½¡¼¥ÈÍÑ¡¢¥«¥é¡¼¥³¡¼¥É¤Þ¤¿¤Ï¥«¥é¡¼Ì¾
 					store['maker'][changeID] = newName[1];
 					store['item_name'][changeID] = newName[2];
 				} else {
-					// ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½Ñ¹ï¿½
-					store['color_code'][changeID] = newName; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½É¤Þ¤ï¿½ï¿½Ï¥ï¿½ï¿½é¡¼Ì¾
+					// ¥«¥é¡¼¤ÎÊÑ¹¹
+					store['color_code'][changeID] = newName; // ¥½¡¼¥ÈÍÑ¡¢¥«¥é¡¼¥³¡¼¥É¤Þ¤¿¤Ï¥«¥é¡¼Ì¾
 				}
 				result = true;
 			}
 		} else {
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
+			// ¥µ¥¤¥º¤ÎÊÑ¹¹
 			for (var i = 0; i < lenRec; i++) {
 				if (store['master_id'][i] == id) {
 					if (store['size_id'][i] == newID) isExist = true;
@@ -601,14 +602,14 @@ var mypage = {
 			}
 			if (!isExist && changeID != null) {
 				store['size_id'][changeID] = newID;
-				store['size_name'][changeID] = newName; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾
+				store['size_name'][changeID] = newName; // ¥½¡¼¥ÈÍÑ¡¢¥µ¥¤¥ºÌ¾
 				//store['cost'][changeID] = cost;
 				result = true;
 			}
 		}
 		if (result) {
 			var list = [];
-			// ï¿½ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ë¤¿ï¿½ï¿½ì¥³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
+			// ¥½¡¼¤È¤¹¤ë¤¿¤á¥ì¥³¡¼¥ÉËè¤ÎÇÛÎó¤ËÊÑ´¹
 			for (var i = 0; i < lenRec; i++) {
 				list[i] = {};
 				for (var n = 0; n < mypage.sessKey.name.length; n++) {
@@ -617,7 +618,7 @@ var mypage = {
 			}
 			mypage.multisorter(list);
 
-			// ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ë³ï¿½Ç¼ï¿½ï¿½ï¿½ë¥ªï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½
+			// ³Æ¥­¡¼¤Ë³ÊÇ¼¤¹¤ë¥ª¥Ö¥¸¥§¥¯¥È¤òºîÀ®
 			store = {};
 			for (var i = 0; i < lenRec; i++) {
 				for (var n = 0; n < mypage.sessKey.name.length; n++) {
@@ -625,7 +626,7 @@ var mypage = {
 					store[mypage.sessKey.name[n]][i] = list[i][mypage.sessKey.name[n]];
 				}
 			}
-			// SessionStorageï¿½Ë³ï¿½Ç¼
+			// SessionStorage¤Ë³ÊÇ¼
 			sess.clear();
 			for (var key in store) {
 				sess.setItem(key, JSON.stringify(store[key]));
@@ -635,11 +636,11 @@ var mypage = {
 	},
 	getStorage: function () {
 		/*
-		 *	sessionStorageï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	sessionStorage¤ÎÁ´¥Ç¡¼¥¿¤ò¼èÆÀ
 		 *	return		{key:[], key:[], ...}
 		 */
 		var sess = sessionStorage;
-		// Sessionï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½
+		// Session¤ÎÃæ¿È¤ò¼èÆÀ
 		var store = {};
 		for (var key in sess) {
 			store[key] = JSON.parse(sess.getItem(key));
@@ -648,33 +649,33 @@ var mypage = {
 	},
 	setStorage: function (list) {
 		/*
-		 *	sessionStorageï¿½Ë³ï¿½Ç¼
+		 *	sessionStorage¤Ë³ÊÇ¼
 		 *	@list	[{'maker', 'master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2'},{},{}]
 		 *			default
 		 *				cost:0
 		 *				choice:1
 		 *				stock_number = ''
 		 *				maker = ''
-		 *	return	sessionStorageï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½: {key:[], key:[], ...}
+		 *	return	sessionStorage¤ÎÁ´¥Ç¡¼¥¿: {key:[], key:[], ...}
 		 */
 		var sess = sessionStorage;
 		var lenRec = 0;
 		var store = {};
-		// Sessionï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½
+		// Session¤ÎÃæ¿È¤ò¼èÆÀ
 		var lenSS = sess.length;
 		if (list.length == 0) {
 			store = mypage.getStorage();
 			return store;
 		} else if (lenSS == 0 || !sess['master_id'] instanceof Array) {
-			// sessionstorageï¿½Ë¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½
+			// sessionstorage¤Ë¥Ç¡¼¥¿¤¬¤Ê¤¤¾ì¹ç
 			mypage.multisorter(list);
 			lenRec = list.length;
 		} else {
-			// ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// Á´¥Ç¡¼¥¿¼èÆÀ
 			try {
 				store = mypage.getStorage();
 				lenRec = store['master_id'].length;
-				// Æ±ï¿½ï¿½ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ñ¤ß¤Î¾ï¿½ï¿½Ï½ï¿½ï¿½ï¿½
+				// Æ±¤¸¥Þ¥¹¥¿¡¼ID¤ÇÆ±¤¸¥µ¥¤¥º¤¬ÅÐÏ¿ºÑ¤ß¤Î¾ì¹ç¤Ï½¤À°
 				var isExist = false;
 				var aryNew = [];
 				for (var a = 0; a < list.length; a++) {
@@ -682,7 +683,7 @@ var mypage = {
 					for (var i = 0; i < lenRec; i++) {
 						if (store['master_id'][i] == list[a]['master_id'] && store['size_id'][i] == list[a]['size_id']) {
 							if (list['amount'] == false) {
-								// ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Î¾ï¿½ï¿½Ïºï¿½ï¿½
+								// Ëç¿ô¤¬0¤Î¾ì¹ç¤Ïºï½ü
 								if (lenSS == 1) {
 									sess.clear();
 								} else {
@@ -691,7 +692,7 @@ var mypage = {
 									}
 								}
 							} else {
-								// ï¿½ï¿½Â¸ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ò¹¹¿ï¿½
+								// ´ûÂ¸¥Ç¡¼¥¿¤ò¹¹¿·
 								store['amount'][i] = list[a]['amount'];
 								store['cost'][i] = list[a]['cost'];
 								store['choice'][i] = list[a]['choice'];
@@ -702,12 +703,12 @@ var mypage = {
 							break;
 						}
 					}
-					// ï¿½ï¿½ï¿½ï¿½ï¿½É²Ã¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½
+					// ¿·µ¬ÄÉ²Ã¥Ç¡¼¥¿¤ò°ì»þÊÝ»ý
 					if (!isExist) {
 						aryNew.push(list[a]);
 					}
 				}
-				// ï¿½ï¿½ï¿½ï¿½ï¿½É²Ã¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¿·µ¬ÄÉ²Ã¥Ç¡¼¥¿¤¬¤¢¤ë¾ì¹ç
 				if (aryNew.length > 0) {
 					for (var a = 0; a < aryNew.length; a++) {
 						for (var t = 0; t < mypage.sessKey.name.length; t++) {
@@ -716,7 +717,7 @@ var mypage = {
 						lenRec++;
 					}
 				}
-				// ï¿½ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ë¤¿ï¿½ï¿½ì¥³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
+				// ¥½¡¼¤È¤¹¤ë¤¿¤á¥ì¥³¡¼¥ÉËè¤ÎÇÛÎó¤ËÊÑ´¹
 				list = [];
 				for (var i = 0; i < lenRec; i++) {
 					list[i] = {};
@@ -730,7 +731,7 @@ var mypage = {
 				lenRec = list.length;
 			}
 		}
-		// ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ë³ï¿½Ç¼ï¿½ï¿½ï¿½ë¥ªï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½
+		// ³Æ¥­¡¼¤Ë³ÊÇ¼¤¹¤ë¥ª¥Ö¥¸¥§¥¯¥È¤òºîÀ®
 		store = {};
 		for (var i = 0; i < lenRec; i++) {
 			for (var n = 0; n < mypage.sessKey.name.length; n++) {
@@ -738,7 +739,7 @@ var mypage = {
 				store[mypage.sessKey.name[n]][i] = list[i][mypage.sessKey.name[n]];
 			}
 		}
-		// SessionStorageï¿½Ë³ï¿½Ç¼
+		// SessionStorage¤Ë³ÊÇ¼
 		sess.clear();
 		for (var key in store) {
 			sess.setItem(key, JSON.stringify(store[key]));
@@ -748,9 +749,9 @@ var mypage = {
 	},
 	removeStorage: function (args) {
 		/*
-		 *	sessionStorageï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½
+		 *	sessionStorageÆâ¥Ç¡¼¥¿¤Îºï½ü
 		 *	@args	{master_id,size_id}
-		 *	return	sessionStorageï¿½Î¥ì¥³ï¿½ï¿½ï¿½É¿ï¿½
+		 *	return	sessionStorage¤Î¥ì¥³¡¼¥É¿ô
 		 */
 		var store = mypage.getStorage();
 		if (Object.keys(store).length == 0) {
@@ -782,7 +783,7 @@ var mypage = {
 	},
 	updateStorage: function (args) {
 		/*
-		 *	sessionStorageï¿½Î¹ï¿½ï¿½ï¿½
+		 *	sessionStorage¤Î¹¹¿·
 		 *	@args	{master_id, size_id, target_key, value}
 		 */
 		var sess = sessionStorage;
@@ -801,7 +802,7 @@ var mypage = {
 	},
 	additem: function () {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½É²ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤ËÄÉ²Ã
 		 */
 		mypage.prop.modified = true;
 		var maker = $('#maker').val();
@@ -819,24 +820,24 @@ var mypage = {
 		var group1 = $('#group1').val();
 		var group2 = $('#group2').val();
 
-		if (category_id == '0' || category_id == '100') { // ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½
+		if (category_id == '0' || category_id == '100') { // ¤½¤ÎÂ¾¤È»ý¹þ
 			item_name = ($('#itemIs').children().val()).trim();
 			if (item_name == "" || item_color == "") {
-				alert('ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½È¥ï¿½ï¿½é¡¼Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+				alert('¾¦ÉÊÌ¾¤È¥«¥é¡¼Ì¾¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£');
 				return;
 			}
 			item_id = category_id + '_' + item_name;
 			master_id = 'mst_' + category_id + '_' + item_name + '_' + item_color;
-			color_code = item_color; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			color_code = item_color; // ¥½¡¼¥ÈÍÑ
 			ppID = item_id;
 			tmp = item_id.replace(/ /g, '\\ ');
-			tmp = tmp.replace(/ï¿½ï¿½/g, '\\ï¿½ï¿½');
+			tmp = tmp.replace(/¡¡/g, '\\¡¡');
 
-		} else if (category_id == '99') { // Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½
-			item_name = 'Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½';
+		} else if (category_id == '99') { // Å¾¼Ì¥·¡¼¥È
+			item_name = 'Å¾¼Ì¥·¡¼¥È';
 			item_id = 99999;
 			master_id = 'mst_' + category_id + '_' + item_name + '_' + item_color;
-			color_code = item_color; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			color_code = item_color; // ¥½¡¼¥ÈÍÑ
 			ppID = 99;
 			tmp = item_id;
 		} else {
@@ -848,18 +849,18 @@ var mypage = {
 			tmp = item_id;
 
 			/*
-			 *	2013-10-23 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½DRYÉ½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			 *	325		046-UBï¿½ï¿½ï¿½æ¡¼ï¿½Æ¥ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½Ö¥ë¥¾ï¿½ï¿½
-			 *	73		068-RSVï¿½ï¿½ï¿½ï¿½Õ¥ì¥¯ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½Ä¥Ù¥ï¿½ï¿½ï¿½
-			 *	254		057-SSJï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à¥¸ï¿½ï¿½ï¿½Ñ¡ï¿½
-			 *	65		061-RSJï¿½ï¿½ï¿½ï¿½Õ¥ì¥¯ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½Ä¥ï¿½ï¿½ã¥±ï¿½Ã¥ï¿½
-			 *	253		850-DZï¿½ï¿½ï¿½É¥ê¥ºï¿½é¡¼
-			 *	158		049-FCï¿½ï¿½ï¿½Õ¡ï¿½ï¿½É¥ï¿½ï¿½ó¥³¡ï¿½ï¿½ï¿½
-			 *	328		048-AJï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½Ö¥ï¿½ï¿½ã¥±ï¿½Ã¥ï¿½
-			 *	326		260-ETBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½ï¿½Ö¥ë¥¾ï¿½ï¿½
-			 *	329		001-NFCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½É¥ï¿½ï¿½ï¿½ï¿½ï¿½
-			 *	159		230-ABCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½Ö¥Ù¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			 *	275		P-6880ï¿½ï¿½ï¿½ï¿½ï¿½ß¥ï¿½ï¿½ó¥°¥Ü¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			 *	2013-10-23 ¥¢¥¦¥¿¡¼¤Î°ìÉô¾¦ÉÊ¤ËDRYÉ½¼¨¡Ê¥¿¥°¤ÏÅÐÏ¿¤»¤º¡Ë
+			 *	325		046-UB¡¡¥æ¡¼¥Æ¥£¥ê¥Æ¥£¥Ö¥ë¥¾¥ó
+			 *	73		068-RSV¡¡¥ê¥Õ¥ì¥¯¥¹¥Ý¡¼¥Ä¥Ù¥¹¥È
+			 *	254		057-SSJ¡¡¥¹¥¿¥¸¥¢¥à¥¸¥ã¥ó¥Ñ¡¼
+			 *	65		061-RSJ¡¡¥ê¥Õ¥ì¥¯¥¹¥Ý¡¼¥Ä¥¸¥ã¥±¥Ã¥È
+			 *	253		850-DZ¡¡¥É¥ê¥º¥é¡¼
+			 *	158		049-FC¡¡¥Õ¡¼¥É¥¤¥ó¥³¡¼¥È
+			 *	328		048-AJ¡¡¥¢¥¯¥Æ¥£¥Ö¥¸¥ã¥±¥Ã¥È
+			 *	326		260-ETB¡¡¥¨¥³¥Ä¥¤¥ë¥Ö¥ë¥¾¥ó
+			 *	329		001-NFC¡¡¥¢¥¯¥Æ¥£¥Ö¥°¥é¥ó¥É¥³¡¼¥È
+			 *	159		230-ABC¡¡¥¢¥¯¥Æ¥£¥Ö¥Ù¥ó¥Á¥³¡¼¥È
+			 *	275		P-6880¡¡¥»¥ß¥í¥ó¥°¥Ü¥¢¥³¡¼¥È
 			 */
 			if (
 				item_id == 325 ||
@@ -891,11 +892,11 @@ var mypage = {
 					master_id = 'mst_' + category_id + '_' + item_name + '_' + item_color;
 					sizename = $(this).parent().prev('tr').children('td:eq(' + index + ')').children().val();
 					sizeids.push(sizename);
-					sizedata.push(sizename); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					sizedata.push(sizename); // ¥½¡¼¥ÈÍÑ
 					costdata.push(0);
 				} else {
 					sizeids.push($(this).children().attr('id').split('_')[1]);
-					sizedata.push($(this).parent().prev('tr').children('td:eq(' + index + ')').text()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					sizedata.push($(this).parent().prev('tr').children('td:eq(' + index + ')').text()); // ¥½¡¼¥ÈÍÑ
 					var wholesale = $(this).children().attr('id').split('_')[2];
 					if (!wholesale) {
 						costdata.push(0);
@@ -917,7 +918,7 @@ var mypage = {
 		});
 
 		/*
-		 *	sessionStorageï¿½ï¿½ï¿½ï¿½Â¸
+		 *	sessionStorage¤ËÊÝÂ¸
 		 *	[{'maker','master_id','item_name','color_code','size_id','size_name','amount','cost','choice','stock_number','group1','group2'},{}.{}]
 		 */
 		var args = [];
@@ -946,7 +947,7 @@ var mypage = {
 			'data' : JSON.stringify(store)
 		};
 
-		// ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î½ï¿½
+		// ÃíÊ¸¥ê¥¹¥È¤Î½ñ´¹
 		var isPrint = $('#noprint').is(':checked') ? 0 : 1;
 		$.ajax({
 			url: './php_libs/dbinfo.php',
@@ -973,7 +974,7 @@ var mypage = {
 	},
 	addPrintPos: function (category_id, category_name, item_id, item_name, ppID) {
 		/*
-		 *	ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½
+		 *	¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¿¥°¤òÄÉ²Ã
 		 */
 		if ($('#pp_toggler_' + category_id).length == 0) {
 			var category_name = $('#category_selector option:selected').text();
@@ -993,7 +994,7 @@ var mypage = {
 					var html = '<div class="pp_toggler" id="pp_toggler_' + category_id + '">';
 					html += '<div class="rightside">';
 					if (mypage.prop.ordertype == 'general') {
-						html += '&nbsp;ï¿½ï¿½ï¿½ï¿½&nbsp;<input type="text" value="0" size="8" readonly="readonly" class="sub_price" />';
+						html += '&nbsp;¾®·×&nbsp;<input type="text" value="0" size="8" readonly="readonly" class="sub_price" />';
 						html += '<input type="hidden" value="0" size="8" class="silk_price" />';
 						html += '<input type="hidden" value="0" size="8" class="color_price" />';
 						html += '<input type="hidden" value="0" size="8" class="digit_price" />';
@@ -1046,7 +1047,7 @@ var mypage = {
 	},
 
 	/**********************************************
-			ï¿½ï¿½ï¿½Æ¥Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			¸¶¹Æ¥Õ¥¡¥¤¥ëÁàºî
 			2016.11.22
 	***********************************************/
 
@@ -1073,11 +1074,11 @@ var mypage = {
 			},
 			success: function (data) {
 				if (data == "") {
-					var thead = "<p>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Ë¤Ï¸ï¿½ï¿½Æ¥Õ¥ï¿½ï¿½ï¿½ï¿½ë¤¬ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½</p>";
+					var thead = "<p>³ºÅöÃíÊ¸¤Ë¤Ï¸¶¹Æ¥Õ¥¡¥¤¥ë¤¬¤¢¤ê¤Þ¤»¤ó¡£</p>";
 					$('#designImg_table thead').html(thead);
 
 				} else {
-					var thead = "<tr><td>ï¿½ï¿½ï¿½ï¿½</td><td>ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾</td><td class='last pending'>ï¿½ï¿½ï¿½</td></tr>";
+					var thead = "<tr><td>½çÈÖ</td><td>¥Õ¥¡¥¤¥ëÌ¾</td><td class='last pending'>Áàºî</td></tr>";
 					$('#designImg_table thead').html(thead);
 					var tbody = "",
 						href = "",
@@ -1090,7 +1091,7 @@ var mypage = {
 						ord = i + 1;
 						tbody += "<tr><td>" + ord + "</td>";
 						tbody += "<td>" + fileName + "</td>";
-						tbody += "<td class='last pending'><input type='button'  value='ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' id ='downloadImg' name='" + href + "'>   <input type= 'button'  value='ï¿½ï¿½ï¿½' id ='deleteImg' name='" + fileName + "'></td></tr>";
+						tbody += "<td class='last pending'><input type='button'  value='¥À¥¦¥ó¥í¡¼¥É' id ='downloadImg' name='" + href + "'>   <input type= 'button'  value='ºï½ü' id ='deleteImg' name='" + fileName + "'></td></tr>";
 					}
 					$('#designImg_table tbody').html(tbody);
 				}
@@ -1102,7 +1103,7 @@ var mypage = {
 						$('#designImg_table tbody').html(tbody);
 						$('#uploadImg_table').find("#attach_des").val("");
 						if (mypage.prop.show_design_time > 300) {
-							alert('ï¿½ï¿½ï¿½Æ¥Õ¥ï¿½ï¿½ï¿½ï¿½ë¥¢ï¿½Ã¥×¥ï¿½ï¿½ï¿½ï¿½É¥ï¿½ï¿½ï¿½ï¿½à¥¢ï¿½ï¿½ï¿½ï¿½');
+							alert('¸¶¹Æ¥Õ¥¡¥¤¥ë¥¢¥Ã¥×¥í¡¼¥É¥¿¥¤¥à¥¢¥¦¥È');
 							mypage.prop.show_design_time = 0;
 						}
 					} else {
@@ -1112,17 +1113,17 @@ var mypage = {
 			}
 		});
 
-		//ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//¥Õ¥¡¥¤¥ë¤ò¥À¥¦¥ó¥í¡¼¥É
 		$('#downloadImg').live('click', function () {
 			var href = $(this).attr('name');
 			var a = window.open(href);
 
 		});
 
-		//ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//¥Õ¥¡¥¤¥ë¤òºï½ü
 		$('#deleteImg').live('click', function () {
 			var file_name = $(this).attr('name');
-			if (!confirm(file_name + ' ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ç¤¦ï¿½ï¿½ï¿½ï¿½')) {
+			if (!confirm(file_name + ' ¤òºï½ü¤·¤Þ¤¹¡¢¤è¤í¤·¤¤¤Ç¤·¤ç¤¦¤«¡©')) {
 				return;
 			}
 			$.ajax({
@@ -1141,7 +1142,7 @@ var mypage = {
 						mypage.showDesignImg(orders_id);
 						mypage.prop.show_design_time = 0;
 					} else {
-						alert('ï¿½ï¿½ï¿½Æ¥Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+						alert('¸¶¹Æ¥Õ¥¡¥¤¥ëºï½ü¼ºÇÔ');
 					}
 				}
 			});
@@ -1163,7 +1164,7 @@ var mypage = {
 		$('#desImgup').live('click', function () {
 			var file_name = $('#uploadImg_table').find("#attach_des").val();
 			if (!file_name) {
-				$.msgbox('ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¤·¤Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+				$.msgbox('¥Õ¥¡¥¤¥ë¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤');
 				return;
 			}
 			orders_id = $('#uploadImg_table').find("#order_id").val();
@@ -1180,7 +1181,7 @@ var mypage = {
 				},
 				success: function (r) {
 					if (r) {
-						$.msgbox('Æ±Ì¾ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ß¤ï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½');
+						$.msgbox('Æ±Ì¾¥Õ¥¡¥¤¥ë¤ÏÂ¸ºß¤·¤Æ¤¤¤Þ¤¹');
 						return;
 					} else {
 						$('#uploadImg_table').find("#wait_img").show();
@@ -1201,7 +1202,7 @@ var mypage = {
 	},
 
 	/**********************************************
-			ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			¥¤¥á¡¼¥¸²èÁüÁàºî
 			2017.03.06
 	***********************************************/
 
@@ -1228,12 +1229,12 @@ var mypage = {
 			},
 			success: function (data) {
 				if (data == "") {
-					var thead = "<p>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Ë¤Ï¥ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ë¤¬ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½</p>";
+					var thead = "<p>³ºÅöÃíÊ¸¤Ë¤Ï¥¤¥á¡¼¥¸²èÁü¥Õ¥¡¥¤¥ë¤¬¤¢¤ê¤Þ¤»¤ó¡£</p>";
 					$('#designedImg_table thead').html(thead);
 				} else {
-					var thead = "<tr><td>ï¿½ï¿½ï¿½ï¿½</td><td>ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾</td><td class='last pending'>ï¿½ï¿½ï¿½</td></tr>";
+					var thead = "<tr><td>½çÈÖ</td><td>¥Õ¥¡¥¤¥ëÌ¾</td><td class='last pending'>Áàºî</td></tr>";
 					$('#designedImg_table thead').html(thead);
-					$('#designedImg_table tfoot').html('<tr>><td colspan="2"></td><td class="last"><button id="btn_imageup" class="btn_sub">ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½</button></td></tr>');
+					$('#designedImg_table tfoot').html('<tr>><td colspan="2"></td><td class="last"><button id="btn_imageup" class="btn_sub">¥¤¥á¡¼¥¸²èÁü¥¢¥Ã¥×</button></td></tr>');
 					var tbody = "";
 					var href = "";
 					var ord = 0;
@@ -1242,7 +1243,7 @@ var mypage = {
 						ord = i + 1;
 						tbody += "<tr><td>" + ord + "</td>";
 						tbody += "<td>" + data[i] + "</td>";
-						tbody += "<td class='last pending'><input type='button'  value='ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' id ='downloadDesedImg' name='" + href + "'>   <input type= 'button'  value='ï¿½ï¿½ï¿½' id ='deleteDesedImg' name='" + data[i] + "'></td></tr>";
+						tbody += "<td class='last pending'><input type='button'  value='¥À¥¦¥ó¥í¡¼¥É' id ='downloadDesedImg' name='" + href + "'>   <input type= 'button'  value='ºï½ü' id ='deleteDesedImg' name='" + data[i] + "'></td></tr>";
 					}
 					$('#designedImg_table tbody').html(tbody);
 				}
@@ -1253,7 +1254,7 @@ var mypage = {
 						$('#designedImg_table tbody').html(tbody);
 						$('#uploadDesedImg_table').find("#attach_img").val("");
 						if (mypage.prop.show_design_time > 300) {
-							alert('ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ë¥¢ï¿½Ã¥×¥ï¿½ï¿½ï¿½ï¿½É¥ï¿½ï¿½ï¿½ï¿½à¥¢ï¿½ï¿½ï¿½ï¿½');
+							alert('¥¤¥á¡¼¥¸²èÁü¥Õ¥¡¥¤¥ë¥¢¥Ã¥×¥í¡¼¥É¥¿¥¤¥à¥¢¥¦¥È');
 							mypage.prop.show_design_time = 0;
 						}
 					} else {
@@ -1263,17 +1264,17 @@ var mypage = {
 			}
 		});
 
-		//ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//¥Õ¥¡¥¤¥ë¤ò¥À¥¦¥ó¥í¡¼¥É
 		$('#downloadDesedImg').live('click', function () {
 			var href = $(this).attr('name');
 			var a = window.open(href);
 
 		});
 
-		//ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		//¥Õ¥¡¥¤¥ë¤òºï½ü
 		$('#deleteDesedImg').live('click', function () {
 			var file_name = $(this).attr('name');
-			if (!confirm(file_name + ' ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ç¤¦ï¿½ï¿½ï¿½ï¿½')) {
+			if (!confirm(file_name + ' ¤òºï½ü¤·¤Þ¤¹¡¢¤è¤í¤·¤¤¤Ç¤·¤ç¤¦¤«¡©')) {
 				return;
 			}
 			$.ajax({
@@ -1292,7 +1293,7 @@ var mypage = {
 						mypage.showDesignedImg(orders_id);
 						mypage.prop.show_design_time = 0;
 					} else {
-						alert('ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+						alert('¥¤¥á¡¼¥¸²èÁü¥Õ¥¡¥¤¥ëºï½ü¼ºÇÔ');
 					}
 				}
 			});
@@ -1314,7 +1315,7 @@ var mypage = {
 		$('#desedImgup').live('click', function () {
 			var file_name = $('#uploadDesedImg_table').find("#attach_img").val();
 			if (!file_name) {
-				$.msgbox('ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¤·¤Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+				$.msgbox('¥Õ¥¡¥¤¥ë¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤');
 				return;
 			}
 			orders_id = $('#uploadDesedImg_table').find("#order_id").val();
@@ -1331,7 +1332,7 @@ var mypage = {
 				},
 				success: function (r) {
 					if (r) {
-						$.msgbox('Æ±Ì¾ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ß¤ï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½');
+						$.msgbox('Æ±Ì¾¥Õ¥¡¥¤¥ë¤ÏÂ¸ºß¤·¤Æ¤¤¤Þ¤¹');
 						return;
 					} else {
 						$('#uploadDesedImg_table').find("#wait_img").show();
@@ -1354,8 +1355,8 @@ var mypage = {
 
 	changeSchedule2: function (args) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ò¹¹¿ï¿½
-		 *	@args	È¯ï¿½ï¿½ï¿½ï¿½
+		 *	ÃíÊ¸³ÎÄêÆü¤ÎÊÑ¹¹¤Ç¥µ¥¤¥º¥Æ¡¼¥Ö¥ë¤ÈÃíÊ¸¥ê¥¹¥È¤ò¹¹¿·
+		 *	@args	È¯Á÷Æü
 		 */
 		mypage.prop.modified = true;
 		mypage.prop.firmorderdate = args;
@@ -1388,24 +1389,24 @@ var mypage = {
 	},
 	changeSchedule3: function (args, calc) {
 		/*
-		 *	È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½Î¨ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	@args	È¯ï¿½ï¿½ï¿½ï¿½
-		 *	@calc	ï¿½Æ·×»ï¿½ï¿½ï¿½1:ï¿½ï¿½ï¿½ë¡¢0:ï¿½ï¿½ï¿½Ê¤ï¿½
+		 *	È¯Á÷Æü¤ÎÊÑ¹¹¤Ç¾ÃÈñÀÇÎ¨¤ÎºÆÀßÄê
+		 *	@args	È¯Á÷Æü
+		 *	@calc	ºÆ·×»»¡¡1:¤¹¤ë¡¢0:¤·¤Ê¤¤
 		 */
 		mypage.prop.modified = true;
 		mypage.prop.acceptingdate = args;
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ¾ÃÈñÀÇÎ¨¤òÀßÄê
 		mypage.setTAX(args);
 
 		if (calc) mypage.calcPrintFee();
 	},
 	changeColorcode: function (id, code, init) {
 		/*
-		 *	ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½Ï¥ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½Î¹ï¿½ï¿½ï¿½
-		 *	@id 	ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ID
-		 *	@code	ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	@init	ï¿½ï¿½ï¿½Ì¤Î½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½É¤ï¿½ï¿½ï¿½
+		 *	¾¦ÉÊ¾ðÊóÍó¤Î¥»¥ì¥¯¥¿¡¼¤Þ¤¿¤Ï¥«¥é¡¼»ØÄê¤ÎÊÑ¹¹¤ËÈ¼¤¦¥µ¥¤¥º¥Æ¡¼¥Ö¥ë¤Î¹¹¿·
+		 *	@id 	¥¢¥¤¥Æ¥àID
+		 *	@code	¥«¥é¡¼¥³¡¼¥É
+		 *	@init	²èÌÌ¤Î½é´üÉ½¼¨¤«¤É¤¦¤«
 		 */
 		var chk = init === 'undefined' ? false : init;
 		if (id == 0) {
@@ -1467,17 +1468,17 @@ var mypage = {
 	},
 	changeItemcolor: function (master_id, size_id, parm, code) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î¥ï¿½ï¿½é¡¼ï¿½Ñ¹ï¿½
-		 *	@master_id	ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ID
-		 *	@size_id	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
-		 *	@parm		new master_id(ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¥«ï¿½é¡¼ï¿½Ñ¥ï¿½Ã¥È¤Ç»ï¿½ï¿½ï¿½)
-		 *				this(ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½è°·ï¿½ï¿½ï¿½Ê°Ê³ï¿½ï¿½Î¥ï¿½ï¿½é¡¼ï¿½Ñ¹ï¿½ï¿½ï¿½textboxï¿½ò»²¾ï¿½)
-		 *	@code		ï¿½ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½É¡Ê¼è°·ï¿½ï¿½ï¿½Ê¤Î¤ß»ï¿½ï¿½Ñ¡ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤Î¥«¥é¡¼ÊÑ¹¹
+		 *	@master_id	¥Þ¥¹¥¿¡¼ID
+		 *	@size_id	¥µ¥¤¥ºID
+		 *	@parm		new master_id(¥¢¥¤¥Æ¥à¥«¥é¡¼¥Ñ¥ì¥Ã¥È¤Ç»ØÄê)
+		 *				this(ÃíÊ¸¥ê¥¹¥ÈÆâ¤Ç¡¢¼è°·¾¦ÉÊ°Ê³°¤Î¥«¥é¡¼ÊÑ¹¹¡¢textbox¤ò»²¾È)
+		 *	@code		¥«¥é¡¼¥³¡¼¥É¡Ê¼è°·¾¦ÉÊ¤Î¤ß»ÈÍÑ¡Ë
 		 */
 		var new_color = code === 'undefined' ? '' : code;
 		var obj = '';
 		var tmp = [];
-		if (typeof parm.value != 'undefined') { // ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½È¥Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½Ï¤Î¾ï¿½ï¿½
+		if (typeof parm.value != 'undefined') { // ¥Æ¥­¥¹¥È¥Ü¥Ã¥¯¥¹¤Ç¼êÆþÎÏ¤Î¾ì¹ç
 			tmp = master_id.split('_');
 			new_color = parm.value.trim();
 			if (new_color == "") {
@@ -1499,7 +1500,7 @@ var mypage = {
 		}
 		if (!mypage.checkStorage(master_id, size_id, parm, new_color, 'master')) {
 			if (obj != '') obj.value = tmp[3];
-			alert('Æ±ï¿½ï¿½ï¿½ï¿½ï¿½é¡¼ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Æ¥à¤¬ï¿½ï¿½ï¿½ë¤¿ï¿½á¡¢ï¿½Ñ¹ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½');
+			alert('Æ±¤¸¥«¥é¡¼¤Î¥¢¥¤¥Æ¥à¤¬¤¢¤ë¤¿¤á¡¢ÊÑ¹¹¤Ç¤­¤Þ¤»¤ó¡£');
 			return;
 		}
 
@@ -1521,7 +1522,7 @@ var mypage = {
 			data: list,
 			success: function (r) {
 				if (r instanceof Array) {
-					if (r.length == 0) return; // ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½ï¿½
+					if (r.length == 0) return; // ÃíÊ¸¥ê¥¹¥È¤¬¶õ
 					mypage.setEstimation(r, true);
 					$('#itemcolor_wrapper').fadeOut();
 					mypage.screenOverlay(false);
@@ -1536,14 +1537,14 @@ var mypage = {
 	},
 	changeItemsize: function (master_id, size_id, new_size_id, new_size_name) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
-		 *	@master_id		ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ID
-		 *	@size_id		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
-		 *	@new_size_id	ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ë¥µï¿½ï¿½ï¿½ï¿½ID
-		 *	@new_size_name	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½Ê¼è°·ï¿½ï¿½ï¿½Ê¤Î¤ß»ï¿½ï¿½Ñ¡ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤Î¥µ¥¤¥ºÊÑ¹¹
+		 *	@master_id		¥Þ¥¹¥¿¡¼ID
+		 *	@size_id		¥µ¥¤¥ºID
+		 *	@new_size_id	ÊÑ¹¹¤¹¤ë¥µ¥¤¥ºID
+		 *	@new_size_name	¥µ¥¤¥ºÌ¾¡Ê¼è°·¾¦ÉÊ¤Î¤ß»ÈÍÑ¡Ë
 		 */
 		var obj = '';
-		if (typeof new_size_name.value != 'undefined') { // ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½È¥Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½ï¿½Ï¤Î¾ï¿½ï¿½
+		if (typeof new_size_name.value != 'undefined') { // ¥Æ¥­¥¹¥È¥Ü¥Ã¥¯¥¹¤Ç¼êÆþÎÏ¤Î¾ì¹ç
 			obj = new_size_name;
 			new_size_id = obj.value.trim();
 			if (new_size_id == "") {
@@ -1565,7 +1566,7 @@ var mypage = {
 
 		if (!mypage.checkStorage(master_id, size_id, new_size_id, new_size_name, 'size')) {
 			if (obj != '') obj.value = size_id;
-			alert('Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Æ¥à¤¬ï¿½ï¿½ï¿½ë¤¿ï¿½á¡¢ï¿½Ñ¹ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½');
+			alert('Æ±¤¸¥µ¥¤¥º¤Î¥¢¥¤¥Æ¥à¤¬¤¢¤ë¤¿¤á¡¢ÊÑ¹¹¤Ç¤­¤Þ¤»¤ó¡£');
 			return;
 		}
 
@@ -1588,7 +1589,7 @@ var mypage = {
 			data: list,
 			success: function (r) {
 				if (r instanceof Array) {
-					if (r.length == 0) return; // ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½ï¿½
+					if (r.length == 0) return; // ÃíÊ¸¥ê¥¹¥È¤¬¶õ
 					mypage.setEstimation(r, true);
 					$('#itemsize_wrapper').fadeOut();
 					mypage.screenOverlay(false);
@@ -1603,7 +1604,7 @@ var mypage = {
 	},
 	removeitem: function (my, size_id, master_id) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½é¾¦ï¿½Ê¤Îºï¿½ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤«¤é¾¦ÉÊ¤Îºï½ü
 		 *	@my		object
 		 *	@size_id
 		 *	@master_id
@@ -1614,9 +1615,9 @@ var mypage = {
 		var category_id = $(my).parent().siblings(':eq(2)').attr('class').split('_')[1];
 		// var category_name = $(my).parent().siblings(':eq(2)').text();
 		var tmp = item_id.replace(/ /g, '\\ ');
-		tmp = tmp.replace(/ï¿½ï¿½/g, '\\ï¿½ï¿½');
+		tmp = tmp.replace(/¡¡/g, '\\¡¡');
 
-		// sessionStorageï¿½Îºï¿½ï¿½
+		// sessionStorage¤Îºï½ü
 		var args = {
 			'master_id': master_id,
 			'size_id': size_id
@@ -1642,7 +1643,7 @@ var mypage = {
 				data: list,
 				success: function (r) {
 					if (r instanceof Array) {
-						if (r.length == 0) return; // ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½ï¿½
+						if (r.length == 0) return; // ÃíÊ¸¥ê¥¹¥È¤¬¶õ
 						mypage.setEstimation(r, false);
 					} else {
 						alert('Error: p1065\n' + r);
@@ -1654,7 +1655,7 @@ var mypage = {
 			});
 		}
 
-		// ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î½ï¿½ï¿½ï¿½
+		// ÃíÊ¸¥ê¥¹¥È¤Î½¸·×
 		var isExistItem = false;
 		var isExistPP = false;
 		$('#orderlist tbody tr').each(function () {
@@ -1664,7 +1665,7 @@ var mypage = {
 			if (mypage.prop.ordertype == "general" && !$(this).find('.choice').is(':checked')) return true; // continue
 		});
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½
+		// ³¨·¿¤Î¹¹¿·
 		if (!isExistItem) {
 			var toggler = $('#pp_toggler_' + category_id);
 			if (toggler.children('.title').children('span').length == 1) {
@@ -1679,8 +1680,8 @@ var mypage = {
 	},
 	updateitem: function (my, size_id, master_id) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
-		 *	Classï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ÏºÇ½ï¿½ï¿½ClassÌ¾ï¿½ï¿½È½ï¿½ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤ÎËç¿ô¡¢Ã±²Á¡¢ÈÇ¡¢ÁªÂò²ò½ü¤ÎÊÑ¹¹
+		 *	Class¤¬Ê£¿ôÀßÄê¤·¤Æ¤¢¤ë¾ì¹ç¤ÏºÇ½é¤ÎClassÌ¾¤ÇÈ½ÊÌ
 		 */
 		var tr = $(my).closest('tr');
 		var cls = $(my).attr('class').split(' ')[0];
@@ -1693,16 +1694,16 @@ var mypage = {
 		};
 		var val = null;
 		switch (cls) {
-			case 'listamount': // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
+			case 'listamount': // Ëç¿ô¤ÎÊÑ¹¹
 				val = mypage.check_Real(my);
 				if (val == '0') {
-					mypage.removeitem(my, size_id, master_id); // ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Î»ï¿½ï¿½Ïºï¿½ï¿½
+					mypage.removeitem(my, size_id, master_id); // Ëç¿ô¤¬0¤Î»þ¤Ïºï½ü
 					return;
 				}
 				args['target_key'] = 'amount';
 				args['value'] = val;
 				break;
-			case 'choice': // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Ü¥Ã¥ï¿½ï¿½ï¿½
+			case 'choice': // ¥¢¥¤¥Æ¥à¤ÎÁªÂò¥Á¥§¥Ã¥¯¥Ü¥Ã¥¯¥¹
 				if ($(my).is(':checked')) {
 					$(my).closest('tr').fadeTo('fast', '1');
 					val = 1;
@@ -1713,10 +1714,10 @@ var mypage = {
 				args['target_key'] = 'choice';
 				args['value'] = val;
 				break;
-			case 'plateis': // ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
-				// sessionStorage ï¿½ï¿½ï¿½Ð±ï¿½
+			case 'plateis': // ÂÐ±þ¤¹¤ë¥Ç¥¶¥¤¥ó¤òÊÑ¹¹
+				// sessionStorage ÈóÂÐ±þ
 				break;
-			case 'itemcost': // Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
+			case 'itemcost': // Ã±²Á¤ÎÊÑ¹¹
 				val = my.value;
 				args['target_key'] = 'cost';
 				args['value'] = val;
@@ -1745,7 +1746,7 @@ var mypage = {
 				data: list,
 				success: function (r) {
 					if (r instanceof Array) {
-						if (r.length == 0) return; // ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½ï¿½
+						if (r.length == 0) return; // ÃíÊ¸¥ê¥¹¥È¤¬¶õ
 						mypage.setEstimation(r, true);
 					} else {
 						alert('Error: p1065\n' + r);
@@ -1786,7 +1787,7 @@ var mypage = {
 	},
 	changeitem: function (my, size_id, master_id) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Î¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ì¾ï¿½ï¿½ï¿½Ñ¹ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤Î¥¢¥¤¥Æ¥àÌ¾¤ÎÊÑ¹¹
 		 */
 		var myindex = $('#orderlist tbody tr').index($(my).closest('tr'));
 		var td = $(my).parent();
@@ -1815,12 +1816,12 @@ var mypage = {
 				if (r instanceof Array) {
 					if (r[0] == '') {
 						$(my).val(pre_item_id);
-						alert('ï¿½Ñ¹ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£¥ï¿½ï¿½é¡¼ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+						alert('ÊÑ¹¹¤Ç¤­¤Þ¤»¤ó¡£¥«¥é¡¼¤È¥µ¥¤¥º¤ò³ÎÇ§¤·¤Æ²¼¤µ¤¤¡£');
 						return;
 					}
 					if (!mypage.checkStorage(master_id, size_id, r[0]['master_id'], [r[0]['color_code'], r[0]['maker'], new_item_name], 'master')) {
 						$(my).val(pre_item_id);
-						alert('Æ±ï¿½ï¿½ï¿½ï¿½ï¿½é¡¼ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Æ¥à¤¬ï¿½ï¿½ï¿½ë¤¿ï¿½á¡¢ï¿½Ñ¹ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½');
+						alert('Æ±¤¸¥«¥é¡¼¤Î¥¢¥¤¥Æ¥à¤¬¤¢¤ë¤¿¤á¡¢ÊÑ¹¹¤Ç¤­¤Þ¤»¤ó¡£');
 						return;
 					}
 					var new_ppID = r[0]['position_id'];
@@ -1857,7 +1858,7 @@ var mypage = {
 								mypage.setEstimation(r, false);
 								var new_ppID = $('#orderlist tbody tr:eq(' + myindex + ') td:first').children('.positionid').text();
 
-								// ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½ï¿½É²Ã½ï¿½ï¿½ï¿½
+								// ¥×¥ê¥ó¥È°ÌÃÖ¤ÎÄÉ²Ã½èÍý
 								if ($('#pp_wrapper span[title="item_' + new_item_id + '"]').length == 0) {
 									if ($("#pp_toggler_" + category_id).next().find('.printposition_' + new_ppID).length == 0) {
 										$.ajax({
@@ -1882,7 +1883,7 @@ var mypage = {
 									$('#pp_toggler_' + category_id + ' p').append('<span title="item_' + new_item_id + '">' + new_item_name + '</span>');
 								}
 
-								// ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Îºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								// ¥×¥ê¥ó¥È°ÌÃÖ¤Îºï½ü½èÍý
 								if (!flg_id) {
 									var toggle = $('#pp_wrapper span[title="item_' + pre_item_id + '"]').parent();
 									//var toggle = $('#item_'+pre_item_id).parent();
@@ -1912,7 +1913,7 @@ var mypage = {
 	},
 	changeValue: function (my) {
 		/*
-		 *	ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Î¥ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½
+		 *	¥«¥Æ¥´¥ê¤È¥¢¥¤¥Æ¥à¤Î¥»¥ì¥¯¥¿ÊÑ¹¹¥¤¥Ù¥ó¥È
 		 */
 		var myid = my.parentNode.id;
 		switch (myid) {
@@ -1938,7 +1939,7 @@ var mypage = {
 						$('#itemIs').html('<input type="text" value="" size="36" />');
 						$('#stock_number, #maker').removeAttr('readonly').removeClass('readonly');
 					} else {
-						$('#itemIs').html('<input type="text" value="Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½" size="36" readonly="readonly" />');
+						$('#itemIs').html('<input type="text" value="Å¾¼Ì¥·¡¼¥È" size="36" readonly="readonly" />');
 						$('#stock_number, #maker').hide();
 					}
 					$('#itemcolor_name').removeAttr('readonly').removeClass('readonly');
@@ -2095,16 +2096,16 @@ var mypage = {
 		if (my.value == '0') {
 			$(my).parents('.pp_info').siblings('.position_reset').click();
 		} else if ($(my).attr("max") == "1" && my.value > 1) {
-			alert("ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½");
+			alert("¤³¤Î¥×¥ê¥ó¥È°ÌÃÖ¤Ï1¿§¸ÂÄê¤Ç¤¹¡£");
 		}
 		mypage.calcPrintFee();
 		mypage.prop.modified = true;
 	},
 	calcExchinkFee: function () {
 		/*
-		 *	ï¿½ï¿½ï¿½ó¥¯¿ï¿½ï¿½Ø¤ï¿½ï¿½ï¿½Ú¤Ó»É½ï¿½ï¿½ï¿½ï¿½Ø¤ï¿½ï¿½ï¿½Î·×»ï¿½ï¿½Ê°ï¿½ï¿½Ì¤Î¤ß¡ï¿½
-		 *	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½×»ï¿½ï¿½ò¤·¤Ê¤ï¿½
-		 *	return  ï¿½ï¿½ï¿½Ø¤ï¿½ï¿½ï¿½
+		 *	¥¤¥ó¥¯¿§ÂØ¤¨ÂåµÚ¤Ó»É½«¿§ÂØ¤¨Âå¤Î·×»»¡Ê°ìÈÌ¤Î¤ß¡Ë
+		 *	°ú¿ô¤¬¤¢¤ë¾ì¹ç¤Ï¡¢¸«ÀÑ¤ê·×»»¤ò¤·¤Ê¤¤
+		 *	return  ¿§ÂØ¤¨¿ô
 		 */
 		if (mypage.prop.ordertype == "industry") return 0;
 
@@ -2136,9 +2137,9 @@ var mypage = {
 	},
 	calcPrintFee: function () {
 		/*
-		 *	ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Î·×»ï¿½ï¿½Ê°ï¿½ï¿½Ì¤Î¤ß¡ï¿½
+		 *	¥×¥ê¥ó¥ÈÂå¤Î·×»»¡Ê°ìÈÌ¤Î¤ß¡Ë
 		 */
-		if (mypage.prop.ordertype == 'industry') { // ï¿½È¼Ô¤Ï¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½Ê¤ï¿½
+		if (mypage.prop.ordertype == 'industry') { // ¶È¼Ô¤Ï¥×¥ê¥ó¥ÈÂå·×»»¤Ê¤·
 			mypage.calcEstimation();
 			return;
 		}
@@ -2146,7 +2147,7 @@ var mypage = {
 		mypage.prop.isRepeatFirst = false;
 		mypage.prop.isRepeatCheck = false;
 
-		// ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½È¤Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ¥×¥ê¥ó¥ÈÊýË¡¤´¤È¤Î¥×¥ê¥ó¥ÈÂå¤ò½é´ü²½
 		$('#pp_wrapper .pp_toggler').each(function () {
 			$(this).find('.sub_price').val('0');
 		});
@@ -2156,9 +2157,9 @@ var mypage = {
 		$('#est_inkjet_printfee').html('0');
 		$('#est_cutting_printfee').html('0');
 		$('#est_embroidery_printfee').html('0');
-		$('#est_price').text($('#total_cost').val()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		$('#est_price').text($('#total_cost').val()); // ¾¦ÉÊÂå
 
-		if ($('#noprint').is(':checked')) { // ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½
+		if ($('#noprint').is(':checked')) { // ¥×¥ê¥ó¥È¤Ê¤·
 			$('#est_printfee').val(0);
 			$('#itemprint tbody').html('');
 			mypage.calcEstimation();
@@ -2175,7 +2176,7 @@ var mypage = {
 			const _DARK_COLOR = new Array(0, 3700, 4700);
 			var inkjet_palecolor_code = {
 				"001": true
-			}; // Ã¸ï¿½ï¿½
+			}; // Ã¸¿§
 			var tot_price = 0;
 			var item_price = $('#total_cost').val().replace(/,/g, '') - 0;
 			var items = {};
@@ -2189,7 +2190,7 @@ var mypage = {
 				var vol = $(this).find('.listamount').val().replace(/,/g, '') - 0;
 				var color_code = $(this).children('td:last').children('span:first').text().split('_')[1];
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Î¥ï¿½ï¿½é¡¼ï¿½ï¿½ï¿½È¤ï¿½Ê¬ï¿½à¤·ï¿½Æ½ï¿½ï¿½ï¿½
+				// ¥¢¥¤¥Æ¥à¤Î¥«¥é¡¼¤´¤È¤ËÊ¬Îà¤·¤Æ½¸·×
 				if (typeof items[item_id] == 'undefined') {
 					items[item_id] = {
 						color_code: {}
@@ -2236,7 +2237,7 @@ var mypage = {
 						if (countPosition > 2) countPosition = 2;
 
 						if (item_id == 4 && print_type == "inkjet") {
-							// 085-cvtï¿½Ç³ï¿½Ä¥ï¿½ï¿½ó¥¯¥ï¿½ï¿½ï¿½ï¿½Ã¥È¤Î¾ï¿½ï¿½
+							// 085-cvt¤Ç³î¤Ä¥¤¥ó¥¯¥¸¥§¥Ã¥È¤Î¾ì¹ç
 							if (inkjet_palecolor_code[color_code]) {
 								tot_price += item['vol'] * _PALE_COLOR[countPosition];
 							} else {
@@ -2255,9 +2256,9 @@ var mypage = {
 			}
 			mypage.calcEstimation();
 		} else {
-			// ï¿½Ì¾ï¿½
+			// ÄÌ¾ï
 
-			// 2017-05-25 ï¿½ï¿½ï¿½é¡¢ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½
+			// 2017-05-25 ¤«¤é¡¢¥×¥ê¥ó¥ÈÂå·×»»¤Î»ÅÍÍÊÑ¹¹¸å¤Î½èÍý¤òÅ¬ÍÑ
 			var changeVerTime = Date.parse(mypage.prop.spec_v2);
 			var curDateTime = isNaN(Date.parse(mypage.prop.acceptingdate)) ? Date.now() : Date.parse(mypage.prop.acceptingdate.replace(/-/g, "/"));
 			if (changeVerTime <= curDateTime) {
@@ -2273,7 +2274,7 @@ var mypage = {
 			var est_inkjet_printfee = 0;
 			var est_cutting_printfee = 0;
 
-			// ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
+			// Ëç¿ô¤ò½¸·×
 			var itemprintfee = {};
 			var ca = {};
 			$('#orderlist tbody tr').each(function () {
@@ -2283,7 +2284,7 @@ var mypage = {
 				var cost = $(this).find('.subtotal').text().replace(/,/g, '') - 0;
 				var vol = $(this).find('.listamount').val().replace(/,/g, '') - 0;
 				var categoryid = $(this).children('td:eq(2)').attr('class').split('_')[1];
-				if (categoryid == 0 || categoryid == 100) { // ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½
+				if (categoryid == 0 || categoryid == 100) { // ¤½¤ÎÂ¾¤È»ý¹þ
 					item_id = $(this).children('td:eq(0)').children('.itemid').text().split('_')[0];
 					itemname = $(this).find('.item_selector').text();
 				} else {
@@ -2333,7 +2334,7 @@ var mypage = {
 					}
 					amount += vol;
 				}
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½å½¸ï¿½ï¿½ï¿½ï¿½
+				// ¥¢¥¤¥Æ¥àËè¤Î¥×¥ê¥ó¥ÈÂå½¸·×ÍÑ
 				if (typeof itemprintfee[item_id] == 'undefined') {
 					itemprintfee[item_id] = {
 						'vol': vol,
@@ -2349,7 +2350,7 @@ var mypage = {
 
 			if (amount == 0) {
 				if (!$('#free_printfee').is(':checked')) $('#est_printfee').val(0);
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
+				// ¥¢¥¤¥Æ¥àËè¤Î¥×¥ê¥ó¥ÈÂå¤ò½¸·×
 				var tr = '';
 				for (var item_id in itemprintfee) {
 					tr += '<tr class="itemid_' + item_id + '">';
@@ -2367,25 +2368,25 @@ var mypage = {
 			}
 
 			/*
-			 *	bitï¿½é»»ï¿½Ç¥ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½×¤ï¿½È½ï¿½ï¿½
-			 *	1:ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ç¤¢ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½
-			 *	2:ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			 *	99:ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½Ç¤Ç¥×¥ï¿½ï¿½È¤ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			 *	repeat ï¿½Ç¡ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½Ê¿ï¿½
+			 *	bit±é»»¤Ç¥ê¥Ô¡¼¥È¥¿¥¤¥×¤òÈ½ÊÌ
+			 *	1:ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤ò°ú¤¤¤¿¸å¡¢¸µ¼õÃí¤Î1Ëç¤¢¤¿¤êÃ±²Á¤ò´ð½à¤Ë¤¹¤ë
+			 *	2:ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤ò°ú¤¯
+			 *	99:ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤ò°ú¤¯¡Ê´û¤ËÆ±¤¸ÈÇ¤Ç¥×¥ê¥ó¥È¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¡Ë
+			 *	repeat ÈÇ¡¡¥Ç¥¶¥¤¥ó¡¡10¿Ê¿ô
 			 *	0    1    1    3
 			 *	1    0    0    0
 			 *	2    0    0    0
 			 */
-			var repeatType = [3, 0, 0]; // Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½repeatï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
-			var repeatID = [1, 99, 0]; // ï¿½Ó¥Ã¥È±é»»ï¿½Î·ï¿½Ì¤ï¿½repeatï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			var repeatType = [3, 0, 0]; // Åº¤¨»ú¤Ërepeat¼ïÎàID¤òÆþ¤ì¤ë 
+			var repeatID = [1, 99, 0]; // ¥Ó¥Ã¥È±é»»¤Î·ë²Ì¤Çrepeat¼ïÎàID¤òºÆÀßÄê
 			var repeat = 0;
 
-			var repeat_all_check = true; // ï¿½ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½true
-			var repeat_digit_check = true; // ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¤Î¥ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½true
-			var repeat_trans_check = true; // ï¿½ï¿½ï¿½é¡¼Å¾ï¿½Ì¤Î¥ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½true
-			var repeat_check = false; // ï¿½ï¿½ï¿½ë¥¯ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥Æ¥ï¿½ï¿½ó¥°¡ï¿½ï¿½ï¿½ï¿½ó¥¯¥ï¿½ï¿½ï¿½ï¿½Ã¥È¤Î¥ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ö¡ï¿½1ï¿½Ä¤Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½true
+			var repeat_all_check = true; // ¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬Á´¤Æ¥Á¥§¥Ã¥¯¤Çtrue
+			var repeat_digit_check = true; // ¥Ç¥¸¥¿¥ëÅ¾¼Ì¤Î¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬Á´¤Æ¥Á¥§¥Ã¥¯¤Çtrue
+			var repeat_trans_check = true; // ¥«¥é¡¼Å¾¼Ì¤Î¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬Á´¤Æ¥Á¥§¥Ã¥¯¤Çtrue
+			var repeat_check = false; // ¥·¥ë¥¯¡¢¥«¥Ã¥Æ¥£¥ó¥°¡¢¥¤¥ó¥¯¥¸¥§¥Ã¥È¤Î¥ê¥Ô¡¼¥ÈÈÇ¥Á¥§¥Ã¥¯¥Ü¥Ã¥¯¥¹¤Î¾õÂÖ¡¢1¤Ä¤Ç¤â¥Á¥§¥Ã¥¯¤¬¤¢¤ì¤Ðtrue
 
-			// Ê£ï¿½ï¿½ï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¡Ê¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½Æ¤ï¿½ï¿½ë¤«ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½ï¿½
+			// Ê£¿ô¤Î³¨·¿¤ÇÆ±¤¸¥×¥ê¥ó¥È°ÌÃÖ¡Ê¥Ç¥¶¥¤¥ó¡Ë¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¤«¤É¤¦¤«¤ÎÈ½ÃÇÍÑ
 			var plate_check = {
 				'silk': [],
 				'inkjet': [],
@@ -2414,27 +2415,27 @@ var mypage = {
 			var repeat_type = [];
 			var plate_type = [];
 			var print_pos = [];
-			var setting_group = []; // Æ±ï¿½ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½Ç¥×¥ï¿½ï¿½È¤ï¿½ï¿½ë¥¢ï¿½ï¿½ï¿½Æ¥à·´
+			var setting_group = []; // Æ±¤¸ÁÈÉÕ¤±¤Ç¥×¥ê¥ó¥È¤¹¤ë¥¢¥¤¥Æ¥à·´
 
-			// ï¿½×¥ï¿½ï¿½È³ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½È¤Ë½ï¿½ï¿½ï¿½
+			// ¥×¥ê¥ó¥È³äÁýÎ¨¤´¤È¤Ë½èÍý
 			for (var ratioID in ca) {
 
-				// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¡Ë¤ï¿½ï¿½È¤Ë·×»ï¿½
+				// ¥Ç¥¶¥¤¥ó¡ÊÈÇ¡Ë¤´¤È¤Ë·×»»
 				for (var plate in ca[ratioID]) {
 
-					// ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ê¡¼ï¿½ï¿½ï¿½ï¿½
+					// ¥«¥Æ¥´¥ê¡¼¤´¤È
 					for (var categoryid in ca[ratioID][plate]) {
 
-						// ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½
+						// ³¨·¿ID¤´¤È
 						for (var ppID in ca[ratioID][plate][categoryid]) {
 							var cur_item = ca[ratioID][plate][categoryid][ppID];
 							var volume = cur_item['vol'] - 0;
 							toggler = $('#pp_toggler_' + categoryid);
 							toggler.next().children().each(function () {
-								// ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½
+								// ¤½¤ÎÂ¾¤È»ý¹þ¤Ï½ü³°
 								if ($(this).attr('class').split('_')[1] != ppID) return true; // continue
 
-								// ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½
+								// ¥×¥ê¥ó¥È°ÌÃÖ¤´¤È
 								$(this).children('.pp_box').each(function () {
 									var ppInfo = $(this).children('.pp_info');
 									if (plate != ppInfo.find('.designplate').val()) return true; // continue
@@ -2445,8 +2446,8 @@ var mypage = {
 									var area = $(this).children('.pp_image').children('img:not(:nth-child(1))');
 									var count = 0;
 									var extra = 1;
-									var posname_class = ''; // ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½é¥¹Ì¾
-									var pos_name = ''; // ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½Ì¾ï¿½ï¿½
+									var posname_class = ''; // ¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¯¥é¥¹Ì¾
+									var pos_name = ''; // ¥×¥ê¥ó¥È°ÌÃÖ¤ÎÌ¾¾Î
 
 									for (var i = 0; i < area.length; i++) {
 										if (($(area[i]).attr('src')).match(/_on.png$/)) {
@@ -2468,7 +2469,7 @@ var mypage = {
 									switch (print_type) {
 										case 'silk':
 											ink = ppInfo.find('.ink_count').val();
-											shot = ppInfo.find('.jumbo_plate:checked').val(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ï¿½
+											shot = ppInfo.find('.jumbo_plate:checked').val(); // ¥¸¥ã¥ó¥ÜÈÇ»ÈÍÑ
 											break;
 										case 'inkjet':
 											if (ppInfo.find('.inkoption').val() == '1') {
@@ -2490,7 +2491,7 @@ var mypage = {
 											break;
 									}
 
-									if (count == 1 && !(ink == '0' && print_type == "silk")) { // ï¿½×¥ï¿½ï¿½È»ï¿½ï¿½ê¤¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+									if (count == 1 && !(ink == '0' && print_type == "silk")) { // ¥×¥ê¥ó¥È»ØÄê¤¬¤¢¤ë¾ì¹ç
 										print_area.push(count);
 										extra_ratio.push(extra);
 										ink_count.push(ink);
@@ -2501,7 +2502,7 @@ var mypage = {
 										plate_type.push(plate);
 										print_pos.push(pos_name);
 
-										// ï¿½ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+										// ¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯
 										if ($(this).find('.repeat_check').is(':checked')) {
 											mypage.prop.isRepeatCheck = true;
 											if ((print_type == 'silk' || print_type == 'inkjet' || print_type == 'darkinkjet' || print_type == 'cutting')) repeat_check = true;
@@ -2510,7 +2511,7 @@ var mypage = {
 											repeat_all_check = false;
 											repeat = 0;
 
-											// Å¾ï¿½Ì¤Î¥ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç³ï¿½Å¬ï¿½Ñ¤Î³ï¿½Ç§
+											// Å¾¼Ì¤Î¥ê¥Ô¡¼¥ÈÈÇ³äÅ¬ÍÑ¤Î³ÎÇ§
 											if (print_type == 'digit') {
 												repeat_digit_check = false;
 											} else if (print_type == 'trans' || print_type == 'darktrans') {
@@ -2520,7 +2521,7 @@ var mypage = {
 
 										var items = [];
 										for (var id in cur_item['item_id']) {
-											items.push(id + '|' + cur_item['item_id'][id]); // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ID | ï¿½ï¿½ï¿½
+											items.push(id + '|' + cur_item['item_id'][id]); // ¥¢¥¤¥Æ¥àID | Ëç¿ô
 										}
 										itemid.push(items.join(','));
 
@@ -2528,70 +2529,70 @@ var mypage = {
 										pos_name += ratioID;
 										if (print_type == 'silk' || print_type == 'inkjet' || print_type == 'darkinkjet' || print_type == 'cutting') {
 											if (categoryid == 7) {
-												repeat_id = repeatID[repeatType[repeat] & 2]; // ï¿½ï¿½ï¿½ï¿½Ã¥×¤Ï¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¾å¤¹ï¿½ï¿½ï¿½0 or 1ï¿½ï¿½
+												repeat_id = repeatID[repeatType[repeat] & 2]; // ¥­¥ã¥Ã¥×¤Ï¾ï¤ËÈÇÂå¤ò·×¾å¤¹¤ë¡Ê0 or 1¡Ë
 											} else if (categoryid == 1 || ppID.match(/^(1|2|3|4|5|36|54|55|56|57|12|13|14|15|63|64|65|66|41|42)$/)) {
-												// Tï¿½ï¿½ï¿½ï¿½Ä¤È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö»ï¿½ï¿½ê¤¬ï¿½ï¿½ï¿½Ç¤Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+												// T¥·¥ã¥Ä¤È°ìÉô³¨·¿¤ÇÆ±¤¸¥×¥ê¥ó¥È°ÌÃÖ»ØÄê¤¬¤¹¤Ç¤Ë¤¢¤ë¾ì¹ç¤ÏÁÈÉÕ¤±Âå¤ò°ú¤¯
 												if (Object.keys(plate_check[print_type][plate]).length === 0 || typeof plate_check[print_type][plate][pos_name] == 'undefined') {
-													repeat_id = repeatID[repeatType[repeat] & 2]; // ï¿½ï¿½0 or 1ï¿½ï¿½
+													repeat_id = repeatID[repeatType[repeat] & 2]; // ¡Ê0 or 1¡Ë
 												} else if (plate_check[print_type][plate][pos_name] == 2) {
-													repeat_id = 99; // ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½
+													repeat_id = 99; // ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤ÈÁÈÉÕ¤±Âå¤òº¹°ú¤¯
 												} else {
-													repeat_id = repeatID[repeatType[repeat] & 0]; // ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½(1)
+													repeat_id = repeatID[repeatType[repeat] & 0]; // ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤òº¹°ú¤¯(1)
 												}
-												plate_check[print_type][plate][pos_name] = 2; // ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½Î·×¾ï¿½ï¿½1ï¿½ï¿½
+												plate_check[print_type][plate][pos_name] = 2; // ÁÈÉÕ¤±Âå¤Î·×¾å¤Ï1²ó
 												setting_group.push(pos_name);
 											} else if (categoryid == 2 || ppID.match(/^(7|10|47|48)$/)) {
-												// ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¥Õ¡ï¿½ï¿½É¤Ø¤Î¥×¥ï¿½ï¿½È²ï¿½ï¿½Ý¡Ë¤ï¿½Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö»ï¿½ï¿½ê¤¬ï¿½ï¿½ï¿½Ç¤Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+												// ¥Ñ¡¼¥«¡¼¤Î°ìÉô³¨·¿¡Ê¥Õ¡¼¥É¤Ø¤Î¥×¥ê¥ó¥È²ÄÈÝ¡Ë¤ÇÆ±¤¸¥×¥ê¥ó¥È°ÌÃÖ»ØÄê¤¬¤¹¤Ç¤Ë¤¢¤ë¾ì¹ç¤ÏÁÈÉÕ¤±Âå¤ò°ú¤¯
 												if (Object.keys(plate_check[print_type][plate]).length === 0 || typeof plate_check[print_type][plate][pos_name] == 'undefined') {
-													repeat_id = repeatID[repeatType[repeat] & 2]; // ï¿½ï¿½0 or 1ï¿½ï¿½
+													repeat_id = repeatID[repeatType[repeat] & 2]; // ¡Ê0 or 1¡Ë
 												} else if (plate_check[print_type][plate][pos_name] == 2) {
-													repeat_id = 99; // ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½
+													repeat_id = 99; // ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤ÈÁÈÉÕ¤±Âå¤òº¹°ú¤¯
 												} else {
-													repeat_id = repeatID[repeatType[repeat] & 0]; // ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½(1)
+													repeat_id = repeatID[repeatType[repeat] & 0]; // ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤òº¹°ú¤¯(1)
 												}
-												plate_check[print_type][plate][pos_name] = 2; // ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½Î·×¾ï¿½ï¿½1ï¿½ï¿½
+												plate_check[print_type][plate][pos_name] = 2; // ÁÈÉÕ¤±Âå¤Î·×¾å¤Ï1²ó
 												setting_group.push(pos_name);
 											} else if (typeof plate_check[print_type][plate][pos_name] == 'undefined') {
-												repeat_id = repeatID[repeatType[repeat] & 2]; // ï¿½ï¿½0 or 1ï¿½ï¿½
-												plate_check[print_type][plate][pos_name] = 1; // ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½Ï²Õ½ê¤´ï¿½È¤Ë·×¾ï¿½
+												repeat_id = repeatID[repeatType[repeat] & 2]; // ¡Ê0 or 1¡Ë
+												plate_check[print_type][plate][pos_name] = 1; // ÁÈÉÕ¤±Âå¤Ï²Õ½ê¤´¤È¤Ë·×¾å
 												setting_group.push('');
 											} else {
-												repeat_id = repeatID[repeatType[repeat] & 0]; // ï¿½ï¿½ï¿½ï¿½È¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½(1)
+												repeat_id = repeatID[repeatType[repeat] & 0]; // ÈÇÂå¤È¥Ç¥¶¥¤¥óÂå¤òº¹°ú¤¯(1)
 												setting_group.push('');
 											}
 											repeat_type.push(repeat_id);
 										} else {
-											// Å¾ï¿½ï¿½
+											// Å¾¼Ì
 											if (categoryid == 1 || ppID.match(/^(1|2|3|4|5|36|54|55|56|57|12|13|14|15|63|64|65|66|41|42)$/)) {
-												// Tï¿½ï¿½ï¿½ï¿½Ä¤È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö»ï¿½ï¿½ê¤¬ï¿½ï¿½ï¿½Ç¤Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥×¥ì¥¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+												// T¥·¥ã¥Ä¤È°ìÉô³¨·¿¤ÇÆ±¤¸¥×¥ê¥ó¥È°ÌÃÖ»ØÄê¤¬¤¹¤Ç¤Ë¤¢¤ë¾ì¹ç¤Ï¥×¥ì¥¹½àÈ÷Âå¤ò°ú¤¯
 												if (Object.keys(plate_check[print_type][plate]).length === 0 || typeof plate_check[print_type][plate][pos_name] == 'undefined') {
 													repeat_id = repeat;
 
 												} else {
-													// ï¿½×¥ì¥¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½
+													// ¥×¥ì¥¹½àÈ÷Âå¤òº¹°ú¤¯
 													if (repeat == 0) {
-														repeat_id = 990; // ï¿½ï¿½ï¿½ï¿½
+														repeat_id = 990; // ¿·ÈÇ
 													} else {
-														repeat_id = 991; // ï¿½ï¿½ï¿½ï¿½ï¿½
+														repeat_id = 991; // ¥ê¥ÔÈÇ
 													}
 												}
-												plate_check[print_type][plate][pos_name] = 2; // ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½Î·×¾ï¿½ï¿½1ï¿½ï¿½
+												plate_check[print_type][plate][pos_name] = 2; // ÁÈÉÕ¤±Âå¤Î·×¾å¤Ï1²ó
 											} else if (categoryid == 2 || ppID.match(/^(7|10|47|48)$/)) {
-												// ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¥Õ¡ï¿½ï¿½É¤Ø¤Î¥×¥ï¿½ï¿½È²ï¿½ï¿½Ý¡Ë¤ï¿½Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö»ï¿½ï¿½ê¤¬ï¿½ï¿½ï¿½Ç¤Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥×¥ì¥¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+												// ¥Ñ¡¼¥«¡¼¤Î°ìÉô³¨·¿¡Ê¥Õ¡¼¥É¤Ø¤Î¥×¥ê¥ó¥È²ÄÈÝ¡Ë¤ÇÆ±¤¸¥×¥ê¥ó¥È°ÌÃÖ»ØÄê¤¬¤¹¤Ç¤Ë¤¢¤ë¾ì¹ç¤Ï¥×¥ì¥¹½àÈ÷Âå¤ò°ú¤¯
 												if (Object.keys(plate_check[print_type][plate]).length === 0 || typeof plate_check[print_type][plate][pos_name] == 'undefined') {
 													repeat_id = repeat;
 												} else {
-													// ï¿½×¥ì¥¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½òº¹°ï¿½ï¿½ï¿½
+													// ¥×¥ì¥¹½àÈ÷Âå¤òº¹°ú¤¯
 													if (repeat == 0) {
-														repeat_id = 990; // ï¿½ï¿½ï¿½ï¿½
+														repeat_id = 990; // ¿·ÈÇ
 													} else {
-														repeat_id = 991; // ï¿½ï¿½ï¿½ï¿½ï¿½
+														repeat_id = 991; // ¥ê¥ÔÈÇ
 													}
 												}
-												plate_check[print_type][plate][pos_name] = 2; // ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½Î·×¾ï¿½ï¿½1ï¿½ï¿½
+												plate_check[print_type][plate][pos_name] = 2; // ÁÈÉÕ¤±Âå¤Î·×¾å¤Ï1²ó
 											} else if (typeof plate_check[print_type][plate][pos_name] == 'undefined') {
 												repeat_id = repeat;
-												plate_check[print_type][plate][pos_name] = 1; // ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½Ï²Õ½ê¤´ï¿½È¤Ë·×¾ï¿½
+												plate_check[print_type][plate][pos_name] = 1; // ÁÈÉÕ¤±Âå¤Ï²Õ½ê¤´¤È¤Ë·×¾å
 											} else {
 												repeat_id = repeat;
 											}
@@ -2608,7 +2609,7 @@ var mypage = {
 
 			if (plate_type.length > 0) {
 
-				// Å¾ï¿½Ì¤Ç¥ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ë³¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¤Î¥ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½Ê¤ï¿½
+				// Å¾¼Ì¤Ç¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬³°¤ì¤Æ¤¤¤ë³¨·¿¤¬¤¢¤ë¾ì¹ç¤ÏÅ¾¼Ì¤Î¥ê¥Ô¡¼¥ÈÈÇ³ä¤òÅ¬ÍÑ¤·¤Ê¤¤
 				for (var i = 0; i < print_name.length; i++) {
 					if ((print_name[i] == 'digit' && repeat_digit_check == false) || ((print_name[i] == 'trans' || print_name[i] == 'darktrans') && repeat_trans_check == false)) {
 						if (repeat_type[i] == 991 || repeat_type[i] == 990) {
@@ -2620,12 +2621,12 @@ var mypage = {
 						if ((print_name[i] == 'silk' || print_name[i] == 'inkjet' || print_name[i] == 'darkinkjet' || print_name[i] == 'cutting')) {
 							if (repeat_check) mypage.prop.isRepeat = true;
 						} else {
-							mypage.prop.isRepeat = true; // Å¾ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+							mypage.prop.isRepeat = true; // Å¾¼Ì¤ÇÁ´¤Æ¥Á¥§¥Ã¥¯
 						}
 					}
 				}
 
-				if ($('#free_printfee').is(':checked')) { // ï¿½×¥ï¿½ï¿½ï¿½ï¿½å¤¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				if ($('#free_printfee').is(':checked')) { // ¥×¥ê¥ó¥ÈÂå¤¬¼êÆþÎÏ
 					$('#itemprint tbody').html('');
 					mypage.calcEstimation();
 					return;
@@ -2687,11 +2688,11 @@ var mypage = {
 				});
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Ç§
+			// ½é²ó³ä¤ÎÅ¬ÍÑ¾ò·ï¤ò³ÎÇ§
 			if (repeat_all_check && mypage.prop.repeat > 0 && mypage.prop.reuse == 1 && !$('#free_printfee').is(':checked')) {
 				mypage.prop.isRepeatFirst = true;
 				var target_item = {};
-				// ï¿½Ç¸ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½Í­Ìµï¿½ï¿½ï¿½Ç§
+				// ÈÇ¸µ¤ËÌµ¤¤¥¢¥¤¥Æ¥à¤ÎÍ­Ìµ¤ò³ÎÇ§
 				$.ajax({
 					url: './php_libs/ordersinfo.php',
 					async: false,
@@ -2708,7 +2709,7 @@ var mypage = {
 							for (var i = 0; i < r.length; i++) {
 								if (typeof base_item[r[i]['item_id']] == 'undefined') base_item[r[i]['item_id']] = [];
 								base_item[r[i]['item_id']].push(r[i]['color_code']);
-								if (r[i]['item_id'] == 0 || r[i]['item_id'] >= 99999) { // ï¿½Ç¸ï¿½ï¿½Ë¡Ö¤ï¿½ï¿½ï¿½Â¾ï¿½×¡Ö»ï¿½ï¿½ï¿½ï¿½×¤ï¿½ï¿½ï¿½ï¿½ï¿½
+								if (r[i]['item_id'] == 0 || r[i]['item_id'] >= 99999) { // ÈÇ¸µ¤Ë¡Ö¤½¤ÎÂ¾¡×¡Ö»ý¹þ¡×¤¬¤¢¤ë
 									mypage.prop.isRepeatFirst = false;
 									break;
 								}
@@ -2725,7 +2726,7 @@ var mypage = {
 										return false; // break
 									}
 									if (base_item[item_id].indexOf(color_code) == -1) {
-										mypage.prop.isRepeatFirst = false; // ï¿½Ç¸ï¿½ï¿½Ë¤Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¥«ï¿½é¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										mypage.prop.isRepeatFirst = false; // ÈÇ¸µ¤Ë¤Ê¤¤¥¢¥¤¥Æ¥à¥«¥é¡¼¤¬¤¢¤ë
 										return false; // break
 									}
 									target_item[item_id] = true;
@@ -2737,7 +2738,7 @@ var mypage = {
 					}
 				});
 
-				// ï¿½Ç¸ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½×¥ï¿½ï¿½È¤ï¿½Í­Ìµï¿½ï¿½ï¿½Ç§
+				// ÈÇ¸µ¤ËÌµ¤¤¥×¥ê¥ó¥È¤ÎÍ­Ìµ¤ò³ÎÇ§
 				if (mypage.prop.isRepeatFirst == true) {
 					$.ajax({
 						url: './php_libs/ordersinfo.php',
@@ -2751,19 +2752,19 @@ var mypage = {
 						},
 						success: function (r) {
 							if (r instanceof Array) {
-								var base_len = r.length; // ï¿½Ç¸ï¿½ï¿½Î¥×¥ï¿½ï¿½È²Õ½ï¿½ï¿½
-								var repeat_len = 0; // ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¥×¥ï¿½ï¿½È²Õ½ï¿½ï¿½
+								var base_len = r.length; // ÈÇ¸µ¤Î¥×¥ê¥ó¥È²Õ½ê¿ô
+								var repeat_len = 0; // ¥ê¥Ô¡¼¥ÈÃíÊ¸¤Î¥×¥ê¥ó¥È²Õ½ê¿ô
 								if (base_len == 0) {
-									mypage.prop.isRepeatFirst = false; // ï¿½×¥ï¿½ï¿½È¾ï¿½ï¿½ó¤¬¤Ê¤ï¿½
+									mypage.prop.isRepeatFirst = false; // ¥×¥ê¥ó¥È¾ðÊó¤¬¤Ê¤¤
 									return;
 								}
 
 								if (r[0]['noprint'] == 1 || r[0]['free_printfee'] == 1) {
-									mypage.prop.isRepeatFirst = false; // ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤Î¾ï¿½ï¿½
+									mypage.prop.isRepeatFirst = false; // ÈÇ¸µ¤¬¥×¥ê¥ó¥È¤Ê¤·¡¢¥×¥ê¥ó¥ÈÂå¼êÆþÎÏ¤Î¾ì¹ç
 									return;
 								}
 
-								// ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ó¥¯¿ï¿½ï¿½Ø¤ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½Ê¤ï¿½
+								// ½é²ó³ä¤Ï¡¢¥¤¥ó¥¯¿§ÂØ¤¨¤Î¿ô¤¬ÈÇ¸µ¤è¤êÂ¿¤¤¾ì¹ç¤ÏÅ¬ÍÑ¤·¤Ê¤¤
 								if (r[0]['exchink_count'] < $('#exchink_count').val()) {
 									mypage.prop.isRepeatFirst = false;
 								}
@@ -2782,7 +2783,7 @@ var mypage = {
 									};
 								}
 
-								// ï¿½ï¿½ï¿½ó¥¯¾ï¿½ï¿½ï¿½
+								// ¥¤¥ó¥¯¾ðÊó
 								var base_ink = [];
 								$.ajax({
 									url: './php_libs/ordersinfo.php',
@@ -2834,11 +2835,11 @@ var mypage = {
 											var jumbo = 0;
 											var size = 0;
 											var option = 0;
-											// var isExist = false;	// ï¿½ï¿½Ô¡ï¿½ï¿½È³ï¿½ï¿½È½ï¿½ï¿½
-											var isFirst = false; // ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½
-											var ink = []; // ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ó¥¯»ï¿½ï¿½ï¿½
-											var isInkLen = false; // ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ó¥¯»ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½È½ï¿½ï¿½
-											var isExistInk = false; // ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ó¥¯¿ï¿½Ì¾ï¿½ï¿½È½ï¿½ï¿½
+											// var isExist = false;	// ¥ê¥Ô¡¼¥È³ä¤ÎÈ½Äê
+											var isFirst = false; // ½é²ó³ä¤ÎÈ½Äê
+											var ink = []; // ½é²ó³ä¤ÎÈ½ÄêÍÑ¡¢Åö³º³¨·¿¤Î¥¤¥ó¥¯»ØÄê
+											var isInkLen = false; // ½é²ó³ä¤ÎÈ½ÄêÍÑ¡¢¥¤¥ó¥¯»ØÄê¤Î¿ô¤ÎÈ½Äê
+											var isExistInk = false; // ½é²ó³ä¤ÎÈ½ÄêÍÑ¡¢¥¤¥ó¥¯¿§Ì¾¤ÎÈ½Äê
 											switch (print_type) {
 												case 'silk':
 													inkcount = ppInfo.find('.ink_count').val();
@@ -2848,11 +2849,11 @@ var mypage = {
 															if (base_item[i]['ink_count'] == inkcount && base_item[i]['jumbo_plate'] == jumbo) {
 																// isExist = true;
 
-																// ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½
+																// ½é²ó³ä¤ÎÈ½Äê
 																if (mypage.prop.isRepeatFirst == false) continue;
 																if (base_item[i]['selective_key'] == pos && base_item[i]['ppID'] == ppID) {
 																	isFirst = true;
-																	// ï¿½ï¿½ï¿½ó¥¯»ï¿½ï¿½ï¿½
+																	// ¥¤¥ó¥¯»ØÄê
 																	ink = [];
 																	ppInk.children('p').each(function () {
 																		var ink_name = $(this).children('input[type="text"]:eq(1)').val();
@@ -2861,7 +2862,7 @@ var mypage = {
 																		}
 																	});
 
-																	// ï¿½Ç¸ï¿½ï¿½Î¥ï¿½ï¿½ó¥¯¤ï¿½ï¿½ï¿½ï¿½
+																	// ÈÇ¸µ¤Î¥¤¥ó¥¯¤ÈÈæ³Ó
 																	isInkLen = false;
 																	for (var areaid in base_ink) {
 																		if (base_ink[areaid].length != ink.length) continue;
@@ -2873,15 +2874,15 @@ var mypage = {
 																			for (var t = 0; t < base_ink[areaid].length; t++) {
 																				if (ink[j] == base_ink[areaid][t]['ink_name']) isExistInk = true;
 																			}
-																			if (isExistInk == false) mypage.prop.isRepeatFirst = false; // ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ã¤¦
+																			if (isExistInk == false) mypage.prop.isRepeatFirst = false; // ¥¤¥ó¥¯Ì¾¤¬°ã¤¦
 																		}
 																	}
-																	if (isInkLen == false) mypage.prop.isRepeatFirst = false; // ï¿½ï¿½ï¿½ó¥¯»ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ã¤¦
+																	if (isInkLen == false) mypage.prop.isRepeatFirst = false; // ¥¤¥ó¥¯»ØÄê¤Î¿ô¤¬°ã¤¦
 																}
 															}
 														}
 													}
-													if (isFirst == false) mypage.prop.isRepeatFirst = false; // Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È²Õ½ê¤¬ï¿½Ê¤ï¿½
+													if (isFirst == false) mypage.prop.isRepeatFirst = false; // Æ±¤¸¥×¥ê¥ó¥È²Õ½ê¤¬¤Ê¤¤
 													break;
 												case 'inkjet':
 												case 'trans':
@@ -2893,11 +2894,11 @@ var mypage = {
 														if (base_item[i]['design_plate'] == design && base_item[i]['print_type'] == print_type) {
 															if (base_item[i]['areasize_id'] == size) {
 
-																// ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½
+																// ½é²ó³ä¤ÎÈ½Äê
 																if (mypage.prop.isRepeatFirst == false) continue;
 																if (base_item[i]['selective_key'] == pos && base_item[i]['ppID'] == ppID && base_item[i]['print_option'] == option) {
 																	isFirst = true;
-																	// ï¿½ï¿½ï¿½Ã¥Æ¥ï¿½ï¿½ó¥°¤Î¥ï¿½ï¿½ó¥°¤Î¥ï¿½ï¿½ï¿½
+																	// ¥«¥Ã¥Æ¥£¥ó¥°¤Î¥¤¥ó¥°¤Î¥¤¥ó¥¯
 																	if (print_type == 'cutting') {
 																		ink = [];
 																		ppInk.children('p').each(function () {
@@ -2907,7 +2908,7 @@ var mypage = {
 																			}
 																		});
 
-																		// ï¿½Ç¸ï¿½ï¿½Î¥ï¿½ï¿½ó¥¯¤ï¿½ï¿½ï¿½ï¿½
+																		// ÈÇ¸µ¤Î¥¤¥ó¥¯¤ÈÈæ³Ó
 																		isInkLen = false;
 																		for (var areaid in base_ink) {
 																			if (base_ink[areaid].length != ink.length) continue;
@@ -2919,16 +2920,16 @@ var mypage = {
 																				for (var t = 0; t < base_ink[areaid].length; t++) {
 																					if (ink[j] == base_ink[areaid][t]['ink_name']) isExistInk = true;
 																				}
-																				if (isExistInk == false) mypage.prop.isRepeatFirst = false; // ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ã¤¦
+																				if (isExistInk == false) mypage.prop.isRepeatFirst = false; // ¥¤¥ó¥¯Ì¾¤¬°ã¤¦
 																			}
 																		}
-																		if (isInkLen == false) mypage.prop.isRepeatFirst = false; // ï¿½ï¿½ï¿½ó¥¯»ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ã¤¦
+																		if (isInkLen == false) mypage.prop.isRepeatFirst = false; // ¥¤¥ó¥¯»ØÄê¤Î¿ô¤¬°ã¤¦
 																	}
 																}
 															}
 														}
 													}
-													if (isFirst == false) mypage.prop.isRepeatFirst = false; // Æ±ï¿½ï¿½ï¿½×¥ï¿½ï¿½È²Õ½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê¤¬ï¿½Ê¤ï¿½
+													if (isFirst == false) mypage.prop.isRepeatFirst = false; // Æ±¤¸¥×¥ê¥ó¥È²Õ½ê¤ÇÆ±¤¸¥ª¥×¥·¥ç¥ó»ØÄê¤¬¤Ê¤¤
 													break;
 											}
 											if (mypage.prop.isRepeatFirst == false) return false; // break;
@@ -2937,7 +2938,7 @@ var mypage = {
 									});
 									if (mypage.prop.isRepeatFirst == false) return false; // break;
 								});
-								if (base_len < repeat_len) mypage.prop.isRepeatFirst = false; // ï¿½×¥ï¿½ï¿½È²Õ½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Ê²ï¿½
+								if (base_len < repeat_len) mypage.prop.isRepeatFirst = false; // ¥×¥ê¥ó¥È²Õ½ê¿ô¤¬ÈÇ¸µ°Ê²¼
 							} else {
 								alert('Error: p2135\n' + r);
 							}
@@ -2946,7 +2947,7 @@ var mypage = {
 				}
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
+			// ¥¢¥¤¥Æ¥àËè¤Î¥×¥ê¥ó¥ÈÂå¤ò½¸·×
 			var tr = '';
 			for (var item_id in itemprintfee) {
 				tr += '<tr class="itemid_' + item_id + '">';
@@ -2960,7 +2961,7 @@ var mypage = {
 			}
 			$('#itemprint tbody').html(tr);
 
-			// ï¿½ï¿½ï¿½Ñ¥Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Î½ï¿½
+			// ¸«ÀÑ¥Ü¥Ã¥¯¥¹¤Î½ñ´¹
 			$('#est_printfee').val(mypage.addFigure(est_printfee));
 			$('#est_silk_printfee').html(mypage.addFigure(est_silk_printfee));
 			$('#est_color_printfee').html(mypage.addFigure(est_color_printfee));
@@ -2974,8 +2975,8 @@ var mypage = {
 	},
 	calcPrintFeeVer2: function () {
 		/*
-		 * ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½
-		 * ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½Ì¤ï¿½ï¿½Ð±ï¿½
+		 * ¥×¥ê¥ó¥ÈÂå·×»»¤Î»ÅÍÍÊÑ¹¹¸å¤Î½èÍý
+		 * µì¥Ð¡¼¥¸¥ç¥ó¤ÎÆþÎÏ²èÌÌ¤ËÂÐ±þ
 		 */
 		var orders_id = $('#order_id').text() - 0;
 		var amount = 0;
@@ -2986,14 +2987,14 @@ var mypage = {
 		var est_inkjet_printfee = 0;
 		var est_cutting_printfee = 0;
 		var est_embroidery_printfee = 0;
-		var repeat_all_check = true; // ï¿½ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½true
-		var repeat_digit_check = true; // ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¤Î¥ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½true
-		var repeat_trans_check = true; // ï¿½ï¿½ï¿½é¡¼Å¾ï¿½Ì¤Î¥ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½true
-		var repeat_check = false; // ï¿½ï¿½ï¿½ë¥¯ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥Æ¥ï¿½ï¿½ó¥°¡ï¿½ï¿½ï¿½ï¿½ó¥¯¥ï¿½ï¿½ï¿½ï¿½Ã¥È¡ï¿½ï¿½É½ï¿½ï¿½Î¥ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ö¡ï¿½1ï¿½Ä¤Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½true
-		var param = {}; // ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½ï¿½Ñ¥Ñ¥ï¿½á¡¼ï¿½ï¿½
+		var repeat_all_check = true; // ¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬Á´¤Æ¥Á¥§¥Ã¥¯¤Çtrue
+		var repeat_digit_check = true; // ¥Ç¥¸¥¿¥ëÅ¾¼Ì¤Î¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬Á´¤Æ¥Á¥§¥Ã¥¯¤Çtrue
+		var repeat_trans_check = true; // ¥«¥é¡¼Å¾¼Ì¤Î¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯¤¬Á´¤Æ¥Á¥§¥Ã¥¯¤Çtrue
+		var repeat_check = false; // ¥·¥ë¥¯¡¢¥«¥Ã¥Æ¥£¥ó¥°¡¢¥¤¥ó¥¯¥¸¥§¥Ã¥È¡¢»É½«¤Î¥ê¥Ô¡¼¥ÈÈÇ¥Á¥§¥Ã¥¯¥Ü¥Ã¥¯¥¹¤Î¾õÂÖ¡¢1¤Ä¤Ç¤â¥Á¥§¥Ã¥¯¤¬¤¢¤ì¤Ðtrue
+		var param = {}; // ¥×¥ê¥ó¥ÈÂå·×»»ÍÑ¥Ñ¥é¥á¡¼¥¿
 		/*
-		 * ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
-		 * ï¿½ï¿½ï¿½ï¿½ï¿½ó¥¸¡ï¿½group1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¤È¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¤ò½¸·ï¿½
+		 * Ëç¿ô¤ò½¸·×
+		 * Ëç¿ô¥ì¥ó¥¸¡Êgroup1¡ËËè¤ÎËç¿ô¹ç·×¤È¥¢¥¤¥Æ¥àËè¤ÎËç¿ô¹ç·×¤ò½¸·×
 		 */
 		var itemprintfee = {};
 		var ca = {};
@@ -3004,21 +3005,21 @@ var mypage = {
 			var cost = $(this).find('.subtotal').text().replace(/,/g, '') - 0;
 			var vol = $(this).find('.listamount').val().replace(/,/g, '') - 0;
 			var categoryid = $(this).children('td:eq(2)').attr('class').split('_')[1];
-			if (categoryid == 0 || categoryid == 100) { // ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½
+			if (categoryid == 0 || categoryid == 100) { // ¤½¤ÎÂ¾¤È»ý¹þ
 				item_id = $(this).children('td:eq(0)').children('.itemid').text().split('_')[0];
 				itemname = $(this).find('.item_selector').text();
 			} else {
 				var ppId = $(this).children('td:eq(0)').children('.positionid').text();
-				var group1Id = $(this).children('td:eq(0)').children('.group1').text(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½
-				var group2Id = $(this).children('td:eq(0)').children('.group2').text(); // ï¿½ï¿½ï¿½ë¥¯Æ±ï¿½ï¿½Ê¬ï¿½ï¿½
+				var group1Id = $(this).children('td:eq(0)').children('.group1').text(); // Ëç¿ô¥ì¥ó¥¸Ê¬Îà
+				var group2Id = $(this).children('td:eq(0)').children('.group2').text(); // ¥·¥ë¥¯Æ±ÈÇÊ¬Îà
 				item_id = $(this).children('td:eq(0)').children('.itemid').text();
 				itemname = $(this).find('.item_selector').children('select').children('option:selected').text();
 
 				if (typeof ca[group1Id] == 'undefined') {
 					ca[group1Id] = {
-						'ids': [], // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¥¸¤Î¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-						'itemId': {}, // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥×¥ï¿½ï¿½È¥Ý¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½Êµï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-						'tot': 0 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¥¸¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						'ids': [], // Åö³ºËç¿ô¥ì¥ó¥¸¤Î¥¢¥¤¥Æ¥àID¤ÎÇÛÎó
+						'itemId': {}, // ¥¢¥¤¥Æ¥àËè¤ÎËç¿ô¤È¥×¥ê¥ó¥È¥Ý¥¸¥·¥ç¥óID¡Êµì¥Ð¡¼¥¸¥ç¥ó¡Ë
+						'tot': 0 // Åö³ºËç¿ô¥ì¥ó¥¸¤ÎÁíËç¿ô
 					};
 				}
 				if (typeof ca[group1Id]['itemId'][item_id] == 'undefined') {
@@ -3033,10 +3034,10 @@ var mypage = {
 				}
 				ca[group1Id]['tot'] += vol;
 
-				// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ÃíÊ¸Ëç¿ô¹ç·×
 				amount += vol;
 			}
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½å½¸ï¿½ï¿½ï¿½ï¿½
+			// ¥¢¥¤¥Æ¥àËè¤Î¥×¥ê¥ó¥ÈÂå½¸·×ÍÑ
 			if (typeof itemprintfee[item_id] == 'undefined') {
 				itemprintfee[item_id] = {
 					'vol': vol,
@@ -3052,7 +3053,7 @@ var mypage = {
 
 		if (amount == 0) {
 			if (!$('#free_printfee').is(':checked')) $('#est_printfee').val(0);
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
+			// ¥¢¥¤¥Æ¥àËè¤Î¥×¥ê¥ó¥ÈÂå¤ò½¸·×
 			var tr = '';
 			for (var item_id in itemprintfee) {
 				tr += '<tr class="itemid_' + item_id + '">';
@@ -3070,8 +3071,8 @@ var mypage = {
 		}
 
 		/*
-		 * ï¿½×¥ï¿½ï¿½È²Õ½ï¿½ï¿½ï¿½Ë½ï¿½ï¿½ï¿½
-		 * ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Ú¤Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ê£ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ç»ï¿½ï¿½Ñ¤ï¿½ï¿½Æ¤ï¿½ï¿½ë¤¿ï¿½ï¿½ï¿½
+		 * ¥×¥ê¥ó¥È²Õ½êËè¤Ë½¸·×
+		 * µì¥Ð¡¼¥¸¥ç¥ó¤Î¥«¥Æ¥´¥êµÚ¤Ó³¨·¿¤ËÂÐ±þ¡ÊÆ±¤¸³¨·¿ID¤òÊ£¿ô¤Î¥¢¥¤¥Æ¥à¤Ç»ÈÍÑ¤·¤Æ¤¤¤ë¤¿¤á¡Ë
 		 */
 		$('#pp_wrapper .pp_toggler').each(function () {
 			var items = {};
@@ -3100,7 +3101,7 @@ var mypage = {
 			});
 
 
-			// ï¿½ï¿½×¥ï¿½ï¿½È³ï¿½ï¿½ï¿½Î¨ï¿½Ì¤Ë¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Î¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ò½¸·ï¿½
+			// µì¥×¥ê¥ó¥È³äÁýÎ¨ÊÌ¤Ë¥×¥ê¥ó¥ÈÊýË¡Ëè¤Î¥×¥ê¥ó¥È°ÌÃÖ¤ò½¸·×
 			$(this).next('.pp_toggle_body').children('div').each(function () {
 				var ppId = $(this).attr('class').split('_')[1];
 				$(this).find('.pp_box').each(function () {
@@ -3108,7 +3109,7 @@ var mypage = {
 					var print_type = ppInfo.find('.print_type').val();
 					var area = $(this).children('.pp_image').children('img:not(:nth-child(1))');
 					var len = area.length;
-					var pos_name = ''; // ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½Ì¾ï¿½ï¿½
+					var pos_name = ''; // ¥×¥ê¥ó¥È°ÌÃÖ¤ÎÌ¾¾Î
 					var repeat = 0;
 
 					for (var i = 0; i < len; i++) {
@@ -3121,28 +3122,28 @@ var mypage = {
 						return true; // continue
 					}
 
-					// ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Ì¤ï¿½ï¿½Ñ¿ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ¥×¥ê¥ó¥ÈÊýË¡ÊÌ¤ÎÊÑ¿ôÀßÄê
 					var ink = 0;
 					var shot = 0;
 					var opt = 0;
 					switch (print_type) {
 						case 'silk':
 							ink = ppInfo.find('.ink_count').val() - 0;
-							shot = ppInfo.find('.jumbo_plate:checked').val() - 0; // 0:ï¿½Ì¾ï¡¡1:ï¿½ï¿½ï¿½ï¿½ï¿½Ü¡ï¿½2:SPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							shot = ppInfo.find('.jumbo_plate:checked').val() - 0; // 0:ÄÌ¾ï¡¡1:¥¸¥ã¥ó¥Ü¡¡2:SP¥¸¥ã¥ó¥Ü
 							break;
 						case 'inkjet':
-							opt = ppInfo.find('.inkoption').val() - 0; // 0:Ã¸ï¿½ï¿½ï¿½ï¿½1:Ç»ï¿½ï¿½
-							shot = ppInfo.find('.areasize_id').val() - 0; // 0:ï¿½ç¡¡1:ï¿½æ¡¡2:ï¿½ï¿½
+							opt = ppInfo.find('.inkoption').val() - 0; // 0:Ã¸¿§¡¡1:Ç»¿§
+							shot = ppInfo.find('.areasize_id').val() - 0; // 0:Âç¡¡1:Ãæ¡¡2:¾®
 							break;
 						case 'cutting':
-							shot = ppInfo.find('.areasize_id').val() - 0; // 0:ï¿½ç¡¡1:ï¿½æ¡¡2:ï¿½ï¿½
+							shot = ppInfo.find('.areasize_id').val() - 0; // 0:Âç¡¡1:Ãæ¡¡2:¾®
 							break;
 						case 'embroidery':
-							opt = ppInfo.find('.inkoption').val() - 0; // 0:ï¿½ï¿½ï¿½ê¥¸ï¿½Ê¥ë¡¡1:ï¿½Í¡ï¿½ï¿½ï¿½
-							shot = ppInfo.find('.areasize_id').val() - 0; // 0:ï¿½ç¡¡1:ï¿½æ¡¡2:ï¿½ï¿½ï¿½ï¿½3:ï¿½Ë¾ï¿½
+							opt = ppInfo.find('.inkoption').val() - 0; // 0:¥ª¥ê¥¸¥Ê¥ë¡¡1:¥Í¡¼¥à
+							shot = ppInfo.find('.areasize_id').val() - 0; // 0:Âç¡¡1:Ãæ¡¡2:¾®¡¡3:¶Ë¾®
 							break;
 						case 'digit':
-							shot = ppInfo.find('.areasize_id').val() - 0; // 0:ï¿½ç¡¡1:ï¿½æ¡¡2:ï¿½ï¿½
+							shot = ppInfo.find('.areasize_id').val() - 0; // 0:Âç¡¡1:Ãæ¡¡2:¾®
 							break;
 						default:
 							return true; // continue
@@ -3151,10 +3152,10 @@ var mypage = {
 						return true; // continue
 					}
 
-					// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Î´Ê°ï¿½È½ï¿½ï¿½ï¿½Ñ¥ï¿½ï¿½ï¿½
+					// ¥Ç¥¶¥¤¥ó¤Î´Ê°×È½ÊÌÍÑ¥­¡¼
 					var sectKey = "" + ink + shot + opt;
 
-					// ï¿½ï¿½Ô¡ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+					// ¥ê¥Ô¡¼¥È¥Á¥§¥Ã¥¯
 					if ($(this).find('.repeat_check').is(':checked')) {
 						mypage.prop.isRepeatCheck = true;
 						repeat = 1;
@@ -3162,7 +3163,7 @@ var mypage = {
 						repeat = 0;
 					}
 
-					// ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Î¥×¥ï¿½ï¿½È²Õ½ï¿½ï¿½Ì¤Ç¥Ñ¥ï¿½á¡¼ï¿½ï¿½ï¿½ò½¸·ï¿½
+					// ¥×¥ê¥ó¥ÈÊýË¡Ëè¤Î¥×¥ê¥ó¥È²Õ½êÊÌ¤Ç¥Ñ¥é¥á¡¼¥¿¤ò½¸·×
 					if (typeof param[print_type] == 'undefined') {
 						param[print_type] = {};
 						param[print_type][pos_name] = {};
@@ -3190,9 +3191,9 @@ var mypage = {
 							item_id = items[ppId][grp]['ids'][t];
 							param[print_type][pos_name][sectKey][grp]['ids'][item_id] = ca[grp]['itemId'][item_id]['vol'];
 
-							// ï¿½ï¿½Ô¡ï¿½ï¿½ÈµÚ¤ï¿½ï¿½ï¿½ï¿½ï¿½×¾ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+							// ¥ê¥Ô¡¼¥ÈµÚ¤ÓÈÇÂå·×¾å¤Î¥Á¥§¥Ã¥¯
 							if (print_type == 'silk') {
-								// ï¿½ï¿½ï¿½ë¥¯ï¿½Ï¡ï¿½Æ±ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½Ë¥ï¿½Ô¡ï¿½ï¿½È¤ï¿½È½ï¿½ï¿½
+								// ¥·¥ë¥¯¤Ï¡¢Æ±ÈÇÊ¬ÎàËè¤Ë¥ê¥Ô¡¼¥È¤ÎÈ½ÊÌ
 								var g2 = ca[grp]['itemId'][item_id]['group2'];
 								param[print_type][pos_name][sectKey][grp]['repeat'][g2] = repeat;
 							} else {
@@ -3212,7 +3213,7 @@ var mypage = {
 
 		if (Object.keys(param).length !== 0) {
 
-			// ï¿½ï¿½ï¿½ë¥¯ï¿½ï¿½Æ±ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ô¡ï¿½ï¿½È¥Õ¥é¥°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¥·¥ë¥¯¤ÎÆ±ÈÇÊ¬Îà¤ò¥Á¥§¥Ã¥¯¤·¤Æ¥ê¥Ô¡¼¥È¥Õ¥é¥°¤òºÆÀßÄê
 			if ($.isset(function () {
 					return param.silk
 				})) {
@@ -3232,7 +3233,7 @@ var mypage = {
 				}
 			}
 
-			if ($('#free_printfee').is(':checked')) { // ï¿½×¥ï¿½ï¿½ï¿½ï¿½å¤¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			if ($('#free_printfee').is(':checked')) { // ¥×¥ê¥ó¥ÈÂå¤¬¼êÆþÎÏ
 				$('#itemprint tbody').html('');
 				mypage.calcEstimation();
 				return;
@@ -3284,7 +3285,7 @@ var mypage = {
 			});
 		}
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
+		// ¥¢¥¤¥Æ¥àËè¤Î¥×¥ê¥ó¥ÈÂå¤ò½¸·×
 		var tr = '';
 		for (var item_id in itemprintfee) {
 			tr += '<tr class="itemid_' + item_id + '">';
@@ -3298,7 +3299,7 @@ var mypage = {
 		}
 		$('#itemprint tbody').html(tr);
 
-		// ï¿½ï¿½ï¿½Ñ¥Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Î½ï¿½
+		// ¸«ÀÑ¥Ü¥Ã¥¯¥¹¤Î½ñ´¹
 		$('#est_printfee').val(mypage.addFigure(est_printfee));
 		$('#est_silk_printfee').html(mypage.addFigure(est_silk_printfee));
 		$('#est_color_printfee').html(mypage.addFigure(est_color_printfee));
@@ -3311,35 +3312,35 @@ var mypage = {
 	},
 	calcEstimation: function () {
 		/*
-		 *	p1  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½ó¥¯¿ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	p2  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½								ï¿½Ð¾Ý¡ï¿½p1
-		 *	p3  ï¿½Í°ï¿½ï¿½ï¿½ï¿½
-		 *	p4  ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½Å¾å¤²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¾å¤²ï¿½ï¿½		ï¿½Ð¾Ý¡ï¿½p1+p2+p7+p9+p10
-		 *	p5  ï¿½ï¿½ï¿½ï¿½									ï¿½Ð¾Ý¡ï¿½p1+p2+p3+p7+p9+p10+p11
-		 *	p6  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶Â®ï¿½Ø¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¡ï¿½
-		 *	p7  ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 * 	p8  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	p9  ï¿½ÞµÍ¤ï¿½ï¿½ï¿½
-		 *	p10 ï¿½ï¿½ï¿½ï¿½
-		 *	p11 ï¿½É²ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	p12 ï¿½ï¿½ï¿½ï¿½Ó¥Ë¼ï¿½ï¿½ï¿½ï¿½
-		 *	p13 ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	p1  ¾¦ÉÊÂå¡Ü¥×¥ê¥ó¥ÈÂå¡Ü¥¤¥ó¥¯¿§ÂØÂå
+		 *	p2  ³ä°ú¶â³Û								ÂÐ¾Ý¡§p1
+		 *	p3  ÃÍ°ú¶â³Û
+		 *	p4  ÆÃµÞÎÁ¶â¡Ê£²Æü»Å¾å¤²¤ÈÍâÆü»Å¾å¤²¡Ë		ÂÐ¾Ý¡§p1+p2+p7+p9+p10
+		 *	p5  Á÷ÎÁ									ÂÐ¾Ý¡§p1+p2+p3+p7+p9+p10+p11
+		 *	p6  ÆÃÊÌÁ÷ÎÁ¡ÊÄ¶Â®ÊØ¡¢¥¿¥¤¥àÊØ¡Ë
+		 *	p7  ¥Ç¥¶¥¤¥óÂå
+		 * 	p8  Âå°ú¤­¼ê¿ôÎÁ
+		 *	p9  ÂÞµÍ¤áÂå
+		 *	p10 ÂÞÂå
+		 *	p11 ÄÉ²ÃÎÁ¶â
+		 *	p12 ¥³¥ó¥Ó¥Ë¼ê¿ôÎÁ
+		 *	p13 ¸åÊ§¤¤¼ê¿ôÎÁ
 		 *
-		 *	ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½ï¿½È¤Î¥×¥ï¿½ï¿½ï¿½ï¿½å»»ï¿½Ð¤Ë»ï¿½ï¿½ï¿½
-		 *	prm1			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½ó¥¯¿ï¿½ï¿½Ø¤ï¿½ï¿½ï¿½
-		 *	prm2			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	prm4			ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	checkdesign		ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ó¸¶¹Æ¤Î¼ï¿½ï¿½ï¿½ï¿½0:ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½, 1:ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 2:ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 2018-01-31ï¿½Ñ»ï¿½
-		 *	illustrator_fee	ï¿½ï¿½ï¿½Î¤Þ¤Þ¥×¥ï¿½ï¿½È¡Êµì¥¤ï¿½ï¿½ï¿½ 2018-01-31ï¿½Ñ»ß¡Ë³ï¿½Î¶ï¿½Û¡Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½-1000ï¿½ï¿½
-		 *	discount_ratio	ï¿½Ò°ï¿½ï¿½ï¿½ï¿½
-		 *	discount_ratio1	ï¿½ï¿½ï¿½Î¨ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ä¡¡ï¿½×»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	discount_ratio2	ï¿½ï¿½ï¿½Î¨ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½Â¤ï¿½ï¿½ï¿½ï¿½
-		 *	extradiscount	ï¿½×»ï¿½ï¿½ï¿½ï¿½Î¨
-		 *	discount_ratio	Å¬ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½
-		 *	express_ratio	ï¿½ÃµÞ³ï¿½ï¿½ï¿½Î¨
+		 *	½é²ó¥ê¥Ô¡¼¥È¤Î¥×¥ê¥ó¥ÈÂå»»½Ð¤Ë»ÈÍÑ
+		 *	prm1			¾¦ÉÊÂå¡Ü¥¤¥ó¥¯¿§ÂØ¤¨Âå
+		 *	prm2			³ä°ú¶â³Û
+		 *	prm4			ÆÃµÞÎÁ¶â
+		 *	checkdesign		¥Ç¥¶¥¤¥ó¸¶¹Æ¤Î¼ïÎà¡Ê0:¥×¥ê¥ó¥È¤Ê¤·, 1:¥¤¥é¥ì°Ê³°¤¬¤¢¤ë, 2:Á´¤Æ¥¤¥é¥ì ¡Ë 2018-01-31ÇÑ»ß
+		 *	illustrator_fee	¤½¤Î¤Þ¤Þ¥×¥ê¥ó¥È¡Êµì¥¤¥é¥ì 2018-01-31ÇÑ»ß¡Ë³ä¤Î¶â³Û¡Ê¶â³ÛÀ©¸ÂÌµ¤·-1000¡Ë
+		 *	discount_ratio	¼Ò°÷³ä°ú
+		 *	discount_ratio1	³ä°úÎ¨¡Ê¶â³ÛÀ©¸ÂÌµ¤·¡¡¥Ö¥í¥°³ä¡¡Î×»þ³ä°ú¡Ë
+		 *	discount_ratio2	³ä°úÎ¨¡Ê¶â³ÛÀ©¸Â¤¢¤ê¡Ë
+		 *	extradiscount	Î×»þ³ä°úÎ¨
+		 *	discount_ratio	Å¬ÍÑ¤µ¤ì¤ë³ä°úÎ¨¹ç·×
+		 *	express_ratio	ÆÃµÞ³äÁýÎ¨
 		 */
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Ï¸ï¿½ï¿½Ñ¼ï¿½Æ°ï¿½×»ï¿½ï¿½ï¿½Ô¤ï¿½Ê¤ï¿½
+		// ³ÎÄêÃíÊ¸¤Ï¸«ÀÑ¼«Æ°·×»»¤ò¹Ô¤ï¤Ê¤¤
 		//if(mypage.prop.firmorder) return;
 
 		var tot = 0;
@@ -3356,7 +3357,7 @@ var mypage = {
 		var sales_tax = 0;
 		var sum = 0;
 
-		// ï¿½È¼ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤Î¸ï¿½ï¿½Ñ·×»ï¿½
+		// ¶È¼ÔÆþÎÏ¡¡¼êÆþÎÏ¤Î¸«ÀÑ·×»»
 		if (mypage.prop.ordertype == "industry") {
 			tot = $('#total_cost').val().replace(/,/g, '') - 0;
 			$('#orderlist tfoot .price').each(function () {
@@ -3396,19 +3397,19 @@ var mypage = {
 		var pack = '';
 		var packfee = 0;
 		var extra = 0;
-		var destcount = $('#destcount').val() - 0; // Ç¼ï¿½ï¿½ï¿½ï¿½Î¿ï¿½
+		var destcount = $('#destcount').val() - 0; // Ç¼ÉÊÀè¤Î¿ô
 
 		$('#est_additionalfee').text(p11);
 		p11 = p11.replace(/,/g, '') - 0;
 
 		if (isNaN(base) || isNaN(send) || isNaN(deli)) {
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ë¤¬Ì¤ï¿½ï¿½Î¾ï¿½ï¿½
-			$('#est_express').prev().html('ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½');
+			// ¥¹¥±¥¸¥å¡¼¥ë¤¬Ì¤Äê¤Î¾ì¹ç
+			$('#est_express').prev().html('ÆÃµÞÎÁ¶â');
 			$('#express_message').removeClass('bgExpress').html('');
 
 			/* 
-			 *	ï¿½ÞµÍ¤ï¿½
-			 *	2014-02-22 2ï¿½Ì¤ï¿½Ê¾ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+			 *	ÂÞµÍ¤á
+			 *	2014-02-22 2ÄÌ¤ê°Ê¾å¤Î»ØÄê¤ËÂÐ±þ
 			 */
 			$('input[name="package"]:checked', '#package_wrap').each(function () {
 				pack = $(this).val();
@@ -3436,7 +3437,7 @@ var mypage = {
 				$('#est_discount').text(discountfee);
 				p2 -= 0;
 			} else {
-				// ï¿½Ò°ï¿½ï¿½ï¿½ï¿½
+				// ¼Ò°÷³ä¤ê
 				if ($('#staffdiscount').is(':checked')) {
 					discount_ratio += $('#staffdiscount').val() - 0;
 					discountfee += Math.ceil((p1 * discount_ratio) / 100);
@@ -3446,8 +3447,8 @@ var mypage = {
 					discountfee += 1000;
 				}
 
-				if (mypage.prop.isRepeat == false && discount_ratio == 0) { // ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Ç¤Ï¤Ê¤ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½Ç¤Ï¤Ê¤ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½ï¿½
-					// ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½
+				if (mypage.prop.isRepeat == false && discount_ratio == 0) { // ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Ç¤Ï¤Ê¤¯³î¤Ä¼Ò°÷³ä¤Ç¤Ï¤Ê¤¤¾ì¹ç¤Ë³ä°ú¤òÅ¬ÍÑ¤¹¤ë
+					// ¥Ö¥í¥°³ä
 					if ($('input[value="blog"]:checked', '#optprice_table').length > 0) {
 						discountfee += Math.ceil((p1 * 3) / 100);
 						discount_ratio1 += 3;
@@ -3482,17 +3483,17 @@ var mypage = {
 							break;
 					}
 
-					// ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+					// ÊÑ¹¹Á°¤Î¼õÃí¥Ç¡¼¥¿¤ËÂÐ±þ
 					if ($('input[value="quick"]:checked', '#optprice_table').length > 0) {
 						discountfee += Math.ceil((p1 * 5) / 100);
 						discount_ratio2 += 5;
 					}
 
-					// ï¿½×»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¤Ê¤ï¿½ï¿½Ãµï¿½ï¿½Ô²ï¿½
+					// Î×»þ³ä°ú¡¡¶â³ÛÀ©¸Â¤Ê¤·ÆÃµÞÉÔ²Ä
 					if ($('input[name="extradiscount"]:checked', '#optprice_table').length > 0) {
 						extradiscount = $('input[name="extradiscount"]:checked', '#optprice_table').val() - 0;
 						if (extradiscount == 20) {
-							// 20ï¿½ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È¤ï¿½Ê»ï¿½ï¿½ï¿½Ô²ï¿½
+							// 20¡ó³ä¤ê¤ÏÂ¾¤È¤ÎÊ»ÍÑÉÔ²Ä
 							discountfee = Math.ceil((p1 * extradiscount) / 100);
 							discount_ratio1 = discountfee;
 							discount_ratio2 = 0;
@@ -3503,7 +3504,7 @@ var mypage = {
 					}
 				}
 
-				// ï¿½ï¿½ï¿½
+				// ³ä°ú
 				p2 = -discountfee;
 				if (discountfee != 0) {
 					discountfee = mypage.addFigure(discountfee);
@@ -3514,7 +3515,7 @@ var mypage = {
 				$('#discountfee').val(discountfee);
 			}
 
-			// ï¿½Í°ï¿½
+			// ÃÍ°ú
 			p3 = $('#reductionprice').val().replace(/,/g, '');
 			var reduce = mypage.addFigure(p3);
 			if (p3.match(/^-/)) {
@@ -3526,11 +3527,11 @@ var mypage = {
 			$('#est_reduction').text(reduce);
 			p3 -= 0;
 
-			// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¥Ç¥¶¥¤¥óÂå
 			$('#est_designfee').text($('#designcharge').val());
 			p7 = $('#est_designfee').text().replace(/,/g, '') - 0;
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// Âå°ú¤­¼ê¿ôÎÁ
 			var codfee = '0';
 			if ($('input[name="payment"]:checked', '#optprice_table').val() == 'cod') {
 				if (mypage.prop.tax == 0) {
@@ -3543,7 +3544,7 @@ var mypage = {
 			$('#est_codfee').text(codfee);
 			p8 = $('#est_codfee').text().replace(/,/g, '') - 0;
 
-			// ï¿½ï¿½ï¿½ï¿½Ó¥Ë¼ï¿½ï¿½ï¿½ï¿½
+			// ¥³¥ó¥Ó¥Ë¼ê¿ôÎÁ
 			var conbifee = '0';
 			if ($('input[name="payment"]:checked', '#optprice_table').val() == 'conbi') {
 				if (mypage.prop.tax == 0) {
@@ -3556,9 +3557,9 @@ var mypage = {
 			$('#est_conbifee').text(conbifee);
 			p12 = $('#est_conbifee').text().replace(/,/g, '') - 0;
 
-			// ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¸åÊ§¤¤¼ê¿ôÎÁ
 			p13 = 0;
-			// 2019-03-12 18:00:00 ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ»ï¿½
+			// 2019-03-12 18:00:00 ¤«¤é¸åÊ§¤¤¼ê¿ôÎÁ¤òÇÑ»ß
 			var abolitionDate = Date.parse("2019-03-12T18:00:00+09:00");
 			if (Date.now() < abolitionDate) {
 				if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
@@ -3605,8 +3606,8 @@ var mypage = {
 					var workday = r.split(',');
 					var check_amount = $('#pack_yes_volume').val() - 0;
 					/* 
-					 *	ï¿½ÞµÍ¤ï¿½
-					 *	2014-02-22 2ï¿½Ì¤ï¿½Ê¾ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					 *	ÂÞµÍ¤á
+					 *	2014-02-22 2ÄÌ¤ê°Ê¾å¤Î»ØÄê¤ÇËç¿ô»ØÄê
 					 */
 					var pack = '';
 					var isPacking = false;
@@ -3625,40 +3626,40 @@ var mypage = {
 					});
 					$('#est_package').text(mypage.addFigure(packfee));
 
-					// ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
+					// ÆÃµÞÎÁ¶â
 					var term = workday[1] - 0;
 					if ($('#noprint:checked').length == 1) {
-						term = 3; // 2012-05-04 ï¿½×¥ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¾å¤·ï¿½Ê¤ï¿½
+						term = 3; // 2012-05-04 ¥×¥ê¥ó¥ÈÌµ¤·¤ÏÆÃµÞÎÁ¶â¤ò·×¾å¤·¤Ê¤¤
 					} else if (isPacking && check_amount >= 10) {
-						term -= 1; // ï¿½ÞµÍ¤ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½Ê¾ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½É²ï¿½
+						term -= 1; // ÂÞµÍ¤¢¤ê¤Ç³î¤ÄËç¿ô¤¬10Ëç°Ê¾å¤Çºî¶ÈÆü¤ò1ÆüÄÉ²Ã
 					}
 					switch (term) {
 						case 0:
-							$('#est_express').prev().html('ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½<span class="fontred">(2ï¿½ï¿½)</span>');
-							$('#express_message').addClass('bgExpress').html('<img alt="10" src="./img/i_alert.png" width="24" />&nbsp;<span class="fontred">ï¿½Ãµï¿½2ï¿½ï¿½</span>')
+							$('#est_express').prev().html('ÆÃµÞÎÁ¶â<span class="fontred">(2ÇÜ)</span>');
+							$('#express_message').addClass('bgExpress').html('<img alt="10" src="./img/i_alert.png" width="24" />&nbsp;<span class="fontred">ÆÃµÞ2ÇÜ</span>')
 								.effect('pulsate', {
 									'times': 2
 								}, 250);
 							express = 10;
 							break;
 						case 1:
-							$('#est_express').prev().html('ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½<span class="fontred">(1.5ï¿½ï¿½)</span>');
-							$('#express_message').addClass('bgExpress').html('<img alt="5" src="./img/i_alert.png" width="24" />&nbsp;<span class="fontred">ï¿½Ãµï¿½1.5ï¿½ï¿½</span>')
+							$('#est_express').prev().html('ÆÃµÞÎÁ¶â<span class="fontred">(1.5ÇÜ)</span>');
+							$('#express_message').addClass('bgExpress').html('<img alt="5" src="./img/i_alert.png" width="24" />&nbsp;<span class="fontred">ÆÃµÞ1.5ÇÜ</span>')
 								.effect('pulsate', {
 									'times': 2
 								}, 250);
 							express = 5;
 							break;
 						case 2:
-							$('#est_express').prev().html('ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½<span class="fontred">(1.3ï¿½ï¿½)</span>');
-							$('#express_message').addClass('bgExpress').html('<img alt="3" src="./img/i_alert.png" width="24" />&nbsp;<span class="fontred">ï¿½Ãµï¿½1.3ï¿½ï¿½</span>')
+							$('#est_express').prev().html('ÆÃµÞÎÁ¶â<span class="fontred">(1.3ÇÜ)</span>');
+							$('#express_message').addClass('bgExpress').html('<img alt="3" src="./img/i_alert.png" width="24" />&nbsp;<span class="fontred">ÆÃµÞ1.3ÇÜ</span>')
 								.effect('pulsate', {
 									'times': 2
 								}, 250);
 							express = 3;
 							break;
 						default:
-							$('#est_express').prev().html('ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½');
+							$('#est_express').prev().html('ÆÃµÞÎÁ¶â');
 							$('#express_message').removeClass('bgExpress').html('');
 					}
 
@@ -3674,7 +3675,7 @@ var mypage = {
 						$('#est_discount').text(discountfee);
 						p2 -= 0;
 					} else {
-						// ï¿½Ò°ï¿½ï¿½ï¿½ï¿½
+						// ¼Ò°÷³ä¤ê
 						if ($('#staffdiscount').is(':checked')) {
 							discount_ratio += $('#staffdiscount').val() - 0;
 							discountfee += Math.ceil((p1 * discount_ratio) / 100);
@@ -3684,14 +3685,14 @@ var mypage = {
 							discountfee += 1000;
 						}
 
-						if (mypage.prop.isRepeat == false && discount_ratio == 0) { // ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Ç¤Ï¤Ê¤ï¿½ï¿½ï¿½Ä¼Ò°ï¿½ï¿½ï¿½Ç¤Ï¤Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½ï¿½
-							// ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½
+						if (mypage.prop.isRepeat == false && discount_ratio == 0) { // ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Ç¤Ï¤Ê¤¯³î¤Ä¼Ò°÷³ä¤Ç¤Ï¤Ê¤¤¾ì¹ç¤À¤±³ä°ú¤òÅ¬ÍÑ¤¹¤ë
+							// ¥Ö¥í¥°³ä
 							if ($('input[value="blog"]:checked', '#optprice_table').length > 0) {
 								discountfee += Math.ceil((p1 * 3) / 100);
 								discount_ratio1 += 3;
 							}
 
-							// 2018-03-05 ï¿½ÃµÞ¤Î¾ï¿½ï¿½Ç¤ï¿½Ø³ï¿½ï¿½Å¬ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½Í¤Ë»ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
+							// 2018-03-05 ÆÃµÞ¤Î¾ì¹ç¤Ç¤â³Ø³ä¤òÅ¬ÍÑ¤¹¤ëÍÍ¤Ë»ÅÍÍÊÑ¹¹
 							var discount = $('input[name="discount1"]:checked', '#optprice_table').val();
 							switch (discount) {
 								case 'student':
@@ -3722,18 +3723,18 @@ var mypage = {
 										break;
 								}
 
-								// ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+								// ÊÑ¹¹Á°¤Î¼õÃí¥Ç¡¼¥¿¤ËÂÐ±þ
 								if ($('input[value="quick"]:checked', '#optprice_table').length > 0) {
 									discountfee += Math.ceil((p1 * 5) / 100);
 									discount_ratio2 += 5;
 								}
 							}
 
-							// ï¿½×»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¤Ê¤ï¿½ï¿½Ãµï¿½ï¿½Ô²ï¿½
+							// Î×»þ³ä°ú¡¡¶â³ÛÀ©¸Â¤Ê¤·ÆÃµÞÉÔ²Ä
 							if ($('input[name="extradiscount"]:checked', '#optprice_table').length > 0) {
 								extradiscount = $('input[name="extradiscount"]:checked', '#optprice_table').val() - 0;
 								if (extradiscount == 20) {
-									// 20ï¿½ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È¤ï¿½Ê»ï¿½ï¿½ï¿½Ô²ï¿½
+									// 20¡ó³ä¤ê¤ÏÂ¾¤È¤ÎÊ»ÍÑÉÔ²Ä
 									discountfee = Math.ceil((p1 * extradiscount) / 100);
 									discount_ratio1 = discountfee;
 									discount_ratio2 = 0;
@@ -3792,9 +3793,9 @@ var mypage = {
 					$('#est_conbifee').text(conbifee);
 					p12 = $('#est_conbifee').text().replace(/,/g, '') - 0;
 
-					// ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ¸åÊ§¤¤¼ê¿ôÎÁ
 					p13 = 0;
-					// 2019-03-12 18:00:00 ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ»ï¿½
+					// 2019-03-12 18:00:00 ¤«¤é¸åÊ§¤¤¼ê¿ôÎÁ¤òÇÑ»ß
 					var abolitionDate = Date.parse("2019-03-12T18:00:00+09:00");
 					if (Date.now() < abolitionDate) {
 						if ($('input[name="payment"]:checked', '#optprice_table').val() == 'later_payment') {
@@ -3808,9 +3809,9 @@ var mypage = {
 					
 					$('#est_paymentfee').text(p13);
 					
-					// ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ï¥ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¤ï¿½ï¿½Ê¤ï¿½
+					// ½é´üÉ½¼¨¤Î»þ¤Ï¥á¥Ã¥»¡¼¥¸¤ò½Ð¤µ¤Ê¤¤
 					if (term < 0 && !isNaN(base) && !isNaN(send) && !isNaN(deli)) {
-						alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â­ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½');
+						alert('À½ºîÆü¿ô¤¬Â­¤ê¤Þ¤»¤ó¡£');
 						$('#schedule_date3').val("");
 						$('#schedule_date4').val("");
 					}
@@ -3839,21 +3840,21 @@ var mypage = {
 			});
 		}
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ³ä°úÍó¤ÎÉ½¼¨ÀÚÂØ
 		if (mypage.prop.isRepeatCheck) {
 			if (mypage.prop.isRepeat) {
 				var repeat_type = (mypage.prop.isRepeatFirst && mypage.prop.reuse == 1) ? 1 : 2;
-				$('#discount_reuse').text('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½type' + repeat_type + 'ï¿½ï¿½').show();
+				$('#discount_reuse').text('¥ê¥Ô¡¼¥ÈÈÇ¡Êtype' + repeat_type + '¡Ë').show();
 			} else {
 				$('#discount_reuse').text('').hide();
 			}
-			$('#reuse_plate').text('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½');
+			$('#reuse_plate').text('¥ê¥Ô¡¼¥ÈÈÇ');
 		} else {
 			$('#discount_reuse').text('').hide();
-			$('#reuse_plate').text($('#reuse_plate').text().replace('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½', 'ï¿½ï¿½'));
+			$('#reuse_plate').text($('#reuse_plate').text().replace('¥ê¥Ô¡¼¥È', '¿·'));
 		}
 
-		// ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½
+		// ½é²ó³ä¤Î¾ì¹ç
 		if (mypage.prop.reuse == 1 && !$('#free_printfee').is(':checked') && mypage.prop.isRepeatFirst && discount_ratio == 0) {
 			var baseinfo = '';
 			var baseprintfee = {};
@@ -3871,7 +3872,7 @@ var mypage = {
 					if (r instanceof Array) {
 						baseinfo = r[0];
 						
-						// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¤´ï¿½È¤ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ò»»½ï¿½
+						// ¥¢¥¤¥Æ¥à¤´¤È¤Î1ËçÅö¤ê¥×¥ê¥ó¥ÈÂå¤ò»»½Ð
 						for (var item_id in baseinfo['item']) {
 							baseprintfee[item_id] = Math.ceil(baseinfo['item'][item_id]['fee'] / baseinfo['item'][item_id]['amount']);
 						}
@@ -3884,7 +3885,7 @@ var mypage = {
 				}
 			});
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¤´ï¿½È¤ï¿½1ï¿½ç¤¢ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¤ï¿½ï¿½â¤¤ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¤¬ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½Û¤ò»»½ï¿½
+			// ¥¢¥¤¥Æ¥à¤´¤È¤Ë1Ëç¤¢¤¿¤ê¥×¥ê¥ó¥ÈÂå¤òÈæ³Ó¤·¹â¤¤¥¢¥¤¥Æ¥à¤¬¤¢¤ì¤Ðº¹³Û¤ò»»½Ð
 			var balance = 0;
 			$('#itemprint tbody tr').each(function () {
 				var item_id = $(this).attr('class').split('_')[1];
@@ -3892,18 +3893,18 @@ var mypage = {
 				var repeatitem_volume = $(this).children('.volume').text().replace(/,/g, '');
 				var repeatitem_perone = $(this).children('.perone').text().replace(/,/g, '') - 0;
 				if (baseprintfee[item_id] < repeatitem_perone) {
-					// ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¸ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ½é²ó³äÅ¬ÍÑ¸å¤Î¥×¥ê¥ó¥ÈÂå
 					var repeatitem_fee = baseprintfee[item_id] * repeatitem_volume;
 					$(this).children('.fee').text(mypage.addFigure(repeatitem_fee));
 					$(this).children('.perone').text(mypage.addFigure(baseprintfee[item_id]));
 					$(this).children('.subtot').text(mypage.addFigure(Math.ceil((repeatitem_cost + repeatitem_fee) / repeatitem_volume)));
-					// ï¿½ï¿½ï¿½Û¹ï¿½ï¿½
+					// º¹³Û¹ç·×
 					balance += (repeatitem_perone - baseprintfee[item_id]) * repeatitem_volume;
 				}
 			});
 
 			if (balance > 0) {
-				// ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½È¤Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¥×¥ê¥ó¥ÈÊýË¡¤´¤È¤Î¥×¥ê¥ó¥ÈÂå¤ò½é´ü²½
 				$('#pp_wrapper .pp_toggler').each(function () {
 					$(this).find('.sub_price').val('0');
 				});
@@ -3918,19 +3919,19 @@ var mypage = {
 				printfee -= balance;
 				$('#est_printfee').val(mypage.addFigure(printfee));
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¾¦ÉÊÂå¡Ü¥×¥ê¥ó¥ÈÂå¡Ü¿§ÂØÂå
 				p1 = $('#est_price').text().replace(/,/g, '') - 0;
 				p1 += $('#est_exchink').text().replace(/,/g, '') - 0;
 				p1 += $('#est_printfee').val().replace(/,/g, '') - 0;
 
-				// ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
+				// ÆÃµÞÎÁ¶â
 				if (express_ratio > 0) {
 					subtotal = p1 + p2 + p7 + p9 + p10;
 					p4 = Math.ceil((subtotal * express_ratio) / 10);
 					$('#est_express').text(mypage.addFigure(p4));
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½
+				// Á÷ÎÁ
 				extra = $('input[name="carriage"]:checked', '#schedule_selector').val();
 				subtotal = p1 + p2 + p3 + p7 + p9 + p10 + p11;
 				if ($('#freeshipping').is(':checked')) {
@@ -3947,18 +3948,18 @@ var mypage = {
 			}
 		}
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ¾ÃÈñÀÇ
 		if (mypage.prop.tax != 0) {
 			sales_tax = Math.floor(tot * mypage.prop.tax);
 		}
 
 		sum = Math.floor(tot * (1 + mypage.prop.tax));
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½É·ï¿½Ñ¤Î¾ï¿½ç¡¢ï¿½Ç¹ï¿½ï¿½ï¿½×¤ï¿½5ï¿½ï¿½ï¿½×¾ï¿½ï¿½2018-01-30 ï¿½Ñ»ß¡ï¿½
+		// ¥«¡¼¥É·èºÑ¤Î¾ì¹ç¡¢ÀÇ¹þ¹ç·×¤Î5¡ó¤ò·×¾å¡Ê2018-01-30 ÇÑ»ß¡Ë
 		var creditfee = 0;
 		if ($('input[name="payment"]:checked', '#optprice_table').val() == 'credit') {
 			
-			// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ê¤¬ï¿½ï¿½ï¿½ï¿½ï¿½ç¡¢2018-01-29ï¿½ï¿½ï¿½é¥«ï¿½ï¿½ï¿½É·ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ»ï¿½
+			// ÃíÊ¸³ÎÄêÆü¤Î»ØÄê¤¬¤¢¤ë¾ì¹ç¡¢2018-01-29¤«¤é¥«¡¼¥É·èºÑ¼ê¿ôÎÁÇÑ»ß
 			if (mypage.prop.firmorderdate) {
 				var schedule2 = new Date(mypage.prop.firmorderdate+"T00:00:00+09:00");
 				var abolition = new Date("2018-01-29T00:00:00+09:00");
@@ -3979,7 +3980,7 @@ var mypage = {
 	},
 	changePlate: function (my) {
 		/*
-		 *	ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤Î»ï¿½ï¿½Ñ¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¸¥ã¥ó¥ÜÈÇ¤Î»ÈÍÑ¥Á¥§¥Ã¥¯ÀÚÂØ
 		 */
 		var row = $(my).closest('tr').prev();
 		if ($(my).val() == 1) {
@@ -3996,7 +3997,7 @@ var mypage = {
 	},
 	changeDesignType: function (my) {
 		/*
-		 *	ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¸ï¿½ï¿½Æ¥ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½Ñ¹ï¿½
+		 *	¥×¥ê¥ó¥È°ÌÃÖ¤Î¸¶¹Æ¥»¥ì¥¯¥¿ÊÑ¹¹
 		 */
 		//if(mypage.prop.repeat!=0) return;
 		var ppInfo = $(my).closest('.pp_info');
@@ -4013,7 +4014,7 @@ var mypage = {
 	},
 	changePrinttype: function (my) {
 		/*
-		 *	ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Ñ¹ï¿½
+		 *	¥×¥ê¥ó¥È°ÌÃÖ¤Î¥×¥ê¥ó¥ÈÊýË¡ÊÑ¹¹
 		 */
 		my = $(my);
 		var print_type = my.val();
@@ -4048,68 +4049,68 @@ var mypage = {
 		}
 		switch (print_type) {
 			case 'silk':
-				html = 'ï¿½Ç¡Ê½ï¿½<input type="text" value="35" size="3" class="areasize_from forNum" onchange="mypage.limit_size(this,\'' + print_type + '\');" />ï¿½ï¿½';
-				html += 'ï¿½ï¿½<input type="text" value="27" size="3" class="areasize_to forNum" onchange="mypage.limit_size(this,\'' + print_type + '\');" />ï¿½ï¿½';
-				html2 = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <input type="text" value="" class="design_size" />';
+				html = 'ÈÇ¡Ê½Ä<input type="text" value="35" size="3" class="areasize_from forNum" onchange="mypage.limit_size(this,\'' + print_type + '\');" />¡ß';
+				html += '²£<input type="text" value="27" size="3" class="areasize_to forNum" onchange="mypage.limit_size(this,\'' + print_type + '\');" />¡Ë';
+				html2 = '¥µ¥¤¥º <input type="text" value="" class="design_size" />';
 				html3 = '<form>';
-				html3 += '<label><input type="radio" name="jumbo" value="0" class="jumbo_plate" onchange="mypage.changePlate(this)" checked="checked" />ï¿½Ì¾ï¿½</label>';
-				html3 += '<label><input type="radio" name="jumbo" value="1" class="jumbo_plate" onchange="mypage.changePlate(this)" />ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</label>';
-				html3 += '<label><input type="radio" name="jumbo" value="2" class="jumbo_plate" onchange="mypage.changePlate(this)" />ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</label>';
+				html3 += '<label><input type="radio" name="jumbo" value="0" class="jumbo_plate" onchange="mypage.changePlate(this)" checked="checked" />ÄÌ¾ï</label>';
+				html3 += '<label><input type="radio" name="jumbo" value="1" class="jumbo_plate" onchange="mypage.changePlate(this)" />¥¸¥ã¥ó¥Ü</label>';
+				html3 += '<label><input type="radio" name="jumbo" value="2" class="jumbo_plate" onchange="mypage.changePlate(this)" />¥¹¡¼¥Ñ¡¼¥¸¥ã¥ó¥Ü</label>';
 				html3 += '</form>';
 				break;
 			case 'inkjet':
-				html = 'ï¿½ï¿½ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½</option>' +
-					'<option value="1">ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½</option>' +
-					'<option value="2">ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½</option>' +
+				html = 'ÈÇ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Âç¡Ê27¡ß38¡Ë</option>' +
+					'<option value="1">Ãæ¡Ê27¡ß18¡Ë</option>' +
+					'<option value="2">¾®¡Ê10¡ß10¡Ë</option>' +
 					'</select>';
-				html2 = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <input type="text" value="" class="design_size" />';
-				html3 = 'ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">Ã¸ï¿½ï¿½</option>' +
-					'<option value="1">Ç»ï¿½ï¿½</option>' +
+				html2 = '¥µ¥¤¥º <input type="text" value="" class="design_size" />';
+				html3 = '¥ª¥×¥·¥ç¥ó&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Ã¸¿§</option>' +
+					'<option value="1">Ç»¿§</option>' +
 					'</select>';
 				break;
 			case 'trans':
-				html = 'ï¿½ï¿½ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½</option>' +
-					'<option value="1">ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½</option>' +
-					'<option value="2">ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½</option>' +
+				html = 'ÈÇ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Âç¡Ê27¡ß38¡Ë</option>' +
+					'<option value="1">Ãæ¡Ê27¡ß18¡Ë</option>' +
+					'<option value="2">¾®¡Ê10¡ß10¡Ë</option>' +
 					'</select>';
-				html2 = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <input type="text" value="" class="design_size" />';
-				html3 = 'ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">Ã¸ï¿½ï¿½</option>' +
-					'<option value="1">Ç»ï¿½ï¿½</option>' +
+				html2 = '¥µ¥¤¥º <input type="text" value="" class="design_size" />';
+				html3 = '¥ª¥×¥·¥ç¥ó&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Ã¸¿§</option>' +
+					'<option value="1">Ç»¿§</option>' +
 					'</select>';
 				break;
 			case 'digit':
-				html = 'ï¿½ï¿½ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½</option>' +
-					'<option value="1">ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½</option>' +
-					'<option value="2">ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½</option>' +
+				html = 'ÈÇ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Âç¡Ê27¡ß38¡Ë</option>' +
+					'<option value="1">Ãæ¡Ê27¡ß18¡Ë</option>' +
+					'<option value="2">¾®¡Ê10¡ß10¡Ë</option>' +
 					'</select>';
-				html2 = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <input type="text" value="" class="design_size" />';
+				html2 = '¥µ¥¤¥º <input type="text" value="" class="design_size" />';
 				html3 = '';
 				break;
 			case 'cutting':
-				html = 'ï¿½ï¿½ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½</option>' +
-					'<option value="1">ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½</option>' +
-					'<option value="2">ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½</option>' +
+				html = 'ÈÇ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Âç¡Ê27¡ß38¡Ë</option>' +
+					'<option value="1">Ãæ¡Ê27¡ß18¡Ë</option>' +
+					'<option value="2">¾®¡Ê10¡ß10¡Ë</option>' +
 					'</select>';
-				html2 = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <input type="text" value="" class="design_size" />';
+				html2 = '¥µ¥¤¥º <input type="text" value="" class="design_size" />';
 				html3 = '';
 				break;
 			case 'embroidery':
-				html = 'ï¿½ï¿½ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">ï¿½ï¿½ï¿½25ï¿½ï¿½25ï¿½ï¿½</option>' +
-					'<option value="1">ï¿½ï¿½ï¿½18ï¿½ï¿½18ï¿½ï¿½</option>' +
-					'<option value="2">ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½</option>' +
-					'<option value="3">ï¿½Ë¾ï¿½ï¿½ï¿½5ï¿½ï¿½5ï¿½ï¿½</option>' +
+				html = 'ÈÇ <select class="areasize_id" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">Âç¡Ê25¡ß25¡Ë</option>' +
+					'<option value="1">Ãæ¡Ê18¡ß18¡Ë</option>' +
+					'<option value="2">¾®¡Ê10¡ß10¡Ë</option>' +
+					'<option value="3">¶Ë¾®¡Ê5¡ß5¡Ë</option>' +
 					'</select>';
-				html2 = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <input type="text" value="" class="design_size" />';
-				html3 = 'ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
-					'<option value="0" selected="selected">ï¿½ï¿½ï¿½ê¥¸ï¿½Ê¥ï¿½</option>' +
-					'<option value="1">ï¿½Í¡ï¿½ï¿½ï¿½</option>' +
+				html2 = '¥µ¥¤¥º <input type="text" value="" class="design_size" />';
+				html3 = '¥ª¥×¥·¥ç¥ó&nbsp;<select class="inkoption" onchange="mypage.limit_size(this)">' +
+					'<option value="0" selected="selected">¥ª¥ê¥¸¥Ê¥ë</option>' +
+					'<option value="1">¥Í¡¼¥à</option>' +
 					'</select>';
 				break;
 		}
@@ -4122,7 +4123,7 @@ var mypage = {
 	},
 	limit_size: function (my) {
 		/*
-		 * ï¿½ï¿½ï¿½ë¥¯ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¤È¤ï¿½ï¿½ï¿½Â¾ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½
+		 * ¥·¥ë¥¯¤ÎÈÇ¥µ¥¤¥º¤ÎÆþÎÏÀ©¸Â¤È¤½¤ÎÂ¾¤Î¥×¥ê¥ó¥ÈÊýË¡¤Î¥µ¥¤¥ºÊÑ¹¹
 		 */
 		if (arguments.length == 2) {
 			if (arguments[1] == 'silk') {
@@ -4197,15 +4198,15 @@ var mypage = {
 	},
 	save: function (mode) {
 		/*
-		 *	ï¿½ï¿½Â¸
-		 * 	@mode		order		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 * 				direction	ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½
-		 * 	@ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½Ì¤ï¿½IDï¿½Î½ñ¤­´ï¿½ï¿½ï¿½ï¿½ï¿½Í­Ìµï¿½ï¿½true:ï¿½ñ´¹¤ï¿½ï¿½ï¿½(default)ï¿½ï¿½false:ï¿½ñ´¹¤ï¿½ï¿½Ê¤ï¿½
+		 *	ÊÝÂ¸
+		 * 	@mode		order		¼õÃíÆþÎÏ
+		 * 				direction	À½ºî»Ø¼¨½ñ
+		 * 	@Âè2°ú¿ô	¼õÃíÆþÎÏ²èÌÌ¤ÎID¤Î½ñ¤­´¹¤¨¤ÎÍ­Ìµ¡¡true:½ñ´¹¤¨¤ë(default)¡¡false:½ñ´¹¤¨¤Ê¤¤
 		 */
 		var i = 0;
 		var t = 0;
 		var isRewrite = arguments.length > 1 ? arguments[1] : true;
-		var isReturn = true; // AJAX ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½È½ï¿½ê¡¢errorï¿½Î¤È¤ï¿½ï¿½ï¿½false
+		var isReturn = true; // AJAX ¤ÎÊÖ¤êÃÍÈ½Äê¡¢error¤Î¤È¤­¤Ïfalse
 		var field1 = [];
 		var data1 = [];
 		var orders_id = $('#order_id').text() - 0;
@@ -4238,26 +4239,26 @@ var mypage = {
 				});
 				break;
 			case 'order':
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²Ä¤Ë¤ï¿½ï¿½ï¿½
+				// ´ÉÍý¼Ô¤ò½ü¤­È¯Á÷¸å¤Î½¤À°¤òÉÔ²Ä¤Ë¤¹¤ë
 				if ((mypage.prop.shipped == 2 || mypage.prop.isCheckbill) && _my_level != "administrator") {
-					alert("È¯ï¿½ï¿½ï¿½Ñ¤ß¤Î¥Ç¡ï¿½ï¿½ï¿½ï¿½ò¹¹¿ï¿½ï¿½ï¿½ï¿½ë¤³ï¿½È¤Ï¤Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½");
+					alert("È¯Á÷ºÑ¤ß¤Î¥Ç¡¼¥¿¤ò¹¹¿·¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£");
 					return;
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½É¬ï¿½Ü¹ï¿½ï¿½Ü¤ï¿½Ì¤ï¿½ï¿½ï¿½Ï¤Î¾ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ß¤ï¿½ï¿½ï¿½
+				// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ÏÉ¬¿Ü¹àÌÜ¤¬Ì¤ÆþÎÏ¤Î¾õÂÖ¤ÎÊÝÂ¸¤òÃæ»ß¤¹¤ë
 				if (mypage.prop.firmorder) {
 					if (!mypage.confirm()) {
 						return false;
 					}
 				}
 				if ($('#reception').val() == '0') {
-					alert('ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ê¤·ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+					alert('¼õÃíÃ´Åö¼Ô¤ò»ØÄê¤·¤Æ²¼¤µ¤¤¡£');
 					return false;
 				}
 
-				// ï¿½ÞµÍ¤ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½Î³ï¿½Ç§
+				// ÂÞµÍ¤ÈÃíÊ¸Ëç¿ô¤Î³ÎÇ§
 				if ($('input[name="package"]:checked', '#package_wrap').length == 0) {
-					alert("ï¿½ÞµÍ¤ï¿½Í­Ìµï¿½ò¤´³ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+					alert("ÂÞµÍ¤ÎÍ­Ìµ¤ò¤´³ÎÇ§¤¯¤À¤µ¤¤¡£");
 					return false;
 				} else if ($('input[name="package"]:checked', '#package_wrap').length > 1) {
 					var order_amount = $('#total_amount').val() - 0;
@@ -4267,12 +4268,12 @@ var mypage = {
 						volume += $('#pack_' + state + '_volume').val() - 0;
 					});
 					if (order_amount < volume) {
-						alert("ï¿½ÞµÍ¤ï¿½ï¿½ï¿½ï¿½ï¿½ò¤´³ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+						alert("ÂÞµÍ¤ÎËç¿ô¤ò¤´³ÎÇ§¤¯¤À¤µ¤¤¡£");
 						return false;
 					}
 				}
 
-				// ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ç¡¢ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¿½Ë°ã¤¤ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Ç§
+				// ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Î¾ì¹ç¡¢¼õÃíÆÉ¹þ»þ¤ÈÊÝÂ¸»þ¤Ç½é²ó³äÅ¬ÍÑ¾ò·ï¤Ë°ã¤¤¤¬¤Ê¤¤¤«³ÎÇ§
 				if (mypage.prop.ordertype == "general" && mypage.prop.repeat > 0) {
 					$.ajax({
 						url: './php_libs/ordersinfo.php',
@@ -4288,7 +4289,7 @@ var mypage = {
 						success: function (r) {
 							if (r instanceof Array) {
 								var len = r.length;
-								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Þ¤ï¿½
+								// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ÏÅö³ºÃíÊ¸¤â´Þ¤à
 								if (mypage.prop.firmorder) {
 									len--;
 								}
@@ -4302,7 +4303,7 @@ var mypage = {
 								if (temp != mypage.prop.reuse) {
 									mypage.prop.reuse = temp;
 									isReturn = false;
-									alert('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¤¬ï¿½Ñ¤ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½Æ·×»ï¿½ï¿½ï¿½Ô¤Ã¤Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+									alert('¥ê¥Ô¡¼¥ÈÈÇ³ä°ú¤ÎÅ¬ÍÑ¾ò·ï¤¬ÊÑ¤ï¤Ã¤Æ¤¤¤Þ¤¹¡£ºÆ·×»»¤ò¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£');
 								}
 							} else {
 								isReturn = false;
@@ -4319,7 +4320,7 @@ var mypage = {
 					}
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½BOXï¿½Î¸ï¿½ï¿½ï¿½
+				// ¸«ÀÑBOX¤Î¸¡¾Ú
 				if (mypage.prop.ordertype == "general") {
 					var valid1 = $('#est_printfee').val().replace(/,/g, '') - 0;
 					$('#est_table1 tbody th:not(.sub)').each(function () {
@@ -4327,19 +4328,19 @@ var mypage = {
 					});
 					var valid2 = $('#est_basefee').text().replace(/,/g, '') - 0;
 					if (valid1 != valid2) {
-						alert("ï¿½ï¿½ï¿½Ñ¹ï¿½×¤ï¿½ï¿½ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£ºÆ·×»ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+						alert("¸«ÀÑ¹ç·×¤¬¹ç¤Ã¤Æ¤¤¤Þ¤»¤ó¡£ºÆ·×»»¤·¤Æ¤¯¤À¤µ¤¤¡£");
 						return false;
 					}
 					valid2 += $('#est_salestax').text().replace(/,/g, '') - 0;
 					valid2 += $('#est_creditfee').text().replace(/,/g, '') - 0;
 					var valid3 = $('#est_total_price').text().replace(/,/g, '') - 0;
 					if (valid2 != valid3) {
-						alert("ï¿½ï¿½ï¿½Ñ¹ï¿½×¤ï¿½ï¿½ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£ºÆ·×»ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+						alert("¸«ÀÑ¹ç·×¤¬¹ç¤Ã¤Æ¤¤¤Þ¤»¤ó¡£ºÆ·×»»¤·¤Æ¤¯¤À¤µ¤¤¡£");
 						return false;
 					}
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½â¡¼ï¿½ï¿½
+				// ½èÍý¥â¡¼¥É
 				var action = 'insert';
 				if (($('#order_id').text() - 0) != 0) {
 					action = 'update';
@@ -4356,7 +4357,7 @@ var mypage = {
 
 				if (($('#customer_id').text() - 0) == 0) {
 					if (f.customername.value == "" || (f.tel.value == "" && f.mobile.value == "" && f.email.value == "" && f.mobmail.value == "")) {
-						alert("ï¿½Üµï¿½Ì¾ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Telï¿½ï¿½E-Mailï¿½Î¤ï¿½ï¿½ï¿½ï¿½ì¤«ï¿½Ë¤ï¿½É¬ï¿½Ü¹ï¿½ï¿½Ü¤Ç¤ï¿½ï¿½ï¿½");
+						alert("¸ÜµÒÌ¾¤ÈÏ¢ÍíÀè¡ÊTel¡¦E-Mail¤Î¤¤¤º¤ì¤«¡Ë¤ÏÉ¬¿Ü¹àÌÜ¤Ç¤¹¡¦");
 						return false;
 					}
 
@@ -4364,14 +4365,14 @@ var mypage = {
 					elem = f.elements;
 					for (i = 0; i < elem.length; i++) {
 						if ((elem[i].type == "text" && !$(elem[i]).attr('readonly')) || elem[i].type == "hidden" || elem[i].type == "select-one") {
-							// ï¿½ï¿½Ï¿ï¿½Ñ¥Ç¡ï¿½ï¿½ï¿½
+							// ÅÐÏ¿ÍÑ¥Ç¡¼¥¿
 							val = elem[i].value;
 							if (elem[i].name.match(/^(tel$)|(fax$)|(mobile$)|(zipcode$)/)) val = val.replace(/-/g, "");
 							if (val != "") flg = true;
 							field1.push(elem[i].name);
 							data1.push(val);
 
-							// ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Ñ¤Î¹ï¿½ï¿½Ü¤ï¿½ï¿½ï¿½ï¿½
+							// ½ÅÊ£¥Á¥§¥Ã¥¯ÍÑ¤Î¹àÌÜ¤ò¼èÆÀ
 							if (elem[i].name.match(/^(company$)|(customername$)|(tel$)|(mobile$)|(email$)/)) {
 								chkField.push(elem[i].name);
 								chkData.push(val);
@@ -4387,7 +4388,7 @@ var mypage = {
 					}
 
 					if (flg) {
-						// ï¿½ï¿½Ê£ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+						// ½ÅÊ£¤Î¥Á¥§¥Ã¥¯
 						chkField.push('customer');
 						chkData.push(true);
 						$.ajax({
@@ -4404,12 +4405,12 @@ var mypage = {
 							success: function (r) {
 								if (r instanceof Array) {
 									if (r.length > 0) {
-										isReturn = confirm("ï¿½ÜµÒ¾ï¿½ï¿½ó¤¬½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½\n\n1.ï¿½Ï£Ë¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¤Þ¤ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ë¡£\n2.Cancelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½Î¸ÜµÒ¥ê¥¹ï¿½È¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½");
+										isReturn = confirm("¸ÜµÒ¾ðÊó¤¬½ÅÊ£¤¹¤ë²ÄÇ½À­¤¬¤¢¤ê¤Þ¤¹¡¢µ¹¤·¤¤¤Ç¤¹¤«¡©\n\n1.£Ï£Ë¡§¡¡¤½¤Î¤Þ¤ÞÊÝÂ¸¤¹¤ë¡£\n2.Cancel¡§¡¡´ûÂ¸¤Î¸ÜµÒ¥ê¥¹¥È¤«¤éÁª¤Ö¡£");
 										if (isReturn) return;
 
-										// ï¿½ï¿½Â¸ï¿½Î¸ÜµÒ¤ï¿½ï¿½Ç§
+										// ´ûÂ¸¤Î¸ÜµÒ¤ò³ÎÇ§
 										mypage.prop.customer_list = r;
-										var list = '<table><thead><tr><th>ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½</th><th>ï¿½Üµï¿½Ì¾</th><th>Ã´ï¿½ï¿½</th><th>TEL</th><th>E-Mail</th><th>ï¿½ï¿½ï¿½ï¿½</th></tr></thead><tbody>';
+										var list = '<table><thead><tr><th>²ñ°÷ÈÖ¹æ</th><th>¸ÜµÒÌ¾</th><th>Ã´Åö</th><th>TEL</th><th>E-Mail</th><th>½»½ê</th></tr></thead><tbody>';
 										for (i = 0; i < r.length; i++) {
 											list += '<tr onclick="mypage.setCustomer(' + i + ')">';
 											list += '<td>' + r[i]['cstprefix'].toUpperCase() + r[i]['number'] + '</td>';
@@ -4435,7 +4436,7 @@ var mypage = {
 							}
 						});
 
-						// ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						// ÊÝÂ¸½èÍý¤òÃæ»ß
 						if (!isReturn) {
 							return false;
 						}
@@ -4564,11 +4565,11 @@ var mypage = {
 				data3.push($('#total_amount').val().replace(/,/g, ''));
 
 				var purpose_text = '';
-				if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == 'ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½') {
+				if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == '¤½¤ÎÂ¾¥¤¥Ù¥ó¥È') {
 					purpose_text = $('#questionnaire_table .other_1').val();
-				} else if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == 'ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½Ë¥Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½') {
+				} else if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == '¤½¤ÎÂ¾¥æ¥Ë¥Õ¥©¡¼¥à') {
 					purpose_text = $('#questionnaire_table .other_2').val();
-				} else if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == 'ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ï¿½') {
+				} else if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == '¤½¤ÎÂ¾ÃÄÂÎ') {
 					purpose_text = $('#questionnaire_table .other_3').val();
 				}
 				field3.push('purpose_text');
@@ -4589,7 +4590,7 @@ var mypage = {
 					data3.push(0);
 				}
 
-				// ï¿½Þµï¿½
+				// ÂÞµÍ
 				$('input[name="package"]', '#package_wrap').each(function () {
 					var state = $(this).val();
 					var isChecked = false;
@@ -4600,7 +4601,7 @@ var mypage = {
 					} else {
 						data3.push(0);
 					}
-					// ï¿½ï¿½ï¿½
+					// Ëç¿ô
 					if (state != 'no') {
 						field3.push('pack_' + state + '_volume');
 						if (isChecked) {
@@ -4611,7 +4612,7 @@ var mypage = {
 					}
 				});
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½È¡ï¿½
+				// ³ä°ú¡ÊÃ±ÆÈ¡Ë
 				var discount_name = "";
 				$('input[name="discount"]', '#discount_table').each(function () {
 					if ($(this).attr('checked')) discount_name += $(this).val() + "1,";
@@ -4621,7 +4622,7 @@ var mypage = {
 				field3.push('discount');
 				data3.push(discount_name.slice(0, -1));
 
-				// ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+				// ¥á¥Ç¥£¥¢¥Á¥§¥Ã¥¯
 				var mediadata = "";
 				var media_other = "";
 				$(':radio[name!="firstcontact"]', '#mediacheck_wrapper').each(function () {
@@ -4636,13 +4637,13 @@ var mypage = {
 				field3.push('media');
 				data3.push(mediadata.slice(0, -1));
 
-				// ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½Î¥Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¤½¤ÎÂ¾¤¬¥Á¥§¥Ã¥¯¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Î¥Æ¥­¥¹¥È
 				if (media_other != "") {
 					field3.push('media_other');
 					data3.push(media_other);
 				}
 
-				// ï¿½ÜµÒ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¸ÜµÒ¤ÎÀÁµá¶èÊ¬¤òÀßÄê
 				field3.push('bill');
 				data3.push(document.forms.customer_form.bill.value);
 
@@ -4793,10 +4794,10 @@ var mypage = {
 				 *	field9  orderink
 				 *	field10 exchink
 				 *	
-				 *	orderarea.print_id = orderprintï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½Ç¥Ã¥ï¿½ï¿½ï¿½
-				 *	orderselectivearea.area_id = orderareaï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½Ç¥Ã¥ï¿½ï¿½ï¿½
-				 *	orderink.area_id = orderareaï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½Ç¥Ã¥ï¿½ï¿½ï¿½
-				 *	exchink.ink_id = orderinkï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½Ç¥Ã¥ï¿½ï¿½ï¿½
+				 *	orderarea.print_id = orderprintÇÛÎó¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹
+				 *	orderselectivearea.area_id = orderareaÇÛÎó¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹
+				 *	orderink.area_id = orderareaÇÛÎó¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹
+				 *	exchink.ink_id = orderinkÇÛÎó¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹
 				 */
 				var field6 = ['category_id', 'printposition_id', 'subprice'];
 				var field7 = ['areaid', 'print_id', 'area_name', 'area_path', 'origin', 'ink_count', 'print_type',
@@ -4816,10 +4817,10 @@ var mypage = {
 				var ink_id = 0;
 				// var exch_id = 0;
 
-				// ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ê¡¼IDï¿½ï¿½ï¿½È¤Î¥×¥ï¿½ï¿½È¥Ý¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½Î¥Ï¥Ã¥ï¿½ï¿½ï¿½
+				// ¥«¥Æ¥´¥ê¡¼ID¤´¤È¤Î¥×¥ê¥ó¥È¥Ý¥¸¥·¥ç¥óID¤Î¥Ï¥Ã¥·¥å
 				var selected_items = [];
 				$('#orderlist tbody tr').each(function () {
-					// ï¿½ï¿½ï¿½Ì¤Î¾ï¿½ç¡¢ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ë¥¢ï¿½ï¿½ï¿½Æ¥ï¿½Î¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½
+					// °ìÈÌ¤Î¾ì¹ç¡¢¥Á¥§¥Ã¥¯¤µ¤ì¤Æ¤¤¤ë¥¢¥¤¥Æ¥à¤Î¥×¥ê¥ó¥È°ÌÃÖ¤À¤±¤òÅÐÏ¿¤¹¤ë
 					if (mypage.prop.ordertype == "general" && !$(this).find('.choice').is(':checked')) return true; // continue
 					var ppID = $(this).children('td:eq(0)').children('.positionid').text();
 					var categoryid = $(this).children('td:eq(2)').attr('class').split('_')[1];
@@ -4829,8 +4830,8 @@ var mypage = {
 					selected_items[categoryid][ppID] = true;
 				});
 
-				var repeatdesign = 0; // 1ï¿½Ä¤Ç¤ï¿½ï¿½Ô¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ 0
-				var allrepeat = 1; // 1:ï¿½ï¿½ï¿½Æ¥ï¿½Ô¡ï¿½ï¿½È¡ï¿½0:ï¿½ï¿½ï¿½Ç¤ï¿½1ï¿½Ä°Ê¾å¤¢ï¿½ï¿½
+				var repeatdesign = 0; // 1¤Ä¤Ç¤â¥ê¥Ô¥Á¥§¥Ã¥¯¤¬¤¢¤ì¤Ð 1¡¢¤Ê¤±¤ì¤Ð 0
+				var allrepeat = 1; // 1:Á´¤Æ¥ê¥Ô¡¼¥È¡¢0:¿·ÈÇ¤¬1¤Ä°Ê¾å¤¢¤ë
 				$('#pp_wrapper').children('div:even').each(function () { // pp_toggler
 					var category_id = $(this).attr('id').slice($(this).attr('id').lastIndexOf('_') + 1);
 					if (mypage.prop.ordertype == "general" && typeof selected_items[category_id] == 'undefined') return true; // continue
@@ -4954,11 +4955,11 @@ var mypage = {
 								});
 							}
 
-							// ï¿½ï¿½Ô¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½Í­Ìµ
+							// ¥ê¥Ô¥Á¥§¥Ã¥¯¤ÎÍ­Ìµ
 							if (repeat_check != 0) {
-								repeatdesign = 1; // ï¿½ï¿½Ô¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½
+								repeatdesign = 1; // ¥ê¥Ô¥Á¥§¥Ã¥¯¤¢¤ê
 							} else {
-								allrepeat = 0; // ï¿½ï¿½ï¿½ï¿½
+								allrepeat = 0; // ¿·ÈÇ
 							}
 
 							area_id++;
@@ -5098,7 +5099,7 @@ var mypage = {
 							}
 						}
 						
-						// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ò¹¹¿ï¿½
+						// ÃíÊ¸¤¬³ÎÄê¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢À©ºî»Ø¼¨½ñ¤ò¹¹¿·
 						if ($('#order_completed:visible').length > 0) {
 							$.ajax({
 								url: './php_libs/ordersinfo.php',
@@ -5117,13 +5118,13 @@ var mypage = {
 					}
 				});
 
-				// ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¤ï¿½ï¿½ï¿½
+				// ÊÝÂ¸½èÍý¤òÃæ»ß¤¹¤ë
 				if (!isReturn) {
 					mypage.screenOverlay(false);
 					return isReturn;
 				}
 
-				// ï¿½ï¿½ï¿½é¡¼ï¿½È¤Îºï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¥¢¥é¡¼¥È¤ÎºÆÀßÄê
 				if ($('#order_comment').val().trim() != "") {
 					$("#alert_comment:hidden").effect('pulsate', {
 						'times': 4
@@ -5133,7 +5134,7 @@ var mypage = {
 				}
 				$("#alert_require").fadeOut();
 
-				// ï¿½ï¿½ï¿½Ï¶ï¿½Ê¬ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Ô²Ä¤Ë¤ï¿½ï¿½ï¿½
+				// ÆþÎÏ¶èÊ¬¤ÎÊÑ¹¹¤òÉÔ²Ä¤Ë¤¹¤ë
 				if (mypage.prop.ordertype == "industry") {
 					$('#ordertype_industry').next().show();
 					$('#ordertype_general').next().hide();
@@ -5143,7 +5144,7 @@ var mypage = {
 				}
 				$(':radio[name="ordertype"]', '#enableline').hide();
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½Î¾ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+				// ³ÎÄêÃíÊ¸¤Î½¤À°ÊÝÂ¸¤Î¾ì¹ç¤ËÈ¯Ãí¾õÂÖ¤ò¥Á¥§¥Ã¥¯
 				if (mypage.prop.firmorder) {
 					var isNotBring = false;
 					$('#orderlist tbody tr').each(function () {
@@ -5151,7 +5152,7 @@ var mypage = {
 						if (category_id != 100) isNotBring = true;
 					});
 					if (isNotBring && $('#state_0 input').attr('checked') == false) {
-						// ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½Î¾ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+						// »ý¹þ°Ê³°¤Î¾¦ÉÊ¤¬¤¢¤ê³î¤ÄÈ¯Ãí¤¬Ì¤¥Á¥§¥Ã¥¯
 						$('#order_stock').show();
 					} else {
 						$('#order_stock').hide();
@@ -5161,15 +5162,15 @@ var mypage = {
 				break;
 
 			case 'direction':
-				// ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½×¤Ë¤Ä¤ï¿½ï¿½Æ¤Î¤ï¿½ï¿½ï¿½Ï¿
+				// Åö³º¥×¥ê¥ó¥È¥¿¥¤¥×¤Ë¤Ä¤¤¤Æ¤Î¤ßÅÐÏ¿
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²Ä¤Ë¤ï¿½ï¿½ï¿½
+				// ´ÉÍý¼Ô¤ò½ü¤­È¯Á÷¸å¤Î½¤À°¤òÉÔ²Ä¤Ë¤¹¤ë
 				if ((mypage.prop.shipped == 2 || mypage.prop.isCheckbill) && _my_level != "administrator") {
-					alert("È¯ï¿½ï¿½ï¿½Ñ¤ß¤Î¥Ç¡ï¿½ï¿½ï¿½ï¿½ò¹¹¿ï¿½ï¿½ï¿½ï¿½ë¤³ï¿½È¤Ï¤Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½");
+					alert("È¯Á÷ºÑ¤ß¤Î¥Ç¡¼¥¿¤ò¹¹¿·¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£");
 					return;
 				}
 
-				// ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ç¡¢ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¿½Ë°ã¤¤ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Ç§
+				// ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Î¾ì¹ç¡¢¼õÃíÆÉ¹þ»þ¤ÈÊÝÂ¸»þ¤Ç½é²ó³äÅ¬ÍÑ¾ò·ï¤Ë°ã¤¤¤¬¤Ê¤¤¤«³ÎÇ§
 				if (mypage.prop.ordertype == "general" && mypage.prop.repeat > 0) {
 					$.ajax({
 						url: './php_libs/ordersinfo.php',
@@ -5185,7 +5186,7 @@ var mypage = {
 						success: function (r) {
 							if (r instanceof Array) {
 								var len = r.length;
-								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Þ¤ï¿½
+								// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ÏÅö³ºÃíÊ¸¤â´Þ¤à
 								if (mypage.prop.firmorder) {
 									len--;
 								}
@@ -5200,7 +5201,7 @@ var mypage = {
 								if (temp != mypage.prop.reuse) {
 									mypage.prop.reuse = temp;
 									isReturn = false;
-									alert('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¤¬ï¿½Ñ¤ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½Æ·×»ï¿½ï¿½ï¿½Ô¤Ã¤Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+									alert('¥ê¥Ô¡¼¥ÈÈÇ³ä°ú¤ÎÅ¬ÍÑ¾ò·ï¤¬ÊÑ¤ï¤Ã¤Æ¤¤¤Þ¤¹¡£ºÆ·×»»¤ò¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£');
 								}
 							} else {
 								isReturn = false;
@@ -5214,10 +5215,10 @@ var mypage = {
 					});
 				}
 
-				// ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ÊÝÂ¸½èÍý¤òÃæ»ß
 				if (!isReturn) return false;
 
-				// ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½
+				// ´ðËÜ¾ðÊó
 				var product_id = "";
 				var field = ['orders_id', 'printtype', 'workshop_note', 'envelope', 'ship_note',
 						'platescount', 'platescheck', 'pastesheet', 'edge', 'edgecolor'];
@@ -5243,7 +5244,7 @@ var mypage = {
 					data[9] = $('#edgecolor').val();
 				}
 
-				// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸
+				// ¥Ç¥¶¥¤¥ó²èÁü¤ÎÊÝÂ¸
 				var tabscount = $('#tabs').tabs('length');
 				field4 = ['selectiveid', 'designpath'];
 				data4 = [];
@@ -5256,7 +5257,7 @@ var mypage = {
 					});
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸
+				// À©ºî»Ø¼¨½ñ¤Î¥×¥ê¥ó¥È¾ðÊó¤ÎÊÝÂ¸
 				if (data[1] != 'silk') {
 					field5 = ['pinfoid', 'remark'];
 				} else {
@@ -5264,7 +5265,7 @@ var mypage = {
 				}
 				data5 = [];
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤Î°ï¿½ï¿½ï¿½Ä´ï¿½ï¿½
+				// ¥µ¥¤¥º¤´¤È¤Î°ÌÃÖÄ´À°
 				field6 = ['pinfoid', 'sizename', 'vert', 'hori'];
 				var data6 = [];
 
@@ -5279,7 +5280,7 @@ var mypage = {
 						var platesnumber = $('#tabs-' + i).find('.platesnumber').val();
 						data5.push(pinfoid + '|' + remark + '|' + reprint + '|' + platesinfo + '|' + meshinfo + '|' + attrink + '|' + platesnumber);
 					} else {
-						data5.push(pinfoid + '|' + remark + '|0|ï¿½ï¿½ï¿½ï¿½||');
+						data5.push(pinfoid + '|' + remark + '|0|¥¾¥ë||');
 					}
 					$('.dire_printinfo_table tbody tr th.sizename', '#tabs-' + i).each(function () {
 						var vert = $(this).next('td').children('.vert').val();
@@ -5289,7 +5290,7 @@ var mypage = {
 					});
 				}
 
-				// ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¾¦ÉÊ¤ÎÈ÷¹Í
 				field7 = ['id', 'orders_id', 'master_id', 'size_id', 'item_note'];
 				var data7 = [];
 				$('#dire_items_table tbody tr:even').each(function () {
@@ -5307,7 +5308,7 @@ var mypage = {
 
 				});
 
-				// ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½Ê¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¤Î¤ß¡ï¿½
+				// ÌÌÉÕ¤±¡Ê¥Ç¥¸¥¿¥ëÅ¾¼Ì¤Î¤ß¡Ë
 				field8 = ['shotname', 'shot', 'sheets'];
 				var data8 = [];
 				$('#dire_option_table tbody tr').each(function () {
@@ -5350,10 +5351,10 @@ var mypage = {
 				});
 
 				if (!isReturn) {
-					return isReturn; // ï¿½ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¤ï¿½ï¿½ï¿½
+					return isReturn; // ÊÝÂ¸½èÍý¤òÃæ»ß¤¹¤ë
 				} else {
 					mypage.prop.modified = false;
-					return product_id; // ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½Ö¤ï¿½
+					return product_id; // À½ºî»Ø¼¨½ñID¤òÊÖ¤¹
 				}
 
 				break;
@@ -5382,7 +5383,7 @@ var mypage = {
 			if (id == orders_id && bundle == 1) isMine = true;
 		});
 
-		// Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½1ï¿½Ä¤Î¾ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½
+		// Æ±º­»ØÄê¥Á¥§¥Ã¥¯¤¬1¤Ä¤Î¾ì¹ç¤ÏÌµ¸ú¤Ë¤¹¤ë
 		if (bundle_count == 1) {
 			isMine = false;
 			for (var i = 0; i < tmp.length; i++) {
@@ -5423,19 +5424,19 @@ var mypage = {
 		var number = '';
 		
 		$.api(['users', data['id'], 'sales'], 'GET', null).then(function(u){
-			var rank = 0,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î³ï¿½ï¿½Î¨
+			var rank = 0,	// ²ñ°÷³ä°ú¤Î³ä°úÎ¨
 				rankName = '',
 				sales = 0;
 			if (u.length>0) sales = u[0]['total_price'];
 			if (sales>300000) {
 				rank = 7;
-				rankName = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+				rankName = '¥´¡¼¥ë¥É';
 			} else if(sales>150000) {
 				rank = 5;
-				rankName = 'ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½';
+				rankName = '¥·¥ë¥Ð¡¼';
 			} else if(sales>80000) {
 				rank = 3;
-				rankName = 'ï¿½Ö¥ï¿½ï¿½ï¿½';
+				rankName = '¥Ö¥í¥ó¥º';
 			} else {
 				rank = 0;
 				rankName = '-';
@@ -5520,7 +5521,7 @@ var mypage = {
 				}
 				$('#customer_id').text(formated);
 				$('#search_customer').hide();
-				$('#modify_customer').val('ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½').show().next().hide();
+				$('#modify_customer').val('¤ªµÒÍÍ¾ðÊó¤ò½¤Àµ¤¹¤ë').show().next().hide();
 				$('#update_customer').hide();
 				$('#cancel_customer').show();
 				$('#customer_info p:eq(1)').text(f.customername.value);
@@ -5564,17 +5565,17 @@ var mypage = {
 			$('#alert_require').effect('pulsate', {
 				'times': 4
 			}, 250);
-			alert("ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ë¤¬Ì¤ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½");
+			alert("¼õÃíÃ´Åö¼Ô¤«¥¹¥±¥¸¥å¡¼¥ë¤¬Ì¤³ÎÄê¤Ç¤¹¡£");
 			return false;
 		}
 
 		if (schedule3 > schedule4 || schedule2 > schedule3) {
-			alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ï¿½ò¤´³ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			alert("¥¹¥±¥¸¥å¡¼¥ë¤ò¤´³ÎÇ§¤¯¤À¤µ¤¤¡£");
 			return false;
 		}
 
 		if ($('input[name="package"]:checked', '#package_wrap').length == 0) {
-			alert("ï¿½ÞµÍ¤ï¿½Í­Ìµï¿½ò¤´³ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			alert("ÂÞµÍ¤ÎÍ­Ìµ¤ò¤´³ÎÇ§¤¯¤À¤µ¤¤¡£");
 			return false;
 		} else if ($('input[name="package"]:checked', '#package_wrap').length > 1) {
 			var order_amount = $('#total_amount').val() - 0;
@@ -5584,18 +5585,18 @@ var mypage = {
 				volume += $('#pack_' + state + '_volume').val() - 0;
 			});
 			if (order_amount < volume) {
-				alert("ï¿½ÞµÍ¤ï¿½ï¿½ï¿½ï¿½ï¿½ò¤´³ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("ÂÞµÍ¤ÎËç¿ô¤ò¤´³ÎÇ§¤¯¤À¤µ¤¤¡£");
 				return false;
 			}
 		}
 
 		if ($('#destination').val() == 0) {
-			alert("Ç¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			alert("Ç¼ÉÊÀèÅÔÆ»ÉÜ¸©¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£");
 			return false;
 		}
 
 		if ($('#factory').val() == 0) {
-			alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			alert("¹©¾ì¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£");
 			return false;
 		}
 
@@ -5604,7 +5605,7 @@ var mypage = {
 			$('#alert_require').effect('pulsate', {
 				'times': 4
 			}, 250);
-			alert("ï¿½Üµï¿½Ì¾ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Telï¿½ï¿½E-Mailï¿½Î¤ï¿½ï¿½ï¿½ï¿½ì¤«ï¿½Ë¤ï¿½É¬ï¿½Ü¹ï¿½ï¿½Ü¤Ç¤ï¿½ï¿½ï¿½");
+			alert("¸ÜµÒÌ¾¤ÈÏ¢ÍíÀè¡ÊTel¡¦E-Mail¤Î¤¤¤º¤ì¤«¡Ë¤ÏÉ¬¿Ü¹àÌÜ¤Ç¤¹¡¦");
 			return false;
 		}
 
@@ -5613,14 +5614,14 @@ var mypage = {
 			$('#orderlist tbody tr').each(function () {
 				if (!$(this).find('.choice').is(':checked')) return true; // continue
 				var stock = $(this).find('.stock_status').text();
-				if (stock == "ï¿½ï¿½") {
-					msg = "ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Ëºß¸Ë¿ï¿½ï¿½ï¿½0ï¿½Î¾ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½";
+				if (stock == "¡ß") {
+					msg = "ÃíÊ¸¥ê¥¹¥È¤Ëºß¸Ë¿ô¤¬0¤Î¾¦ÉÊ¤¬¤¢¤ê¤Þ¤¹¡£";
 					isPending = true;
 					return false;
 				} else if (stock.match(/^\d+?$/)) {
 					var amount = $(this).find('.listamount').val() - 0;
 					if (amount > stock) {
-						msg = "ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤Ëºß¸Ë¿ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ë¾¦ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½";
+						msg = "ÃíÊ¸¥ê¥¹¥È¤Ëºß¸Ë¿ô¤è¤êÂ¿¤¤Ëç¿ô¤ò»ØÄê¤·¤Æ¤¤¤ë¾¦ÉÊ¤¬¤¢¤ê¤Þ¤¹¡£";
 						isPending = true;
 						return false;
 					}
@@ -5633,7 +5634,7 @@ var mypage = {
 					'times': 4
 				}, 250);
 				/* 2015-06-12
-				 * ï¿½ï¿½ï¿½é¡¼ï¿½È¤Î¤ß¤ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½Ä¤È¤ï¿½ï¿½ï¿½
+				 * ¥¢¥é¡¼¥È¤Î¤ß¤ÇÃíÊ¸³ÎÄê²Ä¤È¤¹¤ë
 				 * return false;
 				 */
 			}
@@ -5643,25 +5644,25 @@ var mypage = {
 			return true;
 		}
 
-		//---------- ï¿½È¼ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½É¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤Î³ï¿½Ç§ï¿½Ï¤ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ ----------
+		//---------- ¶È¼ÔÆþÎÏ¤ÎÉ¬¿ÜÆþÎÏ¤Î³ÎÇ§¤Ï¤³¤³¤Þ¤Ç ----------
 
 
 		if ($('#total_amount').val() == "0") {
 			$('#alert_require').effect('pulsate', {
 				'times': 4
 			}, 250);
-			alert("ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ê¤µï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½");
+			alert("¾¦ÉÊ¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£");
 			return false;
 		}
 		if ($('#est_printfee').val() == '0' && $('#noprint:checked').length == 0) {
 			$('#alert_require').effect('pulsate', {
 				'times': 4
 			}, 250);
-			alert("ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ê¤µï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½Ê¤Î¤ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½Ï¡ï¿½ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			alert("¥×¥ê¥ó¥ÈÆâÍÆ¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£\n¾¦ÉÊ¤Î¤ßÃíÊ¸¤Î¾ì¹ç¤Ï¡¢¥×¥ê¥ó¥È¤Ê¤·¤ò¥Á¥§¥Ã¥¯¤·¤Æ²¼¤µ¤¤¡£");
 			return false;
 		}
 
-		// ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ç¡¢ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¿½Ë°ã¤¤ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Ç§
+		// ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Î¾ì¹ç¡¢¼õÃíÆÉ¹þ»þ¤ÈÊÝÂ¸»þ¤Ç½é²ó³äÅ¬ÍÑ¾ò·ï¤Ë°ã¤¤¤¬¤Ê¤¤¤«³ÎÇ§
 		if (mypage.prop.ordertype == "general" && mypage.prop.repeat > 0) {
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
@@ -5677,7 +5678,7 @@ var mypage = {
 				success: function (r) {
 					if (r instanceof Array) {
 						var len = r.length;
-						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Þ¤ï¿½
+						// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ÏÅö³ºÃíÊ¸¤â´Þ¤à
 						if (mypage.prop.firmorder) {
 							len--;
 						}
@@ -5692,7 +5693,7 @@ var mypage = {
 						if (temp != mypage.prop.reuse) {
 							mypage.prop.reuse = temp;
 							isReturn = false;
-							alert('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½Å¬ï¿½Ñ¾ï¿½ï¤¬ï¿½Ñ¤ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½Æ·×»ï¿½ï¿½ï¿½Ô¤Ã¤Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+							alert('¥ê¥Ô¡¼¥ÈÈÇ³ä°ú¤ÎÅ¬ÍÑ¾ò·ï¤¬ÊÑ¤ï¤Ã¤Æ¤¤¤Þ¤¹¡£ºÆ·×»»¤ò¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£');
 						}
 					} else {
 						isReturn = false;
@@ -5758,23 +5759,23 @@ var mypage = {
 
 		var msg = "";
 		if (checkdesign == 1) {
-			msg = "ï¿½ï¿½ï¿½ë¥¯ï¿½Î¥ï¿½ï¿½ó¥¯¿ï¿½ï¿½È¿ï¿½Ì¾ï¿½ï¿½ï¿½Ç§ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+			msg = "¥·¥ë¥¯¤Î¥¤¥ó¥¯¿ô¤È¿§Ì¾¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£";
 		} else if (checkdesign == 2) {
-			msg = "ï¿½ï¿½ï¿½Ã¥Æ¥ï¿½ï¿½ó¥°¥ï¿½ï¿½ï¿½ï¿½È¤Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+			msg = "¥«¥Ã¥Æ¥£¥ó¥°¥·¡¼¥È¤Î¿§»ØÄê¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£";
 		} else if (checkdesign == 3) {
-			msg = "ï¿½É½ï¿½ï¿½Î»å¿§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+			msg = "»É½«¤Î»å¿§»ØÄê¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£";
 		} else if (checkdesign == 4) {
-			msg = "ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ì¤ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½";
+			msg = "¥Ç¥¶¥¤¥óÊýË¡¤¬Ì¤Äê¤Ç¤¹¡£";
 		} else if ($(':radio[name="manuscript"]:checked', '#designtype_table').val() == "0" && $('#noprint:checked').length == 0) {
-			msg = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ì¤ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½";
+			msg = "Æþ¹ÆÊýË¡¤¬Ì¤Äê¤Ç¤¹¡£";
 		} else if ($(':radio[name="payment"]:checked', '#optprice_table').val() == "0") {
-			msg = "ï¿½ï¿½Ê§ï¿½ï¿½Ë¡ï¿½ï¿½Ì¤ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½";
+			msg = "»ÙÊ§ÊýË¡¤¬Ì¤Äê¤Ç¤¹¡£";
 		} else if ($(':radio[name="deliver"]:checked', '#optprice_table').val() == "0" && $(':radio[name="carriage"]:checked', '#schedule_selector').val() != 'accept') {
-			msg = "È¯ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½Ì¤ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½";
+			msg = "È¯Á÷ÊýË¡¤¬Ì¤Äê¤Ç¤¹¡£";
 		} else if ($('#handover').val() == "0" && $(':radio[name="carriage"]:checked', '#schedule_selector').val() == 'accept') {
-			msg = "ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ì¤ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½";
+			msg = "°úÅÏ¤·»þ´Ö¤¬Ì¤Äê¤Ç¤¹¡£";
 		} else if ($(':radio[name="purpose"]:checked', '#questionnaire_table').val() == "" || $(':radio[name="job"]:checked', '#questionnaire_table').length == 0) {
-			msg = "ï¿½ï¿½ï¿½ó¥±¡ï¿½ï¿½È¤ï¿½Ì¤ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½";
+			msg = "¥¢¥ó¥±¡¼¥È¤¬Ì¤Äê¤Ç¤¹¡£";
 		}
 		if (msg != "") {
 			$('#alert_require').effect('pulsate', {
@@ -5789,13 +5790,13 @@ var mypage = {
 			var sizename = $(this).children('td.itemsize_name').text();
 			var colorname = $(this).children('td.itemcolor_name').text();
 			var str = "";
-			if (sizename == "Ì¤ï¿½ï¿½") str = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
-			if (colorname == "Ì¤ï¿½ï¿½") str += str != "" ? "ï¿½È¥ï¿½ï¿½é¡¼" : "ï¿½ï¿½ï¿½é¡¼";
+			if (sizename == "Ì¤Äê") str = "¥µ¥¤¥º";
+			if (colorname == "Ì¤Äê") str += str != "" ? "¤È¥«¥é¡¼" : "¥«¥é¡¼";
 			if (str != "") {
 				$('#alert_require').effect('pulsate', {
 					'times': 4
 				}, 250);
-				str += "ï¿½ï¿½Ì¤ï¿½ï¿½Î¾ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½";
+				str += "¤¬Ì¤Äê¤Î¾¦ÉÊ¤¬¤¢¤ê¤Þ¤¹¡£";
 				alert(str);
 				isPending = true;
 				return false;
@@ -5806,51 +5807,51 @@ var mypage = {
 		return true;
 	},
 	temp: {
-		product: [], // ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ê¤È¥×¥ï¿½ï¿½È¥Ç¡ï¿½ï¿½ï¿½
-		items: [], // ï¿½ï¿½ï¿½Ê¥Æ¡ï¿½ï¿½Ö¥ï¿½Ç¡ï¿½ï¿½ï¿½
-		tabs: [] // ï¿½ï¿½ï¿½Ö¥Ç¡ï¿½ï¿½ï¿½
+		product: [], // À½ºî»Ø¼¨½ñ¤Î¾¦ÉÊ¤È¥×¥ê¥ó¥È¥Ç¡¼¥¿
+		items: [], // ¾¦ÉÊ¥Æ¡¼¥Ö¥ë¥Ç¡¼¥¿
+		tabs: [] // ¥¿¥Ö¥Ç¡¼¥¿
 	},
 	setDirectionData: function () {
 		/*
-		 *	arguments[0]	ï¿½ï¿½ï¿½ï¿½ID
-		 *			 [1]	ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Î¥ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤Ø¤Î»ï¿½ï¿½ï¿½
+		 *	arguments[0]	¼õÃíID
+		 *			 [1]	¥×¥ê¥ó¥ÈÊýË¡¤Î¥»¥ì¥¯¥¿¡¼¼«¿È¤Ø¤Î»²¾È
 		 */
 
-		var orders_id = arguments[0]; // ï¿½ï¿½ï¿½ï¿½No
-		var print_type = ""; // ï¿½×¥ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½print keyï¿½ï¿½
-		var directions = []; // ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½×¤Î»Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		var Err = false; // AJAXï¿½Î¥ï¿½ï¿½é¡¼È½ï¿½ï¿½
-		var area_name = ''; // ï¿½×¥ï¿½ï¿½ï¿½ï¿½Ì¤Î¥ï¿½ï¿½ï¿½ï¿½ï¿½front,back,sideï¿½ï¿½
-		var selective_name = ''; // ï¿½×¥ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ì¾ï¿½ï¿½
-		var category_id = 0; // ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ê¡¼ID
-		var posid = ''; // ï¿½ï¿½ï¿½ï¿½IDï¿½Ê¤ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½Ê¤Ï¾ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½
-		var category_name = ''; // ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ê¡¼Ì¾
-		var tab_title = ""; // ï¿½ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½ï¿½È¥ï¿½
-		var inkid = 0; // orderink table ï¿½ï¿½ID
-		var key = ''; // ï¿½Ï¥Ã¥ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½
-		var i, s = 0; // ï¿½ï¿½ï¿½ó¥¯¥ï¿½ï¿½ï¿½ï¿½
-		var isBring = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Í­Ìµ
+		var orders_id = arguments[0]; // ¼õÃíNo
+		var print_type = ""; // ¥×¥ê¥ó¥È¼ïÎà¡Êprint key¡Ë
+		var directions = []; // Åö³º¥×¥ê¥ó¥È¥¿¥¤¥×¤Î»Ø¼¨½ñ¾ðÊó
+		var Err = false; // AJAX¤Î¥¨¥é¡¼È½Äê
+		var area_name = ''; // ¥×¥ê¥ó¥ÈÌÌ¤Î¥­¡¼¡Êfront,back,side¡Ë
+		var selective_name = ''; // ¥×¥ê¥ó¥È»ØÄê°ÌÃÖ¤ÎÌ¾Á°
+		var category_id = 0; // ¥«¥Æ¥´¥ê¡¼ID
+		var posid = ''; // ³¨·¿ID¡Ê¤½¤ÎÂ¾¾¦ÉÊ¤Ï¾¦ÉÊÌ¾¡Ë
+		var category_name = ''; // ¥«¥Æ¥´¥ê¡¼Ì¾
+		var tab_title = ""; // ¥¿¥Ö¤Î¥¿¥¤¥È¥ë
+		var inkid = 0; // orderink table ¤ÎID
+		var key = ''; // ¥Ï¥Ã¥·¥å¤Î¥­¡¼
+		var i, s = 0; // ¥¤¥ó¥¯¥ê¥á¥ó¥È
+		var isBring = false; // »ý¹þ¾¦ÉÊ¤ÎÍ­Ìµ
 		var factory_hash = {
-			1: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',
-			2: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',
-			9: 'ï¿½ï¿½ï¿½ï¿½'
+			1: '£±¹©¾ì',
+			2: '£²¹©¾ì',
+			9: 'º®¹ç'
 		};
 
 		$('#alert_require').hide();
 
-		if (arguments.length > 1) { // ï¿½ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥×¥ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½×¤ï¿½ï¿½Ñ¹ï¿½
+		if (arguments.length > 1) { // ¥»¥ì¥¯¥¿¡¼¤Ç¥×¥ê¥ó¥È¥¿¥¤¥×¤ÎÊÑ¹¹
 			if (mypage.prop.modified) {
-				var isReturn = confirm('ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½');
+				var isReturn = confirm('ÊÑ¹¹ÆâÍÆ¤òÊÝÂ¸¤·¤Þ¤¹¤«¡©');
 				if (isReturn) {
 					if (!mypage.save('direction')) {
-						alert("p3456\nï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¸ï¿½Ç¥ï¿½ï¿½é¡¼ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½");
+						alert("p3456\nÀ½ºî»Ø¼¨½ñ¤ÎÊÝÂ¸¤Ç¥¨¥é¡¼¤¬È¯À¸¤·¤Æ¤¤¤Þ¤¹¡£");
 						return false;
 					}
 				}
 				mypage.prop.modified = false;
 			}
 
-			print_type = $(arguments[1]).val(); // ï¿½ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ê¤µï¿½ì¤¿ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Î¥ï¿½ï¿½ï¿½
+			print_type = $(arguments[1]).val(); // ¥»¥ì¥¯¥¿¡¼¤Ç»ØÄê¤µ¤ì¤¿¥×¥ê¥ó¥ÈÊýË¡¤Î¥­¡¼
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
 				type: 'POST',
@@ -5882,18 +5883,18 @@ var mypage = {
 								var a = data[t].split($.delimiter['dat']);
 								res[a[0]] = a[1];
 							}
-							directions.push(res); // ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Î»Ø¼ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							directions.push(res); // Åö³º¥×¥ê¥ó¥ÈÊýË¡¤Î»Ø¼¨½ñ¥Ç¡¼¥¿¤ò¼èÆÀ
 						}
 					}
 				}
 			});
 			if (Err) {
-				alert("p3493\nï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("p3493\nÀ½ºî»Ø¼¨½ñ¥Ç¡¼¥¿¤ò¼èÆÀ¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£");
 				return false;
 			}
 
 			/*
-			 *	ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½ï¿½Ë¥ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ñ¤Î¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½
+			 *	¥×¥ê¥ó¥È°ÌÃÖËè¤Ë¥¿¥ÖÉ½¼¨ÍÑ¤Î¥Ç¡¼¥¿¤òºÆ½¸·×
 			 */
 			mypage.temp.tabs = [];
 			for (i = 0; i < mypage.temp.product.length; i++) {
@@ -5906,33 +5907,33 @@ var mypage = {
 				category_name = mypage.temp.product[i]['category_name'];
 
 				if (posid.indexOf('_') > -1) {
-					category_name += ' ' + posid.split('_')[1]; // ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½Õ²ï¿½
+					category_name += ' ' + posid.split('_')[1]; // ¤½¤ÎÂ¾¤È»ý¹þ¤Î¾ì¹ç¤Ï¾¦ÉÊÌ¾¤òÉÕ²Ã
 				} else if (category_name == "") {
-					category_name = mypage.temp.product[i]['item_name']; // Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½
+					category_name = mypage.temp.product[i]['item_name']; // Å¾¼Ì¥·¡¼¥È
 				} else {
-					category_name += ' ' + posid; // ï¿½Ì¾ï¿½Ï¥×¥ï¿½ï¿½È¥Ý¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½Õ²ï¿½
+					category_name += ' ' + posid; // ÄÌ¾ï¤Ï¥×¥ê¥ó¥È¥Ý¥¸¥·¥ç¥óID¤òÉÕ²Ã
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Í­Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+				// »ý¹þ¾¦ÉÊ¤ÎÍ­Ìµ¤ò¥Á¥§¥Ã¥¯
 				if (category_id == 100) isBring = true;
 
 				if (area_name == "front") {
-					tab_title = category_name + ' ï¿½ï¿½ï¿½Ì¡ï¿½' + selective_name + 'ï¿½ï¿½';
+					tab_title = category_name + ' ÀµÌÌ¡Ê' + selective_name + '¡Ë';
 				} else if (area_name == "back") {
-					tab_title = category_name + ' ï¿½ï¿½ï¿½ï¿½ï¿½' + selective_name + 'ï¿½ï¿½';
+					tab_title = category_name + ' ÇØÃæ¡Ê' + selective_name + '¡Ë';
 				} else if (area_name == "free") {
-					tab_title = 'ï¿½Õ¥ê¡¼';
+					tab_title = '¥Õ¥ê¡¼';
 				} else if (area_name == "fixed") {
-					tab_title = 'Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½';
+					tab_title = 'Å¾¼Ì¥·¡¼¥È';
 				} else {
-					tab_title = category_name + ' Â¦ï¿½Ì¡ï¿½' + selective_name + 'ï¿½ï¿½';
+					tab_title = category_name + ' Â¦ÌÌ¡Ê' + selective_name + '¡Ë';
 				}
 
 				if (typeof mypage.temp.tabs[tab_title] == 'undefined') {
 					mypage.temp.tabs[tab_title] = mypage.temp.product[i];
-					mypage.temp.tabs[tab_title]['inknames'] = []; // ï¿½ï¿½ï¿½ï¿½Ì¾
-					// mypage.temp.tabs[tab_title]['exchink'] = [];	// ï¿½ï¿½ï¿½ó¥¯¿ï¿½ï¿½Ø¤ï¿½
-					mypage.temp.tabs[tab_title]['direction'] = []; // ï¿½ï¿½Ï¿ï¿½Ñ¤ß¼ï¿½ï¿½ï¿½É¼ï¿½Ç¡ï¿½ï¿½ï¿½
+					mypage.temp.tabs[tab_title]['inknames'] = []; // ¥¤¥ó¥¯Ì¾
+					// mypage.temp.tabs[tab_title]['exchink'] = [];	// ¥¤¥ó¥¯¿§ÂØ¤¨
+					mypage.temp.tabs[tab_title]['direction'] = []; // ÅÐÏ¿ºÑ¤ß¼õÃíÉ¼¥Ç¡¼¥¿
 					for (s = 0; s < directions.length; s++) {
 						if (directions[s]['print_category_id'] == category_id &&
 							directions[s]['area_key'] == area_name &&
@@ -5944,7 +5945,7 @@ var mypage = {
 				}
 
 				if (print_type == 'inkjet') {
-					mypage.temp.tabs[tab_title]['inknames'][0] = mypage.temp.product[i]['print_option'] == 0 ? 'Ã¸ï¿½ï¿½' : 'Ç»ï¿½ï¿½';
+					mypage.temp.tabs[tab_title]['inknames'][0] = mypage.temp.product[i]['print_option'] == 0 ? 'Ã¸¿§' : 'Ç»¿§';
 				} else {
 					inkid = mypage.temp.product[i]['inkid'];
 					mypage.temp.tabs[tab_title]['inknames'][inkid] = mypage.temp.product[i]['ink_code'] + " " + mypage.temp.product[i]['ink_name'];
@@ -5953,8 +5954,8 @@ var mypage = {
 
 		} else {
 			/* 
-			 *	ï¿½á¥¤ï¿½ó¥¿¥Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
-			 *	ï¿½Ø¼ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§ï¿½ï¿½Ì¤ï¿½ï¿½Ï¿ï¿½Î¾ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Í¤Ç¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Î¥Ï¥Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê¥»ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			 *	¥á¥¤¥ó¥¿¥Ö¤ÇÀ©ºî»Ø¼¨½ñ¤òÉ½¼¨
+			 *	»Ø¼¨½ñ¥Ç¡¼¥¿¤ò³ÎÇ§¤·Ì¤ÅÐÏ¿¤Î¾ì¹ç¤Ï¿·µ¬ÅÐÏ¿¡¡ÊÖ¤êÃÍ¤Ç¥×¥ê¥ó¥ÈÊýË¡¤Î¥Ï¥Ã¥·¥å¤ò¼õ¼è¤ê¥»¥ì¥¯¥¿¡¼¤òÀ¸À®
 			 */
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
@@ -5977,9 +5978,9 @@ var mypage = {
 
 					var selector = '';
 					var a = data[0].split(',');
-					if (a[1] == 'ï¿½ï¿½ï¿½Ê¤Î¤ï¿½') {
+					if (a[1] == '¾¦ÉÊ¤Î¤ß') {
 						print_type = a[0];
-						selector = '<select><option value="' + a[0] + '" selected="selected">ï¿½ï¿½ï¿½Ê¤Î¤ï¿½</option></select>';
+						selector = '<select><option value="' + a[0] + '" selected="selected">¾¦ÉÊ¤Î¤ß</option></select>';
 					} else {
 						selector = '<select onchange="mypage.setDirectionData(' + orders_id + ', this)">';
 						for (var i = 0; i < l; i++) {
@@ -5996,12 +5997,12 @@ var mypage = {
 				}
 			});
 			if (Err) {
-				alert("p3399\nï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("p3399\nÀ½ºî»Ø¼¨½ñ¥Ç¡¼¥¿¤òÅÐÏ¿¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£");
 				return false;
 			}
 
 			/*
-			 *	ï¿½Ç½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½Î»Ø¼ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			 *	ºÇ½é¤ËÉ½¼¨¤¹¤ë¥×¥ê¥ó¥ÈÊýË¡¤Î»Ø¼¨½ñ¥Ç¡¼¥¿¤ò¼èÆÀ
 			 */
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
@@ -6040,11 +6041,11 @@ var mypage = {
 				}
 			});
 			if (Err) {
-				alert("p3430\nï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("p3430\nÀ½ºî»Ø¼¨½ñ¥Ç¡¼¥¿¤ò¼èÆÀ¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£");
 				return false;
 			}
 
-			// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ÃíÊ¸À½ÉÊ¾ðÊó¤ò¼èÆÀ
 			mypage.temp.product = [];
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
@@ -6079,15 +6080,15 @@ var mypage = {
 								res[a[0]] = a[1];
 							}
 
-							// ï¿½ï¿½ï¿½Ì¤È¶È¼Ô¤Î¹ï¿½ï¿½ï¿½Ì¾ï¿½Î°ã¤¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							// °ìÈÌ¤È¶È¼Ô¤Î¹àÌÜÌ¾¤Î°ã¤¤¤òÀ°Íý
 							var ary = [];
 							if (res['ordertype'] == 'general' && res['master_id'] != 0) {
-								// ï¿½ï¿½ï¿½Ì¤Î¼è°·ï¿½ï¿½ï¿½ï¿½
+								// °ìÈÌ¤Î¼è°·¾¦ÉÊ
 								res['stock_number'] = res['item_code'] + '_' + res['color_code'];
 								res['src'] = './img/items/' + res['category_key'] + '/' + res['item_code'] + '/' + res['stock_number'] + '.jpg';
 								res['orderitem_id'] = res['orders_id'] + '_' + res['master_id'] + '_' + res['size_id'];
 							} else {
-								// ï¿½È¼Ô¤Þ¤ï¿½ï¿½Ï°ï¿½ï¿½Ì¤Î¤ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½
+								// ¶È¼Ô¤Þ¤¿¤Ï°ìÈÌ¤Î¤½¤ÎÂ¾¤È»ý¹þ
 								ary = res['stock_number'].split('_');
 								res['item_code'] = ary[0];
 								res['maker_name'] = res['maker'];
@@ -6096,14 +6097,14 @@ var mypage = {
 								else res['src'] = './img/items/' + res['category_key'] + '/' + res['item_code'] + '/' + res['stock_number'] + '.jpg';
 							}
 
-							// ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							// ¤½¤ÎÂ¾¤È»ý¹þ¤Î¥«¥Æ¥´¥êÌ¾¤òÀßÄê
 							if (res['category_id'] == 0) {
-								res['category_name'] = 'ï¿½ï¿½ï¿½ï¿½Â¾';
+								res['category_name'] = '¤½¤ÎÂ¾';
 							} else if (res['category_id'] == 100) {
-								res['category_name'] = 'ï¿½ï¿½ï¿½ï¿½';
+								res['category_name'] = '»ý¹þ';
 							}
 
-							// ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½
+							// ¥×¥ê¥ó¥È°ÌÃÖ²èÁü¤òÆÉ¹þ¤à
 							if (res['area_name'] == "free") {
 								res['baseimage'] = '<img src="./img/blank.gif" alt="" />';
 							} else {
@@ -6131,21 +6132,21 @@ var mypage = {
 				}
 			});
 			if (Err) {
-				alert("p4008\nï¿½ï¿½ï¿½Ê¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("p4008\n¾¦ÉÊ¥Ç¡¼¥¿¤ò¼èÆÀ¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£");
 				return false;
 			}
 
 			/*
-			 *	ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½Ö¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ë¾¦ï¿½Ê¥Æ¡ï¿½ï¿½Ö¥ï¿½
-			 *	ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½ï¿½È¤ï¿½Æ±ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¤¾ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½Ý»ï¿½
+			 *	´ðËÜ¥¿¥Ö¤ËÉ½¼¨¤¹¤ë¾¦ÉÊ¥Æ¡¼¥Ö¥ë
+			 *	¥×¥ê¥ó¥ÈÊýË¡¤´¤È¤ËÆ±¿§¤Î¥¢¥¤¥Æ¥àËè¤ËÊ¬¤±¡¢¤½¤ì¤¾¤ì¤Î¥µ¥¤¥º¤Î¾ðÊó¤òÊÝ»ý
 			 *
-			 *	ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ñ¥Ç¡ï¿½ï¿½ï¿½ï¿½ò½¸·ï¿½
+			 *	Åö³º¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¿¥ÖÉ½¼¨ÍÑ¥Ç¡¼¥¿¤ò½¸·×
 			 */
 			mypage.temp.items = [];
 			mypage.temp.tabs = [];
 
 			for (i = 0; i < mypage.temp.product.length; i++) {
-				// ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½Ö¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ë¾¦ï¿½Ê¥Æ¡ï¿½ï¿½Ö¥ï¿½Ç¡ï¿½ï¿½ï¿½
+				// ´ðËÜ¥¿¥Ö¤ËÉ½¼¨¤¹¤ë¾¦ÉÊ¥Æ¡¼¥Ö¥ë¥Ç¡¼¥¿
 				key = mypage.temp.product[i]['print_type'];
 				if (typeof mypage.temp.items[key] == 'undefined') mypage.temp.items[key] = [];
 				var key2 = mypage.temp.product[i]['item_name'] + mypage.temp.product[i]['category_id'] + mypage.temp.product[i]['color_name'];
@@ -6155,7 +6156,7 @@ var mypage = {
 				}
 				mypage.temp.items[key][key2]['volume'][mypage.temp.product[i]['size_name']] = [mypage.temp.product[i]['amount'], mypage.temp.product[i]['orderitem_id'], mypage.temp.product[i]['item_note']];
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Ñ¥Ç¡ï¿½ï¿½ï¿½
+				// Åö³º¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¿¥ÖÉ½¼¨ÍÑ¥Ç¡¼¥¿
 				if (mypage.temp.product[i]['print_type'] != print_type) continue;
 
 				area_name = mypage.temp.product[i]['area_name'];
@@ -6165,32 +6166,32 @@ var mypage = {
 				category_name = mypage.temp.product[i]['category_name'];
 
 				if (posid.indexOf('_') > -1) {
-					category_name += ' ' + posid.split('_')[1]; // ï¿½ï¿½ï¿½ï¿½Â¾ï¿½È»ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½Õ²ï¿½
+					category_name += ' ' + posid.split('_')[1]; // ¤½¤ÎÂ¾¤È»ý¹þ¤Î¾ì¹ç¤Ï¾¦ÉÊÌ¾¤òÉÕ²Ã
 				} else if (category_name == "") {
-					category_name = mypage.temp.product[i]['item_name']; // Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½
+					category_name = mypage.temp.product[i]['item_name']; // Å¾¼Ì¥·¡¼¥È
 				} else {
-					category_name += ' ' + posid; // ï¿½Ì¾ï¿½Ï¥×¥ï¿½ï¿½È¥Ý¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½Õ²ï¿½
+					category_name += ' ' + posid; // ÄÌ¾ï¤Ï¥×¥ê¥ó¥È¥Ý¥¸¥·¥ç¥óID¤òÉÕ²Ã
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Í­Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+				// »ý¹þ¾¦ÉÊ¤ÎÍ­Ìµ¤ò¥Á¥§¥Ã¥¯
 				if (category_id == 100) isBring = true;
 
 				if (area_name == "front") {
-					tab_title = category_name + ' ï¿½ï¿½ï¿½Ì¡ï¿½' + selective_name + 'ï¿½ï¿½';
+					tab_title = category_name + ' ÀµÌÌ¡Ê' + selective_name + '¡Ë';
 				} else if (area_name == "back") {
-					tab_title = category_name + ' ï¿½ï¿½ï¿½ï¿½ï¿½' + selective_name + 'ï¿½ï¿½';
+					tab_title = category_name + ' ÇØÃæ¡Ê' + selective_name + '¡Ë';
 				} else if (area_name == "free") {
-					tab_title = 'ï¿½Õ¥ê¡¼';
+					tab_title = '¥Õ¥ê¡¼';
 				} else if (area_name == "fixed") {
-					tab_title = 'Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½';
+					tab_title = 'Å¾¼Ì¥·¡¼¥È';
 				} else {
-					tab_title = category_name + ' Â¦ï¿½Ì¡ï¿½' + selective_name + 'ï¿½ï¿½';
+					tab_title = category_name + ' Â¦ÌÌ¡Ê' + selective_name + '¡Ë';
 				}
 
 				if (typeof mypage.temp.tabs[tab_title] == 'undefined') {
 					mypage.temp.tabs[tab_title] = mypage.temp.product[i];
-					mypage.temp.tabs[tab_title]['inknames'] = []; // ï¿½ï¿½ï¿½ï¿½Ì¾
-					mypage.temp.tabs[tab_title]['direction'] = []; // ï¿½ï¿½Ï¿ï¿½Ñ¤ß¼ï¿½ï¿½ï¿½É¼ï¿½Ç¡ï¿½ï¿½ï¿½
+					mypage.temp.tabs[tab_title]['inknames'] = []; // ¥¤¥ó¥¯Ì¾
+					mypage.temp.tabs[tab_title]['direction'] = []; // ÅÐÏ¿ºÑ¤ß¼õÃíÉ¼¥Ç¡¼¥¿
 					for (s = 0; s < directions.length; s++) {
 						if (directions[s]['print_category_id'] == category_id &&
 							directions[s]['area_key'] == area_name &&
@@ -6202,27 +6203,27 @@ var mypage = {
 				}
 
 				if (print_type == 'inkjet') {
-					mypage.temp.tabs[tab_title]['inknames'][0] = mypage.temp.product[i]['print_option'] == 0 ? 'Ã¸ï¿½ï¿½' : 'Ç»ï¿½ï¿½';
+					mypage.temp.tabs[tab_title]['inknames'][0] = mypage.temp.product[i]['print_option'] == 0 ? 'Ã¸¿§' : 'Ç»¿§';
 				} else {
 					inkid = mypage.temp.product[i]['inkid'];
 					mypage.temp.tabs[tab_title]['inknames'][inkid] = mypage.temp.product[i]['ink_code'] + " " + mypage.temp.product[i]['ink_name'];
 				}
 			}
 
-			// ï¿½ÞµÍ¤È¤ï¿½ï¿½Ï¤ï¿½ï¿½ï¿½
+			// ÂÞµÍ¤È¤ªÆÏ¤±Àè
 			var pack = [];
-			if (directions[0]['package_yes'] == 1) pack.push('ï¿½ï¿½ï¿½ï¿½');
-			if (directions[0]['package_no'] == 1) pack.push('ï¿½Ê¤ï¿½');
-			if (directions[0]['package_nopack'] == 1) pack.push('ï¿½Þ¤Î¤ï¿½');
+			if (directions[0]['package_yes'] == 1) pack.push('¤¢¤ê');
+			if (directions[0]['package_no'] == 1) pack.push('¤Ê¤·');
+			if (directions[0]['package_nopack'] == 1) pack.push('ÂÞ¤Î¤ß');
 			pack = pack.join(',');
 			if (pack == '') {
-				// ï¿½ì¥¿ï¿½ï¿½ï¿½×¤ï¿½ï¿½Ð±ï¿½
+				// µì¥¿¥¤¥×¤ËÂÐ±þ
 				if (directions[0]['package'] == "yes") {
-					pack = "ï¿½ï¿½ï¿½ï¿½";
+					pack = "¤¢¤ê";
 				} else if (directions[0]['package'] == "nopack") {
-					pack = "ï¿½Þ¤Î¤ï¿½";
+					pack = "ÂÞ¤Î¤ß";
 				} else {
-					pack = "ï¿½Ê¤ï¿½";
+					pack = "¤Ê¤·";
 				}
 			}
 
@@ -6235,7 +6236,7 @@ var mypage = {
 			$('.addr1', '#dire_delivery_table').text(mypage.temp.product[0]['deliaddr1']);
 			$('.addr2', '#dire_delivery_table').text(mypage.temp.product[0]['deliaddr2']);
 
-			// ï¿½ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
+			// ¼õÃíÉ¼¾ðÊó¤ÎÉ½¼¨
 			var number = mypage.temp.product[0]['number'];
 			if (number != '') {
 				if (mypage.temp.product[0]['cstprefix'] == 'g') {
@@ -6255,15 +6256,15 @@ var mypage = {
 			$('#dire_title .print_title span').text(mypage.temp.product[0]['maintitle']);
 		}
 
-		// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ¥Ç¥¸¥¿¥ëÅ¾¼Ì¤ÎÌÌÉÕ¤±¾ðÊó¤ò½é´ü²½
 		var cutpattern = '<tr>';
 		cutpattern += '<td><input type="text" value="" class="shotname" /></td>';
-		cutpattern += '<td><input type="text" value="0" class="shot" class="forNum" /> ï¿½ï¿½ ï¿½ï¿½ ';
-		cutpattern += '<input type="text" value="0" class="sheets" class="forNum" /> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>';
-		cutpattern += '<td>ï¿½ï¿½</td></tr>';
+		cutpattern += '<td><input type="text" value="0" class="shot" class="forNum" /> ÌÌ ¡ß ';
+		cutpattern += '<input type="text" value="0" class="sheets" class="forNum" /> ¥·¡¼¥È</td>';
+		cutpattern += '<td>¡¡</td></tr>';
 		$('#dire_option_table tbody').html(cutpattern);
 
-		// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½Õ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ¥Ç¥¸¥¿¥ëÅ¾¼Ì¤ÎÌÌÉÕ¤±¾ðÊó¤ò¼èÆÀ
 		if (print_type == 'digit') {
 			$('#dire_option_table, .jobtime_wrapper').show();
 			$.ajax({
@@ -6282,14 +6283,14 @@ var mypage = {
 						if (r.length > 0) {
 							var cutpattern = '<tr>';
 							cutpattern += '<td><input type="text" value="' + r[0]['shotname'] + '" class="shotname" /></td>';
-							cutpattern += '<td><input type="text" value="' + r[0]['shot'] + '" class="shot" class="forNum" /> ï¿½ï¿½ ï¿½ï¿½ ';
-							cutpattern += '<input type="text" value="' + r[0]['sheets'] + '" class="sheets" class="forNum" /> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>';
-							cutpattern += '<td>ï¿½ï¿½</td></tr>';
+							cutpattern += '<td><input type="text" value="' + r[0]['shot'] + '" class="shot" class="forNum" /> ÌÌ ¡ß ';
+							cutpattern += '<input type="text" value="' + r[0]['sheets'] + '" class="sheets" class="forNum" /> ¥·¡¼¥È</td>';
+							cutpattern += '<td>¡¡</td></tr>';
 							for (var i = 1; i < r.length; i++) {
 								cutpattern += '<td><input type="text" value="' + r[i]['shotname'] + '" class="shotname" /></td>';
-								cutpattern += '<td><input type="text" value="' + r[i]['shot'] + '" class="shot" class="forNum" /> ï¿½ï¿½ ï¿½ï¿½ ';
-								cutpattern += '<input type="text" value="' + r[i]['sheets'] + '" class="sheets" class="forNum" /> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</td>';
-								cutpattern += '<td><input type="button" value="ï¿½ï¿½ï¿½" class="del_cutpattern" /></td></tr>';
+								cutpattern += '<td><input type="text" value="' + r[i]['shot'] + '" class="shot" class="forNum" /> ÌÌ ¡ß ';
+								cutpattern += '<input type="text" value="' + r[i]['sheets'] + '" class="sheets" class="forNum" /> ¥·¡¼¥È</td>';
+								cutpattern += '<td><input type="button" value="ºï½ü" class="del_cutpattern" /></td></tr>';
 							}
 						}
 						$('#dire_option_table tbody').html(cutpattern);
@@ -6303,19 +6304,19 @@ var mypage = {
 			$('#dire_option_table, .jobtime_wrapper').hide();
 		}
 		if (Err) {
-			alert("p4174\nï¿½ï¿½ï¿½Õ¤ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½");
+			alert("p4174\nÌÌÉÕ¤±¥Ç¡¼¥¿¤ò¼èÆÀ¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£");
 			return false;
 		}
 
 
 		$('#dire_title .printtype_name').text($('#direction_selector select option:selected').text());
 		$('#curr_printtype').text($('#direction_selector select').val());
-		$('#factory_name').text('ï¿½ï¿½ï¿½ì¡§ ' + factory_hash[directions[0]['factory']]);
+		$('#factory_name').text('¹©¾ì¡§ ' + factory_hash[directions[0]['factory']]);
 
-		// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ê¤Î°ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		var html = ''; // ï¿½ï¿½ï¿½Ê¥Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½Ñ¤ï¿½HTML
-		var totVolume = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½×¤Î¹ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½
-		var sizename = ''; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾
+		// ÃíÊ¸¾¦ÉÊ¤Î°ìÍ÷¥Æ¡¼¥Ö¥ë¤òÀ¸À®
+		var html = ''; // ¾¦ÉÊ¥Æ¡¼¥Ö¥ëÍÑ¤ÎHTML
+		var totVolume = 0; // Åö³º¥×¥ê¥ó¥È¥¿¥¤¥×¤Î¹ç·×ÃíÊ¸Ëç¿ô
+		var sizename = ''; // ¥µ¥¤¥ºÌ¾
 		key = '';
 		for (key in mypage.temp.items[print_type]) {
 			var item = mypage.temp.items[print_type][key];
@@ -6354,25 +6355,25 @@ var mypage = {
 		$('#dire_items_table tbody').html(html);
 		$('#dire_items_table tfoot tr td:last span').html(totVolume);
 
-		// ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
+		// ´ðËÜ¥¿¥Ö¾ðÊó¤ÎÉ½¼¨
 		if (isBring) {
-			$('#arrange').text('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+			$('#arrange').text('»ý¹þ¤¢¤ê');
 		} else {
-			$('#arrange').text('ï¿½ï¿½Ê¸');
+			$('#arrange').text('ÃíÊ¸');
 		}
 
 		switch (directions[0]['carriage']) {
 			case 'normal':
-				$('#shipment').text('ï¿½ï¿½ï¿½ï¿½ï¿½');
+				$('#shipment').text('ÂðµÞÊØ');
 				break;
 			case 'accept':
-				$('#shipment').text('ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤ï¿½');
+				$('#shipment').text('¹©¾ìÅÏ¤·');
 				break;
 			case 'telephonic':
-				$('#shipment').text('ï¿½Ç¤ï¿½tel');
+				$('#shipment').text('¤Ç¤­tel');
 				break;
 			default:
-				$('#shipment').text('ï¿½ï¿½ï¿½ï¿½Â¾');
+				$('#shipment').text('¤½¤ÎÂ¾');
 				break;
 		}
 		var delitime = ['', '(am)', '(12:00-14:00)', '(14:00-16:00)', '(16:00-18:00)', '(18:00-20:00)', '(19:00-21:00)'];
@@ -6396,154 +6397,154 @@ var mypage = {
 			$('.edgecolor_wrap').hide();
 		}
 
-		// ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½Ê³ï¿½ï¿½Î¥ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½
+		// ´ðËÜ¾ðÊó°Ê³°¤Î¥¿¥Ö¤òºï½ü
 		var cnt = $mytab.tabs('length');
 		for (var t = 1; t < cnt; t++) {
 			$mytab.tabs('remove', 1);
 		}
 
-		// ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½
-		// ï¿½×¥ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½È¤ï¿½ï¿½Ï´ï¿½ï¿½Ü¥ï¿½ï¿½Ö¤Î¤ï¿½
-		if ($('#dire_title .printtype_name').text() != 'ï¿½ï¿½ï¿½Ê¤Î¤ï¿½') {
+		// ¥¿¥Ö¤òÀ¸À®
+		// ¥×¥ê¥ó¥ÈÌµ¤·¤¬¥Á¥§¥Ã¥¯¤µ¤ì¤Æ¤¤¤ë¤È¤­¤Ï´ðËÜ¥¿¥Ö¤Î¤ß
+		if ($('#dire_title .printtype_name').text() != '¾¦ÉÊ¤Î¤ß') {
 			var tabIndex = 0;
 			tab_title = '';
 			for (tab_title in mypage.temp.tabs) {
 				var tab = mypage.temp.tabs[tab_title];
 
-				// ï¿½×¥ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¥×¥ê¥ó¥È¥µ¥¤¥º
 				var size_select = '';
 				if (print_type == 'silk') {
-					size_select = tab['areasize_from'] + ' ï¿½ï¿½ ' + tab['areasize_to'] + ' cm';
+					size_select = tab['areasize_from'] + ' ¡ß ' + tab['areasize_to'] + ' cm';
 				} else {
 					var areasize_id = tab['areasize_id'];
 					switch (print_type) {
 						case 'inkjet':
-							if (areasize_id == '0') size_select = 'ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½cm';
-							else if (areasize_id == '1') size_select = 'ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½cm';
-							else size_select = 'ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½cm';
+							if (areasize_id == '0') size_select = 'Âç¡Ê27¡ß38¡Ëcm';
+							else if (areasize_id == '1') size_select = 'Ãæ¡Ê27¡ß18¡Ëcm';
+							else size_select = '¾®¡Ê10¡ß10¡Ëcm';
 							break;
 						case 'trans':
 						case 'digit':
-							if (areasize_id == '0') size_select = 'ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½cm';
-							else if (areasize_id == '1') size_select = 'ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½cm';
-							else size_select = 'ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½cm';
+							if (areasize_id == '0') size_select = 'Âç¡Ê27¡ß38¡Ëcm';
+							else if (areasize_id == '1') size_select = 'Ãæ¡Ê27¡ß18¡Ëcm';
+							else size_select = '¾®¡Ê10¡ß10¡Ëcm';
 							break;
 						case 'digit':
 						case 'cutting':
-							if (areasize_id == '0') size_select = 'ï¿½ï¿½ï¿½27ï¿½ï¿½38ï¿½ï¿½cm';
-							else if (areasize_id == '1') size_select = 'ï¿½ï¿½ï¿½27ï¿½ï¿½18ï¿½ï¿½cm';
-							else size_select = 'ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½cm';
+							if (areasize_id == '0') size_select = 'Âç¡Ê27¡ß38¡Ëcm';
+							else if (areasize_id == '1') size_select = 'Ãæ¡Ê27¡ß18¡Ëcm';
+							else size_select = '¾®¡Ê10¡ß10¡Ëcm';
 							break;
 						case 'embroidery':
-							if (areasize_id == '0') size_select = 'ï¿½ï¿½ï¿½25ï¿½ï¿½25ï¿½ï¿½cm';
-							else if (areasize_id == '1') size_select = 'ï¿½ï¿½ï¿½18ï¿½ï¿½18ï¿½ï¿½cm';
-							else if (areasize_id == '2') size_select = 'ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½10ï¿½ï¿½cm';
-							else size_select = 'ï¿½Ë¾ï¿½ï¿½ï¿½5ï¿½ï¿½5ï¿½ï¿½cm';
+							if (areasize_id == '0') size_select = 'Âç¡Ê25¡ß25¡Ëcm';
+							else if (areasize_id == '1') size_select = 'Ãæ¡Ê18¡ß18¡Ëcm';
+							else if (areasize_id == '2') size_select = '¾®¡Ê10¡ß10¡Ëcm';
+							else size_select = '¶Ë¾®¡Ê5¡ß5¡Ëcm';
 							break;
 					}
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¼õÉÕÆü
 				var created = directions[0]['created'].replace(/(\/)|(-)/g, '');
 
-				// ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
-				var tab_content = '<div id="p' + tab['direction'][0]['pinfoid'] + '" class="tabs_wrapper"><div class="freespace"> ï¿½ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½</div>';
+				// ¥³¥ó¥Æ¥ó¥Ä
+				var tab_content = '<div id="p' + tab['direction'][0]['pinfoid'] + '" class="tabs_wrapper"><div class="freespace"> ¼õÃíÉ¼¾ðÊó</div>';
 				tab_content += '<div class="dire_design_wrapper"><div class="printimage">' + tab['baseimage'] + '</div>';
-				tab_content += '<div class="freeimage"><div class="close" onclick="$(this).parent().hide(500);">ï¿½Ä¤ï¿½ï¿½ï¿½</div><p>ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Î¥ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ò¥¢¥Ã¥×¥ï¿½ï¿½ï¿½ï¿½É¤ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</p>';
+				tab_content += '<div class="freeimage"><div class="close" onclick="$(this).parent().hide(500);">ÊÄ¤¸¤ë</div><p>¥¢¥¤¥Æ¥à¤Î¥¤¥á¡¼¥¸¤ò¥¢¥Ã¥×¥í¡¼¥É¤·¤Æ¤¯¤À¤µ¤¤¡£</p>';
 				tab_content += '<form name="uploaderform" action="' + _MAIN + '" target="upload_iframe" method="post" enctype="multipart/form-data">';
-				tab_content += '<input type="hidden" name="dummy" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" />';
+				tab_content += '<input type="hidden" name="dummy" value="ÈýÉý¤¢¤¢¤¢" />';
 				tab_content += '<input type="hidden" name="fileframe" value="true" />';
 				tab_content += '<input type="hidden" name="positionname" value="" />';
 				tab_content += '<input type="hidden" name="orders_id" value="' + orders_id + '" />';
 				tab_content += '<input type="hidden" name="created" value="' + created + '" />';
 				tab_content += '<input type="hidden" name="req" value="428" />';
-				tab_content += '<label for="uploadfile">ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ë¡§</label>';
+				tab_content += '<label for="uploadfile">¥Õ¥¡¥¤¥ë¡§</label>';
 				tab_content += '<input type="file" name="uploadfile" id="uploadfile" onchange="this.form.submit()" /></form></div></div>';
 				tab_content += '<div class="dire_printinfo_wrapper"><table class="dire_printinfo_table">';
-				tab_content += '	<caption>ï¿½×¥ï¿½ï¿½È¥Ç¡ï¿½ï¿½ï¿½</caption><tbody>';
-				tab_content += '		<tr><th>ï¿½ï¿½ï¿½ï¿½</th><td>' + tab['design_type'] + '</td>';
-				tab_content += '		<th>ï¿½ç¤­ï¿½ï¿½</th><td>' + size_select + '</td></tr>';
-				tab_content += '		<tr><th>ï¿½ï¿½ï¿½ï¿½</th><td colspan="3">';
+				tab_content += '	<caption>¥×¥ê¥ó¥È¥Ç¡¼¥¿</caption><tbody>';
+				tab_content += '		<tr><th>¸¶¹Æ</th><td>' + tab['design_type'] + '</td>';
+				tab_content += '		<th>Âç¤­¤µ</th><td>' + size_select + '</td></tr>';
+				tab_content += '		<tr><th>¥¤¥ó¥¯</th><td colspan="3">';
 				if (tab['inknames'].length > 0) {
 					for (inkid in tab['inknames']) {
 						tab_content += '<p>' + tab['inknames'][inkid] + '</p>';
 					}
 				}
 				tab_content += '</td></tr>';
-				tab_content += '		<tr><th>ï¿½ï¿½ï¿½ï¿½</th><td colspan="3"><textarea cols="50" rows="2" class="remark">' + tab['direction'][0]['remark'] + '</textarea></td></tr>';
+				tab_content += '		<tr><th>È÷¹Í</th><td colspan="3"><textarea cols="50" rows="2" class="remark">' + tab['direction'][0]['remark'] + '</textarea></td></tr>';
 
 				if (print_type == 'silk') {
 					var reprint_selector = '<select class="reprint">';
-					reprint_selector += '<option value="0">ï¿½ï¿½ï¿½ï¿½ï¿½</option>';
-					reprint_selector += '<option value="1">ï¿½ï¿½ï¿½ï¿½</option>';
-					reprint_selector += '<option value="2">ï¿½ï¿½ï¿½ï¿½</option>';
+					reprint_selector += '<option value="0">¥ê¥ÔÈÇ</option>';
+					reprint_selector += '<option value="1">¿·ÈÇ</option>';
+					reprint_selector += '<option value="2">ºÆÈÇ</option>';
 					reprint_selector += '</select>';
 					var re = new RegExp('value="' + tab['direction'][0]['reprint'] + '"', 'i');
 					reprint_selector = reprint_selector.replace(re, 'value="' + tab['direction'][0]['reprint'] + '" selected="selected"');
-					tab_content += '<tr><th>ï¿½ï¿½ï¿½ï¿½</th><td colspan="3">';
+					tab_content += '<tr><th>À½ÈÇ</th><td colspan="3">';
 					tab_content += reprint_selector;
 					tab_content += '</td></tr>';
 
 					var plates_selector = '<select class="platesinfo">';
-					plates_selector += '<option value="ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¯ï¿½ï¿½">ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¯ï¿½ï¿½</option>';
-					plates_selector += '<option value="Î¢ï¿½ï¿½ï¿½ï¿½">Î¢ï¿½ï¿½ï¿½ï¿½</option>';
-					plates_selector += '<option value="ï¿½ï¿½ï¿½ï¿½">ï¿½ï¿½ï¿½ï¿½</option>';
-					// plates_selector += '<option value="Å¾ï¿½ï¿½">Å¾ï¿½ï¿½</option>';
-					plates_selector += '<option value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</option>';
-					plates_selector += '<option value="Ë¹ï¿½ï¿½">Ë¹ï¿½ï¿½</option>';
-					plates_selector += '<option value="Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¯ï¿½ï¿½">Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¥¯ï¿½ï¿½</option>';
-					plates_selector += '<option value="Ä¹ï¿½ï¿½Î¢ï¿½ï¿½ï¿½ï¿½">Ä¹ï¿½ï¿½Î¢ï¿½ï¿½ï¿½ï¿½</option>';
-					plates_selector += '<option value="Ä¹ï¿½æ¥¾ï¿½ï¿½">Ä¹ï¿½æ¥¾ï¿½ï¿½</option>';
+					plates_selector += '<option value="¥À¥¤¥ì¥¯¥È">¥À¥¤¥ì¥¯¥È</option>';
+					plates_selector += '<option value="Î¢¥¾¥ë">Î¢¥¾¥ë</option>';
+					plates_selector += '<option value="¥¾¥ë">¥¾¥ë</option>';
+					// plates_selector += '<option value="Å¾¼Ì">Å¾¼Ì</option>';
+					plates_selector += '<option value="¥¸¥ã¥ó¥Ü">¥¸¥ã¥ó¥Ü</option>';
+					plates_selector += '<option value="Ë¹»Ò">Ë¹»Ò</option>';
+					plates_selector += '<option value="Ä¹Âæ¥À¥¤¥ì¥¯¥È">Ä¹Âæ¥À¥¤¥ì¥¯¥È</option>';
+					plates_selector += '<option value="Ä¹ÂæÎ¢¥¾¥ë">Ä¹ÂæÎ¢¥¾¥ë</option>';
+					plates_selector += '<option value="Ä¹Âæ¥¾¥ë">Ä¹Âæ¥¾¥ë</option>';
 					plates_selector += '</select>';
 					re = new RegExp('value="' + tab['direction'][0]['platesinfo'] + '"', 'i');
 					plates_selector = plates_selector.replace(re, 'value="' + tab['direction'][0]['platesinfo'] + '" selected="selected"');
-					tab_content += '<tr><th>ï¿½Ç¼ï¿½</th>';
+					tab_content += '<tr><th>ÈÇ¼ï</th>';
 					tab_content += '<td>' + plates_selector + '</td>';
-					tab_content += '<th>ï¿½Ç¿ï¿½</th>';
+					tab_content += '<th>ÈÇ¿ô</th>';
 					tab_content += '<td><input type="text" value="' + tab['direction'][0]['platesnumber'] + '" class="platesnumber" />';
 					tab_content += '</td></tr>';
 
-					tab_content += '<tr><th>ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½</th><td colspan="3"><input type="text" value="' + tab['direction'][0]['meshinfo'] + '" class="meshinfo" /></td></tr>';
+					tab_content += '<tr><th>¥á¥Ã¥·¥å</th><td colspan="3"><input type="text" value="' + tab['direction'][0]['meshinfo'] + '" class="meshinfo" /></td></tr>';
 
 					var attrink_selector = '<select class="attrink">';
 					if (tab['silkmethod'] != 2) {
-						attrink_selector += '<option value="ï¿½ï¿½ï¿½ï¿½">ï¿½ï¿½ï¿½ï¿½</option>';
-						attrink_selector += '<option value="ï¿½ï¿½ï¿½ï¿½">ï¿½ï¿½ï¿½ï¿½</option>';
+						attrink_selector += '<option value="ÌýÀ­">ÌýÀ­</option>';
+						attrink_selector += '<option value="¿åÀ­">¿åÀ­</option>';
 						attrink_selector += '</select>';
 						re = new RegExp('value="' + tab['direction'][0]['attrink'] + '"', 'i');
 						attrink_selector = attrink_selector.replace(re, 'value="' + tab['direction'][0]['attrink'] + '" selected="selected"');
 					} else {
-						attrink_selector += '<option value="ï¿½ï¿½ï¿½ï¿½" selected="selected">ï¿½ï¿½ï¿½ï¿½</option>';
+						attrink_selector += '<option value="À÷¹þ" selected="selected">À÷¹þ</option>';
 						attrink_selector += '</select>';
 					}
-					tab_content += '<tr><th>ï¿½ï¿½ï¿½ó¥¯¼ï¿½</th><td colspan="3">';
+					tab_content += '<tr><th>¥¤¥ó¥¯¼ï</th><td colspan="3">';
 					tab_content += attrink_selector;
 					tab_content += '</td></tr>';
 				}
 
-				tab_content += '<tr><th>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th><td colspan="3">' + tab['design_size'] + '</td></tr>';
+				tab_content += '<tr><th>¥µ¥¤¥º</th><td colspan="3">' + tab['design_size'] + '</td></tr>';
 
-				/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¤Î¥×¥ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ä´ï¿½ï¿½ï¿½Ê½Ä¤È²ï¿½ï¿½ï¿½*/
+				/* ¥µ¥¤¥º¤´¤È¤Î¥×¥ê¥ó¥È¤¹¤ë°ÌÃÖ¤ÎÄ´À°¡Ê½Ä¤È²£¡Ë*/
 				for (var a = 0; a < tab['direction'].length; a++) {
 					sizename = tab['direction'][a]['sizename'];
 					var vert = tab['direction'][a]['vert'];
 					var hori = tab['direction'][a]['hori'];
-					tab_content += '<tr><th class="sizename">' + sizename + '</th><td colspan="3">ï¿½ï¿½<input type="text" value="' + vert + '" class="forReal vert" />ï¿½ß²ï¿½<input type="text" value="' + hori + '" class="forReal hori" /> cm</td></tr>';
+					tab_content += '<tr><th class="sizename">' + sizename + '</th><td colspan="3">½Ä<input type="text" value="' + vert + '" class="forReal vert" />¡ß²£<input type="text" value="' + hori + '" class="forReal hori" /> cm</td></tr>';
 				}
 
 				tab_content += '</tbody></table>';
 				tab_content += '</div></div>';
 
-				// ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ¥¿¥Ö¤òÀ¸À®
 				var tab_counter = tabIndex + 2;
 				$mytab.tabs('add', '#tabs-' + tab_counter, tab_title);
 				var cur_tab = $('#tabs-' + tab_counter);
 				cur_tab.html(tab_content);
 				$mytab.tabs('select', tabIndex + 1);
 
-				if (tab_title != "ï¿½Õ¥ê¡¼") {
-					// ï¿½ï¿½ï¿½ê¤µï¿½ï¿½Æ¤ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö°Ê³ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½Ã¤ï¿½
-					// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½È¥ï¿½ï¿½Ã¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤Î¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ñ¤ß¥Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				if (tab_title != "¥Õ¥ê¡¼") {
+					// »ØÄê¤µ¤ì¤Æ¤¤¤ë¥×¥ê¥ó¥È°ÌÃÖ°Ê³°¤ÎÉ½¼¨¤ò¾Ã¤·
+					// ¥Ç¥¶¥¤¥óÉ½¼¨¤È¥¢¥Ã¥×¥í¡¼¥ÉÍÑ¤Î¥×¥ê¥ó¥È°ÌÃÖ²èÁü¤ÈÅÐÏ¿ºÑ¤ß¥Ç¥¶¥¤¥ó¤ÎÇÛÃÖ
 
 					$('.printimage img:not(:nth-child(1))', '#tabs-' + tab_counter).each(function () {
 						if ($(this).attr('class') == tab['selective_key']) {
@@ -6570,7 +6571,7 @@ var mypage = {
 		}
 
 
-		// ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Ã¥×¥ï¿½ï¿½ï¿½ï¿½É¤Î°Ù¡ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½È¤ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ¥Ç¥¶¥¤¥ó¤Î¥¢¥Ã¥×¥í¡¼¥É¤Î°Ù¡¢¥¯¥ê¥Ã¥¯¥¤¥Ù¥ó¥È¤ÎÀßÄê
 		$('.printimage img:not(:nth-child(1))', '#tabs').click(function () {
 			$(this).parent().siblings('.freeimage').children('form').children('input[name="positionname"]').val($(this).attr('class'));
 			$(this).parent().siblings('.freeimage:hidden').show(500);
@@ -6585,10 +6586,10 @@ var mypage = {
 	},
 	setAcceptnavi: function (idx) {
 		/*
-		 *	ï¿½ï¿½ï¿½Õ¿ï¿½Ä½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	@idx		ï¿½ï¿½Ä½ï¿½ï¿½ï¿½Ü¤Î¥ï¿½ï¿½ï¿½Ç¥Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½0.ï¿½ï¿½ç¤»ï¿½ï¿½1.ï¿½ï¿½ï¿½Ñ¥á¡¼ï¿½ë¡¡2.ï¿½ï¿½ï¿½ï¿½è¡¡3.ï¿½ï¿½ï¿½ï¿½è´°Î»ï¿½ï¿½4.ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ê¡¡5.È¯ï¿½ï¿½ï¿½Ñ¡ï¿½6.ï¿½ï¿½ï¿½
+		 *	¼õÉÕ¿ÊÄ½¥Ð¡¼¤ÎÀßÄê
+		 *	@idx		¿ÊÄ½¹àÌÜ¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹¡¡0.Ìä¹ç¤»¡¡1.¸«ÀÑ¥á¡¼¥ë¡¡2.¥¤¥á²è¡¡3.¥¤¥á²è´°Î»¡¡4.ÃíÊ¸³ÎÄê¡¡5.È¯Á÷ºÑ¡¡6.¼è¾Ã
 		 */
-		// ï¿½ï¿½Ä½ï¿½Ê¥Ó¥Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½
+		// ¿ÊÄ½¥Ê¥Ó¥Ð¡¼¤òÃíÊ¸³ÎÄê¤Ë¤¹¤ë
 		$('#accept_navi li').removeClass('actlist').children('p').removeClass('act bef');
 		$('#accept_navi li:eq(' + idx + ')').addClass('actlist').children('p').addClass('act');
 		if (idx > 0) {
@@ -6598,8 +6599,8 @@ var mypage = {
 	},
 	checkstatus: function (my, orders_id) {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
-		 *		ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤Î¤ï¿½
+		 *	ÃíÊ¸¼è¾Ã¥Á¥§¥Ã¥¯
+		 *		´ÉÍý¼Ô¤Î¤ß
 		 */
 		var field = [];
 		var data = [];
@@ -6628,9 +6629,9 @@ var mypage = {
 						}
 						$(my).closest('tr').find('input[title="repeat"]').remove();
 						if (progid == 6) {
-							$(my).parent().prev().text('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+							$(my).parent().prev().text('¼õÃí¼è¾Ã');
 						} else {
-							$(my).parent().prev().text('ï¿½ä¤¤ï¿½ï¿½ï¤»ï¿½ï¿½');
+							$(my).parent().prev().text('Ìä¤¤¹ç¤ï¤»Ãæ');
 						}
 					}
 				});
@@ -6639,10 +6640,10 @@ var mypage = {
 	},
 	sendmailcheck: function (my, orders_id) {
 		/*
-		 *	ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *		ï¿½×¥ï¿½ï¿½È³ï¿½ï¿½ï¿½
-		 *		ï¿½ï¿½ï¿½ï¿½ï¿½Ç§
-		 *		È¯ï¿½ï¿½
+		 *	¼«Æ°Á÷¿®¥á¡¼¥ë¤ÎÁ÷¿®²ÄÈÝ
+		 *		¥×¥ê¥ó¥È³«»Ï
+		 *		ÅþÃå³ÎÇ§
+		 *		È¯Á÷
 		 */
 		if (!orders_id) return;
 
@@ -6664,9 +6665,9 @@ var mypage = {
 					return;
 				}
 				if (check == 1) {
-					$(my).next('span').text(' ï¿½ï¿½ï¿½');
+					$(my).next('span').text(' Ãæ»ß');
 				} else {
-					$(my).next('span').text(' ï¿½ï¿½ï¿½ï¿½');
+					$(my).next('span').text(' Á÷¿®');
 				}
 			}
 		});
@@ -6674,17 +6675,17 @@ var mypage = {
 	},
 	sendmail: function (act, data) {
 		/**
-		 *	ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	@act		ï¿½á¡¼ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
-		 *	@data[0]	TLAï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½Í­Ìµï¿½ï¿½0(default)ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ë¡¡1ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ê¤ï¿½
-		 *	@data[1]	ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½
-		 *	@data[2]	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *	@data[3]	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¤ï¿½ï¿½É²Ã¥ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½
+		 *	¥á¡¼¥ëÁ÷¿®
+		 *	@act		¥á¡¼¥ë¤Î¼ïÎà
+		 *	@data[0]	TLA¥á¥ó¥Ð¡¼ÅÐÏ¿¤ÎÍ­Ìµ¡¡0(default)¡§ÅÐÏ¿¤¹¤ë¡¡1¡§ÅÐÏ¿¤Ê¤·
+		 *	@data[1]	¼õÃíÈÖ¹æ
+		 *	@data[2]	³ä°ú¼ïÎà
+		 *	@data[3]	Á÷¿®»þ¤Î¤ßÄÉ²Ã¥á¥Ã¥»¡¼¥¸
 		 */
 		var parm = "";
 		var dat = "";
 
-		// ï¿½ï¿½ï¿½ï¿½BOXï¿½Î¸ï¿½ï¿½ï¿½
+		// ¸«ÀÑBOX¤Î¸¡¾Ú
 		if (mypage.prop.ordertype == 'general') {
 			var valid1 = $('#est_printfee').val().replace(/,/g, '') - 0;
 			$('#est_table1 tbody th:not(.sub)').each(function () {
@@ -6692,14 +6693,14 @@ var mypage = {
 			});
 			var valid2 = $('#est_basefee').text().replace(/,/g, '') - 0;
 			if (valid1 != valid2) {
-				alert("Error:5366\nï¿½ï¿½ï¿½Ñ¹ï¿½×¤ï¿½ï¿½ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£ºÆ·×»ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("Error:5366\n¸«ÀÑ¹ç·×¤¬¹ç¤Ã¤Æ¤¤¤Þ¤»¤ó¡£ºÆ·×»»¤·¤Æ¤¯¤À¤µ¤¤¡£");
 				return;
 			}
 			valid2 += $('#est_salestax').text().replace(/,/g, '') - 0;
 			valid2 += $('#est_creditfee').text().replace(/,/g, '') - 0;
 			var valid3 = $('#est_total_price').text().replace(/,/g, '') - 0;
 			if (valid2 != valid3) {
-				alert("Error:5373\nï¿½ï¿½ï¿½Ñ¹ï¿½×¤ï¿½ï¿½ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£ºÆ·×»ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("Error:5373\n¸«ÀÑ¹ç·×¤¬¹ç¤Ã¤Æ¤¤¤Þ¤»¤ó¡£ºÆ·×»»¤·¤Æ¤¯¤À¤µ¤¤¡£");
 				return;
 			}
 		}
@@ -6714,15 +6715,15 @@ var mypage = {
 			});
 		} else {
 			if (arguments.length > 2) {
-				// ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-				parm = mypage.prop.firmorder ? '1' : '2'; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½2
+				// ¥á¡¼¥ëÁ÷¿®
+				parm = mypage.prop.firmorder ? '1' : '2'; // ³ÎÄêÃíÊ¸¤Ï1¡¢¤½¤ì°Ê³°¤Ï2
 				data = [];
 				for (var t = 2; t < arguments.length; t++) {
 					data.push(arguments[t]);
 				}
 				data.push($('#add_message').val());
 			} else {
-				// ï¿½á¡¼ï¿½ï¿½ï¿½Ç§ï¿½Ñ¥Ý¥Ã¥×¥ï¿½ï¿½Ã¥ï¿½
+				// ¥á¡¼¥ë³ÎÇ§ÍÑ¥Ý¥Ã¥×¥¢¥Ã¥×
 				dat = '\'' + act + '\',\'\'';
 				for (var i = 0; i < data.length; i++) {
 					dat += ',\'' + data[i] + '\'';
@@ -6751,9 +6752,9 @@ var mypage = {
 									alert(r[0]);
 									mypage.screenOverlay(false);
 								} else {
-									// ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Ý¥Ã¥×¥ï¿½ï¿½Ã¥ï¿½
+									// ¥á¡¼¥ëËÜÊ¸¤ò¥Ý¥Ã¥×¥¢¥Ã¥×
 									var btn = '<p style="padding: 10px 0px; margin-bottom: 10px; text-align: center; background: #333;">';
-									btn += '<input type="button" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" onclick="mypage.sendmail(' + dat + ')" /></p>';
+									btn += '<input type="button" value="Á÷¡¡¿®" onclick="mypage.sendmail(' + dat + ')" /></p>';
 									$('#popup_inner').html(btn + r[0] + btn);
 									var offsetY = $(document).scrollTop() + 100;
 									$('#mailer_wrapper').css({
@@ -6763,13 +6764,13 @@ var mypage = {
 							}
 						} else {
 							if (typeof r[0]['id'] != 'undefined') {
-								// TLAï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ç¥á¡¼ï¿½ë¥¢ï¿½É¥ì¥¹ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½
-								var txt = '<h2>ï¿½ï¿½ ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½</h2>';
-								txt += '<p>Æ±ï¿½ï¿½ï¿½á¡¼ï¿½ë¥¢ï¿½É¥ì¥¹ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ÜµÒ¾ï¿½ï¿½ï¿½ò¤´³ï¿½Ç§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</p>';
-								txt += '<br>-- ï¿½ï¿½Ï¿ï¿½Ñ¤ß¸ÜµÒ¾ï¿½ï¿½ï¿½ --';
-								txt += '<p>ï¿½Üµï¿½IDï¿½ï¿½ï¿½ï¿½' + r[0]['cstprefix'] + r[0]['number'] + '</p>';
-								txt += '<p>ï¿½Üµï¿½Ì¾ï¿½ï¿½ï¿½ï¿½' + r[0]['customername'] + '</p>';
-								txt += '<p>E-mailï¿½ï¿½ï¿½ï¿½' + r[0]['email'] + '</p>';
+								// TLA¥á¥ó¥Ð¡¼¤ÎÅÐÏ¿¤Ç¥á¡¼¥ë¥¢¥É¥ì¥¹¤¬½ÅÊ£¤·¤Æ¤¤¤ë¾ì¹ç
+								var txt = '<h2>¡Ú ÃíÊ¸³ÎÄê¥á¡¼¥ë¤ÎÁ÷¿®¤òÃæ»ß¤·¤Þ¤·¤¿¡£ ¡Û</h2>';
+								txt += '<p>Æ±¤¸¥á¡¼¥ë¥¢¥É¥ì¥¹¤ÇÅÐÏ¿¤¬¤¢¤ê¤Þ¤¹¡¢¸ÜµÒ¾ðÊó¤ò¤´³ÎÇ§¤¯¤À¤µ¤¤¡£</p>';
+								txt += '<br>-- ÅÐÏ¿ºÑ¤ß¸ÜµÒ¾ðÊó --';
+								txt += '<p>¸ÜµÒID¡§¡¡' + r[0]['cstprefix'] + r[0]['number'] + '</p>';
+								txt += '<p>¸ÜµÒÌ¾¡§¡¡' + r[0]['customername'] + '</p>';
+								txt += '<p>E-mail¡§¡¡' + r[0]['email'] + '</p>';
 								$('#popup_inner').html(txt);
 								var offsetY = $(document).scrollTop() + 100;
 								$('#mailer_wrapper').css({
@@ -6795,25 +6796,25 @@ var mypage = {
 		if (aElement.currentStyle) {
 			return aElement.currentStyle[aCssProperty]; //IE
 		} else {
-			var style = document.defaultView.getComputedStyle(aElement, null); //firefox, Operaï¿½Ê¤ï¿½
+			var style = document.defaultView.getComputedStyle(aElement, null); //firefox, Opera¤Ê¤É
 			return style.getPropertyValue(aCssProperty);
 		}
 	},
 	checkFirmorder: function () {
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½ï¿½É¤ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤Ë¤ï¿½ï¿½ï¿½
+		// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ËÆÉ¤ß¼è¤êÀìÍÑ¤Ë¤¹¤ë
 		if (mypage.prop.firmorder) {
-			$('input:not(#arrival_date, #boxnumber, #show_bundle), select:not(#factory)', '#schedule_selector').attr('disabled', true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ï¿½
-			$('tbody input', '#schedule').attr('disabled', true); // Ç¼ï¿½ï¿½ï¿½×»ï¿½
-			$('#category_selector, #item_selector').attr('disabled', true); // ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
-			$('input', '#size_table').attr('disabled', true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½
-			$('input, select', '#orderlist').attr('disabled', true); // ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½ï¿½
-			$('input', '#estimation_toolbar').attr('disabled', true); // ï¿½É²Ã¹Ô¥Ü¥ï¿½ï¿½ï¿½
-			$('#noprint, #exchink_count, #exchthread_count').attr('disabled', true); // ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¥®ï¿½ï¿½é¡¼
-			$('input:not(.design_size, .areasize_from, .areasize_to, .design_type_note), select', '#pp_wrapper').attr('disabled', true); // ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½ï¿½
-			$('#designcharge').attr('disabled', true); // ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			$('tr:not(:last) input', '#optprice_table').attr('disabled', true); // ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½ï¿½
-			$('#extradiscountname, #reductionname, #additionalname, #paymentdate').attr('disabled', false); // ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½
-			$('#est_printfee, #free_printfee').attr('disabled', true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			$('input:not(#arrival_date, #boxnumber, #show_bundle), select:not(#factory)', '#schedule_selector').attr('disabled', true); // ¥¹¥±¥¸¥å¡¼¥ë
+			$('tbody input', '#schedule').attr('disabled', true); // Ç¼´ü·×»»
+			$('#category_selector, #item_selector').attr('disabled', true); // ¾¦ÉÊ¾ðÊó
+			$('input', '#size_table').attr('disabled', true); // ¥µ¥¤¥º¥Æ¡¼¥Ö¥ë
+			$('input, select', '#orderlist').attr('disabled', true); // ÃíÊ¸¥ê¥¹¥È
+			$('input', '#estimation_toolbar').attr('disabled', true); // ÄÉ²Ã¹Ô¥Ü¥¿¥ó
+			$('#noprint, #exchink_count, #exchthread_count').attr('disabled', true); // ¥×¥ê¥ó¥È¤Ê¤·¡¢¥¤¥ì¥®¥å¥é¡¼
+			$('input:not(.design_size, .areasize_from, .areasize_to, .design_type_note), select', '#pp_wrapper').attr('disabled', true); // ¥×¥ê¥ó¥È°ÌÃÖ
+			$('#designcharge').attr('disabled', true); // ¥Ç¥¶¥¤¥óÂå
+			$('tr:not(:last) input', '#optprice_table').attr('disabled', true); // ¥ª¥×¥·¥ç¥ó¤ÎÈ¯Á÷ÊýË¡³°
+			$('#extradiscountname, #reductionname, #additionalname, #paymentdate').attr('disabled', false); // ¥ª¥×¥·¥ç¥ó¤Ç¹¹¿·²Ä
+			$('#est_printfee, #free_printfee').attr('disabled', true); // °õºþÂå
 			$('#free_discount, #free_printfee').button('disable'); // jQuery UI Button Widget
 		} else {
 			$('input, select').attr('disabled', false);
@@ -6821,16 +6822,16 @@ var mypage = {
 		}
 	},
 	showOrderItem: function (info) {
-		/* ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤È¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		/* ÃíÊ¸¥ê¥¹¥È¤È¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¿¥°À¸À®
 		 *	@info {orders_id, noprint}
-		 *	@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½	ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ÎºÝ¤Ë¡Ö½ï¿½ï¿½ï¿½ï¿½×¤ï¿½ï¿½Ö¥ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¡×¤ï¿½ï¿½ï¿½ï¿½
+		 *	@ÂèÆó°ú¿ô	½é´üÉ½¼¨¤ÎºÝ¤Ë¡Ö½¤À°¡×¤«¡Ö¥ê¥Ô¡¼¥ÈÈÇ¡×¤ò»ØÄê
 		 *
-		 *		orders_id	ï¿½ï¿½ï¿½ï¿½No.
-		 *		noprint		ï¿½ï¿½ï¿½Ì¡ï¿½ï¿½×¥ï¿½ï¿½È¤Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½
-		 *					ï¿½È¼Ô¡ï¿½default 0
+		 *		orders_id	¼õÃíNo.
+		 *		noprint		°ìÈÌ¡§¥×¥ê¥ó¥È¤Ê¤·¥Á¥§¥Ã¥¯¤ÎÃÍ
+		 *					¶È¼Ô¡§default 0
 		 */
 		var init = false;
-		var mode = 'modify'; // ï¿½ï¿½ï¿½Ì¤Ç»ï¿½ï¿½ï¿½
+		var mode = 'modify'; // °ìÈÌ¤Ç»ÈÍÑ
 		if (arguments.length > 1) {
 			mode = arguments[1];
 			init = true;
@@ -6856,9 +6857,9 @@ var mypage = {
 				data: list,
 				success: function (data) {
 					if (data instanceof Array) {
-						if (data.length != 0) mypage.setEstimation(data, false, false); // ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¢ï¿½ï¿½ï¿½Î·×»ï¿½ï¿½Ê¤ï¿½
+						if (data.length != 0) mypage.setEstimation(data, false, false); // ¥×¥ê¥ó¥ÈÂå¤ÈÈ¢¿ô¤Î·×»»¤Ê¤·
 						var item_name = '';
-						var isNotBring = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤Ï¤Ê¤ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Í­Ìµ
+						var isNotBring = false; // »ý¹þ¤Ç¤Ï¤Ê¤¤¾¦ÉÊ¤ÎÍ­Ìµ
 						if (!init) {
 							isNotBring = mypage.checkPrintPos();
 						} else {
@@ -6894,7 +6895,7 @@ var mypage = {
 													var data = r.split('|');
 													var togglebody = '<div class="pp_toggle_body">' + data[0] + '</div>';
 													var html = '<div class="pp_toggler" id="pp_toggler_' + category_id + '">';
-													html += '<div class="rightside">ï¿½ï¿½ï¿½ï¿½&nbsp;<input type="text" value="0" size="8" readonly="readonly" class="sub_price" />';
+													html += '<div class="rightside">¾®·×&nbsp;<input type="text" value="0" size="8" readonly="readonly" class="sub_price" />';
 													html += '<input type="hidden" value="0" size="8" class="silk_price" />';
 													html += '<input type="hidden" value="0" size="8" class="color_price" />';
 													html += '<input type="hidden" value="0" size="8" class="digit_price" />';
@@ -6948,7 +6949,7 @@ var mypage = {
 						}
 
 						if (!isNotBring) {
-							// ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ï¡ï¿½Ì¤È¯ï¿½ï¿½ï¿½×¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½
+							// Á´¤Æ»ý¹þ¤Î¾ì¹ç¤Ï¡ÖÌ¤È¯Ãí¡×¤òÉ½¼¨¤·¤Ê¤¤
 							$('#order_stock').hide();
 						}
 
@@ -6972,25 +6973,25 @@ var mypage = {
 				}
 			});
 
-			// ï¿½ï¿½ï¿½ï¿½BOXï¿½Î¸ï¿½ï¿½ï¿½
+			// ¸«ÀÑBOX¤Î¸¡¾Ú
 			var valid1 = $('#est_printfee').val().replace(/,/g, '') - 0;
 			$('#est_table1 tbody th:not(.sub)').each(function () {
 				valid1 += $(this).next().text().replace(/,/g, '') - 0;
 			});
 			var valid2 = $('#est_basefee').text().replace(/,/g, '') - 0;
 			if (valid1 != valid2) {
-				alert("Error:6437\nï¿½ï¿½ï¿½Ñ¹ï¿½×¤ï¿½ï¿½ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£ºÆ·×»ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("Error:6437\n¸«ÀÑ¹ç·×¤¬¹ç¤Ã¤Æ¤¤¤Þ¤»¤ó¡£ºÆ·×»»¤·¤Æ¤¯¤À¤µ¤¤¡£");
 			}
 			valid2 += $('#est_salestax').text().replace(/,/g, '') - 0;
 			valid2 += $('#est_creditfee').text().replace(/,/g, '') - 0;
 			var valid3 = $('#est_total_price').text().replace(/,/g, '') - 0;
 			if (valid2 != valid3) {
-				alert("Error:6443\nï¿½ï¿½ï¿½Ñ¹ï¿½×¤ï¿½ï¿½ï¿½Ã¤Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ó¡£ºÆ·×»ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+				alert("Error:6443\n¸«ÀÑ¹ç·×¤¬¹ç¤Ã¤Æ¤¤¤Þ¤»¤ó¡£ºÆ·×»»¤·¤Æ¤¯¤À¤µ¤¤¡£");
 			}
 		} else {
 
 			//	for industry
-			// ï¿½ï¿½ï¿½Ê¥Æ¡ï¿½ï¿½Ö¥ï¿½È¥×¥ï¿½ï¿½È°ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¾¦ÉÊ¥Æ¡¼¥Ö¥ë¤È¥×¥ê¥ó¥È°ÌÃÖ²èÁü¤ÎÀ¸À®
 			var list = {
 				'act': 'orderlistext',
 				'curdate': mypage.prop.firmorderdate,
@@ -7008,7 +7009,7 @@ var mypage = {
 				success: function (r) {
 					var tot_amount = 0;
 					var tot_price = 0;
-					var isNotBring = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤Ï¤Ê¤ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½Í­Ìµ
+					var isNotBring = false; // »ý¹þ¤Ç¤Ï¤Ê¤¤¾¦ÉÊ¤ÎÍ­Ìµ
 					if (r.trim() != "") {
 						var item_name = "";
 						$('#orderlist tbody').html(r);
@@ -7098,14 +7099,14 @@ var mypage = {
 					}
 
 					if (!isNotBring) {
-						// ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ï¡ï¿½Ì¤È¯ï¿½ï¿½ï¿½×¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½
+						// Á´¤Æ»ý¹þ¤Î¾ì¹ç¤Ï¡ÖÌ¤È¯Ãí¡×¤òÉ½¼¨¤·¤Ê¤¤
 						$('#order_stock').hide();
 					}
 
 					var data = [null, tot_amount, tot_price];
 					mypage.setEstimation(data, false, false);
 
-					// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Ù¥Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ÃíÊ¸ÌÀºÙ¥Æ¡¼¥Ö¥ë¤ÎÀ¸À®
 					$('#orderlist tfoot tr.estimate').remove();
 					$.ajax({
 						url: './php_libs/ordersinfo.php',
@@ -7147,7 +7148,7 @@ var mypage = {
 									tr += '<td><input type="text" value="' + res['addcost'] + '" class="cost" /></td>';
 									tr += '<td><input type="text" value="' + mypage.addFigure(res['addprice']) + '" class="price" readonly="readonly" /></td>';
 									tr += '<td colspan="2"></td>';
-									tr += '<td class="none"><input type="button" value="ï¿½ï¿½ï¿½" class="delete_row" /></td>';
+									tr += '<td class="none"><input type="button" value="ºï½ü" class="delete_row" /></td>';
 									tr += '<th class="tip"></th></tr>';
 
 									tot_amount += res['addamount'] - 0;
@@ -7160,7 +7161,7 @@ var mypage = {
 						}
 					});
 
-					// liveï¿½á¥½ï¿½Ã¥É¤ï¿½changeï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// live¥á¥½¥Ã¥É¤¬change¤ËÂÐ±þ¤·¤Æ¤¤¤Ê¤¤¤¿¤áºÆÀßÄê
 					$('#orderlist tfoot tr.estimate .cost').change(function () {
 						$.calc_estimatetable(this);
 					});
@@ -7168,7 +7169,7 @@ var mypage = {
 						$.calc_estimatetable(this);
 					});
 
-					// ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½×¥ê¡¼ï¿½ï¿½
+					// ¥ª¡¼¥È¥³¥ó¥×¥ê¡¼¥È
 					$("#orderlist tfoot tr.estimate .summary").autocomplete({
 						source: $.availableTags.summary,
 						autoFocus: true,
@@ -7187,7 +7188,7 @@ var mypage = {
 									v = cost;
 								}
 							} else {
-								if (!r.match(/^01\d$/)) { // ï¿½ï¿½ï¿½ë¥¯ï¿½Ì¾ï¿½ï¿½ï¿½
+								if (!r.match(/^01\d$/)) { // ¥·¥ë¥¯ÄÌ¾ïÈÇ
 									if (amount <= 5) {
 										v = cost[0];
 									} else if (amount <= 9) {
@@ -7203,7 +7204,7 @@ var mypage = {
 									} else {
 										v = cost[6];
 									}
-								} else if (!r.match(/^02\d$/)) { // ï¿½ï¿½ï¿½ë¥¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								} else if (!r.match(/^02\d$/)) { // ¥·¥ë¥¯¥¸¥ã¥ó¥ÜÈÇ
 									if (amount <= 5) {
 										v = cost[0];
 									} else if (amount <= 9) {
@@ -7220,7 +7221,7 @@ var mypage = {
 										v = cost[6];
 									}
 									v *= 1.3;
-								} else if (!r.match(/^03\d$/)) { // ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								} else if (!r.match(/^03\d$/)) { // ¥Ç¥¸¥¿¥ëÅ¾¼Ì¥·¡¼¥ÈÂå
 									if (amount <= 3) {
 										v = cost[0];
 									} else if (amount <= 19) {
@@ -7234,7 +7235,7 @@ var mypage = {
 									} else {
 										v = cost[5];
 									}
-								} else if (!r.match(/^04\d$/)) { // ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ì¥×¥ì¥¹ï¿½ï¿½
+								} else if (!r.match(/^04\d$/)) { // ¥Ç¥¸¥¿¥ëÅ¾¼Ì¥×¥ì¥¹Âå
 									if (amount <= 10) {
 										v = cost[0];
 									} else {
@@ -7249,7 +7250,7 @@ var mypage = {
 						}
 					});
 
-					// Changeï¿½ï¿½ï¿½Ù¥ï¿½È¤ï¿½ï¿½ï¿½ï¿½ï¿½
+					// Change¥¤¥Ù¥ó¥È¤ÎÀßÄê
 					$('#orderlist tfoot tr.estimate :text').change(function () {
 						mypage.prop.modified = true;
 					});
@@ -7273,14 +7274,14 @@ var mypage = {
 	},
 	checkPrintPos: function () {
 		/*
-		 *	ï¿½ï¿½Ê¸ï¿½ê¥¹ï¿½È¤ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ï¿½ï¿½ò¹¹¿ï¿½ï¿½ï¿½depend showOrderItemï¿½ï¿½
+		 *	ÃíÊ¸¥ê¥¹¥È¤ÎÊÑ¹¹¤ËÈ¼¤¤¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¿¥°¤ò¹¹¿·¡Êdepend showOrderItem¡Ë
 		 *
-		 *	return		true:ï¿½ï¿½ï¿½ï¿½ï¿½Ê³ï¿½ï¿½Î¾ï¿½ï¿½Ê¤ï¿½ï¿½ê¡¢ï¿½ï¿½false:ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½
+		 *	return		true:»ý¹þ°Ê³°¤Î¾¦ÉÊ¤¢¤ê¡¢¡¡false:Á´¤Æ»ý¹þ¤Î¾ì¹ç
 		 */
-		var tmp = {}; // ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½Î¥Ï¥Ã¥ï¿½ï¿½ï¿½
-		var sub = {}; // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¤¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
-		var add = {}; // ï¿½É²Ã¤ï¿½ï¿½ë¥¢ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ID
-		var isNotBring = false; // ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¤ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½
+		var tmp = {}; // ¥×¥ê¥ó¥È°ÌÃÖ¾ðÊó¤Î¥Ï¥Ã¥·¥å
+		var sub = {}; // ¥¢¥¤¥Æ¥à¤¬Áý¤¨¤¿¾ì¹ç¤ËÂÐ±þ
+		var add = {}; // ÄÉ²Ã¤¹¤ë¥¢¥¤¥Æ¥à¤ÎID
+		var isNotBring = false; // Á´¤Æ»ý¹þ¤«¤É¤¦¤«¤òÈ½ÃÇ
 		$('#pp_wrapper .pp_toggler').each(function () {
 			var cat = $(this).attr('id').split('_')[2];
 			var ids = [];
@@ -7317,7 +7318,7 @@ var mypage = {
 
 			if (typeof tmp[catID] == 'undefined') {
 				if (typeof sub[catID] == 'undefined') {
-					add[itemid] = [catID, catname, itemid, itemname, ppID]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ê¤ï¿½ï¿½É²ï¿½
+					add[itemid] = [catID, catname, itemid, itemname, ppID]; // ¿·¤·¤¤¥«¥Æ¥´¥ê¤Î¾¦ÉÊ¤¬ÄÉ²Ã
 				} else {
 					var isExistItem = false;
 					for (var i = 0; i < sub[catID]['id'].length; i++) {
@@ -7326,7 +7327,7 @@ var mypage = {
 							break;
 						}
 					}
-					if (!isExistItem) add[itemid] = [catID, catname, itemid, itemname, ppID]; // ï¿½ï¿½Â¸ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½É²ï¿½
+					if (!isExistItem) add[itemid] = [catID, catname, itemid, itemname, ppID]; // ´ûÂ¸¥«¥Æ¥´¥êÆâ¤Ç¿·¤·¤¤¾¦ÉÊ¤¬ÄÉ²Ã
 				}
 				return true; // continue
 			}
@@ -7379,7 +7380,7 @@ var mypage = {
 		return isNotBring;
 	},
 	initEstimateList: function () {
-		// ï¿½È¼Ô¤Î¸ï¿½ï¿½Ñ¹Ô¥Æ¡ï¿½ï¿½Ö¥ï¿½Î½ï¿½ï¿½ï¿½ï¿½
+		// ¶È¼Ô¤Î¸«ÀÑ¹Ô¥Æ¡¼¥Ö¥ë¤Î½é´ü²½
 		var tr = '<tr class="estimate">';
 		tr += '<td class="tip">0</td>';
 		tr += '<td colspan="5"><input type="text" value="" class="summary" /></td>';
@@ -7387,7 +7388,7 @@ var mypage = {
 		tr += '<td><input type="text" value="0" class="cost" /></td>';
 		tr += '<td><input type="text" value="0" class="price" readonly="readonly" /></td>';
 		tr += '<td colspan="2"></td>';
-		tr += '<td class="none"><input type="button" value="ï¿½ï¿½ï¿½" class="delete_row" /></td>';
+		tr += '<td class="none"><input type="button" value="ºï½ü" class="delete_row" /></td>';
 		tr += '<td class="tip"></td></tr>';
 		$('#orderlist tfoot tr.estimate').remove();
 		$('#orderlist tfoot tr.heading').after(tr);
@@ -7395,9 +7396,9 @@ var mypage = {
 	main: function (func) {
 		var btn = function (my) {
 			var myTitle = typeof (my) == 'string' ? my : my.attr('title');
-			var result_len = $('#result_count').text() - 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤Î·ï¿½ï¿½
+			var result_len = $('#result_count').text() - 0; // ¸¡º÷·ë²Ì¤Î·ï¿ô
 			switch (myTitle) {
-				case 'order': // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸
+				case 'order': // ¿·µ¬ÃíÊ¸
 					mypage.prop.modified = false;
 					if ($('#applyto').val() == 1) {
 						location.href = './main.php?req=orderform&pos=1&order=self-design';
@@ -7419,13 +7420,13 @@ var mypage = {
 
 			if (myTitle != "search") return;
 
-			//==== ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò³«»ï¿½ ====
+			//==== ¸¡º÷½èÍý¤ò³«»Ï ====
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤È¥ì¥³ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ê¥¢
+			// ¸¡º÷·ë²Ì¤È¥ì¥³¡¼¥É¿ô¤ÎÉ½¼¨¥¯¥ê¥¢
 			$('#result_count').text('0');
 			$('#result_searchtop').html('');
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¤Î¼ï¿½ï¿½ï¿½
+			// ¸¡º÷¹àÌÜ¤Î¼èÆÀ
 			var i = 0;
 			var j = 0;
 			var field = [];
@@ -7438,7 +7439,7 @@ var mypage = {
 				}
 			}
 			if (i == 0) {
-				alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¤ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+				alert('¸¡º÷¹àÌÜ¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤');
 				return;
 			}
 
@@ -7447,8 +7448,8 @@ var mypage = {
 			field.push('sort');
 			data.push($('#sort').val());
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½
-			$('#result_searchtop').html('<p class="alert">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ... <img src="./img/pbar-ani.gif" style="width:150px; height:22px;"></p>');
+			// ¸¡º÷·ë²Ì¤ÎÃê½Ð
+			$('#result_searchtop').html('<p class="alert">¸¡º÷Ãæ ... <img src="./img/pbar-ani.gif" style="width:150px; height:22px;"></p>');
 
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
@@ -7465,12 +7466,12 @@ var mypage = {
 					if (r instanceof Array) {
 						if (r.length == 0) {
 							mypage.screenOverlay(false);
-							$('#result_searchtop').html('<p class="alert">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¤ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½</p>');
+							$('#result_searchtop').html('<p class="alert">³ºÅö¤¹¤ëÃíÊ¸¥Ç¡¼¥¿¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿</p>');
 						} else {
 							result_len = r.length;
 							$('#result_count').text(result_len);
 
-							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¥Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+							// ¸¡º÷·ë²Ì¥Æ¡¼¥Ö¥ë¤ÎÀ¸À®
 							var notices = [];
 							var progress = '';
 							var factory = {
@@ -7480,14 +7481,14 @@ var mypage = {
 								9: '[1,2]'
 							};
 							var cancelmail_checked = ['', 'checked="checked"'];
-							var cancelmail_state = ['ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½'];
-							var list = '<table class="result_list"><thead><tr><th>ï¿½ï¿½ï¿½ï¿½No.</th><th rowspan="2">ï¿½ï¿½ï¿½ï¿½</th><th>ï¿½Üµï¿½ID</th><th>ï¿½ê¡¡Ì¾</th><th rowspan="2">ï¿½ï¿½ï¿½ï¿½ï¿½</th><th rowspan="2">ï¿½Ã¡ï¿½ï¿½ï¿½</th><th rowspan="2">ï¿½ç¡¡ï¿½ï¿½</th><th rowspan="2">ï¿½Ê¡ï¿½Ä½</th>';
+							var cancelmail_state = ['Á÷¿®', 'Ãæ»ß'];
+							var list = '<table class="result_list"><thead><tr><th>¼õÃíNo.</th><th rowspan="2">¹©¾ì</th><th>¸ÜµÒID</th><th>Âê¡¡Ì¾</th><th rowspan="2">¥¤¥á²è</th><th rowspan="2">ÆÃ¡¡µ­</th><th rowspan="2">Ëç¡¡¿ô</th><th rowspan="2">¿Ê¡¡Ä½</th>';
 							if (_my_level == "administrator") {
-								list += '<th rowspan="2">ï¿½ï¿½ï¿½</th>';
+								list += '<th rowspan="2">¼è¾Ã</th>';
 							}
-							list += '<th colspan="4">ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½á¡¼ï¿½ï¿½</th>';
-							list += '<th rowspan="2">ï¿½ï¿½ï¿½ï¿½</th><th rowspan="2">Ã´ï¿½ï¿½</th><th rowspan=" 2">&nbsp;</th></tr>';
-							list += '<tr><th>È¯ï¿½ï¿½ï¿½ï¿½</th><th>ï¿½Üµï¿½Ì¾</th><th>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th><th>Ì¤ï¿½ï¿½ï¿½ï¿½</th><th>ï¿½ï¿½ï¿½î³«ï¿½ï¿½</th><th>È¯ï¿½ï¿½</th><th>ï¿½ï¿½ï¿½ï¿½ï¿½Ç§</th></tr></thead><tbody>';
+							list += '<th colspan="4">¼«Æ°Á÷¿®¥á¡¼¥ë</th>';
+							list += '<th rowspan="2">ÍîÈÇ</th><th rowspan="2">Ã´Åö</th><th rowspan=" 2">&nbsp;</th></tr>';
+							list += '<tr><th>È¯Á÷Æü</th><th>¸ÜµÒÌ¾</th><th>¾¦¡¡ÉÊ</th><th>Ì¤³ÎÄê</th><th>À©ºî³«»Ï</th><th>È¯Á÷</th><th>ÅþÃå³ÎÇ§</th></tr></thead><tbody>';
 							for (i = 0; i < result_len; i++) {
 								list += '<tr>';
 								list += '<td>' + r[i]['ordersid'] + '</td>';
@@ -7498,27 +7499,27 @@ var mypage = {
 									list += '<td>K' + ("000000" + r[i]['number']).slice(-6) + '</td>';
 								}
 								list += '<td><p class="fix" style="width:250px;">' + r[i]['maintitle'] + '</p></td>';
-								// ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
+								// ÆÃµ­»ö¹à
 								notices = [];
-								if (r[i]['all_repeat'] == 1 || (r[i]['repeater'] > 0 && r[i]['ordertype'] == 'industry')) notices.push('ï¿½ï¿½ï¿½');
+								if (r[i]['all_repeat'] == 1 || (r[i]['repeater'] > 0 && r[i]['ordertype'] == 'industry')) notices.push('¥ê¥Ô');
 								if (r[i]['completionimage'] == 1) {
-									notices.push('ï¿½ï¿½ï¿½ï¿½ï¿½');
+									notices.push('¥¤¥á²è');
 								} else if (r[i]['imega'] ==1) {
-									notices.push('ï¿½×¥ï¿½ï¿½ï¿½ï¿½');
+									notices.push('Í×¥¤¥á²è');
 								}
-								if (r[i]['express'] != 0) notices.push('ï¿½Ãµï¿½' + r[i]['express']);
+								if (r[i]['express'] != 0) notices.push('ÆÃµÞ' + r[i]['express']);
 								if (r[i]['mixture'] != '') notices.push(r[i]['mixture']);
-								if (r[i]['bundle'] == 1) notices.push('Æ±ï¿½ï¿½');
-								//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç§
+								if (r[i]['bundle'] == 1) notices.push('Æ±º­');
+								//¥¤¥á²è³ÎÇ§
 								if (r[i]['imagecheck'] == 1) {
-									list += '<td rowspan="2">' + 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' + '</td>';
+									list += '<td rowspan="2">' + '¥¤¥á²èºÑ' + '</td>';
 								} else {
-									list += '<td rowspan="2">' + '  ï¿½ï¿½  ' + '</td>';
+									list += '<td rowspan="2">' + '  ¡¼  ' + '</td>';
 								}
 								list += '<td rowspan="2">' + notices.toString() + '</td>';
 								list += '<td rowspan="2" class="toright">' + r[i]['order_amount'] + '</td>';
 								if (r[i]['shipped'] == 2) {
-									progress = 'È¯ï¿½ï¿½ï¿½Ñ¤ï¿½';
+									progress = 'È¯Á÷ºÑ¤ß';
 								} else {
 									progress = r[i]['progressname'];
 								}
@@ -7565,15 +7566,15 @@ var mypage = {
 								list += '</td>';
 								list += '<td rowspan="2" class="centering">';
 								if (r[i]['rakuhan'] != 0) {
-									list += 'ï¿½ï¿½';
+									list += 'Íî';
 								} else {
 									list += '-';
 								}
 								list += '</td>';
 								list += '<td class="centering" rowspan="2">' + r[i]['staffname'] + '</td>';
-								list += '<td class="centering" rowspan="2"><input type="button" value="ï¿½ï¿½ï¿½ï¿½" title="modify" class="btn" name="id_' + r[i]['ordersid'] + '" />';
+								list += '<td class="centering" rowspan="2"><input type="button" value="½¤Àµ" title="modify" class="btn" name="id_' + r[i]['ordersid'] + '" />';
 								if (r[i]['progress_id'] == 4 && r[i]['applyto'] == 0) {
-									list += '<input type="button" value="ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½" title="repeat" class="btn" name="id_' + r[i]['ordersid'] + '" />';
+									list += '<input type="button" value="¥ê¥Ô¡¼¥ÈÈÇ" title="repeat" class="btn" name="id_' + r[i]['ordersid'] + '" />';
 								}
 								list += '</td>';
 								list += '</tr>';
@@ -7595,7 +7596,7 @@ var mypage = {
 								});
 							});
 
-							// ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½Ø¥Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(jquery.tablefix)
+							// ¥Æ¡¼¥Ö¥ë¥Ø¥Ã¥À¡¼¤ò¸ÇÄê(jquery.tablefix)
 							$('#result_searchtop .result_list').tablefix({
 								height: 580,
 								fixRows: 2
@@ -7620,9 +7621,9 @@ var mypage = {
 
 
 		/*
-		 *	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
-		 *	@args[0]	ï¿½ï¿½ï¿½ï¿½ID
-		 *	@args[1]	É½ï¿½ï¿½ï¿½â¡¼ï¿½É¡ï¿½modify,repeat
+		 *	¼õÃí²èÌÌÉ½¼¨
+		 *	@args[0]	¼õÃíID
+		 *	@args[1]	É½¼¨¥â¡¼¥É¡¢modify,repeat
 		 */
 		var orderpage = function () {
 			mypage.screenOverlay(true);
@@ -7655,7 +7656,7 @@ var mypage = {
 				return;
 			}
 
-			// Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Î¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤È¯ï¿½ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Í­Ìµï¿½ï¿½É½ï¿½ï¿½
+			// Æ±º­¥Á¥§¥Ã¥¯¤Î¥Ç¡¼¥¿¤ò¼èÆÀ¤·¤ÆÌ¤È¯Á÷¤ÎÆ±º­ÃíÊ¸¤ÎÍ­Ìµ¤òÉ½¼¨
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
 				type: 'POST',
@@ -7686,7 +7687,7 @@ var mypage = {
 
 			var mode = arguments[1];
 
-			// ï¿½×¥ï¿½ï¿½Ñ¥Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¥×¥í¥Ñ¥Æ¥£¤ÎÀßÄê
 			mypage.prop.created = info['created'];
 			mypage.prop.firmorderdate = info['schedule2'];
 			mypage.prop.acceptingdate = info['schedule3'];
@@ -7697,27 +7698,27 @@ var mypage = {
 			mypage.prop.curr_ppImage = {};
 			mypage.prop.reuse = info['reuse'];
 			mypage.prop.repeat = info['repeater'];
-			mypage.prop.shipped = mode == 'repeat' ? 1 : info['shipped']; // ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½Ê¸ï¿½òµ¯¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤È¯ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½
+			mypage.prop.shipped = mode == 'repeat' ? 1 : info['shipped']; // ¥ê¥Ô¡¼¥ÈÈÇ¤ÇÃíÊ¸¤òµ¯¤³¤¹¾ì¹ç¤ÏÌ¤È¯Á÷¤Ë¤¹¤ë
 			mypage.prop.isCheckbill = false;
 
-			// jQueryUI Button ï¿½Î½ï¿½ï¿½ï¿½ï¿½
+			// jQueryUI Button ¤Î½é´ü²½
 			$('#free_discount, #free_printfee').next('label').removeClass('ui-state-active');
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î½ï¿½ï¿½ï¿½
+			// ³ÎÄêÃíÊ¸¤Î½èÍý
 			if (info['progress_id'] == 4 && mode != 'repeat') {
 				mypage.prop.firmorder = true;
 				$('#firm_order, #btn_firmorder').hide();
 				$('#btn_completionimage').hide();
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½Â¤Ç¡Ö³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¥Ü¥ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
+				// ´ÉÍý¼Ô¸¢¸Â¤Ç¡Ö³ÎÄê²ò½ü¡×¥Ü¥¿¥ó¤òÉ½¼¨
 				if (_my_level == "administrator") {
 					$('#btn_cancelorder').show();
 				} else {
 					$('#btn_cancelorder').hide();
 				}
 
-				// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½Æ³ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥Ç¡ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²Ä¤Ë¤ï¿½ï¿½ï¿½Õ¥é¥°ï¿½ï¿½ï¿½ï¿½ï¿½ê¤¹ï¿½ï¿½
-				// 2019-08-07 ï¿½Ñ»ï¿½
+				// ÃíÊ¸¤¬³ÎÄê¤·¤Æ¤¤¤Æ³î¤ÄÈ¯Á÷Æü¤¬º£·î1Æü¤è¤êÁ°¤Î¥Ç¡¼¥¿¤Î¹¹¿·¤òÉÔ²Ä¤Ë¤¹¤ë¥Õ¥é¥°¤òÀßÄê¤¹¤ë
+				// 2019-08-07 ÇÑ»ß
 				// var dt = new Date();
 				// var d = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/1";
 				// var cuttime = Date.parse(d);
@@ -7731,22 +7732,22 @@ var mypage = {
 				$('#firm_order, #btn_firmorder').show();
 				$('#btn_cancelorder').hide();
 				if (info['progress_id'] == 5 && mode != 'repeat') {
-					$('#btn_completionimage').show().addClass('btn_red').text('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+					$('#btn_completionimage').show().addClass('btn_red').text('¥¤¥á²èÃæ»ß');
 				} else if (info['progress_id'] == 7 && mode != 'repeat') {
-					$('#btn_completionimage').hide().removeClass('btn_red').text('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+					$('#btn_completionimage').hide().removeClass('btn_red').text('¥¤¥á²è³ÎÄê');
 				} else {
-					$('#btn_completionimage').show().removeClass('btn_red').text('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+					$('#btn_completionimage').show().removeClass('btn_red').text('¥¤¥á²è³ÎÄê');
 				}
 			}
 
-			// ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¥Ü¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½ï¿½Ï¤Î¾ï¿½ç¡¢Ã´ï¿½ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¥ê¥Ô¡¼¥ÈÈÇ¥Ü¥¿¥ó¤ÇÆþÎÏ³«»Ï¤Î¾ì¹ç¡¢Ã´Åö¼Ô¡¢Æþ²ÙÍ½ÄêÆü¡¢ÍîÈÇ¤ò½é´ü²½
 			if (mode == 'repeat') {
 				info['reception'] = 0;
 				info['arrival'] = '';
 				info['rakuhan'] = 0;
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+			// ½é²ó³ä¤Î¥Á¥§¥Ã¥¯
 			if (mode == 'repeat' || (info['repeater'] != 0 && mypage.prop.ordertype == "general")) {
 				if (mode == 'repeat' && info['repeater'] == 0) {
 					mypage.prop.repeat = info['orders_id'];
@@ -7767,7 +7768,7 @@ var mypage = {
 					success: function (r) {
 						if (r instanceof Array) {
 							var len = r.length;
-							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½Þ¤ï¿½
+							// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ÏÅö³ºÃíÊ¸¤â´Þ¤à
 							if (mypage.prop.firmorder) {
 								len--;
 							}
@@ -7788,48 +7789,48 @@ var mypage = {
 
 			$('#maintitle').val(info['maintitle']);
 
-			// Self-Designï¿½Î¾ï¿½ï¿½
+			// Self-Design¤Î¾ì¹ç
 			var SD = '';
 			if (info['applyto'] == 1) {
 				SD = '(SD)';
 			}
 
-			// ï¿½ï¿½ï¿½Ç¤È¥ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¿·ÈÇ¤È¥ê¥Ô¡¼¥ÈÈÇ¤ÎÉ½¼¨ÀÚÂØ
 			if ((mypage.prop.ordertype == "industry" && mypage.prop.repeat != 0) || info['repeatdesign'] == 1) {
-				$('#reuse_plate').text('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½' + SD);
+				$('#reuse_plate').text('¥ê¥Ô¡¼¥ÈÈÇ' + SD);
 				if (mypage.prop.reuse != 0) {
-					$('#discount_reuse').text('ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½type' + mypage.prop.reuse + 'ï¿½ï¿½').show();
+					$('#discount_reuse').text('¥ê¥Ô¡¼¥ÈÈÇ¡Êtype' + mypage.prop.reuse + '¡Ë').show();
 				} else {
 					$('#discount_reuse').text('').hide();
 				}
 			} else {
-				$('#reuse_plate').text('ï¿½ï¿½ï¿½ï¿½' + SD);
+				$('#reuse_plate').text('¿·ÈÇ' + SD);
 				$('#discount_reuse').text('').hide();
 			}
 
-			// ï¿½ï¿½ï¿½é¡¼ï¿½È¤Î½ï¿½ï¿½ï¿½ï¿½
+			// ¥¢¥é¡¼¥È¤Î½é´ü²½
 			$('#alertarea span').hide();
 			$('#express_message').removeClass('bgExpress').html("");
 
-			// ï¿½ï¿½ï¿½Ê¥Æ¡ï¿½ï¿½Ö¥ï¿½Î¥ï¿½ï¿½ê¥¢
+			// ¾¦ÉÊ¥Æ¡¼¥Ö¥ë¤Î¥¯¥ê¥¢
 			$('#orderlist tbody').html("");
 			$('#total_amount').val(0);
 			$('#total_cost').val(0);
 
-			// ï¿½È¼Ô¤Î¸ï¿½ï¿½Ñ¹Ô¤Î½ï¿½ï¿½ï¿½ï¿½
+			// ¶È¼Ô¤Î¸«ÀÑ¹Ô¤Î½é´ü²½
 			mypage.initEstimateList();
 
-			// È¢ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½
+			// È¢¿ô¤Î½é´ü²½
 			$('#boxnumber').val(0);
 
-			// ï¿½ï¿½ï¿½Ø¤ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ê¥¢
+			// ¿§ÂØ¤¨¿ô¤Î¥¯¥ê¥¢
 			$('#exchink_count').val('0');
 			$('#exchthread_count').val('0');
 
-			// ï¿½×¥ï¿½ï¿½È°ï¿½ï¿½Ö¤Î¥ï¿½ï¿½ê¥¢
+			// ¥×¥ê¥ó¥È°ÌÃÖ¤Î¥¯¥ê¥¢
 			$('#pp_wrapper').children().remove();
 
-			// ï¿½ï¿½ï¿½Ñ¥Õ¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ó¥°¥Ü¥Ã¥ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ê¥¢ï¿½È¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½Ï¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+			// ¸«ÀÑ¥Õ¥í¡¼¥Æ¥£¥ó¥°¥Ü¥Ã¥¯¥¹¤Î¥¯¥ê¥¢¤È¥×¥ê¥ó¥ÈÂå¤Î¼êÆþÎÏ¥Á¥§¥Ã¥¯
 			$('#est_table1 tbody tr:not(:eq(1)) td').text(0);
 			$('#est_total_price, #est_amount, #est_perone').text(0);
 			$('#est_express').prev().children('span').remove();
@@ -7841,7 +7842,7 @@ var mypage = {
 				$('#est_printfee').attr('readonly', 'readonly').addClass('readonly').val(mypage.addFigure(info['printfee']));
 			}
 
-			// ï¿½ï¿½ï¿½Ñ¥Ü¥Ã¥ï¿½ï¿½ï¿½
+			// ¸«ÀÑ¥Ü¥Ã¥¯¥¹
 			var ary1 = ['productfee', 'silkprintfee', 'colorprintfee', 'digitprintfee', 'inkjetprintfee', 'cuttingprintfee', 'embroideryprintfee',
 						'exchinkfee', 'additionalfee', 'packfee', 'expressfee', 'discountfee', 'reductionfee', 'carriagefee', 'designfee', 
 						'codfee', 'paymentfee', 'conbifee', 'creditfee', 'basefee', 'salestax'];
@@ -7853,7 +7854,7 @@ var mypage = {
 				$('#' + ary2[a]).text(mypage.addFigure(info[ary1[a]]));
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½
+			// ÆâÀÇÉ½¼¨¤Î¾ì¹ç
 			if (info['estimated'] > 0 && info['salestax'] == 0) {
 				$('#est_basefee').text(mypage.addFigure(info['estimated']));
 			}
@@ -7861,10 +7862,10 @@ var mypage = {
 			var perone = Math.ceil(info['estimated'] / info['order_amount']);
 			$('#est_perone').text(mypage.addFigure(perone));
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ì¥¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½Æ¥ï¿½ï¿½ê¡¢ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½
+			// ¾ÃÈñÀÇÎ¨¤òÀßÄê¤È¥»¥ì¥¯¥¿¡¼¤ÎÀ¸À®¡Ê¥«¥Æ¥´¥ê¡¢¥¢¥¤¥Æ¥à¡Ë
 			mypage.init();
 
-			// ï¿½ï¿½ï¿½Ï¥â¡¼ï¿½É¡Ê°ï¿½ï¿½Ì¡ï¿½ï¿½È¼Ô¡Ë¤ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ÆþÎÏ¥â¡¼¥É¡Ê°ìÈÌ¡¦¶È¼Ô¡Ë¤ÎÀßÄê
 			var freeform = $('.phase_box', '#order_wrapper').filter(function () {
 				if ($(this).is('.freeform')) {
 					return false;
@@ -7905,29 +7906,29 @@ var mypage = {
 			}
 			$(':radio[name="ordertype"]', '#enableline').hide();
 
-			// ï¿½ï¿½Ä½ï¿½Ê¥Ó¥Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¿ÊÄ½¥Ê¥Ó¥Ð¡¼¤ÎÀßÄê
 			var navi_id = 0;
 			if (mode != 'repeat') {
 				if (info['shipped'] == 2) {
-					navi_id = 5; // È¯ï¿½ï¿½ï¿½Ñ¤ï¿½
+					navi_id = 5; // È¯Á÷ºÑ¤ß
 				} else {
 					switch (info['progress_id']) {
-						case '1': // ï¿½ï¿½ç¤»
-						case '2': // ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½Ì¤ï¿½ï¿½ï¿½Ñ¡ï¿½
-						case '3': // ï¿½ï¿½ï¿½Ñ¥á¡¼ï¿½ï¿½Ñ¡ï¿½Ì¤ï¿½ï¿½ï¿½Ñ¡ï¿½
+						case '1': // Ìä¹ç¤»
+						case '2': // Æþ¹ÆÂÔ¤Á¡ÊÌ¤»ÈÍÑ¡Ë
+						case '3': // ¸«ÀÑ¥á¡¼¥ëºÑ¡ÊÌ¤»ÈÍÑ¡Ë
 							navi_id--;
 							break;
-						case '4': // ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½
+						case '4': // ÃíÊ¸³ÎÄê
 							navi_id = info['progress_id'];
 							break;
-						case '5': // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						case '5': // ¥¤¥á²èÀ½ºî
 							navi_id = 2;
 							break;
-						case '6': // ï¿½ï¿½ï¿½
+						case '6': // ¼è¾Ã
 							navi_id = info['progress_id'];
 							$('#order_cancel').show();
 							break;
-						case '7': // ï¿½ï¿½ï¿½ï¿½è´°Î»
+						case '7': // ¥¤¥á²è´°Î»
 							navi_id = 3;
 							$('#done_image').show();
 							break;
@@ -7936,7 +7937,7 @@ var mypage = {
 			}
 			mypage.setAcceptnavi(navi_id);
 
-			// ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤ß¼ã¤·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Ô²ï¿½
+			// ¸«ÀÑ½ñÁ÷¿®ºÑ¤ß¼ã¤·¤¯¤ÏÃíÊ¸¤¬³ÎÄê¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢¿Ê¹ÔÍó¤ÎÊÑ¹¹¤òÉÔ²Ä
 			var progress = info['progress_id'] - 0;
 			$('ins', '#phase_wrapper').hide();
 			if (progress >= 3 && mode != 'repeat') {
@@ -7955,9 +7956,9 @@ var mypage = {
 				$('input[name="phase"], label', '#phase_wrapper').show();
 			}
 
-			// ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Î³ï¿½Ç§
+			// ¥á¥Ç¥£¥¢¥Á¥§¥Ã¥¯¤Î³ÎÇ§
 			$(':radio[name!="firstcontact"]', '#mediacheck_wrapper').removeAttr('checked');
-			$('#mediacheck03_other').val('ï¿½ï¿½ï¿½ï¿½Â¾');
+			$('#mediacheck03_other').val('¤½¤ÎÂ¾');
 			var media_rec = [];
 			$.ajax({
 				url: './php_libs/ordersinfo.php',
@@ -7993,7 +7994,7 @@ var mypage = {
 				}
 			});
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¼õÃí¥Ç¡¼¥¿¡¼¤ÎÀßÄê
 			var elem = [];
 			var order_id = "000000000";
 			if (arguments[1] == "modify" || arguments[1] == "search") order_id = ('000000000' + info['orders_id']).slice(-9);
@@ -8021,7 +8022,7 @@ var mypage = {
 
 			for (i = 0; i < mypage.order_info.name.length; i++) {
 				if (typeof info[mypage.order_info.name[i]] === 'undefined') {
-					continue; // ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½Ù¡ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½Î¥Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½É¤ï¿½Â¸ï¿½ß¤ï¿½ï¿½Ê¤ï¿½
+					continue; // ¥Ç¡¼¥¿¥Ù¡¼¥¹¤Ë¤³¤ÎÌ¾Á°¤Î¥Õ¥£¡¼¥ë¥É¤¬Â¸ºß¤·¤Ê¤¤
 				}
 				elem = $(':input[name="' + mypage.order_info.name[i] + '"]');
 				if (elem.length===0) continue;
@@ -8060,7 +8061,7 @@ var mypage = {
 						break;
 				}
 			}
-			// ï¿½Þµï¿½
+			// ÂÞµÍ
 			$('input[type="number"]', '#package_wrap').attr('max', info['order_amount']).val('0').parent('p').hide();
 			$('input[name="package"]', '#package_wrap').each(function () {
 				var state = $(this).val();
@@ -8074,42 +8075,42 @@ var mypage = {
 				}
 			});
 
-			// ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½ï¿½ï¿½ï¿½
+			// °úÅÏ¤·»þ´Ö
 			if (info['carriage'] == 'accept') {
 				$('#handover').show();
 			}
 
 			$('#log_staff').val($('#reception').val());
 
-			if (info['purpose'] == 'ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½') {
+			if (info['purpose'] == '¤½¤ÎÂ¾¥¤¥Ù¥ó¥È') {
 				$('.other_1', '#questionnaire_table').val(info['purpose_text']);
-			} else if (info['purpose'] == 'ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½Ë¥Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½') {
+			} else if (info['purpose'] == '¤½¤ÎÂ¾¥æ¥Ë¥Õ¥©¡¼¥à') {
 				$('.other_2', '#questionnaire_table').val(info['purpose_text']);
-			} else if (info['purpose'] == 'ï¿½ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ï¿½') {
+			} else if (info['purpose'] == '¤½¤ÎÂ¾ÃÄÂÎ') {
 				$('.other_3', '#questionnaire_table').val(info['purpose_text']);
 			}
 
-			// ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î½ï¿½ï¿½É½ï¿½ï¿½
+			// ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Î½é´üÉ½¼¨
 			if (mode == "repeat") {
-				$('input[type="text"]', '#schedule').val(''); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å¡¼ï¿½ï¿½
-				$('input[name="deliver"]', '#deliver_wrapper').val(['0']); // È¯ï¿½ï¿½ï¿½ï¿½Ë¡
-				$('#contact_number').val(''); // ï¿½ï¿½ï¿½ï¿½ï¿½È¼Ô¤Î¤ï¿½ï¿½ï¿½ç¤»ï¿½Ö¹ï¿½
-				$('#state_0 input').attr('checked', false); // È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ò³°¤ï¿½
-				$('#free_discount').removeAttr('checked'); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ò³°¤ï¿½
-				$('#discountfee').attr('readonly', 'readonly').addClass('readonly'); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¤ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				$('input[type="text"]', '#schedule').val(''); // ¥¹¥±¥¸¥å¡¼¥ë
+				$('input[name="deliver"]', '#deliver_wrapper').val(['0']); // È¯Á÷ÊýË¡
+				$('#contact_number').val(''); // ÇÛÁ÷¶È¼Ô¤Î¤ªÌä¹ç¤»ÈÖ¹æ
+				$('#state_0 input').attr('checked', false); // È¯Ãí¥Á¥§¥Ã¥¯¤ò³°¤¹
+				$('#free_discount').removeAttr('checked'); // ³ä°ú¼êÆþÎÏ¥Á¥§¥Ã¥¯¤ò³°¤¹
+				$('#discountfee').attr('readonly', 'readonly').addClass('readonly'); // ¡¡¡·¡¡¤òÆÉ¤ß¼è¤êÀìÍÑ
 
-				$('.old_discount2', '#discount_table').hide(); // 2013-10-09ï¿½ï¿½ï¿½ï¿½ï¿½Îµì¥¿ï¿½ï¿½ï¿½×¤Î³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Ê¥ï¿½Ô¡ï¿½ï¿½È¡ï¿½ï¿½Ò²ï¿½ï¿½Ë¤ï¿½ï¿½ï¿½É½ï¿½ï¿½
+				$('.old_discount2', '#discount_table').hide(); // 2013-10-09°ÊÁ°¤Îµì¥¿¥¤¥×¤Î³ä°ú¥Á¥§¥Ã¥¯¡Ê¥ê¥Ô¡¼¥È¡¦¾Ò²ð³ä¡Ë¤òÈóÉ½¼¨
 			} else {
-				// ï¿½Ì¾ï¿½ï¿½ï¿½Ê¸
+				// ÄÌ¾ïÃíÊ¸
 
-				// È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// È¯Ãí¥Á¥§¥Ã¥¯¤òÀßÄê
 				if (!info['state_0'] || info['state_0'] == '0') {
 					$('#state_0 input').attr('checked', false);
 				} else {
 					$('#state_0 input').attr('checked', true);
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ï¿½Ï¥ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½
+				// ³ä°ú¤Î¼êÆþÎÏ¥Á¥§¥Ã¥¯
 				if (info['free_discount'] == 1) {
 					$('#free_discount').attr('checked', true);
 					$('#discountfee').removeAttr('readonly').removeClass('readonly').val(info['discountfee']);
@@ -8118,7 +8119,7 @@ var mypage = {
 					$('#discountfee').attr('readonly', 'readonly').addClass('readonly');
 				}
 
-				// 2013-10-09ï¿½ï¿½ï¿½ï¿½ï¿½Îµì¥¿ï¿½ï¿½ï¿½×¤Î³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Ê¥ï¿½Ô¡ï¿½ï¿½È¡ï¿½ï¿½Ò²ï¿½ï¿½Ë¤ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// 2013-10-09°ÊÁ°¤Îµì¥¿¥¤¥×¤Î³ä°ú¥Á¥§¥Ã¥¯¡Ê¥ê¥Ô¡¼¥È¡¦¾Ò²ð³ä¡Ë¤ÎÉ½¼¨ÀÚÂØ
 				if (info['discount2'] == "friend") {
 					$('.old_discount2', '#discount_table').show();
 				} else {
@@ -8126,7 +8127,7 @@ var mypage = {
 				}
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½Ã±ï¿½È¹ï¿½ï¿½Ü¤Î³ï¿½Ç§
+			// ³ä°ú¥Æ¡¼¥Ö¥ë¤ÎÃ±ÆÈ¹àÌÜ¤Î³ÎÇ§
 			$(':checkbox:not(#staffdiscount)', '#discount_table').attr('checked', false);
 			var discount_val = [];
 			$.ajax({
@@ -8145,7 +8146,7 @@ var mypage = {
 					r = $.getDelimiter(r);
 					discount_val = r.split($.delimiter['rec']);
 					for (var v = 0; v < discount_val.length; v++) {
-						// ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î½ï¿½ï¿½É½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ë¥Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½È¤ï¿½ï¿½Î¤Þ¤Þ¥×¥ï¿½ï¿½È¡Êµì¥¤ï¿½ï¿½ï¿½Ë³ï¿½ò³°¤ï¿½
+						// ¥ê¥Ô¡¼¥ÈÈÇÃíÊ¸¤Î½é´üÉ½¼¨¤Î¾ì¹ç¤Ë¥Ö¥í¥°³ä¤È¤½¤Î¤Þ¤Þ¥×¥ê¥ó¥È¡Êµì¥¤¥é¥ì¡Ë³ä¤ò³°¤¹
 						if (mode == "repeat" && (discount_val[v] == 'blog' || discount_val[v] == 'illust')) continue;
 
 						$(':checkbox[value="' + discount_val[v] + '"]', '#discount_table').attr('checked', 'checked');
@@ -8153,7 +8154,7 @@ var mypage = {
 				}
 			});
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ³ä°ú¥Á¥§¥Ã¥¯¤Î¥¹¥¿¥¤¥ë¤òÀßÄê
 			$('#discount_table input').each(function () {
 				if ($(this).is(':checked')) {
 					$(this).parent().addClass('fontred');
@@ -8162,22 +8163,22 @@ var mypage = {
 				}
 			});
 
-			// ï¿½ÜµÒ¥ï¿½ó¥¯¼ï¿½ï¿½ï¿½
+			// ¸ÜµÒ¥é¥ó¥¯¼èÆÀ
 			$('#rank').text('');
 			$.api(['users', info['customer_id'], 'sales'], 'GET', null).then(function(u){
-				var rank = 0,	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î³ï¿½ï¿½Î¨
+				var rank = 0,	// ²ñ°÷³ä°ú¤Î³ä°úÎ¨
 					rankName = '',
 					sales = 0;
 				if (u.length>0) sales = u[0]['total_price'];
 				if (sales>300000) {
 					rank = 7;
-					rankName = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+					rankName = '¥´¡¼¥ë¥É';
 				} else if(sales>150000) {
 					rank = 5;
-					rankName = 'ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½';
+					rankName = '¥·¥ë¥Ð¡¼';
 				} else if(sales>80000) {
 					rank = 3;
-					rankName = 'ï¿½Ö¥ï¿½ï¿½ï¿½';
+					rankName = '¥Ö¥í¥ó¥º';
 				} else {
 					rank = 0;
 					rankName = '-';
@@ -8186,7 +8187,7 @@ var mypage = {
 				$('#rank').text(rankName);
 			});
 			
-			// ï¿½ÜµÒ¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¸ÜµÒ¥Ç¡¼¥¿¤ÎÀßÄê
 			
 			elem = document.forms.customer_form.elements;
 			for (i = 0; i < elem.length; i++) {
@@ -8203,7 +8204,7 @@ var mypage = {
 			document.forms.customer_form.number.value = number;
 			$('#paymenttype').val(info['paymenttype']);
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
+			// ÀÁµá¶èÊ¬¤¬ÅÔÅÙÀÁµá¤Î¾ì¹ç¤Ë²ó¼ý¥µ¥¤¥¯¥ë¡¢Äù¤áÆü¡¢²ó¼ýÆü¤òÈóÉ½¼¨
 			if (info['bill'] == 1) {
 				$('tbody tr:first th:gt(0), tbody tr:first td:gt(0)', '#cyclebill_wrapper').hide();
 			} else {
@@ -8212,7 +8213,7 @@ var mypage = {
 			$('#cyclebill_wrapper').hide();
 			mypage.displayFor('modify');
 
-			// ï¿½ï¿½ï¿½Ï¤ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¤ªÆÏ¤±Àè¥Ç¡¼¥¿¤ÎÀßÄê
 			elem = document.forms.delivery_form.elements;
 			for (i = 0; i < elem.length; i++) {
 				if (elem[i].type == 'text') {
@@ -8225,7 +8226,7 @@ var mypage = {
 				mypage.inputControl(document.forms.delivery_form, true);
 			}
 
-			// È¯ï¿½ï¿½ï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// È¯Á÷¸µ¥Ç¡¼¥¿¤ÎÀßÄê
 			elem = document.forms.shipfrom_form.elements;
 			for (i = 0; i < elem.length; i++) {
 				if (elem[i].type == 'text') {
@@ -8233,39 +8234,39 @@ var mypage = {
 				}
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½Ñ¤ß¤Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// »ØÄêºÑ¤ß¤Î¹àÌÜÆâ¤ÎÌ¤Äê¥Á¥§¥Ã¥¯¤Î¥¹¥¿¥¤¥ëÀßÄê
 			if ($(':radio[name="completionimage"]:checked', '#designtype_table').val() != "0") {
-				$(':radio[name="completionimage"]', '#designtype_table').parent(':contains("Ì¤ï¿½ï¿½")').parent().removeClass('pending');
+				$(':radio[name="completionimage"]', '#designtype_table').parent(':contains("Ì¤Äê")').parent().removeClass('pending');
 			} else {
-				$(':radio[name="completionimage"]', '#designtype_table').parent(':contains("Ì¤ï¿½ï¿½")').parent().addClass('pending');
+				$(':radio[name="completionimage"]', '#designtype_table').parent(':contains("Ì¤Äê")').parent().addClass('pending');
 			}
 			if ($(':radio[name="manuscript"]:checked', '#designtype_table').val() != "0") {
-				$(':radio[name="manuscript"]', '#designtype_table').parent(':contains("Ì¤ï¿½ï¿½")').parent().removeClass('pending');
+				$(':radio[name="manuscript"]', '#designtype_table').parent(':contains("Ì¤Äê")').parent().removeClass('pending');
 			} else {
-				$(':radio[name="manuscript"]', '#designtype_table').parent(':contains("Ì¤ï¿½ï¿½")').parent().addClass('pending');
+				$(':radio[name="manuscript"]', '#designtype_table').parent(':contains("Ì¤Äê")').parent().addClass('pending');
 			}
 			if ($(':radio[name="payment"]:checked', '#optprice_table').val() != "0") {
-				$(':radio[name="payment"]', '#optprice_table').parent(':contains("Ì¤ï¿½ï¿½")').removeClass('pending');
+				$(':radio[name="payment"]', '#optprice_table').parent(':contains("Ì¤Äê")').removeClass('pending');
 			} else {
-				$(':radio[name="payment"]', '#optprice_table').parent(':contains("Ì¤ï¿½ï¿½")').addClass('pending');
+				$(':radio[name="payment"]', '#optprice_table').parent(':contains("Ì¤Äê")').addClass('pending');
 			}
 			if ($(':radio[name="deliver"]:checked', '#optprice_table').val() != "0") {
-				$(':radio[name="deliver"]', '#optprice_table').parent(':contains("Ì¤ï¿½ï¿½")').removeClass('pending');
-				if ($(':radio[name="deliver"]:checked', '#optprice_table').val() == "2") { // ï¿½ï¿½Þ¥È±ï¿½Í¢
+				$(':radio[name="deliver"]', '#optprice_table').parent(':contains("Ì¤Äê")').removeClass('pending');
+				if ($(':radio[name="deliver"]:checked', '#optprice_table').val() == "2") { // ¥ä¥Þ¥È±¿Í¢
 					$('#deliverytime_wrapper').show();
 				}
 			} else {
-				$(':radio[name="deliver"]', '#optprice_table').parent(':contains("Ì¤ï¿½ï¿½")').addClass('pending');
+				$(':radio[name="deliver"]', '#optprice_table').parent(':contains("Ì¤Äê")').addClass('pending');
 				$('#deliverytime_wrapper').hide();
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ñ¥¿¥Ö¤Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// À©ºî»Ø¼¨½ñ¥¿¥Ö¤Î¼õÃíÆü¤òÀßÄê
 			$('#created').text(info['created']);
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥à¤´ï¿½È¤ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¥¢¥¤¥Æ¥à¤´¤È¤ÎÌÀºÙ1¥Æ¡¼¥Ö¥ë¤ò½é´ü²½
 			$('#itemprint tbody').html('');
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sessionStorageï¿½Ë³ï¿½Ç¼
+			// ¥¢¥¤¥Æ¥à¥Ç¡¼¥¿¤ò¼èÆÀ¤·¤ÆsessionStorage¤Ë³ÊÇ¼
 			var store = {};
 			var sess = sessionStorage;
 			sess.clear();
@@ -8323,7 +8324,7 @@ var mypage = {
 								hash[r[i]['item_id']]['vol'] += r[i]['amount'] - 0;
 							}
 						}
-						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½Ï¥ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ÜºÙ¥Æ¡ï¿½ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+						// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤Ï¥¢¥¤¥Æ¥à¾ÜºÙ¥Æ¡¼¥Ö¥ë¤òÀ¸À®
 						var tr = '';
 						if (mypage.prop.firmorder && info['noprint'] == 0 && info['free_printfee'] == 0 && hash[r[0]['item_id']]['fee'] > 0) {
 							for (var itemid in hash) {
@@ -8358,7 +8359,7 @@ var mypage = {
 			mypage.uploadDesignImg(order_id_i);
 			mypage.uploadDesignedImg(order_id_i);
 
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½Î¾ï¿½ï¿½ï¿½ï¿½É¤ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤Ë¤ï¿½ï¿½ï¿½
+			// ³ÎÄêÃíÊ¸¤Î¾ì¹ç¤ËÆÉ¤ß¼è¤êÀìÍÑ¤Ë¤¹¤ë
 			mypage.checkFirmorder();
 
 			$('body, #header').removeClass('main_bg');
@@ -8371,18 +8372,18 @@ var mypage = {
 			$('#order_wrapper').show(
 				'normal',
 				function () {
-					// ï¿½ß¸Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Î³ï¿½Ç§
+					// ºß¸Ë¿ô¥ª¡¼¥Ð¡¼¤Î³ÎÇ§
 					$('#orderlist tbody tr').each(function () {
 						if (!$(this).find('.choice').is(':checked')) return true; // continue
 						var amount = $(this).find('.listamount').val().replace(/,/g, '') - 0;
 						var stock = $(this).find('.stock_status').text();
 						if (stock.match(/^\d+?$/)) {
 							if (amount > stock) {
-								$.msgbox('ï¿½ß¸Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Æ¥à¤¬ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½');
+								$.msgbox('ºß¸Ë¿ô¥ª¡¼¥Ð¡¼¤Î¥¢¥¤¥Æ¥à¤¬¤¢¤ê¤Þ¤¹¡£');
 								return false;
 							}
-						} else if (stock == 'ï¿½ï¿½') {
-							$.msgbox('ï¿½ß¸Ë¿ï¿½ï¿½ï¿½0ï¿½Î¾ï¿½ï¿½Ê¤ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½');
+						} else if (stock == '¡ß') {
+							$.msgbox('ºß¸Ë¿ô¤¬0¤Î¾¦ÉÊ¤¬¤¢¤ê¤Þ¤¹¡£');
 							return false;
 						} else {
 							return true; // continue
@@ -8401,12 +8402,12 @@ var mypage = {
 		switch (func) {
 			case 'btn':
 				if (typeof arguments[1] == 'string') {
-					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿
+					// ¿·µ¬ÅÐÏ¿
 					switch (arguments[1]) {
 						case 'self-design':
 							mypage.prop.applyto = 1;
 							$('#maintitle').val('SELF-DESIGN');
-							$('#reuse_plate').text('ï¿½ï¿½ï¿½ï¿½(SD)');
+							$('#reuse_plate').text('¿·ÈÇ(SD)');
 						case '0':
 							$('body, #header').removeClass('main_bg');
 							$('#header').css('height', '156px');
@@ -8425,15 +8426,15 @@ var mypage = {
 							mypage.prop.modified = false;
 							break;
 						default:
-							// Â¾ï¿½Î²ï¿½ï¿½Ì¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ä¾ï¿½Ü¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½Ð¤ï¿½ï¿½ï¿½ï¿½
+							// Â¾¤Î²èÌÌ¤«¤é¼õÃíID¤ÇÄ¾ÀÜ¼õÃí½ñ¤ò¸Æ½Ð¤¿¾ì¹ç
 							orderpage(arguments[1], 'search');
 					}
 					_ID = "";
 				} else if (arguments[1].attr('title') == 'reset') {
-					// ï¿½ï¿½ï¿½Ì¤Î¥ê¥»ï¿½Ã¥ï¿½
+					// ²èÌÌ¤Î¥ê¥»¥Ã¥È
 					mypage.main('clear');
 				} else {
-					// ï¿½ï¿½Ê¸ï¿½ï¿½ï¿½Õ²ï¿½ï¿½Ì¤Î¥Ü¥ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ø¥Ü¥ï¿½ï¿½ï¿½
+					// ÃíÊ¸¼õÉÕ²èÌÌ¤Î¥Ü¥¿¥ó¤È¸¡º÷¥Õ¥©¡¼¥à¤Ø¥Ü¥¿¥ó
 					btn(arguments[1]);
 				}
 				break;
