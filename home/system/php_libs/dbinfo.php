@@ -573,7 +573,7 @@
 							$itemstock = '〇';
 						}
 						$res .= '<td class="stock_status">'.$itemstock.'</td>';
-						$res .=	'<td class="none"><input type="button" value="削除" onclick="mypage.removeitem(this, '.$val['size_id'].','.$val['master_id'].')" /></td>';
+						$res .=	'<td class="none"><input type="button" value="削除" onclick="mypage.removeitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" /></td>';
 						$res .=	'<td class="tip"><span>'.$info['stock_number'].'</span><span>'.$info['maker_name'].'</span></td></tr>';
 					}
 				}
@@ -803,7 +803,7 @@
 							$itemstock = '〇';
 						}
 						$res .= '<td class="stock_status">'.$itemstock.'</td>';
-						$res .=	'<td class="none"><input type="button" value="削除" onclick="mypage.removeitem(this, '.$val['size_id'].','.$val['master_id'].')" /></td>';
+						$res .=	'<td class="none"><input type="button" value="削除" onclick="mypage.removeitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" /></td>';
 						$res .=	'<td class="tip"><span>'.$info['stock_number'].'</span><span>'.$info['maker_name'].'</span></td></tr>';
 					}
 				}
