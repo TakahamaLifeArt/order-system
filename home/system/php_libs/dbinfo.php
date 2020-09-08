@@ -151,7 +151,7 @@
 						// 選択済みの商品テーブルのカラーパレット
 						for($i=0; $i<count($data); $i++){
 							$color_name = is_null($data[$i]['color_name'])? '未定': $data[$i]['color_name'];
-							$res .= '<tr onclick="mypage.changeItemcolor('.$_POST['master_id'].','.$_POST['size_id'].','.$data[$i]['master_id'].',\''.$data[$i]['color_code'].'\')">';
+							$res .= '<tr onclick="mypage.changeItemcolor(\''.$_POST['master_id'].'\',\''.$_POST['size_id'].'\',\''.$data[$i]['master_id'].'\',\''.$data[$i]['color_code'].'\')">';
 							$res .= 	'<td>'.$data[$i]['color_code'].'</td>';
 							$res .= 	'<td>'.$color_name.'</td>';
 							$res .= '</tr>';
@@ -185,11 +185,11 @@
 					$res = '<table cellspacing="0" id="itemsize_table" class="tablesorter">';
 					$res .= '<thead><tr><th class="header">size</th></tr></thead>';
 					$res .= '<tbody>';
-					$res .= '<tr onclick="mypage.changeItemsize('.$_POST['master_id'].','.$_POST['size_id'].',0,\'未定\')">';
+					$res .= '<tr onclick="mypage.changeItemsize(\''.$_POST['master_id'].'\',\''.$_POST['size_id'].'\',0,\'未定\')">';
 					$res .= 	'<td>未定</td>';
 					$res .= '</tr>';
 					for($i=0; $i<$size_count; $i++){
-						$res .= '<tr onclick="mypage.changeItemsize('.$_POST['master_id'].','.$_POST['size_id'].','.$data[$i]['id'].',\''.$data[$i]['size_name'].'\')">';
+						$res .= '<tr onclick="mypage.changeItemsize(\''.$_POST['master_id'].'\',\''.$_POST['size_id'].'\','.$data[$i]['id'].',\''.$data[$i]['size_name'].'\')">';
 						$res .= 	'<td>'.$data[$i]['size_name'].'</td>';
 						$res .= '</tr>';
 					}
@@ -506,7 +506,7 @@
 							$list = $val['item_name'];
 						}else{
 							$fields = $catalog->getTableList('item', $info['category_id'], 0, $_POST['curdate']);
-							$list = '<select onchange="mypage.changeitem(this, '.$val['size_id'].','.$val['master_id'].')">';
+							$list = '<select onchange="mypage.changeitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')">';
 							for($t=0; $t<count($fields); $t++){
 								$list .= '<option value="'.$fields[$t]['item_id'].'">'.$fields[$t]['item_name'].'</option>';
 							}
@@ -553,11 +553,11 @@
 						$res .=	'<td class="item_selector">'.$list.'</td>';
 						$res .=	'<td class="itemsize_name" '.$bgPendingSize.'><img id="size_'.$val['size_id'].'" alt="'.$val['master_id'].'_'.$info['color_code'].'" src="./img/reload.png" width="16" class="change_size" />'.$info['size_name'].'</td>';
 						$res .=	'<td class="itemcolor_name" '.$bgPendingColor.'><img id="sizeOfColor'.$i.'_'.$val['size_id'].'" alt="'.$val['master_id'].'" src="./img/circle.png" width="16" class="change_itemcolor" />'.$color_name.'</td>';
-						$res .=	'<td class="centering"><input type="text" value="'.$info['amount'].'" onchange="mypage.updateitem(this, '.$val['size_id'].','.$val['master_id'].')" class="listamount forReal" /></td>';
+						$res .=	'<td class="centering"><input type="text" value="'.$info['amount'].'" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" class="listamount forReal" /></td>';
 						if($_POST['ordertype']=='general'){
 							$res .=	'<td class="itemcost toright">'.number_format($info['cost']).'</td>';
 						}else{
-							$res .=	'<td class="centering"><input type="text" value="'.number_format($info['cost']).'" onchange="mypage.updateitem(this, '.$val['size_id'].','.$val['master_id'].')" class="itemcost forPrice" /></td>';
+							$res .=	'<td class="centering"><input type="text" value="'.number_format($info['cost']).'" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" class="itemcost forPrice" /></td>';
 						}
 						$subtotal=$info['cost']*$info['amount'];
 						$res .= '<td class="subtotal">'.number_format($subtotal).'</td>';
@@ -736,7 +736,7 @@
 							$list = $val['item_name'];
 						}else{
 							$fields = $catalog->getTableList('item', $info['category_id'], 0, $_POST['curdate']);
-							$list = '<select onchange="mypage.changeitem(this, '.$val['size_id'].','.$val['master_id'].')">';
+							$list = '<select onchange="mypage.changeitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')">';
 							for($t=0; $t<count($fields); $t++){
 								$list .= '<option value="'.$fields[$t]['item_id'].'">'.$fields[$t]['item_name'].'</option>';
 							}
@@ -783,11 +783,11 @@
 						$res .=	'<td class="item_selector">'.$list.'</td>';
 						$res .=	'<td class="itemsize_name" '.$bgPendingSize.'><img id="size_'.$val['size_id'].'" alt="'.$val['master_id'].'_'.$info['color_code'].'" src="./img/reload.png" width="16" class="change_size" />'.$info['size_name'].'</td>';
 						$res .=	'<td class="itemcolor_name" '.$bgPendingColor.'><img id="sizeOfColor'.$i.'_'.$val['size_id'].'" alt="'.$val['master_id'].'" src="./img/circle.png" width="16" class="change_itemcolor" />'.$color_name.'</td>';
-						$res .=	'<td class="centering"><input type="text" value="'.$info['amount'].'" onchange="mypage.updateitem(this, '.$val['size_id'].','.$val['master_id'].')" class="listamount forReal" /></td>';
+						$res .=	'<td class="centering"><input type="text" value="'.$info['amount'].'" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" class="listamount forReal" /></td>';
 						if($_POST['ordertype']=='general'){
 							$res .=	'<td class="itemcost toright">'.number_format($info['cost']).'</td>';
 						}else{
-							$res .=	'<td class="centering"><input type="text" value="'.number_format($info['cost']).'" onchange="mypage.updateitem(this, '.$val['size_id'].','.$val['master_id'].')" class="itemcost forPrice" /></td>';
+							$res .=	'<td class="centering"><input type="text" value="'.number_format($info['cost']).'" onchange="mypage.updateitem(this, \''.$val['size_id'].'\',\''.$val['master_id'].'\')" class="itemcost forPrice" /></td>';
 						}
 						$subtotal=$info['cost']*$info['amount'];
 						$res .= '<td class="subtotal">'.number_format($subtotal).'</td>';
@@ -911,7 +911,7 @@
 						$list = $data['item_name'];
 					}else{
 						$fields = $catalog->getTableList('item', $info['category_id'], 0, $_POST['curdate']);
-						$list = '<select onchange="mypage.changeitem(this, '.$data['size_id'].','.$master_id.')">';
+						$list = '<select onchange="mypage.changeitem(this, \''.$data['size_id'].'\',\''.$master_id.'\')">';
 						for($t=0; $t<count($fields); $t++){
 							$list .= '<option value="'.$fields[$t]['item_id'].'">'.$fields[$t]['item_name'].'</option>';
 						}

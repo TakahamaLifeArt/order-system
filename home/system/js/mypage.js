@@ -571,6 +571,9 @@ var mypage = {
 		var result = false;
 		var isExist = false;
 		var changeID = null;
+
+		size = size || null;
+
 		if (mode == 'master') {
 			// カラーの変更
 			for (var i = 0; i < lenRec; i++) {
@@ -1683,6 +1686,7 @@ var mypage = {
 		 *	注文リストの枚数、単価、版、選択解除の変更
 		 *	Classが複数設定してある場合は最初のClass名で判別
 		 */
+		size_id = size_id || null;
 		var tr = $(my).closest('tr');
 		var cls = $(my).attr('class').split(' ')[0];
 		var category_id = tr.children('td:eq(2)').attr('class').split('_')[1];
@@ -1799,6 +1803,8 @@ var mypage = {
 		var color_code = td.siblings('.itemsize_name').children('img').attr('alt').split('_')[0];
 		var category_id = td.prev().attr('class').split('_')[1];
 		var category_name = td.prev().text();
+
+		size_id = size_id || null
 
 		$.ajax({
 			url: './php_libs/dbinfo.php',
