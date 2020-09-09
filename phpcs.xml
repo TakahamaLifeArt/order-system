@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>public/index.php</exclude-pattern>
+    <exclude-pattern>public/vendor/*</exclude-pattern>
+    <exclude-pattern>resources/*</exclude-pattern>
+    <rule ref="PSR1"/>
+    <rule ref="PSR2">
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace"/>
+    </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>app/Models/*</exclude-pattern>
+    </rule>
+</ruleset>
