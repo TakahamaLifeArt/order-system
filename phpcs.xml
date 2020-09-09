@@ -12,4 +12,7 @@
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>app/Models/*</exclude-pattern>
     </rule>
+    <rule ref="PEAR">
+        <exclude name="PEAR.Commenting.FileComment.Missing"/>
+    </rule>
 </ruleset>
