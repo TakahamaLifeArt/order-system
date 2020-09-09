@@ -10,7 +10,7 @@ class Test
 
     /**
      * Hoge
-     * 
+     *
      * @param integer $int
      * @return integer
      */
