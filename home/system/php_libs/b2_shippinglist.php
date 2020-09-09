@@ -15,7 +15,7 @@
 		
 		$rs = array();
 		$sql2 = '';
-		if(!empty($_REQUEST['term_from'])){
+		if (!empty($_REQUEST['term_from'])) {
 			$sql2 .= ' and schedule3 >= "'.$_REQUEST['term_from'].'"';
 		}
 		if(!empty($_REQUEST['term_to'])){
