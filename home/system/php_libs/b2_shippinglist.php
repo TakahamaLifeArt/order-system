@@ -27,7 +27,7 @@ try{
         $sql2 .= ' and carriage = "'.$_REQUEST['carriage'].'"';
     }
     */
-    if($_REQUEST['readytoship']!=""){
+    if ($_REQUEST['readytoship']!="") {
         $sql2 .= ' and readytoship = "'.$_REQUEST['readytoship'].'"';
     }
     if(!empty($_REQUEST['shipped'])){
