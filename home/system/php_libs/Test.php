@@ -11,8 +11,8 @@ class Test
     /**
      * Hoge
      *
-     * @param  integer $int
-     * 
+     * @param integer $int
+     *
      * @return integer
      */
     public function hoge(int $int)
