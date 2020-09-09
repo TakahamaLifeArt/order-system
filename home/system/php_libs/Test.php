@@ -5,12 +5,14 @@ namespace php_libs;
 /**
  * Test Class
  */
-class Test {
+class Test
+{
 
     /**
-     * hoge
+     * Hoge
      *
-     * @param integer $int
+     * @param  integer $int
+     * 
      * @return integer
      */
     public function hoge(int $int)
@@ -18,4 +20,3 @@ class Test {
         return $int * 2;
     }
 }
-?>
