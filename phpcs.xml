@@ -10,6 +10,7 @@
     <rule ref="PSR2">
         <exclude name="Generic.Files.LineLength.TooLong"/>
         <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+        <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
         <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace"/>
     </rule>
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
