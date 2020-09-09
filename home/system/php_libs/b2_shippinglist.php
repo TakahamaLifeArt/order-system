@@ -1,14 +1,13 @@
 <?php
+require_once dirname(__FILE__).'/MYDB.php';
+require_once dirname(__FILE__).'/phonedata.php';
+
 /**
  * B2送り状CSVダウンロード
  *
  * 除外： 配送方法が引取
  */
-
-require_once dirname(__FILE__).'/MYDB.php';
-require_once dirname(__FILE__).'/phonedata.php';
-
-try{
+try {
     $conn = db_connect();
     
     // 配達時間指定
