@@ -2,7 +2,7 @@ name: phpcs
 
 on:
   pull_request:
-    branches: [develop]
+    branches: [master]
 
 jobs:
   phpcs:
@@ -10,12 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{github.event.pull_request.head.ref}}
+          fetch-depth: 0
       - name: Install PHP_CodeSniffer
         run: |
           curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
           php phpcs.phar --version
-      - name: Check code style
-        run: |
-          phpcs --report=code --standard=/phpcs.xml
-      
+      - uses: tinovyatkin/action-php-codesniffer@v1
+        with:
+          files: "**.php"
+          phpcs_path: php phpcs.phar
+          standard: /phpcs.xml
