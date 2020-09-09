@@ -19,4 +19,4 @@ jobs:
         with:
           files: "**.php"
           phpcs_path: php phpcs.phar
-          standard: /phpcs.xml
+          standard: phpcs.xml
