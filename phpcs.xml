@@ -15,6 +15,9 @@
         <exclude-pattern>app/Models/*</exclude-pattern>
     </rule>
     <rule ref="PEAR">
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+        <exclude name="PEAR.Commenting.ClassComment.Missing"/>
         <exclude name="PEAR.Commenting.FileComment.Missing"/>
+        <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
     </rule>
 </ruleset>
