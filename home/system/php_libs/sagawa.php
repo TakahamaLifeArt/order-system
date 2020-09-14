@@ -157,11 +157,11 @@ try {
         $tmp[] = $rec['delizipcode'];  // お届け先郵便番号
 
         // お届け先住所１
-        $addr0 = mb_convert_kana($rec['deliaddr0'], 'ASHcV', 'utf-8');
+        $addr0 = mb_convert_kana($rec['deliaddr0'], 'ASKV', 'utf-8');
         $tmp[] = mb_substr($addr0, 0, 16, 'utf-8');
 
         // お届け先住所２
-        $addr1 = mb_convert_kana($rec['deliaddr1'], 'ASHcV', 'utf-8');
+        $addr1 = mb_convert_kana($rec['deliaddr1'], 'ASKV', 'utf-8');
         $tmp[] = mb_substr($addr1, 0, 16, 'utf-8');
 
         // お届け先住所３
@@ -170,7 +170,7 @@ try {
             $isError = true;
             $notJIS[] = array('number'=>$rec['cstprefix'].$rec['number'],'field'=>'deliaddr2','data'=>$chk);
         }
-        $addr2 = mb_convert_kana($rec['deliaddr2'], 'ASHcV', 'utf-8');
+        $addr2 = mb_convert_kana($rec['deliaddr2'], 'ASKV', 'utf-8');
         $tmp[] = mb_substr($addr2, 0, 16, 'utf-8');
 
         // お届け先名称１
@@ -179,7 +179,7 @@ try {
             $isError = true;
             $notJIS[] = array('number'=>$rec['cstprefix'].$rec['number'],'field'=>'organi','data'=>$chk);
         }
-        $name = mb_convert_kana($rec['organization'], 'ASHcV', 'utf-8');
+        $name = mb_convert_kana($rec['organization'], 'ASKV', 'utf-8');
         $tmp[] = mb_substr($name, 0, 16, 'utf-8');
 
         $tmp[] = "";                        // お届け先名称２
@@ -191,7 +191,7 @@ try {
         $tmp[] = "";
 
         // 部署・担当者
-        $staff = mb_convert_kana($rec['staffname'], 'ASHcV', 'utf-8');
+        $staff = mb_convert_kana($rec['staffname'], 'ASKV', 'utf-8');
         $tmp[] = mb_substr($staff, 0, 16, 'utf-8');
 
         $tmp[] = "";                        // 荷送人電話番号
