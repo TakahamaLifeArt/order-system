@@ -942,6 +942,7 @@ var mypage = {
 			};
 		}
 		var store = mypage.setStorage(args);
+		var isPrint = $('#noprint').is(':checked') ? 0 : 1;
 		var list = {
 			'act': 'orderlist',
 			'ordertype': mypage.prop.ordertype,
@@ -951,7 +952,6 @@ var mypage = {
 		};
 
 		// 注文リストの書換
-		var isPrint = $('#noprint').is(':checked') ? 0 : 1;
 		$.ajax({
 			url: './php_libs/dbinfo.php',
 			type: 'POST',
