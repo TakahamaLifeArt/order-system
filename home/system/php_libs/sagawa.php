@@ -162,7 +162,8 @@ try {
 
         // お届け先住所２
         $addr1 = mb_convert_kana($rec['deliaddr1'], 'ASKV', 'utf-8');
-        $tmp[] = mb_substr($addr1, 0, 16, 'utf-8');
+        $tmp[] = $addr1;
+        // $tmp[] = mb_substr($addr1, 0, 16, 'utf-8');
 
         // お届け先住所３
         $chk = AppCheckUtil::chkJis1or2($rec['deliaddr2']);
@@ -171,7 +172,8 @@ try {
             $notJIS[] = array('number'=>$rec['cstprefix'].$rec['number'],'field'=>'deliaddr2','data'=>$chk);
         }
         $addr2 = mb_convert_kana($rec['deliaddr2'], 'ASKV', 'utf-8');
-        $tmp[] = mb_substr($addr2, 0, 16, 'utf-8');
+        $tmp[] = $addr2;
+        // $tmp[] = mb_substr($addr2, 0, 16, 'utf-8');
 
         // お届け先名称１
         $chk = AppCheckUtil::chkJis1or2($rec['organization']);
