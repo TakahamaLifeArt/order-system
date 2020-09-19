@@ -184,7 +184,10 @@ try {
         $name = mb_convert_kana($rec['organization'], 'ASKV', 'utf-8');
         $tmp[] = mb_substr($name, 0, 16, 'utf-8');
 
-        $tmp[] = "";                        // お届け先名称２
+        // お届け先名称２
+        $deli[] = mb_convert_kana($rec['deliaddr3'], 'ASKV', 'utf-8');
+        $deli[] = mb_convert_kana($rec['deliaddr4'], 'ASKV', 'utf-8');
+        $tmp[] = implode(' ', $deli);                        
 
         // お客様管理ナンバー
         $tmp[] = strtoupper($rec['cstprefix']) . str_pad($rec['number'], 6, "0", STR_PAD_LEFT);
