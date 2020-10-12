@@ -320,7 +320,7 @@ $cur_item = '';
 $totVolume = 0;
 $sizeVolume = array();	// サイズごとの枚数計
 $tableHeight = 0;		// 商品テーブルの高さ
-$itemnameFont = 11*1.2;	// 商品名のフォントサイズ11px
+// $itemnameFont = 11*1.2;	// 商品名のフォントサイズ11px
 $colornameFont = 14*1.2;// カラー名のフォントサイズ14px
 $cellHeight = 22;
 $rows = 0;
@@ -454,7 +454,7 @@ if(empty($result)) exit('No such printing data exists');
 $printinfo = $result[0];
 
 $arrange = ($isBring || $printinfo['arrange']==2)? '持込あり': '注文';
-$plates = $printinfo['plates'];
+// $plates = $printinfo['plates'];
 $envelope = $printinfo['envelope']==1? 'あり': 'なし';
 $boxnumber = $printinfo['boxnumber'];
 $ship_note = $printinfo['ship_note'];

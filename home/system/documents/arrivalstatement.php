@@ -66,6 +66,8 @@ for($q=0; $q<count($datas); $q++){
 	case 'embroidery':
 		$print_name = '刺繍';
 		break;
+	default:
+		$print_key = 'silk';
 	}
 	$print_name = $orders['noprint']==1? '商品のみ': $print_name;
 	
@@ -149,7 +151,7 @@ for($q=0; $q<count($datas); $q++){
 	
 	// 注文商品とプリント位置データを取得
 	$products = $DB->db( 'search','product',array('order_type'=>$orders['ordertype'],'orders_id'=>$orders_id,'print_type'=>$print_key) );
-	// if(empty($products)) exit('No such products data exists');
+	if(empty($products)) exit('No such products data exists');
 
 	$items = array();		// 商品情報
 	$printpos = array();	// プリント位置ごとの情報
@@ -157,7 +159,7 @@ for($q=0; $q<count($datas); $q++){
 	//$position_hash = array('front'=>'正面', 'back'=>'背中', 'side'=>'側面', 'side_p2'=>'側面', 'side_p4'=>'側面', 'free'=>'フリー', 'fixed'=>'転写シート');
 	
 	$isAllRepeat = true;	// 新版が1つでもあれば false
-	$isBring = false;		// 持込商品が1つでもあれば true;
+	$isBring = false;		// 持込商品が1つでもあれば true
 	$makers = array();		// メーカー名の重複チェック
 	$maker = array();		// メーカー名の配列
 	$categories = array();	// カテゴリーの重複チェック
@@ -168,7 +170,7 @@ for($q=0; $q<count($datas); $q++){
 		// 一般と業者のフィールド名の違いを調整
 		if($orders['ordertype']=='general'){
 			//$products[$i]['src'] = $root_path.'img/items/'.$products[$i]['category_key'].'/'.$products[$i]['item_code'].'/'.$products[$i]['stock_number'].'.jpg';
-			if($products[$i]['category_id']==0){
+			if($products[$i]['category_id']==0 || $products[$i]['category_id']==100){
 				$tmp = explode('_', $products[$i]['stock_number']);
 				$products[$i]['item_code'] = $tmp[0];
 				$products[$i]['maker_name'] = $products[$i]['maker'];
@@ -177,7 +179,6 @@ for($q=0; $q<count($datas); $q++){
 				//else $products[$i]['src'] = $root_path.'img/items/'.$products[$i]['category_key'].'/'.$products[$i]['item_code'].'/'.$products[$i]['stock_number'].'.jpg';
 			}
 			$products[$i]['stock_number'] = $products[$i]['item_code'].'_'.$products[$i]['color_code'];
-			
 			
 			// 一般で1つでも新版があればfalse、全てリピ版の場合はtrue
 			if(empty($products[$i]['repeat_check'])) $isAllRepeat = false;
@@ -227,7 +228,7 @@ for($q=0; $q<count($datas); $q++){
 		
 	
 		// アイテム（カラーごと）のサイズごとの枚数を集計
-		$key = $products[$i]['item_name'];
+		$key = $products[$i]['item_name'].'_'.$products[$i]['category_id'];
 		if(empty($items[$key])){
 			$items[$key] = $products[$i];
 			$items[$key]['color'] = array();
@@ -300,12 +301,15 @@ for($q=0; $q<count($datas); $q++){
 	$repeatcheck = '';
 	if($orders['ordertype']=='industry'){
 		if($orders['expresscheck']==0){
-			$expresscheck = 'style=display:none;';
+			$expresscheck = 'style="display:none;"';
 		}
 		if($orders['repeatcheck']==0 && $orders['repeater']==0){
-			$repeatcheck = 'style=display:none;';
+			$repeatcheck = 'style="display:none;"';
 		}
 		$skin = 'style="color:#04c;"';
+		$fontcolor = 'style="color:#fff;"';
+		$borderright = "border-right:1px solid #fff;";
+		$bg = '<img src="img/bgCustomerwrap.jpg" class="bg" style="position:absolute;top0:0;left:0">';
 	}else{
 		if($orders['expressfee']==0){
 			$expresscheck = 'style=display:none;';
@@ -315,6 +319,9 @@ for($q=0; $q<count($datas); $q++){
 			$repeatcheck = 'style=display:none;';
 		}
 		$skin = '';
+		$fontcolor = '';
+		$borderright = '';
+		$bg = '';
 	}
 	
 	
@@ -331,14 +338,13 @@ for($q=0; $q<count($datas); $q++){
 	$cellHeight = 22;
 	foreach($items as $key=>$val){
 		$size_rows = 0;
-		
 		$tmpColor = array();
 		$tmpHeight = 0;;
-		foreach($val['color'] as $colorname=>$arg){
+		foreach($val['color'] as $colorname=>$colors){
 			$tmpSize = array();
 			$curColor_rows = 0;
 			$tmp = '';
-			foreach($val['color'][$colorname] as $sizename=>$arg){
+			foreach($colors as $sizename=>$arg){
 				$tmp = '<td class="td05">'.$sizename.'</td>';
 				$tmp .= '<td class="td06">'.$arg[0].'</td>';
 				$tmp .= '<td>'.$arg[1].'</td>';
@@ -415,7 +421,7 @@ for($q=0; $q<count($datas); $q++){
 		
 		$items_list .= '<tr>';
 		
-		if($cur_item!=$val['item_name']){
+		if($cur_item!=$val['item_name'].'_'.$val['category_id']){
 			if($size_rows>1){
 				$items_list .= '<td class="td01" rowspan="'.$size_rows.'">'.$val['item_name'].'</td>';
 				$items_list .= '<td rowspan="'.$size_rows.'">'.$val['maker_name'].'</td>';
@@ -430,7 +436,7 @@ for($q=0; $q<count($datas); $q++){
 					$tableHeight += 8;	// 商品名が2行で且つサイズが1種類でカラー名が1行の場合
 				}
 			}
-			$cur_item = $val['item_name'];
+			$cur_item = $val['item_name'].'_'.$val['category_id'];
 		}
 		
 		$items_list = $items_list.$tmpColor[0];
@@ -776,6 +782,7 @@ for($q=0; $q<count($datas); $q++){
 					<tfoot><td colspan="5">{$size_volume}</td><td>{$totVolume}</td><td></td></tfoot>
 					<tbody>
 						$items_list
+						$hoge
 					</tbody>
 				</table>
 			</div>
