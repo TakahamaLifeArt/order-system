@@ -185,9 +185,10 @@ try {
         $tmp[] = mb_substr($name, 0, 16, 'utf-8');
 
         // お届け先名称２
+        $deli = [];
         $deli[] = mb_convert_kana($rec['deliaddr3'], 'ASKV', 'utf-8');
         $deli[] = mb_convert_kana($rec['deliaddr4'], 'ASKV', 'utf-8');
-        $tmp[] = implode(' ', $deli);                        
+        $tmp[] = implode(' ', $deli);
 
         // お客様管理ナンバー
         $tmp[] = strtoupper($rec['cstprefix']) . str_pad($rec['number'], 6, "0", STR_PAD_LEFT);
@@ -200,12 +201,52 @@ try {
         $tmp[] = mb_substr($staff, 0, 16, 'utf-8');
 
         $tmp[] = "";                        // 荷送人電話番号
-        $tmp[] = "03-5670-0787";            // ご依頼主電話番号
-        $tmp[] = "124-0025";                // ご依頼主郵便番号
-        $tmp[] = "東京都葛飾区";              // ご依頼主住所１
-        $tmp[] = "西新小岩３ー１４ー２６";      // ご依頼主住所２
-        $tmp[] = "有限会社タカハマライフアート"; // ご依頼主名称１
-        $tmp[] = "";                        // ご依頼主名称２
+
+        // 発送元
+        if (! empty($rec['shipfrom_id'])) {
+            $tmp[] = $rec['shiptel'];            // ご依頼主電話番号
+            $tmp[] = $rec['shipzipcode'];        // ご依頼主郵便番号
+
+            // ご依頼主住所１
+            $shipaddr0 = mb_convert_kana($rec['shipaddr0'], 'ASKV', 'utf-8');
+            $tmp[] = mb_substr($shipaddr0, 0, 16, 'utf-8');
+
+            // ご依頼主住所2
+            $shipaddr1 = mb_convert_kana($rec['shipaddr1'], 'ASKV', 'utf-8');
+            // $tmp[] = $addr1;
+            // $tmp[] = mb_substr($addr1, 0, 16, 'utf-8');
+
+            $chk = AppCheckUtil::chkJis1or2($rec['shipaddr2']);
+            if ($chk != "") {
+                $isError = true;
+                $notJIS[] = array('number'=>$rec['cstprefix'].$rec['number'],'field'=>'shipaddr2','data'=>$chk);
+            }
+            $shipaddr2 = mb_convert_kana($rec['shipaddr2'], 'ASKV', 'utf-8');
+            $tmp[] = $shipaddr1 . '　' . $shipaddr2; // 全角スペースで区切る
+
+            // お届け先名称１
+            $chk = AppCheckUtil::chkJis1or2($rec['shipfromname']);
+            if ($chk != "") {
+                $isError = true;
+                $notJIS[] = array('number'=>$rec['cstprefix'].$rec['number'],'field'=>'shipfromname','data'=>$chk);
+            }
+            $shipname = mb_convert_kana($rec['shipfromname'], 'ASKV', 'utf-8');
+            $tmp[] = mb_substr($shipname, 0, 16, 'utf-8');
+
+            // お届け先名称２
+            $ship = [];
+            $ship[] = mb_convert_kana($rec['shipaddr3'], 'ASKV', 'utf-8');
+            $ship[] = mb_convert_kana($rec['shipaddr4'], 'ASKV', 'utf-8');
+            $tmp[] = implode(' ', $ship);
+        } else {
+            $tmp[] = "03-5670-0787";            // ご依頼主電話番号
+            $tmp[] = "124-0025";                // ご依頼主郵便番号
+            $tmp[] = "東京都葛飾区";              // ご依頼主住所１
+            $tmp[] = "西新小岩３ー１４ー２６";      // ご依頼主住所２
+            $tmp[] = "有限会社タカハマライフアート"; // ご依頼主名称１
+            $tmp[] = "";                        // ご依頼主名称２    
+        }
+
         $tmp[] = "";                        // 荷姿コード
         $tmp[] = "衣類";                     // 品名１
         $tmp[] = "";                        // 品名２
