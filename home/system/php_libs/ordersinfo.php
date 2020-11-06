@@ -358,10 +358,37 @@
 
 				case 'tomscsvorderlist':
 					$dat=Marketing::getCsvOrderForm($_REQUEST['factory']);
+
+				case 'export':
+					$dat=Marketing::getExportCsv($_REQUEST['start'], $_REQUEST['end'], $_REQUEST['id'], $_REQUEST['mode']);
 					break;
 			}
 
-			if ($_REQUEST['csv']=='worktimelist') {
+			if ($_REQUEST['csv']=='export') {
+				// CSV出力
+				$fieldName = array(
+					'schedule3' => '発送日', 
+					'ink_name' => 'インクカラー',
+					'orderid' => '受注番号',
+					'selective_name' => 'プリント箇所',
+				);
+				$filename = $_REQUEST['csv'].".csv";
+				$filepath = "../data/".$filename;
+				$fp = fopen($filepath, 'wb');
+				if ($fp === false) echo 'Error: file open';
+
+				// header
+				$lbl = array();
+				foreach($dat[0] as $key=>$val){
+					$lbl[] = $fieldName[$key]? $fieldName[$key]: $key;
+				}
+				fputcsv($fp, $lbl);
+
+				// row
+				foreach($dat as $line){
+					fputcsv($fp, $line);
+				}
+			} else if ($_REQUEST['csv']=='worktimelist') {
 				// 仕事量データ
 				$fieldName = [];
 				$filename = $_REQUEST['csv'] . '_' . date('Y-m-d') . ".csv";
