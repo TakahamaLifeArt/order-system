@@ -578,6 +578,56 @@ class Marketing Extends MYDB2 {
 		return $reply;
 	}
 
+	/**
+	 * CSV出力
+	 * シルクの受注毎、プリント箇所毎のインク色数とインク色
+	 * 受注区分：一般
+	 * 注文確定
+	 *
+	 * @param  string|null  $start
+	 * @param  string|null  $end
+	 * @param  integer|null  $id
+	 * @param  string|null  $mode  
+	 * @return array
+	 */
+	public static function getExportCsv($start = null, $end = null, $id = null, $mode = null)
+	{
+		try {
+			$sql = "select schedule3, ink_name, orders.id as orderid, selective_name from orders ";
+			$sql .= "inner join acceptstatus on acceptstatus.orders_id = orders.id ";
+			$sql .= "inner join orderprint on orderprint.orders_id = orders.id ";
+			$sql .= "inner join orderarea on orderarea.orderprint_id = orderprint.id ";
+			$sql .= "inner join orderselectivearea on orderselectivearea.orderarea_id = areaid ";
+			$sql .= "inner join orderink on orderink.orderarea_id = orderselectivearea.orderarea_id "; 
+			$sql .= "where progress_id = 4 and orderarea.print_type = 'silk' and ordertype = 'general' ";
+			if ($id) {
+				$sql .= "and orders.id=?";
+			}
+			$sql .= "and schedule3 between ? and ? ";
+			$sql .= "group by schedule3, orders.id, areaid, ink_name ";
+			$sql .= "order by schedule3";
+	
+			$conn = self::db_connect();
+			$stmt = $conn->prepare($sql);
+			$start = self::validDate($start);
+			$end = self::validDate($end, date('Y-m-d'));
+			if ($id) {
+				$stmt->bind_param("iss", $id, $start, $end);
+			} else {
+				$stmt->bind_param("ss", $start, $end);
+			}
+			$stmt->execute();
+			$stmt->store_result();
+			$rs = self::fetchAll($stmt);
+			
+		} catch (Exception $e) {
+			$rs = [];
+		}
+		
+		$stmt->close();
+		$conn->close();
+		return $rs;
+	}
 
 
 /*=========== Pending ========================================*/

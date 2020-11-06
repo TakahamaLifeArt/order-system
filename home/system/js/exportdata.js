@@ -15,13 +15,22 @@
 		/********************************
 		*	export data
 		*/
-		$('#orderlist, #printlist, #orderitemlist, #orderitemlist_additional, #worktimelist').click(function(){
+		$('#orderlist, #printlist, #orderitemlist, #orderitemlist_additional, #worktimelist, #export').click(function(){
 			var start = document.forms.searchtop_form.term_from.value;
 			var end = document.forms.searchtop_form.term_to.value;
 			var id = document.forms.searchtop_form.id.value;
 			var csv = $(this).attr('id').split('_');
 			var mode = csv.length<2? "": csv[1];
-			if(start==""){
+
+			if (csv[0] === 'export') {
+				mode = document.forms.searchtop_form.mode.value;
+				if (mode === "") {
+					alert('CSVタイプを指定してください');
+					return;
+				}
+			}
+
+			if (start === "") {
 				alert('受付日を指定してください');
 				return;
 			}

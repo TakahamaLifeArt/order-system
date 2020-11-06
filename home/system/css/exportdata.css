@@ -1,0 +1,62 @@
+@charset "EUC-JP";
+
+/*------------------------------------------------------------
+
+	File_name    : exportdata.css
+	Description  : takahama system export data stylesheet
+	Version      : 0.1
+	Log		     : 2016.11.02 created
+
+-------------------------------------------------------------- */
+
+
+
+
+/*		�����������륷���Ȥ��ɹ�
+===============================================================*/
+@import url(list.css);
+
+
+
+
+/*		contents
+===============================================================*/
+
+#searchtop_form div:first-child table tbody tr th:first-child {
+	/* width: 70px; */
+}
+#searchtop_form div:first-child {
+	float: left;
+	width: 660px;
+}
+#searchtop_form div + div {
+	float: left;
+	width: 350px;
+}
+#main_wrapper table td .btn {
+	font-size: 12px;
+}
+
+#start_seal_pos {
+	margin-left: 5px;
+	width: 3em;
+}
+
+
+
+
+/*		result list
+===============================================================*/
+#main_wrapper #result_searchtop td p[title="detail"],
+#main_wrapper #result_searchtop td span[title="showmessage"] {
+	font-size: 12px;
+	color: #08c;
+	cursor: pointer;
+}
+#main_wrapper #result_searchtop td p[title="detail"]:hover,
+#main_wrapper #result_searchtop td span[title="showmessage"]:hover {
+	text-decoration: underline;
+}
+#main_wrapper #result_searchtop td label {
+	font-size: 100%;
+}
