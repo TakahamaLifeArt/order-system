@@ -474,7 +474,17 @@ for($q=0; $q<count($datas); $q++){
 	$ship_note = nl2br($printinfo['ship_note']);
 	$workshop_note = nl2br($printinfo['workshop_note']);
 	
-	
+	// 同梱の受注Noを取得
+	$rec = $DB->db( 'search','bundlecount', array('orders_id'=>$orders_id) );
+	if(count($rec)>0){
+		$ids = array();
+		for($i=0; $i<count($rec); $i++){
+			if($rec[$i]['id']==$orders_id) continue;
+			$ids[] = $rec[$i]['id'];
+		}
+		$ship_note = '同梱：'.implode(',',$ids)."\n".$printinfo['ship_note'];
+	}
+
 	// プリント位置ごとのデータを集計
 	$pinfo = array();
 	// $adj = array();
