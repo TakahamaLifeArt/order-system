@@ -1,6 +1,8 @@
 name: phpcs
 
 on:
+  push:
+    branches: [topic/*]
   pull_request:
     branches: [master]
     paths:
@@ -9,7 +11,33 @@ on:
       - ".github/workflows/phpcs.yml"
 
 jobs:
+  test0:
+    runs-on: ubuntu-latest
+    outputs:
+      match: ${{ steps.check-branch.outputs.match }}
+    steps:
+      - id: check-branch
+        run: |
+            if [[ ${{ github.ref }} =~ ^refs/heads/topic/* ]]; then
+                echo ::set-output name=match::true
+            fi
+    
+  test1:
+    runs-on: ubuntu-latest
+    needs: test0
+    if: needs.test0.outputs.match == 'true'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Echo ref
+        run: echo "${GITHUB_REF#refs/heads/}"
+      - name: Create Branch
+        run: |
+          git checkout -B ${GITHUB_REF#refs/heads/}
+ 
   phpcs:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
