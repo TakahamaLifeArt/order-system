@@ -27,6 +27,9 @@ define('_PIXEL_STANDARD', 4.6);
 define('_MARGIN_1', 1.6);		// 149-299枚までの仕入れ値に対する掛け率
 define('_MARGIN_2', 1.35);		// 300枚以上の仕入れ値に対する掛け率
 
+// 2021-01-28から、Tシャツとスウェットに適用
+define('_APPLY_EXTRA_MARGIN', '2021-01-28');
+
 define('_ALL_EMAIL', 'all@takahama428.com');
 define('_INFO_EMAIL', 'info@takahama428.com');
 define('_ORDER_EMAIL', 'order@takahama428.com');

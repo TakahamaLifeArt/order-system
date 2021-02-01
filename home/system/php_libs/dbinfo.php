@@ -262,9 +262,12 @@
 					$res .=		'<tr>';
 					$res .=		'<th>枚　数</th>';
 					
-					/*
-					*	$param	149枚以下_145枚以上299枚以下_300枚以上の単価
-					*/
+					/**
+					 * $param	149枚以下_145枚以上299枚以下_300枚以上の単価
+					 * 			
+					 * 			2021-01-28からTシャツとスウェットは
+					 * 			149枚以下_299枚以下_499枚以下_500枚以上の単価
+					 */
 					for($i=0; $i<$size_count; $i++){
 						if($_POST['ordertype']=="industry"){
 							$cost_mode = 'wholesale';
@@ -275,7 +278,9 @@
 							}else{
 								$cost_mode = 'cost_noprint';
 							}
-							$param = $data[$i][$cost_mode][0].'_'.$data[$i][$cost_mode][1].'_'.$data[$i][$cost_mode][2];
+
+							// $param = $data[$i][$cost_mode][0].'_'.$data[$i][$cost_mode][1].'_'.$data[$i][$cost_mode][2];
+							$param = implode('_', $data[$i][$cost_mode]);
 						}
 						$res .=	'<td><input type="text" class="forReal" id="size_'.$data[$i]['id'].'_'.$param.'" value="0" size="3" /></td>';
 						if($data[$i]['id']==19) $cost_M = $data[$i][$cost_mode];
@@ -362,7 +367,7 @@
 		 *	注文リストのテーブルを生成
 		 *		一般の初期表示
 		 *		一般・業者の商品の追加と商品テーブルの更新
-		 * log: 2020-08-31 POStデータをJSONに変更
+		 * log: 2020-08-31 POSTデータをJSONに変更
 		 */
 			$res = '';
 			$data = json_decode($_POST['data'], true);
@@ -483,13 +488,16 @@
 						
 						if($_POST['ordertype']=='general' && $_POST['state']!="true"){
 							// アイテム毎の枚数にかかわらず、注文合計枚数によって量販価格を適用する
-							if($order_amount<150){
+							if ($order_amount<150) {
 								$sales_volume = $val['amount'];
-							}else if($order_amount<300){
+							} else if ($order_amount<300) {
 								$sales_volume = 150;
 								$isVolumeSales = 1;
-							}else{
+							} else if ($order_amount<500) {
 								$sales_volume = 300;
+								$isVolumeSales = 1;
+							} else{
+								$sales_volume = 500;
 								$isVolumeSales = 1;
 							} 
 							// 一般の未確定注文の表示、商品追加、注文確定日付の変更

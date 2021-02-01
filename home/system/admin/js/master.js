@@ -1101,6 +1101,7 @@ $(function(){
 		}
 		// 基本情報
 		var tbl = $('#basictable tbody tr:first');
+		var category_id = $('#basictable').data('category_id');
 		var item_id = tbl.attr('id').split('_')[1];
 		var item_code = tbl.find('.item_code').val();
 		var item_name = tbl.find('.item_name').val();
@@ -1137,9 +1138,9 @@ $(function(){
 		if(itemdate==''){
 			itemdate = '3000-01-01';
 		}
-		var fld1 = ['id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','lineup','opp','oz','show_site','itemdate'];
-		var data1 = [item_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,lineup,opp,oz,show_site,itemdate];
-		
+		var fld1 = ['category_id', 'id','item_code','item_name','printratio_id','printposition_id','maker_id','item_row','lineup','opp','oz','show_site','itemdate'];
+		var data1 = [category_id, item_id,item_code,item_name,ratio_id,pp_id,maker_id,item_row,lineup,opp,oz,show_site,itemdate];
+
 		// 価格
 		var tmpsize = {};
 		var n = 0;
@@ -1448,7 +1449,8 @@ jQuery.extend({
 			$.post('../php_libs/admin/master.php?req='+ (new Date().getTime()), {'act':'items','category_id':category_id,'curdate':curdate}, function(r){
 				var data = r.split('|');
 				$('#basictable tbody').html(data[0]);
-				$('#basictable caption').html(category_id+'.'+data[3]+'　<span>'+data[2]+'</span><span>（'+data[1]+' アイテム）</span>');
+				$('#basictable caption').html(category_id + '.' + data[3] + '　<span>' + data[2] + '</span><span>（' + data[1] + ' アイテム）</span>');
+				$('#basictable').data('category_id', category_id);
 			});
 		}else{
 			$('#basictable').hide();
@@ -1456,7 +1458,7 @@ jQuery.extend({
 				url:'../php_libs/admin/master.php?req='+ (new Date().getTime()), async:true, data:'post', dataType:'json', data:{'act':'list','list_id':category_id,'curdate':curdate}, 
 				success: function(rec){
 					if(!rec){
-						$.msgbox("error:1078<br>データ見つかりませんでした");
+						$.msgbox("error:1078<br>データが見つかりませんでした");
 						$('#mastertable_wrap').html('');
 						return;
 					}

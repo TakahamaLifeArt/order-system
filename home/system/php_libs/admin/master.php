@@ -92,7 +92,7 @@
 						}
 						$str = substr($str, 0, -1);
 						$list .= $str;
-          }
+					}
 					$list .='</td>';
 					if($rec[$i]['itemdate']==$def_dropping){
 						$list .= '<td style="display:none;"></td>';
@@ -197,7 +197,7 @@
 						$list .='value="'.$site_list_id[$i].'">'.$site_list_name[$i];
 					}
 					$list .= '</td>';
-        }
+				}
 				$list .= '</tr>';
 				if($data['itemdate']==$def_dropping){
 					$dt = '';
@@ -587,9 +587,6 @@
 			 	$list = array();
 				if(isset($_POST['item_id'])){
 					$conn = db_connect();
-	//				$sql = sprintf("SELECT tagtypeid,IFNULL(tagtype_name,'種類未指定タグ') ,tag_name,tag_order FROM (tags LEFT JOIN tagtype ON tags.tag_type = tagtype.tagtypeid) 
-	//											 	RIGHT JOIN itemtag on tags.tagid = itemtag.tag_id 
-	//											 WHERE tag_itemid = %d ORDER BY tagtypeid ", $_POST['item_id']);
 					$sql = sprintf("SELECT tagtypeid,tagtype_name,tag_name,tag_order FROM (tags INNER JOIN tagtype ON tags.tag_type = tagtype.tagtypeid) 
 												 	INNER JOIN itemtag on tags.tagid = itemtag.tag_id 
 												 WHERE tag_itemid = %d ORDER BY tagtypeid ", $_POST['item_id']);
@@ -991,14 +988,9 @@
 		public static function getMasterTag($list_id, $curdate=NULL){
 			try{
 				$conn = db_connect();
-				
 				if(empty($curdate)) $curdate = date('Y-m-d');
-//				$idx = ($list_id - 1);
 				$idx = ($list_id);
-
-				//$sql = sprintf('select tagid, tag_name, tag_order from tags where tag_type=%d order by tag_order',$idx);
 				$sql = sprintf('select * from tags where tag_type=%d order by tag_order',$idx);
-
 				$result = exe_sql($conn, $sql);
 				if(!$sql) return null;
 				$result = exe_sql($conn, $sql);
@@ -1012,7 +1004,7 @@
 		return $rs;
 		}
 		/**
------------------------------------------------------------1107
+		* 1107
 		*/
 		public static function codeCheck($item_code, $curdate){
 			try{
@@ -1077,7 +1069,7 @@
 		*	サイズ情報
 		*	@item_id		アイテムID
 		*	@curdate		抽出条件に使用する日付。NULL＝今日
-			@sort			サイズシリーズのソート順　default: ASC
+		*	@sort			サイズシリーズのソート順　default: ASC
 		*
 		*	@return			サイズ情報の配列
 		*/
@@ -1262,7 +1254,7 @@
 		*				data [ , ...]
 		*
 		*				item
-		*				data1 [item_id, item_code, item_name, printratio_id, printposition_id, maker_id, item_row, itemdate, curdate]
+		*				data1 [category_id, item_id, item_code, item_name, printratio_id, printposition_id, maker_id, item_row, itemdate, curdate]
 		*				data2 [0][item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, itempricedate,
 		* 					numbernopack, numberpack, size_lineup, printarea_1, printarea_2, printarea_3, printarea_4, printarea_5, printarea_6, printarea_7, (series)]
 		*						(series)は複数あるアイテムの場合だけ、(seriesID)_(checked 0 or 1)
@@ -1426,9 +1418,10 @@
 						}
 					}
 
-					if(empty($info["id"])) return false;
+					if(empty($info["id"]) || empty($info["category_id"])) return false;
 					
 					$item_id = $info["id"];
+					$category_id = $info["category_id"];
 					
 					// 当該アイテムを取扱中止
 					if($info["itemdate"]!=$this->def_dropping){
@@ -1525,33 +1518,6 @@
 						// 変更前のアイテムIDを保持
 						$oldItemId = $item_id;
 						
-						/*
-						// 変更前のcatalog IDとカテゴリIDを取得
-						$sql = sprintf("select id,category_id from catalog where item_id=%d and catalogapply<='%s' and catalogdate>'%s'",
-							$item_id, $curdate, $curdate);
-						$result = exe_sql($conn, $sql);
-						while($rec = mysqli_fetch_array($result)){
-							$catalogId[] = $rec["id"];
-							$category_id = $rec["category_id"];
-						}
-						
-						// 変更前のitemsize ID を取得
-						$sql = sprintf("select id from itemsize where item_id=%d and itemsizeapply<='%s' and itemsizedate>'%s'",
-							$item_id, $curdate, $curdate);
-						$result = exe_sql($conn, $sql);
-						while($rec = mysqli_fetch_array($result)){
-							$itemSizeId[] = $rec["id"];
-						}
-						
-						// 変更前のitemprice ID を取得
-						$sql = sprintf("select id from itemprice where item_id=%d and itempriceapply<='%s' and itempricedate>'%s'",
-							$item_id, $curdate, $curdate);
-						$result = exe_sql($conn, $sql);
-						while($rec = mysqli_fetch_array($result)){
-							$itemPriceId[] = $rec["id"];
-						}
-						*/
-						
 						// addnew item
 						$item_name = mb_convert_encoding($info["item_name"], 'euc-jp', 'utf-8');
 						$item_name = mb_convert_encoding(mb_convert_kana($item_name,"KV"),'utf-8','euc-jp');
@@ -1622,8 +1588,8 @@
 						
 						// copy itemprice
 						$q = "INSERT INTO itemprice";
-						$q .= "(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, itempriceapply) ";
-						$q .= "select %d as item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, '%s' as itempriceapply ";
+						$q .= "(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, margin_pvt, itempriceapply) ";
+						$q .= "select %d as item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, margin_pvt, '%s' as itempriceapply ";
 						$q .= "from itemprice where item_id=%d and itempriceapply<='%s' and itempricedate>'%s'";
 						$sql = sprintf($q, $item_id, $curdate, $oldItemId, $curdate, $curdate);
 						if(!exe_sql($conn, $sql)){
@@ -1717,8 +1683,9 @@
 								return null;
 							}
 							
-							$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, itempriceapply) 
-									 VALUES(%d,%d,%d,%d,%d,%d,%d,'%s')", 
+							$margin = $this->getMargin($category_id, $curdate);
+							$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, margin_pvt, itempriceapply) 
+									 VALUES(%d,%d,%d,%d,%d,%d,%d,%.1f,'%s')", 
 									 $item_id,
 									 $info2[$i]["size_id"],
 									 $info2[$i]['size_id'],
@@ -1726,16 +1693,11 @@
 									 $info2[$i]['price_1'],
 									 $info2[$i]['price_maker_0'],
 									 $info2[$i]['price_maker_1'],
+									 $margin,
 									 $curdate);
 							
 						}else{
-//							$sql = sprintf("select itemsizedate from itemsize where itemsizeapply<='%s' and itemsizedate>'%s' and item_id=%d and size_from=%d",
-//										   $curdate, $curdate, $item_id, $info2[$i]["size_id"]);
-//							$result = exe_sql($conn, $sql);
-//							$tmp = array();
-//							while($rec = mysqli_fetch_array($result)){
-//								$tmp[] = $rec;
-//							}
+
 							$sql = sprintf("select count(*) as recordCount from itemprice where item_id=%d and itempriceapply>='%s' and size_from=%d", 
 										   $item_id, $info2[$i]['itempricedate'], $info2[$i]["size_id"]);
 							$result = exe_sql($conn, $sql);
@@ -1784,8 +1746,10 @@
 										mysqli_query($conn, 'ROLLBACK');
 										return null;
 									}
-									$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, size_lineup, itempriceapply) 
-										 VALUES(%d,%d,%d,%d,%d,%d,%d,%d,'%s')", 
+
+									$margin = $this->getMargin($category_id, $curdate);
+									$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, size_lineup, margin_pvt, itempriceapply) 
+										 VALUES(%d,%d,%d,%d,%d,%d,%d,%d,$.1f,'%s')", 
 										 $item_id,
 										 $info2[$i]["size_id"],
 										 $info2[$i]['size_id'],
@@ -1794,6 +1758,7 @@
 										 $info2[$i]['price_maker_0'],
 										 $info2[$i]['price_maker_1'],
 										 $info2[$i]['size_lineup'],
+										 $margin,
 										 $curdate);
 								}else{
 									$sql = sprintf("UPDATE itemprice SET 
@@ -2008,7 +1973,7 @@
 					$res = true;
 					break;
 
-			  case 'tag':
+			  	case 'tag':
 					foreach($data as $key=>$val){
 						$info[$key] = quote_smart($conn, $val);
 					}
@@ -2125,8 +2090,9 @@
 							$info4[$i][$key] = quote_smart($conn, $val);
 						}
 					}
-						//商品登録の基本情報										
-						$category_id = $info["category_id"];
+					
+					//商品登録の基本情報										
+					$category_id = $info["category_id"];
 					$item_name = mb_convert_encoding($info["item_name"], 'euc-jp', 'utf-8');
 					$item_name = mb_convert_encoding(mb_convert_kana($item_name,"KV"),'utf-8','euc-jp');
 					$sql = sprintf("INSERT INTO item(item_code, item_name, printratio_id, printposition_id, maker_id, itemapply, item_row, opp, oz, lineup, show_site) 
@@ -2170,16 +2136,18 @@
 							return null;
 						}
 						
-						$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, itempriceapply) 
-								 VALUES(%d,%d,%d,%d,%d,%d,%d,'%s')", 
-								 $item_id,
-								 $info2[$i]["size_id"],
-								 $info2[$i]['size_id'],
-								 $info2[$i]['price_0'],
-								 $info2[$i]['price_1'],
-								 $info2[$i]['price_maker_0'],
-								 $info2[$i]['price_maker_1'],
-								 $curdate);
+						$margin = $this->getMargin($category_id, $curdate);
+						$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, margin_pvt, itempriceapply) 
+								VALUES(%d,%d,%d,%d,%d,%d,%d,%.1f'%s')", 
+								$item_id,
+								$info2[$i]["size_id"],
+								$info2[$i]['size_id'],
+								$info2[$i]['price_0'],
+								$info2[$i]['price_1'],
+								$info2[$i]['price_maker_0'],
+								$info2[$i]['price_maker_1'],
+								$margin,
+								$curdate);
 						if(!exe_sql($conn, $sql)){
 							mysqli_query($conn, 'ROLLBACK');
 							return null;
@@ -2247,7 +2215,7 @@
 					$res = true;
 					break;
 					
-//商品登録ーエクセルから登録する場合
+				//商品登録ーエクセルから登録する場合
 				case 'itemAuto':
 					list($data1, $data2, $data4, $data6, $curdate) = $data;
 
@@ -2309,9 +2277,11 @@
 							mysqli_query($conn, 'ROLLBACK');
 							return null;
 						}
+						
 						//価格
-						$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, itempriceapply) 
-								 VALUES(%d,%d,%d,%d,%d,%d,%d,'%s')", 
+						$margin = $this->getMargin($category_id, $curdate);
+						$sql = sprintf("INSERT INTO itemprice(item_id, size_from, size_to, price_0, price_1, price_maker_0, price_maker_1, margin_pvt, itempriceapply) 
+								 VALUES(%d,%d,%d,%d,%d,%d,%d,%.1f,'%s')", 
 								 $item_id,
 								 $info2[$i]['size_id'],
 								 $info2[$i]['size_id'],
@@ -2319,6 +2289,7 @@
 								 $info2[$i]['price_1'],
 								 $info2[$i]['price_maker_0'],
 								 $info2[$i]['price_maker_1'],
+								 $margin,
 								 $curdate);
 						if(!exe_sql($conn, $sql)){
 							mysqli_query($conn, 'ROLLBACK');
@@ -2345,7 +2316,7 @@
 							return null;
 						}
 					}
-			//Janコード登録
+				//Janコード登録
 					for($i=0; $i<count($info6); $i++){
 						$size_id = $info6[$i]['size_id'];
 						for($j=0; $j<(count($info6[$i])-1); $j++){
@@ -2465,10 +2436,25 @@
 			return $res;
 		}
 
+		/**
+		 * 一般向け商品単価の掛け率を返す
+		 *
+		 * @param  float  $category_id
+		 * @param  string  $curdate
+		 * @return float
+		 */
+		private function getMargin($category_id, $curdate)
+		{
+			// 2021-01-28 から掛け率2.0を適用
+			if (strtotime($curdate) >= strtotime(_APPLY_EXTRA_MARGIN)){
+				// Tシャツとスウェットは2.0、その他は1.8
+				$margin = ($category_id == 1 || $category_id == 2) ? 2.0 : 1.8;
+			}else{
+				$margin = 1.8;
+			}
 
-
-
-//don`t change ↓
+			return $margin;
+		}
 	}
 
 ?>

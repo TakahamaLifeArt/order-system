@@ -280,18 +280,23 @@ class Catalog{
 						$price[] = $rec;
 					}
 					
-					/*
-					*	量産用の掛け率指定
-					*	[149枚以下（通常）, 150-299枚, 300枚以上]
-					*/
-					$margin = array();
-					$margin[] = $price[0]['margin_pvt'];
-					if($price[0]['maker_id']==10){	// ザナックスは変更なし
+					/**
+					 * 量産用の掛け率指定
+					 * [149枚以下（通常）, 150-299枚, 300枚以上]
+					 * 
+					 * 2021-01-28から一般のTシャツとスウェットに限り以下とする
+					 * [149枚以下（通常）, 150-299枚, 300-499枚、500枚以上]
+					 */
+					$margin = self::getMargin($data[0]['category_id'], $curdate);
+					if (empty($margin)) {
 						$margin[] = $price[0]['margin_pvt'];
-						$margin[] = $price[0]['margin_pvt'];
-					}else{
-						$margin[] = _MARGIN_1;	// 1.6
-						$margin[] = _MARGIN_2;	// 1.35
+						if($price[0]['maker_id']==10){	// ザナックスは変更なし
+							$margin[] = $price[0]['margin_pvt'];
+							$margin[] = $price[0]['margin_pvt'];
+						}else{
+							$margin[] = _MARGIN_1;	// 1.6
+							$margin[] = _MARGIN_2;	// 1.35
+						}
 					}
 					
 					// 消費税
@@ -315,7 +320,6 @@ class Catalog{
 								$tmp = $cost[$t][$j]*1.1;
 								$cost_noprint[$t][$j] = round($tmp+4, -1);
 							}
-							//$wholesale[$t] = round( (($price[$i]['price_1'] * $price[$i]['margin_biz']) + 4), -1);	// 業者への売値
 						}
 					}
 
@@ -471,7 +475,7 @@ class Catalog{
 				// 消費税
 				$tax = self::salestax($conn, $curdate);
 				$tax /= 100;
-				
+
 				if($ordertype=='industry'){
 					if($isWhite==1 && $rec['price_1']>0){
 						$rs = $rec['price_1'] * $rec['margin_biz'];
@@ -482,10 +486,24 @@ class Catalog{
 				}else{
 					$margin = $rec['margin_pvt'];
 					if(!is_null($amount) && $rec['maker_id']!=10 && $amount>149){
-						if($amount<300){
-							$margin = _MARGIN_1;
-						}else{
-							$margin = _MARGIN_2;
+						// 単価の掛け率
+						$category_id = self::getCategoryId($item_id);
+						$marginPvt = self::getMargin($category_id, $curdate);
+
+						if (empty($marginPvt)) {
+							if($amount<300){
+								$margin = _MARGIN_1;
+							}else{
+								$margin = _MARGIN_2;
+							}
+						} else {
+							if ($amount < 300) {
+								$margin = $marginPvt[1];
+							} else if ($amount < 500) {
+								$margin = $marginPvt[2];
+							} else {
+								$margin = $marginPvt[3];
+							}
 						}
 					}
 					if($isWhite==1 && $rec['price_1']>0){
@@ -766,14 +784,14 @@ class Catalog{
 		return $rs;
 	}
 
-
 	/**
 	*	日付の妥当性を確認し不正値は今日の日付を返す
 	*	@curdate		日付(0000-00-00)
 	*	
 	*	@return			0000-00-00
 	*/
-	private static function validdate($curdate){
+	private static function validdate($curdate)
+	{
 		if(empty($curdate)){
 			$curdate = date('Y-m-d');
 		}else{
@@ -783,6 +801,49 @@ class Catalog{
 			}
 		}
 		return $curdate;
+	}
+
+	/**
+	 * アイテムが属するカテゴリのIDを返す
+	 *
+	 * @param int $item_id
+	 * @return int|null
+	 */
+	private static function getCategoryId($item_id)
+	{
+		try{
+			$conn = db_connect();
+			$sql = sprintf('select category_id from item inner join catalog on item.id = catalog.item_id where item.id = %d limit 1', $item_id);
+			$result = exe_sql($conn, $sql);
+			$rec = mysqli_fetch_array($result);
+			$rs = $rec['category_id'];
+		}catch(Exception $e){
+			$rs= null;
+		}
+		mysqli_close($conn);
+		return $rs;
+	}
+
+	/**
+	 * 一般向け商品単価の掛け率を返す
+	 *
+	 * @param  float  $category_id
+	 * @param  string  $curdate
+	 * @return array
+	 */
+	private static function getMargin($category_id, $curdate)
+	{
+		$margin = [];
+
+		// 2021-01-28 から掛け率2.0を適用
+		if (strtotime($curdate) >= strtotime(_APPLY_EXTRA_MARGIN)){
+			// Tシャツとスウェットは2.0、その他は1.8
+			if ($category_id == 1 || $category_id == 2) {
+				$margin = [2.0, 1.8, 1.6, 1.5];
+			}
+		}
+
+		return $margin;
 	}
 }
 ?>
