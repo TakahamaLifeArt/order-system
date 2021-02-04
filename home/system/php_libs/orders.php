@@ -3522,7 +3522,7 @@ class Orders{
 				$sql = sprintf("update product set 
 		                workshop_note='%s', envelope='%s', ship_note='%s', platescount=%d, 
 		                platescheck=%d, pastesheet=%d, edge=%d, edgecolor='%s' where id=%d",
-						$data1['workshop_note'],
+						quote_smart($conn, $data1['workshop_note']),
 						$data1['envelope'],
 						$data1['ship_note'],
 						$data1['platescount'],
